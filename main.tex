@@ -11,23 +11,42 @@
 \DeclareMathOperator*{\Exp}{\mathbf{E}}
 \DeclareMathOperator{\Regret}{Regret}
 \DeclareMathOperator{\Wealth}{Wealth}
+\DeclareMathOperator{\Reward}{Reward}
 
-\newcommand{\N}{\mathbb{N}}  % real numbers
-%\newcommand{\R}{\mathbb{R}}  % natural numbers
-\newcommand{\C}{\mathbb{C}}  % complex numbers
+\newcommand{\N}{\mathbb{N}}     % natural numbers
+\newcommand{\R}{\mathbb{R}}     % real numbers
+\newcommand{\C}{\mathbb{C}}     % complex numbers
+\renewcommand{\H}{\mathcal{H}}  % Hilbert space
+\newcommand{\fX}{\set{X}}       % space X
+\newcommand{\fS}{\set{S}}       % space S
+\newcommand{\DB}{D_{Ber}}  % KL divergence
+\newcommand{\DKL}{D_{KL}}  % KL divergence
+\newcommand{\norm}[1]{\left\|{#1}\right\|}
 
-\renewcommand{\H}{\mathcal{H}}
-%\newcommand{\indicator}{\mathbf{1}}
-
-%\newtheorem{theorem}{Theorem}
-%\newtheorem{lemma}[theorem]{Lemma}
+\begin{acronym}
+\acro{EG}{Exponentiated Gradient}
+\acro{DFEG}{Dimension-Free Exponentiated Gradient}
+\acro{OMD}{Online Mirror Descent}
+\acro{ASGD}{Averaged Stochastic Gradient Descent}
+\acro{SGD}{Stochastic Gradient Descent}
+\acro{PiSTOL}{Parameter-free STOchastic Learning}
+\acro{OCO}{Online Convex Optimization}
+\acro{OLO}{Online Linear Optimization}
+\acro{RKHS}{Reproducing Kernel Hilbert Space}
+\acro{IID}{Independent and Identically Distributed}
+\acro{SVM}{Support Vector Machine}
+\acro{ERM}{Empirical Risk Minimization}
+\acro{COCOB}{Continous Coin Betting}
+\acro{MBA}{Master Betting Algorithm}
+\acro{KT}{Krichevsky-Trofimov}
+\end{acronym}
 
 \coltauthor{%
 \Name{Francesco Orabona} \Email{francesco@orabona.com}\\
 \Name{D\'avid P\'al} \Email{dpal@yahoo-inc.com}\\
 {\addr Yahoo Labs, New York}
 }
-\title{From Coin Betting to Parameter-Free Online Learning}
+\title{From Coin Betting to Online Learning}
 
 \begin{document}
 
@@ -37,6 +56,8 @@
 TODO
 \end{abstract}
 
+\input{introduction}
+\input{preliminaries}
 
 % Acknowledgments---Will not appear in anonymized version
 \acks{The authors thank Jacob Abernethy, Nicol\`{o} Cesa-Bianchi, Satyen Kale,

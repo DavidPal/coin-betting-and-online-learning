@@ -1,0 +1,78 @@
+\section{Setting and Notation}
+
+We denote the Kullback-Leibler divergence between two distributions $p$ and $q$
+as $\DKL(p||q)$. We also define the Kullback-Leibler divergence between two
+Bernoulli distributions with parameters $p$ and $q$ as
+$$
+\DB(p||q) := p \ln \left(\frac{p}{q} \right) + (1-p) \ln \left(\frac{1-p}{1-q} \right) \; .
+$$
+We will denote by $\H$ a Hilbert space and we denote by $\langle \cdot,
+\cdot\rangle$  the associated inner product and by $\norm{\cdot}$ the associated
+norm. We denote by $\|\cdot\|_1$ the $1$-norm in $\R^d$, that is, $\|x\|_1 =
+\sum_{i=1}^d x_i$.
+
+\subsection{\ac{OLO} over a Hilbert Space}
+
+Let $\H$ be a Hilbert space. \ac{OLO} is a online problem where in each round
+$t$, an algorithm chooses a point $w_t \in \H$ and then receives a reward vector
+$g_t \in \H$. Algorithm's instantenous reward in round $t$ is $\langle g_t, w_t
+\rangle$. The aim of the algorithm is to minimize its \emph{regret} after $T$
+rounds, that is, the difference between its cumulative reward $\sum_{t=1}^n
+\langle g_t, w_t \rangle$ and the cumulative reward $\sum_{t=1}^T \langle g_t, u
+\rangle$ of the of a hypothetical strategy (\emph{competitor}) that would choose
+the same point $u \in H$ in every round. Formally, regret of the algorithm after
+$T$ rounds with respect to a competitor $u \in H$ is defined as
+\begin{equation}
+\label{equation:regret-definition}
+\Regret_T(u) = \sum_{t=1}^T \langle g_t , u - w_t \rangle \; .
+\end{equation}
+In this paper we make the assumption that $\|g_t\| \le 1$.
+
+\subsection{Learning with Expert Advice}
+
+Let $d \ge 2$ be a positive integer; this is the number of experts. Learning
+with Expert advice is an online problem in which an algorithm chooses a point
+$p_t$ in $d$-dimensional probability simplex $\Delta_d = \{ x \in \R^d ~:~ x \ge
+0, \|x\|_1 = 1 \}$ and receives a loss vector vector $g_t \in [-1,0]$. Similarly
+as before, the goal of the algorithm is minimize its regret after $T$ rounds
+with respect to any competitor $u \in \Delta_d$. Regret is defined by the same
+equation \eqref{equation:regret-definition} as in Hilbert space case.
+
+
+\subsection{Binary and Continuous Coin Betting}
+
+We consider a gambler making repeated bets on outcomes of adversarial coin
+flips. The gambler starts with an initial endowment $\epsilon > 0$. In each
+round $t$, he bets on an outcome of a coin flip $g_t \in \{-1,1\}$ where $+1$
+denotes heads and $-1$ denotes tails. We do not make any assumption on how $g_t$
+is generated, that is, it can be chosen by an adversary. The bettor bets a
+certain fraction $\alpha_t \in (0,1)$ of its current wealth that coin falls
+heads and he bets the complementary fraction $1-\alpha_t$ on the event that
+the coin falls tails. If the coin falls heads, he wins $\alpha_t$ fraction
+of his wealth, otherwise he wins $1-\alpha_t$ fraction of his wealth.
+For notational and mathematical convenience, instead of fraction $\alpha_t$ we
+work with a ``fraction'' $\beta_t \in (-1,1)$, which is a linear transformation
+of $\alpha_t$,
+\begin{align*}
+\beta_t &= 2 \alpha_t - 1 &
+& \text{and} &
+\alpha_t & = \frac{1 + g_t \beta_t}{2} \; .
+\end{align*}
+Gambler's wealth at the end of round $t$ by $\Wealth_t$, satisfies the following
+recurrence
+\begin{align*}
+\Wealth_0 & = \epsilon &
+& \text{and} &
+\Wealth_t & = (1+\beta_t) \Wealth_{t-1} \; .
+\end{align*}
+Note that since $\beta_t \in (-1,1)$, gambler's wealth is always positive.
+Gambler's net reward (difference of wealth and initial endowment) after $t$
+rounds is
+$$
+\Reward_t = \Wealth_t - \ \epsilon \; .
+$$
+
+We generalize the problem slighlty by allowing the outcome of coin flip $g_t$ to
+be any real number in the interval $[-1,1]$. In this case we talk about
+\emph{betting on a continuous coin}. The formulas for $\Wealth_t$ and
+$\Reward_t$ remain the same.
