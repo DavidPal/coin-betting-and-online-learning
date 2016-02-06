@@ -15,8 +15,14 @@ $p$ and $q$.
 
 We denote by $\H$ a Hilbert space, by $\langle \cdot, \cdot\rangle$ its
 associated inner product, and by $\norm{\cdot}$ the norm induced by the dot
-product. We denote by $\|\cdot\|_1$ the $1$-norm in $\R^d$, that is, $\|x\|_1 =
-\sum_{i=1}^d x_i$.
+product. We denote by $\|\cdot\|_1$ the $1$-norm in $\R^N$, that is, $\|x\|_1 =
+\sum_{i=1}^N x_i$.
+
+A function $f:I \to \R$ defined on an interval $I$ is called convex
+\emph{logarithmically convex} if $g(x) = \ln(f(x))$ is convex. In particular,
+$f(x)$ must be positive. Note that if $f(x)$ logarithmically convex, then it is
+also convex (in the usual sense), because $f(x) = \exp(g(x))$ is a composition
+of a convex function $g(x)$ and an increasing convex function $\exp(\cdot)$.
 
 
 \subsection{Online Linear Optimization over a Hilbert Space}
