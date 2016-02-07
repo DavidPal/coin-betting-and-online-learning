@@ -58,12 +58,14 @@ In this paper we make the assumption that $\|g_t\| \le 1$.
 Let $N \ge 2$ be a positive integer. \textsc{Learning with expert advice} is an
 online problem in which an algorithm chooses a point $p_t$ in $N$-dimensional
 probability simplex $\Delta_N = \{ x \in \R^N ~:~ x \ge 0, \|x\|_1 = 1 \}$ and
-receives a reward vector $g_t \in [-1,0]^N$. (This corresponds to a loss vector
-$-g_t \in [0,1]^N$.) Similarly as before, the goal of the algorithm is minimize
-its regret after $T$ rounds with respect to any competitor $u \in \Delta_N$.
-Regret after $T$ rounds with respect to $u \in \Delta_N$ is defined by the same
-equation \eqref{equation:regret-definition} as in Hilbert space case.
-
+receives a loss\footnote{The reason for using loss, instead of reward, will be
+aparent in Section~\ref{section:reduction-experts}.} vector $\ell_t \in
+[0,1]^N$. Similarly as before, the goal of the algorithm is to minimize its
+regret after $T$ rounds with respect to any competitor $u \in \Delta_N$, which
+is defined as
+$$
+\Regret_T(u) = \sum_{t=1}^T \langle \ell_t, p_t \rangle - \sum_{t=1}^T \langle \ell_t, u \rangle \; .
+$$
 
 \subsection{Binary and Continuous Coin Betting}
 

@@ -3,10 +3,10 @@
 We consider betting strategies for the (continuous) coin betting problem. The
 type of betting strategies we consider can be viewed as abstractions of
 adaptive Kelly betting based on KT estimator. For these strategies
-it is possible to prove that for any sequence $g_1, g_2, \dots, g_T \in [-1,1]$,
+it is possible to prove that for any sequence $g_1, g_2, \dots, g_t \in [-1,1]$,
 \begin{equation}
 \label{equation:wealth-lower-bound-generic}
-\Wealth_t \ge F_t \left( \sum_{t=1}^T g_t \right) \; ,
+\Wealth_t \ge F_t \left( \sum_{i=1}^t g_i \right) \; ,
 \end{equation}
 where $F_t:[-t,t] \to \R_+$ is a certain function. We call such functions
 \emph{coin-betting potentials}. We consider \emph{potential based strategy}
@@ -39,11 +39,36 @@ $\{F_t\}_{t=0}^\infty$ is called the sequence of \emph{sequence of excellent
 coin-betting potentials}.
 \end{definition}
 
-It is a routine exercise to show by induction on $T$ that condititions 2 and 3
+It is a routine exercise to show by induction on $t$ that condititions 2 and 3
 of the definition together with recurrence \eqref{equation:wealth-recurrence}
 imply that the \emph{potential based strategy}
 \eqref{equation:potential-based-strategy} satisfies
-\eqref{equation:wealth-lower-bound-generic}.
+\eqref{equation:wealth-lower-bound-generic}. The base case $t=0$, is trivial.
+For $t \ge 1$, if we let $x = \sum_{i=1}^{t-1} g_i$, then
+$$
+\Wealth_t
+= (1+g_t \beta_t) \Wealth_{t-1}
+\ge (1 + g_t \beta_t) F_{t-1}(x)
+\ge F_t(x + g_t)
+= F_t \left( \sum_{t=1}^T g_t \right) \; .
+$$
 
-We postpone concrete examples of sequences of coin-betting potentials to
+The formula for the potential-based
+strategy~\eqref{equation:potential-based-strategy} seems mystical. It
+can be derived by considering the inequality
+$$
+(1+g_t\beta_t) F_{t-1}(x) \ge F_{t-1}(x + g_t)
+$$
+used in the induction proof above. Dividing through $1+g_t\beta_t$, the left-hand
+side becomes independent of $g_t$ and $\beta_t$ and the right-hand side becomes
+$$
+h(g_t, \beta_t) = \frac{F_{t-1}(x + g_t)}{1 + g_t\beta_t}
+$$
+a function of $\beta_t$ and $g_t$. Since $g_t \in [-1,1]$ is chosen by an
+adversary, our best hope is to find $\beta_t$ that minimizes $\max_{g_t \in
+[-1,1]} h(g_t,\beta_t)$. Solution of this problem is \eqref{equation:potential-based-strategy}.
+See Lemma~\ref{lemma:???}.
+
+
+We show concrete examples of sequences of coin-betting potentials in
 Section~\label{section:kt-estimator}.
