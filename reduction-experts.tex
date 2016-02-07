@@ -4,4 +4,13 @@ We show how to use a sequence of coin-betting algorithm based on potentials
 $\{F_t\}_{0=1}^\infty$ to construct an algorithm for learning with expert
 advice.
 
-TODO
+Let $N \ge 2$ be the number of experts.
+
+According to Definition~\ref{definition:potential}, a coin betting potential
+$F_t$ is strictly increasing on $[0,t]$ and positive. Therefore,
+the function $f_t:[0,t] \to \R$, defined by
+$$
+f_t(x) = \ln \left(F_t(x)\right)
+$$
+exists and is strictly increasing on $[0, t]$, and its inverse $f_t^{-1}$
+exists.

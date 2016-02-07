@@ -9,9 +9,10 @@ This idea can be then generalized to arbitrary Hilbert spaces.
 
 \subsection{One-Dimensional Hilbert Space}
 
-Specifically, consider an algorithm for OLO over one-dimensional Hilbert space
-$\R$. Let $\{w_t\}_{t=1}^\infty$ be its sequence of predictions on a sequence
-of reward $\{g_t\}_{t=1}^\infty$, $g_t \in [-1,1]$. The total reward of the algorithm is
+As a warmp-up, let us consider an algorithm for OLO over one-dimensional Hilbert
+space $\R$. Let $\{w_t\}_{t=1}^\infty$ be its sequence of predictions on a
+sequence of rewards $\{g_t\}_{t=1}^\infty$, $g_t \in [-1,1]$. The total reward
+of the algorithm is
 $$
 \Reward_t = \sum_{i=1}^t g_i w_i \; .
 $$
@@ -24,46 +25,64 @@ OLO algorithm. However, if we assume that its predictions are of the form
 \label{equation:one-dimensional-olo}
 w_t = \beta_t \Wealth_{t-1}
 \end{equation}
-where $\beta_t \in (-1,1)$, we see that th recurrence \eqref{equation:wealth-recurrence} holds.
-Indeed,
+where $\beta_t \in (-1,1)$, we see that th recurrence
+\eqref{equation:wealth-recurrence} holds. Indeed,
 $$
-\Wealth_t = g_t w_t + \Wealth_{t-1} = \beta_t \Wealth_{t-1} + \Wealth_{t-1} = (1+\beta_t) \Wealth_{t-1} \; .
+\Wealth_t
+= g_t w_t + \Wealth_{t-1}
+= \beta_t \Wealth_{t-1} + \Wealth_{t-1}
+= (1+\beta_t) \Wealth_{t-1} \; .
 $$
 This of course works in reverse: If we have a coin-betting algorithm that on a
-$\{g_t\}_{t=1}^\infty$, $g_t \in [-1,1]$ predicts fractions $\beta_t \in (-1,1)$
-we can use to construct an OLO algorithm in Hilbert space according to equation
+sequence of coin flips $\{g_t\}_{t=1}^\infty$, $g_t \in [-1,1]$, bets fractions
+$\beta_t \in (-1,1)$ we can use it to construct an OLO algorithm in a
+one-dimensional Hilbert space $\R$ according to equation
 \eqref{equation:one-dimensional-olo}.
 
 If the betting algorithm is based on a sequence of coin-betting potentials
-$\{F_t\}_{t=1}^\infty$, the
+$\{F_t\}_{t=1}^\infty$ then according to \eqref{equation:wealth-lower-bound-generic},
 $$
-\Reward_T = \sum_{t=1}^T g_t w_t = \Wealth_T \ - \ \epsilon \ge F_T\left(\sum_{t=1}^T g_t \right) \ - \ \epsilon \; .
+\Reward_T
+= \sum_{t=1}^T g_t w_t
+= \Wealth_T \ - \ \epsilon \ge F_T\left(\sum_{t=1}^T g_t \right) \ - \ \epsilon \; .
 $$
 
-It is straightforward to convert a lower bound on reward an upper on its regret.
-This can be done using the following lemma.
+It is straightforward to convert a lower bound on the reward to an upper bound
+on the regret. This can be done using the following lemma, as observed
+by~\cite{???}.
+
 \begin{lemma}[Reward-Regret relationship]
-Let $V,V^*$ be a pair dual vector spaces.
-Let $F:V \to \R$ be convex function and let $F:V^* \to \R$ be its Fenchel conjugate.
-Let $w_1, w_2, \dots, w_T \in V$ and $g_1, g_2, \dots, g_T \in V^*$ be two
-sequences of vectors.  Then, the condition
+\label{lemma:reward-regret}
+Let $V,V^*$ be a pair dual vector spaces. Let $F:V \to \R$ be a convex lower
+semi-continous function and let $F^*:V^* \to \R$ be its Fenchel conjugate. Let
+$w_1, w_2, \dots, w_T \in V$ and $g_1, g_2, \dots, g_T \in V^*$ be two sequences
+of vectors.  Then, the condition
 $$
-\sum_{t=1}^T \langle g_t, w_t \rangle \ge F\left( \sum_{t=1}^T g_t \right)
+\underbrace{\sum_{t=1}^T \langle g_t, w_t \rangle}_{=\Reward_T} \ge F\left( \sum_{t=1}^T g_t \right)
 $$
 is equivalent to
 $$
-\forall u \in V^* \qquad \sum_{t=1}^T \langle g_t, u - w_t\rangle \le F^*(u) \; .
+\forall u \in V^* \qquad \qquad
+\underbrace{\sum_{t=1}^T \langle g_t, u - w_t\rangle}_{=\Regret_T(u)} \le F^*(u) \; .
 $$
 \end{lemma}
+
+Applying the lemma to the function $F(x) = F_T(x) - \epsilon$, we get a regret
+upper bound
+$$
+\forall u \in \H \qquad \qquad
+\Regret_T(u) \le F_T^*\left(\sum_{t=1}^T g_t \right) \ + \ \epsilon \; .
+$$
 
 \subsection{Arbitrary Hilbert Space}
 
 The one-dimensional construction for OLO can be generalized to an arbitrary
 Hilbert space $\H$. Reward and wealth are defined anologously
+to the one-dimensional case:
 \begin{align*}
 \Reward_t &= \sum_{i=1}^t \langle g_i, w_i \rangle &
 & \text{and} &
-\Wealth_t &= \epsilon + \Reward_t
+\Wealth_t &= \epsilon + \Reward_t \; .
 \end{align*}
 Given a sequence of coin-betting potentials $\{F_t\}_{t=0}^\infty$,
 we define fraction
@@ -72,19 +91,42 @@ we define fraction
 \beta_t = \frac{F_t \left(\norm{\sum_{i=1}^{t-1} g_i} + 1\right) - F_t\left(\norm{\sum_{i=1}^{t-1} g_i} - 1 \right)}{F_t\left(\norm{\sum_{i=1}^{t-1} g_i} + 1 \right) + F_t\left(\norm{\sum_{i=1}^{t-1} g_i} - 1 \right)} \; .
 \end{equation}
 This definition of $\beta_t$ is a generalization of equation
-\eqref{equation:potential-based-strategy}. The prediction of the OLO algorithm define by this
-potentials is
+\eqref{equation:potential-based-strategy}.  Analogously to equation
+\eqref{equation:one-dimensional-olo}, the prediction of the OLO algorithm
+defined by this potentials is
 \begin{equation}
 \label{equation:hilbert-space-olo}
 w_t = \beta_t \Wealth_{t-1} \frac{\sum_{i=1}^t g_i}{\norm{\sum_{i=1}^t g_i}}  \; .
 \end{equation}
-The only difference between \eqref{equation:hilbert-space-olo}
-and \eqref{equation:one-dimensional-olo} is that the multiplication
-by the unit vector $\frac{\sum_{i=1}^t g_i}{\norm{\sum_{i=1}^t g_i}}$.
-If the $\sum_{i=1}^t g_i$ is the zero vector, we define $w_t$ be the zero vector
-as well. For arbitrary Hilbert space, the hard part is to show that
+The only difference between \eqref{equation:hilbert-space-olo} and
+\eqref{equation:one-dimensional-olo} is the multiplication by the unit
+vector $\frac{\sum_{i=1}^t g_i}{\norm{\sum_{i=1}^t g_i}}$. If $\sum_{i=1}^t
+g_i$ is the zero vector, we define $w_t$ be the zero vector as well. For
+arbitrary Hilbert space, the hard part is to show that in the inequality
 $$
-\Reward_T = \sum_{t=1}^T g_t w_t = \Wealth_T \ - \ \epsilon \ge F_T\left(\norm{\sum_{t=1}^T g_t} \right) \ - \ \epsilon \; .
+\Reward_T
+= \sum_{t=1}^T \langle g_t, w_t \rangle
+= \Wealth_T \ - \ \epsilon
+\ge F_T\left(\norm{\sum_{t=1}^T g_t} \right) \ - \ \epsilon \; .
 $$
+The inequality is the content of the following lemma. Its proof relies heavily
+on the properties of sequences of excellent coin-betting potentials.
 
+\begin{lemma}
 TODO
+\end{lemma}
+
+Once the inequality is established, same as in the one-dimensional case, we apply
+Lemma~\ref{lemma:reward-regret} and obtain a regret bound. We state the result
+as a theorem.
+
+\begin{theorem}[Regret Bound for OLO in Hilbert Spaces]
+Let $\{F_t\}_{t=0}^\infty$ be a sequence of excellent potentials. Let
+$\{g_t\}_{t=1}^\infty$ be any sequence of reward vectors in a Hilbert space $\H$
+such that $\|g_t\| \le 1$ for all $t$. Then, the algorithm that makes prediction
+$w_t$ defined by \eqref{equation:hilbert-space-olo} and
+\eqref{equation:potential-based-strategy-hilbert-space} has regret bounded as
+$$
+\forall u \in \H \qquad \qquad \Regret_T(u) \le F_T^*\left(\sum_{t=1}^T g_t \right) \ + \ \epsilon \; .
+$$
+\end{theorem}
