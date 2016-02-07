@@ -1,23 +1,64 @@
 \section{Introduction}
 \label{section:introduction}
 
+\ac{OLO} is a problem where an algorithm repeatedly chooses a point $w_t$ from a
+convex decision set $K$, observes an arbitrary, or even adversarially chosen,
+loss vector $\ell_t$ and suffers loss $\langle \ell_t, w_t \rangle$. The goal of
+the algorithm is to have a small cumulative loss. The performance of an
+algorithm is evaluated by the so-called regret, which is the difference of the
+cumulative losses of the algorithm and of the (hypothetical) strategy that would
+choose in every round the same best point, $u$, in hindsight. Typically, one
+tries to prove that the regret grows at most sub-linearly in time. Most of the
+\ac{OLO} algorithms are based on the nowadays standard tools of strong
+convexity/strong smoothness duality, see for example~\citet{OrabonaCCB15}.
 
+\ac{OLO} is a basic building block in many other related problems. For example,
+\ac{OCO}, the analogous problem where $\langle \ell_t, w_t \rangle$ is
+generalized to $\ell_t(w_t)$ where $\ell_t$ are arbitrary convex functions, is
+solved through a reduction to an \ac{OLO}
+problem~\citep{Cesa-BianchiL06,Shalev-Shwartz12}.
+\ac{OLEA}~\citep{LittlestoneW94,Vovk98,Cesa-BianchiFHHSW97} is an \ac{OLO}
+problem in which the loss vectors belongs to $[0,1]^N$ and $w_t$ is constrained
+to be in the simplex. Also, batch and stochastic optimization of convex
+functions can also be solved through a reduction to \ac{OLO}. Statistical
+learning with convex losses can also seen as stochastic optimization of convex
+functions and so solved through \ac{OCO}~\citep{Munro1951}. Hence, a subliner
+regret in \ac{OLO} becomes a convergence guarantee or a generalization bound.
 
-\ac{OLO} is a problem where an algorithm repeatedly chooses a point $w_t$ from a convex decision set $K$, observes an arbitrary, or even adversarially chosen, loss vector $g_t$ and suffers loss $\langle w_t, g_t \rangle$. The goal of the algorithm is to have a small cumulative loss. The performance of an algorithm is evaluated by the so-called regret, which is the difference of the cumulative losses of the algorithm and of the (hypothetical) strategy that would choose in every round the same best point, $u$, in hindsight.
-Typically, one tries to prove that the regret grows at most sub-linearly in time.
-Most of the \ac{OLO} algorithms are based on the nowadays standard tools of strong convexity/strong smoothness duality, see for example~\citet{OrabonaCCB15}.
+However, as essential as it is to achieve sublinear regret, this is only half of
+the problem in online learning. In fact, we are often interested in the
+adaptation to the (often unknown) characteristics of the data. Most of the time,
+online and batch learning algorithms fail on this side, requiring to set
+hyperparameters, e.g. learning rates, step sizes, regularization weights, to
+oracle choices in order to achieve the best possible theoretical performance.
+Recentely, a new family of algorithms that adapts to the data has been proposed,
+both in the
+\ac{OLO}/\ac{OCO}~\citep{StreeterM12,Orabona13,McMahanA13,McMahanO14,Orabona14}
+and in the \ac{OLEA}
+domains~\citep{ChaudhuriYH09,ChernovV10,LuoE14,LuoS15,KoolenE15}. These
+algorithms adapt to the norm of the optimal predictor and to the number of
+experts, respectevely. Given the connections between \ac{OLO} and \ac{OLEA},
+these algorithms allow to design parameter-free batch machine learnign
+algorithms through straighforward reductions~\citep{Orabona14,LuoS15}. Both
+family of algorithms seem to require very sophisticated analysis tools, much
+more complex than the previos ones. Surprisingly enough, these two families of
+algorithms are very similar, yet no attempt has been made to unify them.
 
-\ac{OLO} is a basic building block in many other related problems. For example, \ac{OCO}, the analogous problem where $\langle w_t, g_t \rangle$ is generalized to $\ell_t(w_t)$ where $\ell_t$ are arbitrary convex functions, is solved through a reduction to an \ac{OLO} problem~\citep{Cesa-BianchiL06,Shalev-Shwartz12}. \ac{OLEA}~\citep{LittlestoneW94,Vovk98,Cesa-BianchiFHHSW97} is an \ac{OLO} problem in which the loss vectors belongs to $[0,1]^d$ and $w_t$ is constrained to be in the simplex. Also, batch and stochastic optimization of convex functions can also be solved through a reduction to \ac{OLO}. Statistical learning with convex losses can also seen as stochastic optimization of convex functions and so solved through \ac{OCO}~\citep{Munro1951}. Hence, a subliner regret in \ac{OLO} becomes a convergence guarantee or a generalization bound.
+In this paper, we claim that a more fundamental notion subsumes both \ac{OLO}
+and \ac{OLEA}. This notion is linked to the ability of an algorithm to optimally
+bet on an arbitrary sequence of outcomes from a coin. We show black box
+reductions from the coin betting scenario to \ac{OLO} in Hilbert spaces and to
+\ac{OLEA}, where the guarantee on the wealth accumulated by any coin betting
+algorithm easily translates in regret bounds for the two domains. We prove that
+coin betting strategies that assure an exponential growth of the wealth for
+biased coins allow to obtain parameter-free regret bounds in \ac{OLO} and in
+\ac{OLEA}. In particular, we show that the known optimal strategy for sequential
+betting, the \ac{KT} bettor~\citep{KrichevskyT81}, can be used in a simple a
+direct way to recover and slightly improve parameter-free algorithms for
+\ac{OLO} and \ac{OLEA}. The obtained algorithm are extremely natural and
+intuitive, the proofs of the regret bounds are immediate given the reductions,
+and they also shed a light on previous ad-hoc and complex constructions.
 
-However, as essential as it is to achieve sublinear regret, this is only half of the problem in online learning. In fact, we are often interested in the adaptation to the (often unknown) characteristics of the data. Most of the time, online and batch learning algorithms fail on this side, requiring to set hyperparameters, e.g. learning rates, step sizes, regularization weights, to oracle choices in order to achieve the best possible theoretical performance.
-Recentely, a new family of algorithms that adapts to the data has been proposed, both in the \ac{OLO}/\ac{OCO}~\citep{StreeterM12,Orabona13,McMahanA13,McMahanO14,Orabona14} and in the \ac{OLEA} domains~\citep{ChaudhuriYH09,ChernovV10,LuoE14,LuoS15,KoolenE15}. These algorithms adapt to the norm of the optimal predictor and to the number of experts, respectevely. Given the connections between \ac{OLO} and \ac{OLEA}, these algorithms allow to design parameter-free batch machine learnign algorithms through straighforward reductions~\citep{Orabona14,LuoS15}.
-Both family of algorithms seem to require very sophisticated analysis tools, much more complex than the previos ones.
-Surprisingly enough, these two families of algorithms are very similar, yet no attempt has been made to unify them.
-
-In this paper, we claim that a more fundamental notion subsumes both \ac{OLO} and \ac{OLEA}. This notion is linked to the ability of an algorithm to optimally bet on an arbitrary sequence of outcomes from a coin.
-We show black box reductions from the coin betting scenario to \ac{OLO} in Hilbert spaces and to \ac{OLEA}, where the guarantee on the wealth accumulated by any coin betting algorithm easily translates in regret bounds for the two domains.
-We prove that coin betting strategies that assure an exponential growth of the wealth for biased coins allow to obtain parameter-free regret bounds in \ac{OLO} and in \ac{OLEA}.
-In particular, we show that the known optimal strategy for sequential betting, the \ac{KT} bettor~\citep{KrichevskyT81}, can be used in a simple a direct way to recover and slightly improve parameter-free algorithms for \ac{OLO} and \ac{OLEA}.
-The obtained algorithm are extremely natural and intuitive, the proofs of the regret bounds are immediate given the reductions, and they also shed a light on previous ad-hoc and complex constructions.
-
-We will also show connections between the optimal betting strategy known in economics as Kelly betting \citep{Kelly56} and online learning, and hence indirectly with stochastic optimization and statistical learning.
+We will also show connections between the optimal betting strategy known in
+economics as Kelly betting \citep{Kelly56} and online learning, and hence
+indirectly with stochastic optimization and statistical learning.
