@@ -1,4 +1,5 @@
 \section{Coin-Betting Potentials}
+\label{section:coin-betting-potentials}
 
 We consider betting strategies for the (continuous) coin betting problem. The
 type of betting strategies we consider can be viewed as abstractions of
@@ -22,6 +23,7 @@ $\{F_t\}_{t=0}^\infty$ is is not clear if the strategy
 \eqref{equation:wealth-lower-bound-generic} on its wealth.
 
 \begin{definition}[Coin-Betting Potential]
+\label{definition:potential}
 Let $\{F_t\}_{t=0}^\infty$ be a sequence of functions $F_t:[-t,-t] \to \R_+$. The
 sequence is called a \emph{sequence of coin-betting potentials} if it satisfies
 the following three conditions:
@@ -66,9 +68,8 @@ h(g_t, \beta_t) = \frac{F_{t-1}(x + g_t)}{1 + g_t\beta_t}
 $$
 a function of $\beta_t$ and $g_t$. Since $g_t \in [-1,1]$ is chosen by an
 adversary, our best hope is to find $\beta_t$ that minimizes $\max_{g_t \in
-[-1,1]} h(g_t,\beta_t)$. Solution of this problem is \eqref{equation:potential-based-strategy}.
-See Lemma~\ref{lemma:???}.
-
+[-1,1]} h(g_t,\beta_t)$. Solution of this problem is \eqref{equation:potential-based-strategy};
+see Lemma~\ref{lemma:???}.
 
 We show concrete examples of sequences of coin-betting potentials in
 Section~\label{section:kt-estimator}.
