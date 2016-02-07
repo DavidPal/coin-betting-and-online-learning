@@ -1,4 +1,5 @@
-\documentclass[anon,12pt]{colt2016} % Anonymized submission
+% \documentclass[anon]{colt2016} % Anonymized submission
+\documentclass{colt2016} % Anonymized submission
 
 \usepackage{amsmath,amssymb}
 \usepackage[nolist]{acronym}
@@ -39,10 +40,11 @@
 \end{acronym}
 
 \coltauthor{%
-\Name{Francesco Orabona} \Email{francesco@orabona.com}\\
-\Name{D\'avid P\'al} \Email{dpal@yahoo-inc.com}\\
+   \Name{Francesco Orabona} \Email{francesco@orabona.com}\\
+   \Name{D\'avid P\'al} \Email{dpal@yahoo-inc.com}\\
 {\addr Yahoo Labs, New York}
 }
+
 \title{From Coin Betting to Online Learning}
 
 \begin{document}
@@ -50,12 +52,25 @@
 \maketitle
 
 \begin{abstract}
-TODO
+In the recent years a number of algorithms for online linear optimization over
+Hilbert spaces and for learning with expert advice have been developed. While
+these two families of algorithms might seem different to a distract eye, the
+proof methods are indeed very similar, making the reader wonder if such a
+connection is only accidental.
+
+In this paper, we unify these two families, showing that both can be
+instantiated from online coin betting algorithms. We instantiate our framework
+using a betting algorithm based on the Krichevsky-Trofimov estimator. We obtain
+a simple algorithm for online line optimization with $\widetilde O(\|u\|\sqrt{T
+\log\|u\|})$ regret with respect to a competitor $u$. For learning with
+expert advice for any prior $\pi$ we obtain an algorithm that has $O(\sqrt{T
+(1 + \KL{u}{\pi})})$ regret against any competitor $u$.
 \end{abstract}
 
 \input{introduction}
 \input{preliminaries}
 \input{coin-betting-potentials}
+\input{reduction-hilbert-space}
 
 % Acknowledgments---Will not appear in anonymized version
 \acks{The authors thank Jacob Abernethy, Nicol\`{o} Cesa-Bianchi, Satyen Kale,
