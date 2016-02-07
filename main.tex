@@ -37,6 +37,7 @@
 \acro{COCOB}{Continous Coin Betting}
 \acro{MBA}{Master Betting Algorithm}
 \acro{KT}{Krichevsky-Trofimov}
+\acro{OLEA}{Learning with Expert Advice}
 \end{acronym}
 
 \coltauthor{%
@@ -45,14 +46,14 @@
 {\addr Yahoo Labs, New York}
 }
 
-\title{From Coin Betting to Online Learning}
+\title{From Coin Betting to Parameter-Free Online Learning}
 
 \begin{document}
 
 \maketitle
 
 \begin{abstract}
-In the recent years a number of algorithms for online linear optimization over
+In the recent years a number of parameter-free algorithms for online linear optimization over
 Hilbert spaces and for learning with expert advice have been developed. While
 these two families of algorithms might seem different to a distract eye, the
 proof methods are indeed very similar, making the reader wonder if such a
@@ -61,7 +62,7 @@ connection is only accidental.
 In this paper, we unify these two families, showing that both can be
 instantiated from online coin betting algorithms. We instantiate our framework
 using a betting algorithm based on the Krichevsky-Trofimov estimator. We obtain
-a simple algorithm for online line optimization with $\widetilde O(\|u\|\sqrt{T
+a simple algorithm for online linear optimization with $\widetilde O(\|u\|\sqrt{T
 \log\|u\|})$ regret with respect to a competitor $u$. For learning with
 expert advice for any prior $\pi$ we obtain an algorithm that has $O(\sqrt{T
 (1 + \KL{u}{\pi})})$ regret against any competitor $u$.
