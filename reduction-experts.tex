@@ -1,17 +1,70 @@
 \section{From Coin Betting to Learning with Expert Advice}
 \label{section:reduction-experts}
 
-We show how to use a sequence of coin-betting algorithm based on potentials
-$\{F_t\}_{0=1}^\infty$ to construct an algorithm for learning with expert
-advice.
+We show how to use an algorithm for OLO in one-dimensional Hilbert space $\R$
+to constuct an algorithm for learning with expert advice.
 
-Let $N \ge 2$ be the number of experts.
+Let $N \ge 2$ be the number of experts and $\Delta_N$ be the $N$-dimensional
+probabilty simplex. Let $\pi = (\pi_1, \pi_2, \dots, \pi_N) \in \Delta_N$ be any
+\emph{prior} distribution. We instantiate $N$ copies an algorithm for OLO over
+one-dimensional Hilbert space $\R$.
 
-According to Definition~\ref{definition:potential}, a coin betting potential
-$F_t$ is strictly increasing on $[0,t]$ and positive. Therefore,
-the function $f_t:[0,t] \to \R$, defined by
+Consider any round $t$. Let $w_{t,i} \in \R$ be the prediction of $i$-th copy of
+the OLO algorithm. The expert algorithm computes $\widehat p_t = (\widehat
+p_{t,1}, \widehat p_{t,2}, \dots, \widehat p_{t,N}) \in \R_{0,+}^N$,
 $$
-f_t(x) = \ln \left(F_t(x)\right)
+\widehat p_{t,i} = \pi_i \cdot (w_{t,i})_+
 $$
-exists and is strictly increasing on $[0, t]$, and its inverse $f_t^{-1}$
+where $(x)_+ = \max\{0,x\}$ is the positive part of $x$. Then, the experts
+algorithm predicts $p_t = (p_{t,1}, p_{t,2}, \dots, p_{t,N}) \in \Delta^N$,
+$$
+p_t = \frac{\widehat p_t}{\|\widehat p_t\|_1}
+$$
+by normalizing $\widehat p$ by its $1$-norm. Then, the algorithm recieves the
+loss vector $\ell_t = (\ell_{t,1}, \ell_{t,2}, \dots, \ell_{t,N}) \in [0,1]^N$.
+Finally, the experts algorithm feeds reward to each copy of the OLO algorithm.
+The reward for $i$-th copy is $g_{t,i} \in [-1,1]$ defined as
+\begin{align}
+g_{t,i} =
+\begin{cases}
+\langle p_t, \ell_t\rangle - \ell_{t,i} & \text{if } w_{t,i} \ge 0 \; , \\
+(\langle p_t, \ell_t\rangle - \ell_{t,i})_+ & \text{if } w_{t,i} < 0 \; .
+\end{cases}
+\end{align}
+
+Suppose that the OLO algorithm in one-dimensional Hilbert space
+satifies for any sequence $\{g_t\}_{t=0}^\infty$, $g_t \in [-1,1]$, satifies
+\begin{equation}
+\label{equation:experts-one-dimensional-assumption}
+\Wealth_t = \epsilon + \sum_{i=1}^t g_i, w_i \ge F_t\left(\sum_{i=1}^t g_i\right) \; ,
+\end{equation}
+where $\{F_t\}_{t=0}^\infty$ is a coin-betting potential. We show how to convert
+the guarantee into an upper bound on the regret of the experts algorithm.
+
+Before we state the regret bound, note that according to
+Definition~\ref{definition:potential}, a coin betting potential $F_t$ is
+strictly increasing on $[0,t]$, positive and $F_t(x) \ge \epsilon$. Therefore,
+the function $f_t:[0,t] \to \R_{0,+}$, defined by
+$$
+f_t(x) = \ln \left(F_t(x)\right) - \ln \epsilon
+$$
+exists and is strictly increasing on $[0, t]$, and hence its inverse $f_t^{-1}$
 exists.
+
+\begin{theorem}[Regret Bound for Experts]
+Let $\{F_t\}_{t=0}^\infty$ be a sequence of a coin-betting potentials and let
+$f_t$ be the inverse of $f_t(x) = \ln \left(F_t(x)\right) - \ln \epsilon$
+restricted to non-negative numbers. Suppose each of the copies of OLO algorithms
+satisfies
+\eqref{equation:experts-one-dimensional-assumption}
+for any sequence $\{g_t\}_{t=0}^\infty$, $g_t \in [-1,1]$. Then, the regret
+of the experts algorithm with prior $\pi$ satisfies for any $t \ge 0$,
+$$
+\forall u \in \Delta_N \qquad \qquad
+\Regret_t(u) \le f_t^{-1}\left( \KL{u}{\pi} \right) \; .
+$$
+\end{theorem}
+
+\begin{proof}
+TODO
+\end{proof}

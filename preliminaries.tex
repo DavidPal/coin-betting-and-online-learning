@@ -76,12 +76,13 @@ denotes heads and $-1$ denotes tails. We do not make any assumption on how $g_t$
 is generated, that is, it can be chosen by an adversary.
 
 The gambler can bet any amount on either heads or tails. However, he is not
-allowed to borrow any money. If he loses (i.e. he bets on the incorrect
-outcome), he loses the betted amount. If he wins the bet (i.e. guesses the
-outcome correctly), he gets twice the betted amount back.  Note that it does not
-make sense for the gambler to bet on both outcomes, since the same winnings can
-be achieved by betting the difference of the two amounts on one of the outcomes
-and zero on the other outcome. We encode gambler's bet in round $t$ by a single
+allowed to borrow any additional money. If he loses (i.e. he bets on the
+incorrect outcome), he loses the betted amount. If he wins (i.e. he bets on the
+correct outcome), he gets the betted amount back and, in addition to that, he
+gets the same amount as a reward. Note that it does not make sense for the
+gambler to bet on both outcomes, since the same winnings can be achieved by
+betting the difference of the two amounts on one of the outcomes and betting
+zero on the other outcome. We encode gambler's bet in round $t$ by a single
 number $\beta_t \in (-1,1)$. The sign of $\beta_t$ encodes whether he is betting
 on heads or tails. The absolute value encodes the betted amount as the fraction
 of his current wealth.
@@ -104,5 +105,6 @@ rounds is
 
 We generalize the problem slighlty by allowing the outcome of the coin flip
 $g_t$ to be any real number in the interval $[-1,1]$. In this case we talk about
-\emph{betting on a continuous coin}. The formulas for $\Wealth_t$ and
-$\Reward_t$ remain the same.
+\emph{betting on a continuous coin}. The formulas
+\eqref{equation:wealth-recurrence} and \eqref{equation:reward-wealth} defining
+wealth and reward remain exactly the same.
