@@ -9,14 +9,13 @@ it is possible to prove that for any sequence $g_1, g_2, \dots, g_t \in [-1,1]$,
 \label{equation:wealth-lower-bound-generic}
 \Wealth_t \ge F_t \left( \sum_{i=1}^t g_i \right) \; ,
 \end{equation}
-where $F_t:[-t,t] \to \R_+$ is a certain function. We call such functions
-\emph{coin-betting potentials}. We consider \emph{potential based strategy}
-that in round $t$ chooses fraction
+where $F_t(x)$ is a certain function. We call such functions \emph{potentials}.
+We consider potential based strategy that in round $t$ chooses fraction
 \begin{equation}
 \label{equation:potential-based-strategy}
 \beta_t = \frac{F_t(\sum_{i=1}^{t-1} g_i + 1) - F_t(\sum_{i=1}^{t-1} g_i - 1)}{F_t(\sum_{i=1}^{t-1} g_i + 1) + F_t(\sum_{i=1}^{t-1} g_i - 1)} \; .
 \end{equation}
-Since $F_t(x)$ is positive, $\beta_t \in (-1,1)$ and hence it is a valid
+If $F_t(x)$ is positive, $\beta_t \in (-1,1)$ and hence it is a valid
 strategy. However, without further conditions on the sequence of potentials
 $\{F_t\}_{t=0}^\infty$ is is not clear if the strategy
 \eqref{equation:potential-based-strategy} implies the lower bound
@@ -24,24 +23,28 @@ $\{F_t\}_{t=0}^\infty$ is is not clear if the strategy
 
 \begin{definition}[Coin-Betting Potential]
 \label{definition:potential}
-Let $\{F_t\}_{t=0}^\infty$ be a sequence of functions $F_t:[-t,-t] \to \R_+$. The
-sequence is called a \emph{sequence of coin-betting potentials} if it satisfies
-the following three conditions:
+Let $\epsilon > 0$. Let $\{F_t\}_{t=0}^\infty$ be a sequence of functions
+$F_t:I_t  \to \R_+$ where $I_t = (-a_t, a_t)$ is an open symmetric interval\footnote{We allow $a_t = +\infty$} containing
+$[-t,t]$.  The sequence is called a \emph{sequence of coin-betting potentials}
+if it satisfies the following three conditions for every $t \ge 0$,
 \begin{enumerate}
-\item For every $t \ge 0$, $F_t(x)$ is even, strictly increasing on $[0,-t]$, and logarithmically convex.
-\item For evert $t \ge 0$, $F_t(0) = \epsilon > 0$.
+\item For every $t \ge 1$, $F_t(x)$ is even, logarithmically convex, strictly increasing on $[0,a_t)$, and
+$$
+\lim_{x \to -a_t} F_t(x) = \lim_{x \to a_t} F_t(x) = +\infty \; .
+$$
+\item For every $t \ge 0$, $F_t(0) = \epsilon > 0$.
 \item For every $t \ge 1$, every $x \in [-(t-1), (t-1)]$ and every $g \in [-1,1]$,
 $$
 \left(1 + g \frac{F_t(x + 1) - F_t(x - 1)}{F_t(x + 1) + F_t(x - 1)} \right) F_{t-1}(x) \ge F_t(x+g) \; .
 $$
 \end{enumerate}
-If, in addition, for every $t \ge 1$, $F_t$ is twice-differentiable and
-satisfies $x \cdot F_t''(x) \ge F_t'(x)$ for every $x \in [-t,t]$ then
+If, in addition, for every $t \ge 0$, $F_t$ is twice-differentiable and
+satisfies $x \cdot F_t''(x) \ge F_t'(x)$ for every $x \in I_t$ then
 $\{F_t\}_{t=0}^\infty$ is called the sequence of \emph{sequence of excellent
 coin-betting potentials}.
 \end{definition}
 
-It is a routine exercise to show by induction on $t$ that condititions 2 and 3
+It is a routine exercise to show by induction on $t$ that conditions 2 and 3
 of the definition together with recurrence \eqref{equation:wealth-recurrence}
 imply that the \emph{potential based strategy}
 \eqref{equation:potential-based-strategy} satisfies
@@ -72,4 +75,4 @@ adversary, our best hope is to find $\beta_t$ that minimizes $\max_{g_t \in
 see Lemma~\ref{lemma:???}.
 
 We show concrete examples of sequences of coin-betting potentials in
-Section~\label{section:kt-estimator}.
+Section~\ref{section:kt-estimator}.

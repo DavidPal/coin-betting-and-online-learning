@@ -2,10 +2,10 @@
 \label{section:reduction-experts}
 
 We show how to use an algorithm for OLO in one-dimensional Hilbert space $\R$
-to constuct an algorithm for learning with expert advice.
+to construct an algorithm for learning with expert advice.
 
 Let $N \ge 2$ be the number of experts and $\Delta_N$ be the $N$-dimensional
-probabilty simplex. Let $\pi = (\pi_1, \pi_2, \dots, \pi_N) \in \Delta_N$ be any
+probability simplex. Let $\pi = (\pi_1, \pi_2, \dots, \pi_N) \in \Delta_N$ be any
 \emph{prior} distribution. We instantiate $N$ copies an algorithm for OLO over
 one-dimensional Hilbert space $\R$.
 
@@ -13,52 +13,47 @@ Consider any round $t$. Let $w_{t,i} \in \R$ be the prediction of $i$-th copy of
 the OLO algorithm. The expert algorithm computes $\widehat p_t = (\widehat
 p_{t,1}, \widehat p_{t,2}, \dots, \widehat p_{t,N}) \in \R_{0,+}^N$,
 $$
-\widehat p_{t,i} = \pi_i \cdot (w_{t,i})_+
+\widehat p_{t,i} = \pi_i \cdot [w_{t,i}]_+
 $$
-where $(x)_+ = \max\{0,x\}$ is the positive part of $x$. Then, the experts
+where $[x]_+ = \max\{0,x\}$ is the positive part of $x$. Then, the experts
 algorithm predicts $p_t = (p_{t,1}, p_{t,2}, \dots, p_{t,N}) \in \Delta^N$,
 $$
-p_t = \frac{\widehat p_t}{\|\widehat p_t\|_1}
+p_t = \frac{\widehat p_t}{\norm{\widehat p_t}_1} \; .
 $$
-by normalizing $\widehat p$ by its $1$-norm. Then, the algorithm recieves the
-loss vector $\ell_t = (\ell_{t,1}, \ell_{t,2}, \dots, \ell_{t,N}) \in [0,1]^N$.
-Finally, the experts algorithm feeds reward to each copy of the OLO algorithm.
-The reward for $i$-th copy is $g_{t,i} \in [-1,1]$ defined as
+If $\norm{\widehat p_t}_1 = 0$, the algorithm predicts the uniform distribution
+$p_t = \frac{1}{N}(1,1,\dots,1)$. Then, the algorithm recieves the loss vector
+$\ell_t = (\ell_{t,1}, \ell_{t,2}, \dots, \ell_{t,N}) \in [0,1]^N$. Finally, the
+experts algorithm feeds reward to each copy of the OLO algorithm. The reward for
+$i$-th copy is $g_{t,i} \in [-1,1]$ defined as
 \begin{align}
 g_{t,i} =
 \begin{cases}
-\langle p_t, \ell_t\rangle - \ell_{t,i} & \text{if } w_{t,i} \ge 0 \; , \\
-(\langle p_t, \ell_t\rangle - \ell_{t,i})_+ & \text{if } w_{t,i} < 0 \; .
+\langle \ell_t, p_t \rangle - \ell_{t,i} & \text{if } w_{t,i} > 0 \; , \\
+\left[\langle \ell_t, p_t \rangle - \ell_{t,i} \right]_+ & \text{if } w_{t,i} \le 0 \; .
 \end{cases}
 \end{align}
 
 Suppose that the OLO algorithm in one-dimensional Hilbert space
-satifies for any sequence $\{g_t\}_{t=0}^\infty$, $g_t \in [-1,1]$, satifies
+satisfies for any sequence $\{g_t\}_{t=0}^\infty$, $g_t \in [-1,1]$, satisfies
 \begin{equation}
 \label{equation:experts-one-dimensional-assumption}
-\Wealth_t = \epsilon + \sum_{i=1}^t g_i, w_i \ge F_t\left(\sum_{i=1}^t g_i\right) \; ,
+\Wealth_t = 1 + \sum_{i=1}^t g_i w_i \ge F_t\left(\sum_{i=1}^t g_i\right) \; .
 \end{equation}
-where $\{F_t\}_{t=0}^\infty$ is a coin-betting potential. We show how to convert
-the guarantee into an upper bound on the regret of the experts algorithm.
-
-Before we state the regret bound, note that according to
-Definition~\ref{definition:potential}, a coin betting potential $F_t$ is
-strictly increasing on $[0,t]$, positive and $F_t(x) \ge \epsilon$. Therefore,
-the function $f_t:[0,t] \to \R_{0,+}$, defined by
-$$
-f_t(x) = \ln \left(F_t(x)\right) - \ln \epsilon
-$$
-exists and is strictly increasing on $[0, t]$, and hence its inverse $f_t^{-1}$
-exists.
+We show how to convert the guarantee into an upper bound on the regret of the
+experts algorithm. We place certain assumptions on $F_t$; these are similar but
+incomparable to the assumption that $\{F_t\}_{t=1}^\infty$
+is a coin betting potential.
 
 \begin{theorem}[Regret Bound for Experts]
-Let $\{F_t\}_{t=0}^\infty$ be a sequence of a coin-betting potentials and let
-$f_t$ be the inverse of $f_t(x) = \ln \left(F_t(x)\right) - \ln \epsilon$
-restricted to non-negative numbers. Suppose each of the copies of OLO algorithms
-satisfies
+Let $F_t:I \to \R_+$ be even logarithmically convex function defined
+on an open interval such that $F_t(0) = 1$ and the restriction $F_t$
+is increasing on $I \cap [0,\infty)$ and maps $I$ to $[1, \infty)$.
+Let $f_t^{-1}$ be the inverse of $f_t(x) = \ln \left(F_t(x)\right)$
+restricted $I \cap [0,\infty)$.
+Suppose each of the copies of OLO algorithms satisfies
 \eqref{equation:experts-one-dimensional-assumption}
 for any sequence $\{g_t\}_{t=0}^\infty$, $g_t \in [-1,1]$. Then, the regret
-of the experts algorithm with prior $\pi$ satisfies for any $t \ge 0$,
+of the experts algorithm with prior $\pi$ satisfies
 $$
 \forall u \in \Delta_N \qquad \qquad
 \Regret_t(u) \le f_t^{-1}\left( \KL{u}{\pi} \right) \; .
@@ -66,5 +61,45 @@ $$
 \end{theorem}
 
 \begin{proof}
-TODO
+We first prove that $\sum_{i=1}^N \pi_i g_{t,i} w_{t,i} \le 0$. Indeed,
+\begin{align*}
+\sum_{i=1}^N \pi_i g_{t,i} w_{t,i}
+& = \sum_{i \, : \, \pi_i w_{t,i} > 0} \pi_i [w_{t,i}]_+ (\langle \ell_t, p_t \rangle - \ell_{t,i})  \ + \ \sum_{i \, : \, \pi_i w_{t,i} \le 0} \pi_i w_{t,i} [\langle p_t, \ell_t\rangle - \ell_{t,i}]_+ \\
+& = \norm{\widehat p_t}_1 \sum_{i=1}^N p_{t,i} (\langle \ell_t, p_t \rangle - \ell_{t,i})  \ + \ \sum_{i \, : \, \pi_i w_{t,i} \le 0} \pi_i w_{t,i} [\langle p_t, \ell_t\rangle - \ell_{t,i}]_+ \\
+& = 0 \ + \ \sum_{i \, : \, \pi_i w_{t,i} \le 0} \pi_i w_{t,i} [\langle p_t, \ell_t\rangle - \ell_{t,i}]_+
+\ \le 0 \; .
+\end{align*}
+The first equality follows from definition of $g_{t,i}$. To see the second equality,
+consider two cases: If $\pi_i w_{t,i} \le 0$ for all $i$ then $\norm{\widehat p_t}_1 = 0$ and $p_t$ is the uniform distribution;
+therefore $\norm{\widehat p_t}_1 \sum_{i=1}^N p_{t,i} (\langle \ell_t, p_t \rangle - \ell_{t,i}) = 0$ and
+$\sum_{i \, : \, \pi_i w_{t,i} > 0} \pi_i [w_{t,i}]_+ (\langle \ell_t, p_t \rangle - \ell_{t,i}) = 0$.
+If $\norm{\widehat p_t}_1 > 0$ then $\pi_i [w_{t,i}]_+ = \widehat p_{t,i} = \norm{\widehat p_t}_1 p_{t,i}$ for all $i$.
+
+Hence,
+\begin{equation}
+\label{equation:bounded-potential}
+\sum_{i=1}^N  \pi_i F_t \left(\sum_{t=1}^T g_{t,i} \right) \le 1 + \sum_{i=1}^N \pi_i \sum_{t=1}^T  g_{t,i} w_{t,i} \le 1 \; .
+\end{equation}
+where the first inequality follows from the assumption \eqref{equation:experts-one-dimensional-assumption}.
+Now, let $G_{t,i} = \sum_{t=1}^T g_{t,i}$. For any competitor $u \in \Delta_N$,
+\begingroup
+\allowdisplaybreaks
+\begin{align*}
+\allowdisplaybreaks
+\Regret_T(u)
+& = \sum_{t=1}^T \langle \ell_t, p_t - u \rangle \\
+& = \sum_{t=1}^T \sum_{i=1}^N u_i \left( \langle \ell_t, p_t \rangle - \ell_{t,i} \right) \\
+& \le \sum_{t=1}^T \sum_{i=1}^N u_i g_{t,i} & \text{(by definition of $g_{t,i}$)} \\
+& = \sum_{i=1}^N u_i G_{T,i} \\
+& = \sum_{i=1}^N u_i f_T^{-1}\left[\ln \exp\left(f_T(G_{T,i})\right)\right] \\
+& \le f_T^{-1}\left(\sum_{i=1}^N u_i \left[\ln \exp\left(f_T(G_{T,i})\right)\right]\right) & \text{(by concavity of $f_T$)} \\
+& = f_T^{-1}\left(\sum_{i=1}^N u_i \left[\ln \frac{\pi_i}{u_i}\exp\left(f_T(G_{T,i})\right)+ \ln\frac{u_i}{\pi_i}\right]\right) \\
+& = f_T^{-1}\left(\sum_{i=1}^N u_i \left[\ln \frac{\pi_i}{u_i}\exp\left(f_T(G_{T,i})\right)\right] + \KL{u}{\pi}\right) \\
+& \le f_T^{-1}\left(\ln \left(\sum_{i=1}^N \pi_i \exp\left(f_T(G_{T,i})\right) \right) + \KL{u}{\pi}\right) & \text{(by concavity of $\ln(\cdot)$)} \\
+& \le f_T^{-1}\left(\KL{u}{\pi}\right) & \text{(by \eqref{equation:bounded-potential})}.
+\end{align*}
+\endgroup
+The chain of inequalities above is based on a simple modification of the change
+of measure lemma used in the PAC-Bayes literature; see for
+example~\citet{McAllester13}.
 \end{proof}

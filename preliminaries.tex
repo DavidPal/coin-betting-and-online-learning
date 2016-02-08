@@ -30,8 +30,8 @@ defined on the dual vector space $V^*$ by
 $$
 f^*(\theta) = \sup_{x \in V} \ \langle \theta, x \rangle - f(x) \; .
 $$
-If $f$ is lower semi-continous and convex then $f^*$ is also is lower
-semi-continous and convex, and furthermore the Fenchel conjugate of $f^*$ is
+If $f$ is lower semi-continuous and convex then $f^*$ is also is lower
+semi-continuous and convex, and furthermore the Fenchel conjugate of $f^*$ is
 $f$.
 
 \subsection{Online Linear Optimization over a Hilbert Space}
@@ -39,7 +39,7 @@ $f$.
 Let $\H$ be a Hilbert space. \textsc{Online Linear Optimization over a Hilbert
 Space $\H$} is an online problem where in each round $t$, an algorithm chooses a
 point $w_t \in \H$ and then receives a reward vector $g_t \in \H$. Algorithm's
-instantenous reward in round $t$ is $\langle g_t, w_t \rangle$. The aim of the
+instantaneous reward in round $t$ is $\langle g_t, w_t \rangle$. The aim of the
 algorithm is to minimize its \emph{regret} after $T$ rounds, that is, the
 difference between its cumulative reward $\sum_{t=1}^n \langle g_t, w_t \rangle$
 and the cumulative reward $\sum_{t=1}^T \langle g_t, u \rangle$ of the of a
@@ -59,7 +59,7 @@ Let $N \ge 2$ be a positive integer. \textsc{Learning with expert advice} is an
 online problem in which an algorithm chooses a point $p_t$ in $N$-dimensional
 probability simplex $\Delta_N = \{ x \in \R^N ~:~ x \ge 0, \|x\|_1 = 1 \}$ and
 receives a loss\footnote{The reason for using loss, instead of reward, will be
-aparent in Section~\ref{section:reduction-experts}.} vector $\ell_t \in
+apparent in Section~\ref{section:reduction-experts}.} vector $\ell_t \in
 [0,1]^N$. Similarly as before, the goal of the algorithm is to minimize its
 regret after $T$ rounds with respect to any competitor $u \in \Delta_N$, which
 is defined as
@@ -103,7 +103,7 @@ rounds is
 \Reward_t = \Wealth_t - \ \epsilon \; .
 \end{align}
 
-We generalize the problem slighlty by allowing the outcome of the coin flip
+We generalize the problem slightly by allowing the outcome of the coin flip
 $g_t$ to be any real number in the interval $[-1,1]$. In this case we talk about
 \emph{betting on a continuous coin}. The formulas
 \eqref{equation:wealth-recurrence} and \eqref{equation:reward-wealth} defining
