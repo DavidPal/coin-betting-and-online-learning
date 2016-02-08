@@ -1,0 +1,74 @@
+\section{Appendix}
+
+\subsection{Proof of Lemma~\ref{lemma:recursion_hilbert}}
+
+First we state the following Lemma from~\cite{McMahanO14} and reported here with our notation for completeness.
+\begin{lemma}[Extremes]
+\label{lemma:extremes}
+Let $h:(-a,a) \to \R$ be an even concave twice-differentiable function that
+satisfies $x \cdot h''(x) \le h'(x)$ for all $x \in [0,a)$. Then, if vectors
+$u,v \in \H$ satisfy $\|u\| + \|v\| < a$, then
+\begin{equation}
+\label{equation:lemma-extremes-1}
+\langle u, v \rangle + h(\|u + v\|) \ge \min \left\{ \|u\| \cdot \|v\| + h(\|v\| + \|u\|), \ - \|u\| \cdot \|v\| + h(\|u\| - \|v\|) \right\} \; .
+\end{equation}
+Futhermore, for any $b \in [0,a]$ and any $u, v \in \H$ such that $\|v\| < a - b$ and $\|u\| \le b$,
+\begin{equation}
+\label{equation:lemma-extremes-2}
+\langle u, v \rangle + h(\|u + v\|) \ge \min \left\{ b \cdot \|v\| + h(\|v\| + b), \ - b \cdot \|v\| + h(\|u\| - b) \right\} \; .
+\end{equation}
+\end{lemma}
+%
+\begin{proof}
+If $u$ or $v$ is zero, the inequality \eqref{equation:lemma-extremes-1} clearly holds. From now on we assume that
+$u,v$ are non-zero. Let $c$ be the cosine of the angle of between $u$ and $v$.
+More formally,
+$$
+c = \frac{\langle u, v \rangle}{\|u\| \cdot \|v\|} \; .
+$$
+With this notation, the left-hand side is
+$$
+\langle u, v \rangle + h(\|u + v\|) = c \|u\| \cdot \|v\|  + h(\sqrt{\|u\|^2 + \|v\|^2 + 2 c \|u\| \cdot \|v\|}) \; .
+$$
+We consider the last expression as a function of $c$ and we call it $f(c)$. The
+inequality \eqref{equation:lemma-extremes-1} is equivalent to
+$$
+\forall c \in [-1,1] \qquad \qquad f(c) \ge \min \left\{f(+1), f(-1)\right\} \; .
+$$
+The last inequality is clearly true if $f:[-1,1] \to \R$ is concave. We now
+check that $f$ is indeed concave, which we prove by showing that the second
+derivative is non-positive. The first derivate of $f$ is
+$$
+f'(c) = \|u\| \cdot \|v\| + \frac{h'(\sqrt{\|u\|^2 + \|v\|^2 + 2 c \|u\| \cdot \|v\|}) \cdot \|u\| \cdot \|v\|}{\sqrt{\|u\|^2 + \|v\|^2 + 2 c \|u\| \cdot \|v\|}} \; .
+$$
+The second derivative of $f$ is
+$$
+f''(c) = \|u\|^2 \cdot \|v\|^2 \cdot \frac{h''(\sqrt{\|u\|^2 + \|v\|^2 + 2 c \|u\| \cdot \|v\|})  - \frac{1}{\sqrt{\|u\|^2 + \|v\|^2 + 2c \|u\| \cdot \|v\|}} \cdot h'(\sqrt{\|u\|^2 + \|v\|^2 + 2 c \|u\| \cdot \|v\|})  }{\|u\|^2 + \|v\|^2 + 2 c \|u\| \cdot \|v\|} \; .
+$$
+If we consider $x=\sqrt{\|u\|^2 + \|v\|^2 + 2 c \|u\| \cdot \|v\|}$, the
+assumption $x \cdot h''(x) \le h'(x)$ implies that $f''(c)$ is non-positive.
+This finishes the proof of the inequality \eqref{equation:lemma-extremes-1}.
+
+Inequality \eqref{equation:lemma-extremes-2}, can be derived from inequality
+\eqref{equation:lemma-extremes-1} as follows
+\begin{align*}
+\langle u, v \rangle + h(\|u + v\|)
+& \ge \min_{u \in \H : \|u\| \le b} \min \left\{ \|u\| \cdot \|v\| + h(\|v\| + b), \ - \|u\| \cdot \|v\| + h(\|u\| - \|v\|) \right\} \\
+& = \min_{z \in [0,b]} \min \left\{ z \cdot \|v\| + h(\|v\| + z), \ - z \cdot \|v\| + h(\|u\| - z) \right\} \\
+& = \min_{z \in [-b,b]} z \cdot \|v\| + h(\|v\| + z) \\
+& = \min \left\{ b \cdot \|v\| + h(\|v\| + b), \ - b \cdot \|v\| + h(\|u\| - b) \right\} \; .
+\end{align*}
+The inequality in the chain is the inequality \eqref{equation:lemma-extremes-1}.
+The last equality follows since $g(z) = z \cdot \|v\| + h(\|v\| + z)$
+is concave.
+\end{proof}
+
+We can now prove Lemma~\ref{lemma:recursion_hilbert}.
+\begin{proof}[Proof of Lemma~\ref{lemma:recursion_hilbert}]
+\begin{align*}
+&\left(1 + \beta_t \frac{\langle g_t, x \rangle}{\|x\|} \right) F_{t-1}(\norm{x}) - F_t(\norm{x + g_t}) \\
+&\quad \geq \min_{r \in \{-1,1\}} \left(1 + \beta_t r \norm{g_t} \right) F_{t-1}(\norm{x}) - F_t(\norm{x} + r \norm{g_t}) \\
+&\quad \geq 0
+\end{align*}
+where the first inequality comes from Lemma~\ref{lemma:extremes}, the second one from the property 3 of a coin-betting potential.
+\end{proof}
