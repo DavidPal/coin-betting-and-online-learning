@@ -1,0 +1,45 @@
+\section{Properties of KT}
+
+\begin{theorem}[KT potential]
+\label{theorem:kt-potential}
+Let $\delta \ge 0$. The sequence of functions $\{F_t\}_{t=0}^\infty$, $F_t:(-t-\delta-1, t+\delta+1) \to \R_+$
+defined by
+$$
+F_t(x) = \frac{2^t \Gamma(\delta + 1) \Gamma(\frac{t+\delta+1}{2} + \frac{x}{2}) \Gamma(\frac{t+\delta+1}{2} - \frac{x}{2})}{\Gamma(\frac{\delta+1}{2})^2 \Gamma(T+\delta+1)} \; .
+$$
+is a sequence of excellent coin-betting potentials.
+Futhermore, for any $x \in (-t-\delta-1, t+\delta+1)$,
+$$
+\frac{F_t(x+1) - F_{t}(x-1)}{F_t(x+1) + F_{t}(x-1)} = \frac{x}{t+\delta} \; .
+$$
+\end{theorem}
+
+\begin{proof}
+Property (1) of definition of coin-betting potential is satified, since
+$$
+F_0(0) = \epsilon \frac{\Gamma(\frac{1}{2}) \Gamma(\frac{1}{2})}{\pi} = \epsilon \; ,
+$$
+where we used that $\Gamma(\frac{1}{2}) = \pi$. $F_t$ is clearly even.
+Since $\lim_{x \to 0^+} \Gamma(x) = +\infty$ and $\Gamma(\frac{t+1}{2})$,
+$\lim_{x \to \frac{t+1}{2}^+} F_t(x) = \lim_{x \to -\frac{t+1}{2}} F_t(x) = \infty$.
+Bohr-Mollerup theorem states that $\Gamma(x)$ is logaritmically convex
+on $(0,\infty)$. Therefore $F_t$ is logaritmically convex as well.
+The fact that $F_t$ is increasing on $[0,\frac{t+1}{2})$ is proved
+in the Appendix as Lemma~\ref{lemma:???}. This establishes property (2).
+Property (3) can be verified by direct calculation
+$$
+TODO
+$$
+
+We now verify that KT estimator $\beta_t$ defined by \eqref{equation:kt-estimator}
+satisfies \eqref{equation:potential-based-strategy}. Indeed, let $x=\sum_{i=1}^{t-1} g_i$
+\begin{align*}
+\frac{F_t(\sum_{i=1}^{t-1} g_i + 1) - F_t(\sum_{i=1}^{t-1} g_i - 1)}{F_t(\sum_{i=1}^{t-1} g_i + 1) + F_t(\sum_{i=1}^{t-1} g_i - 1)}
+& = \frac{F_t(x + 1) - F_t(x - 1)}{F_t(x + 1) + F_t(x - 1)} \\
+& = \frac{\Gamma(\frac{t+2}{2} + \frac{x}{2}) \Gamma(\frac{t}{2} - \frac{x}{2}) - \Gamma(\frac{t}{2} + \frac{x}{2}) \Gamma(\frac{t+2}{2} - \frac{x}{2})}{\Gamma(\frac{t+2}{2} + \frac{x}{2}) \Gamma(\frac{t}{2} - \frac{x}{2}) + \Gamma(\frac{t}{2} + \frac{x}{2}) \Gamma(\frac{t+2}{2} - \frac{x}{2})} \\
+& = \frac{(\frac{t}{2} + \frac{x}{2})\Gamma(\frac{t}{2} + \frac{x}{2}) \Gamma(\frac{t}{2} - \frac{x}{2}) - (\frac{t}{2} - \frac{x}{2})\Gamma(\frac{t}{2} + \frac{x}{2}) \Gamma(\frac{t}{2} - \frac{x}{2})}{(\frac{t}{2} + \frac{x}{2})\Gamma(\frac{t}{2} + \frac{x}{2}) \Gamma(\frac{t}{2} - \frac{x}{2}) + (\frac{t}{2} - \frac{x}{2})\Gamma(\frac{t}{2} + \frac{x}{2}) \Gamma(\frac{t}{2} - \frac{x}{2})} \\
+& = \frac{(\frac{t}{2} + \frac{x}{2}) - (\frac{t}{2} - \frac{x}{2})}{(\frac{t}{2} + \frac{x}{2}) + (\frac{t}{2} - \frac{x}{2})} \\
+& = \frac{x}{t} \\
+& = \beta_t
+\end{align*}
+\end{proof}
