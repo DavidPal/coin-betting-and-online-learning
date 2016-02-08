@@ -24,24 +24,31 @@ $\{F_t\}_{t=0}^\infty$ is is not clear if the strategy
 \begin{definition}[Coin-Betting Potential]
 \label{definition:potential}
 Let $\epsilon > 0$. Let $\{F_t\}_{t=0}^\infty$ be a sequence of functions
-$F_t:I_t  \to \R_+$ where $I_t = (-a_t, a_t)$ is an open symmetric interval\footnote{We allow $a_t = +\infty$} containing
+$F_t:I_t  \to \R_+$ where $I_t = (-a_t, a_t)$ is an open symmetric interval\footnote{We allow $a_t = +\infty$.} containing
 $[-t,t]$.  The sequence is called a \emph{sequence of coin-betting potentials}
-if it satisfies the following three conditions for every $t \ge 0$,
-\begin{enumerate}
+for \emph{initial endowment $\epsilon$}, if it satisfies the following three conditions:
+\begin{enumerate}[(1)]
+\item $F_0(0) = \epsilon$.
+
 \item For every $t \ge 1$, $F_t(x)$ is even, logarithmically convex, strictly increasing on $[0,a_t)$, and
-$$
+\begin{equation}
+\label{equation:potential-limit-assumption}
 \lim_{x \to -a_t} F_t(x) = \lim_{x \to a_t} F_t(x) = +\infty \; .
-$$
-\item For every $t \ge 0$, $F_t(0) = \epsilon > 0$.
+\end{equation}
+
 \item For every $t \ge 1$, every $x \in [-(t-1), (t-1)]$ and every $g \in [-1,1]$,
 $$
 \left(1 + g \frac{F_t(x + 1) - F_t(x - 1)}{F_t(x + 1) + F_t(x - 1)} \right) F_{t-1}(x) \ge F_t(x+g) \; .
 $$
 \end{enumerate}
-If, in addition, for every $t \ge 0$, $F_t$ is twice-differentiable and
-satisfies $x \cdot F_t''(x) \ge F_t'(x)$ for every $x \in I_t$ then
-$\{F_t\}_{t=0}^\infty$ is called the sequence of \emph{sequence of excellent
-coin-betting potentials}.
+The sequence $\{F_t\}_{t=0}^\infty$  is called is called the sequence of
+\emph{sequence of excellent coin-betting potentials} for \emph{initial endowment
+$\epsilon$} if it satifies conditions (1)--(3) and the condition (4) below.
+\begin{enumerate}[(1)]
+\setcounter{enumi}{3}
+\item For every $t \ge 0$, $F_t$ is twice-differentiable and
+satisfies $x \cdot F_t''(x) \ge F_t'(x)$ for every $x \in I_t$.
+\end{enumerate}
 \end{definition}
 
 It is a routine exercise to show by induction on $t$ that conditions 2 and 3

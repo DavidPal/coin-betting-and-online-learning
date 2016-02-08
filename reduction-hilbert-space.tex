@@ -54,10 +54,10 @@ by~\cite{McMahanO14}.
 
 \begin{lemma}[Reward-Regret relationship]
 \label{lemma:reward-regret}
-Let $V,V^*$ be a pair dual vector spaces. Let $F:V \to \R$ be a convex lower
-semi-continuous function and let $F^*:V^* \to \R$ be its Fenchel conjugate. Let
-$w_1, w_2, \dots, w_T \in V$ and $g_1, g_2, \dots, g_T \in V^*$ be two sequences
-of vectors.  Then, the condition
+Let $V,V^*$ be a pair dual vector spaces. Let $F:V \to \R \cup \{+\infty\}$ be a
+proper convex lower semi-continuous function and let $F^*:V^* \to \R \cup
+\{+\infty\}$ be its Fenchel conjugate. Let $w_1, w_2, \dots, w_T \in V$ and
+$g_1, g_2, \dots, g_T \in V^*$ be two sequences of vectors.  Then, the condition
 $$
 \underbrace{\sum_{t=1}^T \langle g_t, w_t \rangle}_{=\Reward_T} \ge F\left( \sum_{t=1}^T g_t \right)
 $$

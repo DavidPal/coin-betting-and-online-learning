@@ -5,13 +5,13 @@ We show how to use an algorithm for OLO in one-dimensional Hilbert space $\R$
 to construct an algorithm for learning with expert advice.
 
 Let $N \ge 2$ be the number of experts and $\Delta_N$ be the $N$-dimensional
-probability simplex. Let $\pi = (\pi_1, \pi_2, \dots, \pi_N) \in \Delta_N$ be any
-\emph{prior} distribution. We instantiate $N$ copies an algorithm for OLO over
-one-dimensional Hilbert space $\R$.
+probability simplex. Let $\pi = (\pi_1, \pi_2, \dots, \pi_N) \in \Delta_N$ be
+any \emph{prior} distribution. Let $A$ be an algorithm for OLO over
+one-dimensional Hilbert space $\R$. We instantiate $N$ copies of $A$.
 
 Consider any round $t$. Let $w_{t,i} \in \R$ be the prediction of $i$-th copy of
-the OLO algorithm. The expert algorithm computes $\widehat p_t = (\widehat
-p_{t,1}, \widehat p_{t,2}, \dots, \widehat p_{t,N}) \in \R_{0,+}^N$,
+$A$. The expert algorithm computes $\widehat p_t = (\widehat p_{t,1}, \widehat
+p_{t,2}, \dots, \widehat p_{t,N}) \in \R_{0,+}^N$,
 $$
 \widehat p_{t,i} = \pi_i \cdot [w_{t,i}]_+
 $$
@@ -22,9 +22,9 @@ p_t = \frac{\widehat p_t}{\norm{\widehat p_t}_1} \; .
 $$
 If $\norm{\widehat p_t}_1 = 0$, the algorithm predicts the uniform distribution
 $p_t = \frac{1}{N}(1,1,\dots,1)$. Then, the algorithm recieves the loss vector
-$\ell_t = (\ell_{t,1}, \ell_{t,2}, \dots, \ell_{t,N}) \in [0,1]^N$. Finally, the
-experts algorithm feeds reward to each copy of the OLO algorithm. The reward for
-$i$-th copy is $g_{t,i} \in [-1,1]$ defined as
+$\ell_t = (\ell_{t,1}, \ell_{t,2}, \dots, \ell_{t,N}) \in [0,1]^N$. Finally, it
+feeds reward to each copy of $A$. The reward for $i$-th copy is $g_{t,i} \in
+[-1,1]$ defined as
 \begin{align}
 g_{t,i} =
 \begin{cases}
@@ -33,27 +33,35 @@ g_{t,i} =
 \end{cases}
 \end{align}
 
-Suppose that the OLO algorithm in one-dimensional Hilbert space
-satisfies for any sequence $\{g_t\}_{t=0}^\infty$, $g_t \in [-1,1]$, satisfies
+Suppose that the algorithm $A$ satisfies for any sequence
+$\{g_t\}_{t=1}^\infty$ such that $g_t \in [-1,1]$, satisfies
 \begin{equation}
 \label{equation:experts-one-dimensional-assumption}
 \Wealth_t = 1 + \sum_{i=1}^t g_i w_i \ge F_t\left(\sum_{i=1}^t g_i\right) \; .
 \end{equation}
-We show how to convert the guarantee into an upper bound on the regret of the
-experts algorithm. We place certain assumptions on $F_t$; these are similar but
-incomparable to the assumption that $\{F_t\}_{t=1}^\infty$
-is a coin betting potential.
+where $\{F_t\}_{t=0}^\infty$ is sequence of coin-betting potentials for initial
+endownment $1$.\footnote{Any initial endowment $\epsilon > 0$ can be rescaled to
+$1$. Instead of $F_t(x)$ we would use $F_t(x)/\epsilon$. The prediction $w_t$
+would become $w_t/\epsilon$. The key observation is that $p_t$ is invariant to
+scaling of $w_t$, hence the resulting algorithm would be the same.}
+
+We show how to convert \eqref{equation:experts-one-dimensional-assumption} into
+a regret bound for the experts algorithm. The regret bound is expressed in terms
+of the inverse of $f_t(x) = \ln(F_t(x))$. We define it as follows. We
+restrict the function $f_t$ to the domain $I_t \cap [0, \infty)$. By the
+definition of coin-betting potential, $f_t$ is convex, strictly increasing.
+Image of $f_t$ contains $[0,\infty)$, becuase $F_t(0) \le 1$ and because $F_t$
+satifies \eqref{equation:potential-limit-assumption}. We define $f_t^{-1}$ as
+the inverse of $f_t$. Note that $f_t$ is strictly increasing and concave and its
+domain contains $[0, \infty)$.
 
 \begin{theorem}[Regret Bound for Experts]
-Let $F_t:I \to \R_+$ be even logarithmically convex function defined
-on an open interval such that $F_t(0) = 1$ and the restriction $F_t$
-is increasing on $I \cap [0,\infty)$ and maps $I$ to $[1, \infty)$.
-Let $f_t^{-1}$ be the inverse of $f_t(x) = \ln \left(F_t(x)\right)$
-restricted $I \cap [0,\infty)$.
-Suppose each of the copies of OLO algorithms satisfies
-\eqref{equation:experts-one-dimensional-assumption}
-for any sequence $\{g_t\}_{t=0}^\infty$, $g_t \in [-1,1]$. Then, the regret
-of the experts algorithm with prior $\pi$ satisfies
+Let $\{F_t\}_{t=0}^\infty$ be a sequence of coin-betting potentials for initial
+endowment $1$. Let $f_t^{-1}$ be in the inverse of $f_t(x) = \ln(F_t(x))$.
+Let $A$ be an OLO algorithm for one-dimensional Hilbert space
+$\R$ that satisfies \eqref{equation:experts-one-dimensional-assumption} for any
+sequence $\{g_t\}_{t=1}^\infty$ such that $g_t \in [-1,1]$. Then, the regret of
+the experts algorithm with prior $\pi \in \Delta_N$, based on $A$, satisfies
 $$
 \forall u \in \Delta_N \qquad \qquad
 \Regret_t(u) \le f_t^{-1}\left( \KL{u}{\pi} \right) \; .
