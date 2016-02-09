@@ -30,7 +30,7 @@ regret bound for online prediction with log-loss; see also \cite[Section 9.7]{Ce
 The potential is defined on the interval $I_t = (-\frac{t+1}{2},
 \frac{t+1}{2})$. Theorem~\ref{theorem:kt-potential} stated in the Appendix shows
 that $\{F_t\}_{t=0}^\infty$ is a sequence of coin-betting potentials for initial
-endownment $\epsilon$. It also shows that KT estimator $\beta_t$, as defined by
+endowment $\epsilon$. It also shows that KT estimator $\beta_t$, as defined by
 \eqref{equation:kt-estimator}, is a potential-based strategy, i.e., it satisfies
 \eqref{equation:potential-based-strategy}.
 
@@ -73,9 +73,9 @@ We derive a regret bound for Algorithm~\ref{algorithm:kt-hilbert-space-olo} by
 applying Theorem~\ref{theorem:hilbert-space-olo-regret-bound} to the KT
 potential \eqref{equation:kt-estimator-potential}. The regret bound is stated as
 Corollary~\ref{corollary:kt-hilbert-space-olo-regret} below. Its proof can be
-found in the Appendix. The only technical part of the proof is an upper bound on
-Fenchel conjugate $F_t^*$ since $F_t^*$ cannot be expressed as an elementary
-function.
+found in the Appendix~\ref{section:lambert}. The only technical part of the
+proof is an upper bound on Fenchel conjugate $F_t^*$ since $F_t^*$ cannot be
+expressed as an elementary function.
 
 \begin{corollary}[Regret Bound for Algorithm~\ref{algorithm:kt-hilbert-space-olo}]
 \label{corollary:kt-hilbert-space-olo-regret}
@@ -145,11 +145,12 @@ at the final algorithm, which we state as Algorithm~\ref{algorithm:kt-experts}.
 We can derive a regret bound for Algorithm~\ref{algorithm:kt-experts} by
 applying Theorem~\ref{theorem:regret-bound-experts} to the shifted KT potential.
 The result is stated as Corollary~\ref{corollary:kt-experts-regret} below. The
-proof of the corollary is in the Appendix~\ref{section:}. The hardest part of the proof is an
-upper on $f_t^{-1}(x)$, which we conveniently do by lower bounding $F_t(x)$. The
-reason for using the shifted potential comes from the analysis of $f_t^{-1}(x)$.
-Unshifted algorithm would have $O(\sqrt{T (\log T + \KL{u}{\pi}})$ regret bound;
-shifting improves the bound to $O(\sqrt{T (1 + \KL{u}{\pi}})$.
+proof of the corollary is in the Appendix~\ref{section:kt-experts-proof}. The
+hardest part of the proof is an upper on $f_t^{-1}(x)$, which we conveniently do
+by lower bounding $F_t(x)$. The reason for using the shifted potential comes
+from the analysis of $f_t^{-1}(x)$. Unshifted algorithm would have $O(\sqrt{T
+(\log T + \KL{u}{\pi}})$ regret bound; shifting improves the bound to $O(\sqrt{T
+(1 + \KL{u}{\pi}})$.
 
 \begin{corollary}[Regret Bound for Algorithm~\ref{algorithm:kt-experts}]
 \label{corollary:kt-experts-regret}
@@ -164,7 +165,7 @@ $$
 
 The requirement of knowing the number of rounds $T$ in advance can be lifted by
 the standard doubling trick~\citep[Section 2.3.1]{Shalev-Shwartz12}. We obtain
-an anytime algorithm at the expense of slighlty worse regret bound,
+an anytime algorithm at the expense of slightly worse regret bound,
 $$
 \forall T \ge 0 \quad \forall u \in \Delta_N \qquad \qquad
 \Regret_T(u) \le \frac{\sqrt{2}}{\sqrt{2} - 1} \sqrt{3T (4 + \KL{u}{\pi})} \; .

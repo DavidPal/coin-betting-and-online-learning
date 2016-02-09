@@ -21,7 +21,7 @@ $$
 p_t = \frac{\widehat p_t}{\norm{\widehat p_t}_1} \; .
 $$
 If $\norm{\widehat p_t}_1 = 0$, the algorithm predicts the uniform distribution
-$p_t = \frac{1}{N}(1,1,\dots,1)$. Then, the algorithm recieves the loss vector
+$p_t = \frac{1}{N}(1,1,\dots,1)$. Then, the algorithm receives the loss vector
 $\ell_t = (\ell_{t,1}, \ell_{t,2}, \dots, \ell_{t,N}) \in [0,1]^N$. Finally, it
 feeds reward to each copy of $A$. The reward for $i$-th copy is $g_{t,i} \in
 [-1,1]$ defined as
@@ -40,7 +40,7 @@ $\{g_t\}_{t=1}^\infty$ such that $g_t \in [-1,1]$, satisfies
 \Wealth_t = 1 + \sum_{i=1}^t g_i w_i \ge F_t\left(\sum_{i=1}^t g_i\right) \; .
 \end{equation}
 where $\{F_t\}_{t=0}^\infty$ is sequence of coin-betting potentials for initial
-endownment $1$.\footnote{Any initial endowment $\epsilon > 0$ can be rescaled to
+endowment $1$.\footnote{Any initial endowment $\epsilon > 0$ can be rescaled to
 $1$. Instead of $F_t(x)$ we would use $F_t(x)/\epsilon$. The prediction $w_t$
 would become $w_t/\epsilon$. The key observation is that $p_t$ is invariant to
 scaling of $w_t$, hence the resulting algorithm would be the same regardless of $\epsilon$.}
@@ -50,8 +50,8 @@ a regret bound for the experts algorithm. The regret bound is expressed in terms
 of the inverse of $f_t(x) = \ln(F_t(x))$. We define it as follows. We
 restrict the function $f_t$ to the domain $I_t \cap [0, \infty)$. By the
 definition of coin-betting potential, $f_t$ is convex, strictly increasing.
-Image of $f_t$ contains $[0,\infty)$, becuase $F_t(0) \le 1$ and because $F_t$
-satifies \eqref{equation:potential-limit-assumption}. We define $f_t^{-1}$ as
+Image of $f_t$ contains $[0,\infty)$, because $F_t(0) \le 1$ and because $F_t$
+satisfies \eqref{equation:potential-limit-assumption}. We define $f_t^{-1}$ as
 the inverse of $f_t$. Note that $f_t$ is strictly increasing and concave and its
 domain contains $[0, \infty)$.
 
