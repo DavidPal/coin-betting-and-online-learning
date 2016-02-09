@@ -98,32 +98,59 @@ $$
 is a sequence of excellent coin-betting potentials for initial endowment $\epsilon$.
 Furthermore, for any $x \in (-t-\delta-1, t+\delta+1)$,
 \begin{equation}
+\label{equation:kt-potential-beta}
 \frac{F_t(x+1) - F_{t}(x-1)}{F_t(x+1) + F_{t}(x-1)} = \frac{x}{t+\delta} \; .
 \end{equation}
 \end{theorem}
 
 \begin{proof}
-Property (2) and (4) follow of the definition follow from
+Property (2) and (4) of the definition follow from
 Lemma~\ref{lemma:kt-potential-analytic-properties}.
 Property (1) follows by simple substitution for $t=0$ and $x=0$.
 
-Before verifying property (2), we
-
-Property (2) follows by algebraic properties of Gamma function, namely $\Gamma(1+z) = z \Gamma(z)$
-for any positive $z$. More explicitly,
-$$
-x
-$$
-
-We now verify that KT estimator $\beta_t$ defined by \eqref{equation:kt-estimator}
-satisfies \eqref{equation:potential-based-strategy}. Indeed, let $x=\sum_{i=1}^{t-1} g_i$
+Before verifying property (2), we prove \eqref{equation:kt-potential-beta}. We
+use an alebgraic property of the Gamma function that states that $\Gamma(1+z) =
+z \Gamma(z)$ for any positive $z$. Equation \eqref{equation:kt-potential-beta}
+follows from
 \begin{align*}
-\frac{F_t(\sum_{i=1}^{t-1} g_i + 1) - F_t(\sum_{i=1}^{t-1} g_i - 1)}{F_t(\sum_{i=1}^{t-1} g_i + 1) + F_t(\sum_{i=1}^{t-1} g_i - 1)}
-& = \frac{F_t(x + 1) - F_t(x - 1)}{F_t(x + 1) + F_t(x - 1)} \\
-& = \frac{\Gamma(\frac{t+2}{2} + \frac{x}{2}) \Gamma(\frac{t}{2} - \frac{x}{2}) - \Gamma(\frac{t}{2} + \frac{x}{2}) \Gamma(\frac{t+2}{2} - \frac{x}{2})}{\Gamma(\frac{t+2}{2} + \frac{x}{2}) \Gamma(\frac{t}{2} - \frac{x}{2}) + \Gamma(\frac{t}{2} + \frac{x}{2}) \Gamma(\frac{t+2}{2} - \frac{x}{2})} \\
-& = \frac{(\frac{t}{2} + \frac{x}{2})\Gamma(\frac{t}{2} + \frac{x}{2}) \Gamma(\frac{t}{2} - \frac{x}{2}) - (\frac{t}{2} - \frac{x}{2})\Gamma(\frac{t}{2} + \frac{x}{2}) \Gamma(\frac{t}{2} - \frac{x}{2})}{(\frac{t}{2} + \frac{x}{2})\Gamma(\frac{t}{2} + \frac{x}{2}) \Gamma(\frac{t}{2} - \frac{x}{2}) + (\frac{t}{2} - \frac{x}{2})\Gamma(\frac{t}{2} + \frac{x}{2}) \Gamma(\frac{t}{2} - \frac{x}{2})} \\
-& = \frac{(\frac{t}{2} + \frac{x}{2}) - (\frac{t}{2} - \frac{x}{2})}{(\frac{t}{2} + \frac{x}{2}) + (\frac{t}{2} - \frac{x}{2})} \\
-& = \frac{x}{t} \\
-& = \beta_t
+\frac{F_t(x + 1) - F_t(x - 1)}{F_t(x + 1) + F_t(x - 1)}
+& = \frac{\Gamma(\frac{t+\delta+2}{2} + \frac{x}{2}) \Gamma(\frac{t+\delta}{2} - \frac{x}{2}) - \Gamma(\frac{t+\delta}{2} + \frac{x}{2}) \Gamma(\frac{t+\delta+2}{2} - \frac{x}{2})}{\Gamma(\frac{t+\delta+2}{2} + \frac{x}{2}) \Gamma(\frac{t + \delta}{2} - \frac{x}{2}) + \Gamma(\frac{t + \delta}{2} + \frac{x}{2}) \Gamma(\frac{t+\delta+2}{2} - \frac{x}{2})} \\
+& = \frac{(\frac{t+\delta}{2} + \frac{x}{2})\Gamma(\frac{t+\delta}{2} + \frac{x}{2}) \Gamma(\frac{t+\delta}{2} - \frac{x}{2}) - (\frac{t+\delta}{2} - \frac{x}{2})\Gamma(\frac{t+\delta}{2} + \frac{x}{2}) \Gamma(\frac{t+\delta}{2} - \frac{x}{2})}{(\frac{t+\delta}{2} + \frac{x}{2})\Gamma(\frac{t+\delta}{2} + \frac{x}{2}) \Gamma(\frac{t+\delta}{2} - \frac{x}{2}) + (\frac{t+\delta}{2} - \frac{x}{2})\Gamma(\frac{t+\delta}{2} + \frac{x}{2}) \Gamma(\frac{t+\delta}{2} - \frac{x}{2})} \\
+& = \frac{(\frac{t+\delta}{2} + \frac{x}{2}) - (\frac{t+\delta}{2} - \frac{x}{2})}{(\frac{t+\delta}{2} + \frac{x}{2}) + (\frac{t+\delta}{2} - \frac{x}{2})} \\
+& = \frac{x}{t+\delta} \; .
+\end{align*}
+
+Let $\phi(g) = \frac{F_t(x+g)}{F_{t-1}(x)}$. To very property (2) of the definition,
+it suffices to show that $\phi(g) \le 1 + g \frac{x}{t+\delta}$
+for any $x \in [-t+1, t-1]$ and any $g \in [-1,1]$. We can write $\phi(g)$ as
+\begin{align*}
+\phi(g)
+& = \frac{F_t(x+g)}{F_{t-1}(x)} \\
+& = \frac{2 \Gamma(\frac{t+\delta+1}{2} + \frac{x+g}{2}) \Gamma(\frac{t+\delta+1}{2} - \frac{x+g}{2}) \Gamma(t + \delta)}{\Gamma(\frac{t+\delta}{2} + \frac{x}{2}) \Gamma(\frac{t+\delta}{2} - \frac{x}{2}) \Gamma(t+\delta+1)} \\
+& = \frac{2}{t+\delta} \cdot \frac{\Gamma(\frac{t+\delta+1}{2} + \frac{x+g}{2}) \Gamma(\frac{t+\delta+1}{2} - \frac{x+g}{2})}{\Gamma(\frac{t+\delta}{2} + \frac{x}{2}) \Gamma(\frac{t+\delta}{2} - \frac{x}{2})} \; .
+\end{align*}
+For $g=+1$, using the formula $\Gamma(1+z) = z \Gamma(z)$, we have
+$$
+\phi(+1)
+= \frac{2}{t+\delta} \cdot \frac{\Gamma(\frac{t+\delta}{2} + \frac{x}{2} + 1) \Gamma(\frac{t+\delta}{2} - \frac{x}{2})}{\Gamma(\frac{t+\delta}{2} + \frac{x}{2}) \Gamma(\frac{t+\delta}{2} - \frac{x}{2})}
+= \frac{2}{t+\delta} \left(\frac{t+\delta}{2} + \frac{x}{2} \right)
+= 1 + \frac{x}{t+\delta} \; .
+$$
+Similarly, for $g=-1$, using the formula $\Gamma(1+z) = z \Gamma(z)$, we have
+$$
+\phi(-1)
+= \frac{2}{t+\delta} \cdot \frac{\Gamma(\frac{t+\delta}{2} + \frac{x}{2}) \Gamma(\frac{t+\delta}{2} - \frac{x}{2} + 1)}{\Gamma(\frac{t+\delta}{2} + \frac{x}{2}) \Gamma(\frac{t+\delta}{2} - \frac{x}{2})}
+= \frac{2}{t+\delta} \left(\frac{t+\delta}{2} - \frac{x}{2} \right)
+= 1 - \frac{x}{t+\delta} \; .
+$$
+We can write any $g \in [-1,1]$ as a convex combination of $-1$ and $+1$, i.e.,
+$g = \lambda \cdot (-1) + (1-\lambda) \cdot (+1)$ for some $\lambda \in [0,1]$.
+Since $\phi(g)$ is (logaritmically) convex,
+\begin{align*}
+\phi(g)
+& = \phi(\lambda \cdot (-1) + (1-\lambda) \cdot (+1)) \\
+& \le \lambda \phi(-1) + (1-\lambda) \phi(+1) \\
+& = \lambda \left(1 + \frac{x}{t+\delta}\right) + (1-\lambda) \left(1 - \frac{x}{t+\delta}\right) \\
+& = 1 + g \frac{x}{t+\delta} \; .
 \end{align*}
 \end{proof}
