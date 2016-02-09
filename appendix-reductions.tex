@@ -67,7 +67,9 @@ We can now prove Lemma~\ref{lemma:recursion_hilbert}.
 \begin{proof}[Proof of Lemma~\ref{lemma:recursion_hilbert}]
 \begin{align*}
 &\left(1 + \beta_t \frac{\langle g_t, x \rangle}{\|x\|} \right) F_{t-1}(\norm{x}) - F_t(\norm{x + g_t}) \\
-&\quad \geq \min_{r \in \{-1,1\}} \left(1 + \beta_t r \norm{g_t} \right) F_{t-1}(\norm{x}) - F_t(\norm{x} + r \norm{g_t}) \\
+&\quad = F_{t-1}(\norm{x}) + \beta_t \frac{\langle g_t, x \rangle}{\|x\|} F_{t-1}(\norm{x}) - F_t(\norm{x + g_t}) \\
+&\quad \geq F_{t-1}(\norm{x})+\min_{r \in \{-1,1\}} \beta_t r \norm{g_t} F_{t-1}(\norm{x}) - F_t(\norm{x} + r \norm{g_t}) \\
+&\quad =\min_{r \in \{-1,1\}} \left(1 + \beta_t r \norm{g_t}\right) F_{t-1}(\norm{x}) - F_t(\norm{x} + r \norm{g_t}) \\
 &\quad \geq 0
 \end{align*}
 where the first inequality comes from Lemma~\ref{lemma:extremes}, the second one from the property 3 of a coin-betting potential.
