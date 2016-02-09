@@ -65,15 +65,26 @@ written as
 $$
 w_t = \frac{1}{t} \Wealth_{t-1} \sum_{i=1}^{t-1} g_i \; .
 $$
-The algorithm is stated as Algorithm~\ref{algorithm:kt-hilbert-space-olo}. We
-can derive a regret bound for this algorithm by applying
-Theorem~\ref{theorem:hilbert-space-olo-regret-bound} to the KT potential
-\eqref{equation:kt-estimator-potential}.
+The algorithm is stated as Algorithm~\ref{algorithm:kt-hilbert-space-olo}.
+
+We derive a regret bound for Algorithm~\ref{algorithm:kt-hilbert-space-olo} by
+applying Theorem~\ref{theorem:hilbert-space-olo-regret-bound} to the KT
+potential \eqref{equation:kt-estimator-potential}. The regret bound is stated as
+Corollary~\ref{corollary:kt-hilbert-space-olo-regret} below. Its proof can be
+found in the Appendix. The only technical part of the proof is an upper bound on
+Fenchel conjugate $F_t^*$ since $F_t^*$ cannot be expressed as an elementary
+function.
 
 \begin{corollary}[Regret Bound for Algorithm~\ref{algorithm:kt-hilbert-space-olo}]
-TODO
+\label{corollary:kt-hilbert-space-olo-regret}
+Let $\epsilon > 0$. Let $\{g_t\}_{t=1}^\infty$ be sequence of vectors in a
+Hilbert space $\H$ such that $\norm{g_t} \le 1$.
+Algorithm~\ref{algorithm:kt-hilbert-space-olo} satisfies
+$$
+\forall u \in H \qquad \qquad
+\Regret_T(u) \le \norm{u} \sqrt{T \ln\left(1 + \frac{4T^2 \norm{u}^2}{\epsilon^2} \right)} + \epsilon \left(1 - \frac{1}{2\sqrt{T}} \right) \;.
+$$
 \end{corollary}
-
 
 \subsection{Learning with Expert Advice}
 
@@ -131,23 +142,28 @@ at the final algorithm, which we state as Algorithm~\ref{algorithm:kt-experts}.
 
 We can derive a regret bound for Algorithm~\ref{algorithm:kt-experts} by
 applying Theorem~\ref{theorem:regret-bound-experts} to the shifted KT potential.
-The result is stated as the corollary below. The proof of the corollary is in
-the Appendix. The hardest part of the proof is an upper on $f_t^{-1}(x)$, which
-we conveniently do by lower bounding $F_t(x)$. The reason for using the shifted
-potential comes from the analysis of $f_t^{-1}(x)$. Unshifted algorithm would
-have $O(\sqrt{T (\log T + \KL{u}{\pi}})$ regret bound; shifting improves the
-bound to $O(\sqrt{T (1 + \KL{u}{\pi}})$.
+The result is stated as Corollary~\ref{corollary:kt-experts-regret} below. The
+proof of the corollary is in the Appendix. The hardest part of the proof is an
+upper on $f_t^{-1}(x)$, which we conveniently do by lower bounding $F_t(x)$. The
+reason for using the shifted potential comes from the analysis of $f_t^{-1}(x)$.
+Unshifted algorithm would have $O(\sqrt{T (\log T + \KL{u}{\pi}})$ regret bound;
+shifting improves the bound to $O(\sqrt{T (1 + \KL{u}{\pi}})$.
 
 \begin{corollary}[Regret Bound for Algorithm~\ref{algorithm:kt-experts}]
+\label{corollary:kt-experts-regret}
 Let $N \ge 2$ and $T \ge 0$ be integers. Let $\pi \in \Delta_N$ be a prior.
 For any sequence $\ell_1, \ell_2, \dots, \ell_T \in
 [0,1]^N$ of loss vectors, Algorithm~\ref{algorithm:kt-experts}
 with input $N,T,\pi$ satisfies,
 $$
-\forall u \in \Delta_T \qquad \qquad \Regret_T(u) \le \sqrt{}.
+\forall u \in \Delta_N \qquad \qquad \Regret_T(u) \le \sqrt{3T (4 + \KL{u}{\pi})} \; .
 $$
 \end{corollary}
 
-The requirement of knowing the number of rounds $T$ in advance can be lifted
-by the standard doubling trick~\cite{???}. We obtain an anytime algorithm
-at the expense of slighlty worse regret bound.
+The requirement of knowing the number of rounds $T$ in advance can be lifted by
+the standard doubling trick~\citep[Section 2.3.1]{Shalev-Shwartz12}. We obtain
+an anytime algorithm at the expense of slighlty worse regret bound,
+$$
+\forall T \ge 0 \quad \forall u \in \Delta_N \qquad \qquad
+\Regret_T(u) \le \frac{\sqrt{2}}{\sqrt{2} - 1} \sqrt{3T (4 + \KL{u}{\pi})} \; .
+$$

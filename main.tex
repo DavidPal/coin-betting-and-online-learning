@@ -1,11 +1,8 @@
 % \documentclass[anon]{colt2016} % Anonymized submission
-\documentclass{colt2016} % NON-anonymized submission
+\documentclass{colt2016} % Include author names
 
-\usepackage{amsmath,amssymb}
 \usepackage[nolist]{acronym}
-\usepackage{natbib}
-\usepackage{algorithm}
-\usepackage{algorithmic}
+\usepackage{algorithm,algorithmic}
 \usepackage{times}
 \usepackage{enumerate}
 
@@ -65,11 +62,11 @@ wonder if such a connection is only accidental.
 In this paper, we unify these two families, showing that both can be
 instantiated from online coin betting algorithms. We instantiate our framework
 using a betting algorithm based on the Krichevsky-Trofimov estimator. We obtain
-a simple algorithm for online linear optimization with $\widetilde
-O(\|u\|\sqrt{T \log\|u\|})$ regret with respect to any competitor $u$. For
-learning with expert advice for any prior $\pi$ we obtain an algorithm that has
-$O(\sqrt{T (1 + \KL{u}{\pi})})$ regret against any competitor $u$. In both
-cases, no parameters need to be tuned.
+a simple algorithm for online linear optimization with $O(\|u\|\sqrt{T
+\log(1+T\|u\|}))$ regret with respect to any competitor $u$. For learning with
+expert advice we obtain an algorithm that has $O(\sqrt{T (1 + \KL{u}{\pi})})$
+regret against any competitor $u$ and where $\pi$ is a prior distribution given
+to the algorithm as an input. In both cases, no parameters need to be tuned.
 \end{abstract}
 
 \input{introduction}
