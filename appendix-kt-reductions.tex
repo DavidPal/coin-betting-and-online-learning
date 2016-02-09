@@ -203,6 +203,22 @@ f^*(w) \leq  \norm{w} \sqrt{\alpha \log \left(\frac{\alpha \norm{w}^2}{\beta^2} 
 \end{corollary}
 
 
+\begin{proof}[Proof of Corollary~\ref{corollary:kt-hilbert-space-olo-regret}]
+Define $G_t(x)=\exp\left(\frac{x^2}{2(t+\delta)} +\frac{1}{2} \ln \frac{1+\delta}{t+\delta} -3\right)$ and $g_t(x)=\ln(G_t(x))$.
+Using Lemma~\ref{lemma:lower_bound_gamma}, we have
+\[
+G_t(x) \leq \frac{2^T \cdot \Gamma(\delta+1) \Gamma \left(\frac{T+\delta+1}{2} + \frac{x}{2} \right) \cdot \Gamma \left(\frac{T+\delta+1}{2} - \frac{x}{2} \right)}{ \Gamma(\frac{\delta+1}{2})^2 \Gamma(T+\delta+1)},
+\]
+that implies $F^*_t(x) \leq G_t^*(x)$.
+Using Corollary~\ref{cor:dual_exp_square}, we have
+\[
+\forall u \in \H \qquad \qquad 
+F^*_t\left(\left\| \sum_{t=1}^T g_t \right\|\right) 
+\leq \sqrt{T \log \left(\frac{4 T^2 \norm{u}^2}{\epsilon^2} +1 \right)}+\epsilon\left(1-\frac{1}{2\sqrt{T}}\right).
+\]
+An application of Theorem~\ref{theorem:hilbert-space-olo-regret-bound} completes the proof.
+\end{proof}
+
 \subsection{Proofs of Corollary~\ref{corollary:kt-experts-regret}}
 
 \begin{proof}

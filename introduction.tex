@@ -47,16 +47,16 @@ yet no attempt has been made to unify them.
 
 In this paper, we claim that a more fundamental notion subsumes both \ac{OLO}
 and \ac{OLEA}. This notion is linked to the ability of an algorithm to
-optimally bet on an arbitrary sequence of outcomes from a coin. We show black
+optimally bet on an arbitrary sequence of outcomes from a coin (Section~\ref{section:coin-betting-potentials}). In fact, we show black
 box reductions from the coin betting scenario to \ac{OLO} in Hilbert spaces and
 to \ac{OLEA}, where the guarantee on the wealth accumulated by any coin betting
-algorithm easily translates in regret bounds for the two domains. We prove that
+algorithm easily translates in regret bounds for the two domains (Sections~\ref{section:reduction_hilbert} and~\ref{section:reduction-experts}). We prove that
 coin betting strategies that assure an exponential growth of the wealth for
 biased coins allow to obtain parameter-free regret bounds in \ac{OLO} and in
 \ac{OLEA}. In particular, we show that the known optimal strategy for
 sequential betting, the \ac{KT} bettor~\citep{KrichevskyT81}, can be used in a
 simple a direct way to recover and slightly improve parameter-free algorithms
-for \ac{OLO} and \ac{OLEA}. The obtained algorithm are extremely natural and
+for \ac{OLO} and \ac{OLEA} (Section~\ref{section:kt-estimator}). The obtained algorithm are extremely natural and
 intuitive, the proofs of the regret bounds are immediate given the reductions,
 and they also shed a light on previous ad-hoc and complex constructions.
 
