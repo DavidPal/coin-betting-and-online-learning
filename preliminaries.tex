@@ -1,4 +1,4 @@
-\section{Setting and Notation}
+\section{Preliminaries}
 
 The Kullback-Leibler divergence between two discrete
 distributions $p$ and $q$ is
@@ -109,3 +109,29 @@ $g_t$ to be any real number in the interval $[-1,1]$. In this case we talk about
 \emph{betting on a continuous coin}. The formulas
 \eqref{equation:wealth-recurrence} and \eqref{equation:reward-wealth} defining
 wealth and reward remain exactly the same.
+
+\subsection{Kelly Betting and Krichevsky-Trofimov Estimator}
+
+\citet{Kelly56} proposed a coin betting strategy for the case when the
+coin flips $\{g_t\}_{t=1}^\infty$  are generated i.i.d. with known probability
+of heads. If $p \in (0,1)$ is the probability of heads, Kelly bet is
+$$
+\beta_t = 2p - 1 \; .
+$$
+He showed that this strategy maximizes $\Exp[\ln(\Wealth_t)]$.
+
+For adversarial coins, Kelly betting does not make sense. However, we can
+replace $p$ with an estimate. This problem was studied in information theory by
+\citet{KrichevskyT81}, who proposed that after seeing coin flips $g_1, g_2,
+\dots, g_{t-1}$ we estimate $p$ with $k_t = \frac{1/2 +
+\sum_{i=1}^{t-1} \indicator[g_i = +1]}{t}$. This results in betting strategy
+$$
+\beta_t = 2k_t - 1 = \frac{\sum_{i=1}^{t-1} g_i}{t}
+$$
+which we call \emph{adaptive Kelly betting based on KT estimator}.
+They showed that
+$$
+\forall \beta \in (-1,1) \qquad \qquad \ln(\Wealth_t) \ge \ln(\Wealth_t(\beta)) \ - \ \frac{1}{2} \ln t \ - \ ??? \; ,
+$$
+where $\Wealth_t(\beta)$ is the wealth of a strategy that uses betting fraction
+$\beta$ in every round.
