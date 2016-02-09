@@ -78,6 +78,7 @@ where in the second inequality we used the elementary inequality $\ln(x+1) \leq 
 \end{proof}
 
 \begin{lemma}
+\label{lemma:lower_bound_gamma}
 Let $T,\delta,x \in \R$, $T\geq1$, and $\delta\geq0$. Then
 \begin{align*}
 \frac{2^T \cdot \Gamma(\delta+1) \Gamma \left(\frac{T+\delta+1}{2} + \frac{x}{2} \right) \cdot \Gamma \left(\frac{T+\delta+1}{2} - \frac{x}{2} \right)}{ \Gamma(\frac{\delta+1}{2})^2 \Gamma(T+\delta+1)} 
@@ -97,7 +98,7 @@ where in the first inequality we used Lemma~\ref{lemma:ratio_gamma}, in the seco
 \end{proof}
 
 
-\subsection{}
+\subsection{Proofs of Corollary~\ref{corollary:kt-hilbert-space-olo-regret}}
 Define the Lambert function $W(x):\R\rightarrow\R$ as the one that satisfies
 the equality\footnote{For $x<0$ the Lambert function is multivalued. Hence, to
 avoid complication and because we only need non-negative arguments, we will
@@ -200,3 +201,16 @@ Define $f(\theta)= \beta \exp\frac{\norm{\theta}^2}{2 \alpha}$, for $\alpha,\bet
 f^*(w) \leq  \norm{w} \sqrt{\alpha \log \left(\frac{\alpha \norm{w}^2}{\beta^2} +1 \right)} - \beta.
 \]
 \end{corollary}
+
+
+\subsection{Proofs of Corollary~\ref{corollary:kt-experts-regret}}
+
+\begin{proof}
+Define $G_t(x)=\exp\left(\frac{x^2}{2(t+\delta)} +\frac{1}{2} \ln \frac{1+\delta}{t+\delta} -3\right)$ and $g_t(x)=\ln(G_t(x))$.
+Using Lemma~\ref{lemma:lower_bound_gamma}, we have
+\[
+G_t(x) \leq \frac{2^T \cdot \Gamma(\delta+1) \Gamma \left(\frac{T+\delta+1}{2} + \frac{x}{2} \right) \cdot \Gamma \left(\frac{T+\delta+1}{2} - \frac{x}{2} \right)}{ \Gamma(\frac{\delta+1}{2})^2 \Gamma(T+\delta+1)} \;.
+\]
+From the above, it is immediate to have that $f^{-1}_t(x) \leq g^{-1}_t(x)$.
+Setting $\delta=\frac{T}{2}$ and overapproximating we get the stated bound.
+\end{proof}
