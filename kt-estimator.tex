@@ -35,7 +35,8 @@ endownment $\epsilon$. It also shows that KT estimator, $\beta_t$, as defined by
 \subsection{OLO in Hilbert Space}
 
 \begin{algorithm}[t]
-\caption{Online Linear Learning in Hilbert space $\H$}
+\caption{Algorithm for OLO over Hilbert space $\H$ based on KT potential
+\label{algorithm:kt-hilbert-space-olo}}
 \begin{algorithmic}
 {
 \REQUIRE{Initial endowment $\epsilon > 0$}
@@ -48,7 +49,6 @@ endownment $\epsilon$. It also shows that KT estimator, $\beta_t$, as defined by
 \ENDFOR
 }
 \end{algorithmic}
-\label{algorithm:kt-hilbert-space-olo}
 \end{algorithm}
 
 We apply KT potential for construction of an OLO algorithm in a Hilbert
@@ -57,9 +57,11 @@ in round $t$,
 $$
 w_t = \beta_t \Wealth_{t-1} \frac{\sum_{i=1}^{t-1} g_i}{\norm{\sum_{i=1}^{t-1} g_i}}
 $$
-where $\beta_t$ is defined by \eqref{equation:potential-based-strategy-hilbert-space}.
-According to Theorem~\ref{theorem:kt-potential}, the formula for $\beta_t$ simplifies to
-$\beta_t = \frac{\norm{\sum_{i=1}^{t-1} g_i}}{t}$. Hence the prediction becomes
+where $\beta_t$ is defined by
+\eqref{equation:potential-based-strategy-hilbert-space}. According to
+Theorem~\ref{theorem:kt-potential}, the formula for $\beta_t$ simplifies to
+$\beta_t = \frac{\norm{\sum_{i=1}^{t-1} g_i}}{t}$. Hence, the prediction can be
+written as
 $$
 w_t = \frac{1}{t} \Wealth_{t-1} \sum_{i=1}^{t-1} g_i \; .
 $$
@@ -72,29 +74,80 @@ Theorem~\ref{theorem:hilbert-space-olo-regret-bound} to the KT potential
 TODO
 \end{corollary}
 
+
 \subsection{Learning with Expert Advice}
 
 \begin{algorithm}
 \begin{algorithmic}
+\caption{Algorithm for Learning with Expert Advice based on shifted KT potential
+\label{algorithm:kt-experts}}
 {
-\REQUIRE{Number of experts $N$, and prior distribution $\pi \in \Delta_N$, number of rounds $T$}
-\STATE{\bfseries Initialize:} $w_{1,i} \leftarrow 0$
+\REQUIRE{Number of experts $N$, number of rounds $T$, prior distribution $\pi \in \Delta_N$}
 \FOR{$t=1,2,\dots,T$}
-  \STATE{For each $i \in [N], \hat{p}_{t,i} = \pi_i [w_{t,i}]_+$}
-  \STATE{Predict with $p_t = \hat{p}_t/\norm{\hat{p}}_1$}
-  \STATE{Receive loss vector $\ell_t \in [0,1]^N$}
-  \STATE{For each $i \in [N]$, set $g_{t,i} = \begin{cases}
-    \langle p_t, \ell_t\rangle - \ell_{t,i} & \text{if } w_{t,i} > 0 \\
-    [\langle p_t, \ell_t\rangle - \ell_{t,i}]_+ & \text{if } w_{t,i} \le 0
-    \end{cases} $}
-  \STATE{For each $i \in [N]$, set $w_{t+1,i} = \tfrac{\sum_{j=1}^{t} g_{j,i}}{t+1} \left(1+\sum_{j=1}^{t} w_{j,i} g_{j,i} \right)$}
-  \ENDFOR
-  }
-  \end{algorithmic}
-  \caption{Online Learning with Expert Advice based on \ac{KT}-betting.}
-  \label{algorithm:kt-experts}
+\STATE{For each $i \in [N]$, set $w_{t,i} \leftarrow \tfrac{\sum_{j=1}^{t-1} g_{j,i}}{t+T} \left(1 + \sum_{j=1}^{t-1} g_{j,i} w_{j,i} \right)$}
+\STATE{For each $i \in [N]$, set $\widehat{p}_{t,i} \leftarrow \pi_i [w_{t,i}]_+$}
+\STATE{Set $p_t \leftarrow
+\begin{cases}
+\hat{p}_t/\norm{\widehat{p}}_1 & \text{if $\norm{\widehat p}_1 > 0$} \\
+\frac{1}{N}(1,1,\dots,1) & \text{if $\norm{\widehat p}_1 = 0$}
+\end{cases}$}
+\STATE{Predict $p_t$}
+\STATE{Receive loss vector $\ell_t \in [0,1]^N$}
+\STATE{For each $i \in [N]$, set $g_{t,i} \leftarrow \begin{cases}
+\langle \ell_t, p_t \rangle - \ell_{t,i} & \text{if $w_{t,i} > 0$} \\
+[\langle \ell_t, p_t \rangle - \ell_{t,i}]_+ & \text{if $w_{t,i} \le 0$}
+\end{cases}$}
+\ENDFOR
+}
+\end{algorithmic}
 \end{algorithm}
 
-TODO: Fix the algorithm
+We will construct an algorithm for Learning with Expert Advice based on
+\emph{shifted KT potential}. The shifted potential and the resulting algorithm
+requires to know the number of round $T$ in advance. The shifted potential is
+defined as
+$$
+F_t(x) = \frac{2^t \cdot \Gamma(T + 1) \Gamma(\frac{t+T+1}{2} + \frac{x}{2}) \Gamma(\frac{t+T+1}{2} - \frac{x}{2})}{\Gamma(\frac{T+1}{2})^2 \cdot \Gamma(t+T+1)} \; .
+$$
+The reason for its name is that, up to a multiplicative constant, $F_t$ is equal
+to the KT potential shifted in time by $T$, i.e., $t$ is replaced by $T+t$.
+According to Theorem~\ref{theorem:kt-potential}, the shifted KT potentials form
+a sequence of coin-betting potentials for initial endowment $1$. Futhermore, the
+corresponding betting fraction is
+$$
+\beta_t = \frac{\sum_{j=1}^{t-1} g_j}{T+t} \; .
+$$
+Recall that for construction of the final algorithm, we need, as an intermediate
+step, an OLO algorithm for one-dimensional Hilbert space $\R$. This algorithm
+predicts for any sequence $\{g_t\}_{t=1}^\infty$ of reward vectors.
+$$
+w_t
+= \beta_t \Wealth_{t-1}
+= \beta_t \left(1 + \sum_{j=1}^{t-1} g_j w_j \right)
+= \frac{\sum_{i=1}^{t-1} g_i}{T+t} \left(1 + \sum_{j=1}^{t-1} g_j w_j \right) \; .
+$$
+Following the construction in Section~\ref{section:reduction-experts}, we arrive
+at the final algorithm, which we state as Algorithm~\ref{algorithm:kt-experts}.
 
-BLAH BLAH
+We can derive a regret bound for Algorithm~\ref{algorithm:kt-experts} by
+applying Theorem~\ref{theorem:regret-bound-experts} to the shifted KT potential.
+The result is stated as the corollary below. The proof of the corollary is in
+the Appendix. The hardest part of the proof is an upper on $f_t^{-1}(x)$, which
+we conveniently do by lower bounding $F_t(x)$. The reason for using the shifted
+potential comes from the analysis of $f_t^{-1}(x)$. Unshifted algorithm would
+have $O(\sqrt{T (\log T + \KL{u}{\pi}})$ regret bound; shifting improves the
+bound to $O(\sqrt{T (1 + \KL{u}{\pi}})$.
+
+\begin{corollary}[Regret Bound for Algorithm~\ref{algorithm:kt-experts}]
+Let $N \ge 2$ and $T \ge 0$ be integers. Let $\pi \in \Delta_N$ be a prior.
+For any sequence $\ell_1, \ell_2, \dots, \ell_T \in
+[0,1]^N$ of loss vectors, Algorithm~\ref{algorithm:kt-experts}
+with input $N,T,\pi$ satisfies,
+$$
+\forall u \in \Delta_T \qquad \qquad \Regret_T(u) \le \sqrt{}.
+$$
+\end{corollary}
+
+The requirement of knowing the number of rounds $T$ in advance can be lifted
+by the standard doubling trick~\cite{???}. We obtain an anytime algorithm
+at the expense of slighlty worse regret bound.

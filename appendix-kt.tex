@@ -2,12 +2,12 @@
 
 \begin{theorem}[KT potential]
 \label{theorem:kt-potential}
-Let $\delta \ge 0$. The sequence of functions $\{F_t\}_{t=0}^\infty$, $F_t:(-t-\delta-1, t+\delta+1) \to \R_+$
-defined by
+Let $\delta \ge 0$ and $\epsilon > 0$. The sequence of functions
+$\{F_t\}_{t=0}^\infty$, $F_t:(-t-\delta-1, t+\delta+1) \to \R_+$ defined by
 $$
-F_t(x) = \frac{2^t \Gamma(\delta + 1) \Gamma(\frac{t+\delta+1}{2} + \frac{x}{2}) \Gamma(\frac{t+\delta+1}{2} - \frac{x}{2})}{\Gamma(\frac{\delta+1}{2})^2 \Gamma(T+\delta+1)} \; .
+F_t(x) = \epsilon \frac{2^t \Gamma(\delta + 1) \Gamma(\frac{t+\delta+1}{2} + \frac{x}{2}) \Gamma(\frac{t+\delta+1}{2} - \frac{x}{2})}{\Gamma(\frac{\delta+1}{2})^2 \Gamma(t+\delta+1)} \; .
 $$
-is a sequence of excellent coin-betting potentials.
+is a sequence of excellent coin-betting potentials for initial endowment $\epsilon$.
 Futhermore, for any $x \in (-t-\delta-1, t+\delta+1)$,
 $$
 \frac{F_t(x+1) - F_{t}(x-1)}{F_t(x+1) + F_{t}(x-1)} = \frac{x}{t+\delta} \; .

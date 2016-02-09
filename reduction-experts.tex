@@ -56,6 +56,7 @@ the inverse of $f_t$. Note that $f_t$ is strictly increasing and concave and its
 domain contains $[0, \infty)$.
 
 \begin{theorem}[Regret Bound for Experts]
+\label{theorem:regret-bound-experts}
 Let $\{F_t\}_{t=0}^\infty$ be a sequence of coin-betting potentials for initial
 endowment $1$. Let $f_t^{-1}$ be in the inverse of $f_t(x) = \ln(F_t(x))$.
 Let $A$ be an OLO algorithm for one-dimensional Hilbert space
@@ -88,8 +89,9 @@ Hence,
 \label{equation:bounded-potential}
 \sum_{i=1}^N  \pi_i F_t \left(\sum_{t=1}^T g_{t,i} \right) \le 1 + \sum_{i=1}^N \pi_i \sum_{t=1}^T  g_{t,i} w_{t,i} \le 1 \; .
 \end{equation}
-where the first inequality follows from the assumption \eqref{equation:experts-one-dimensional-assumption}.
-Now, let $G_{t,i} = \sum_{t=1}^T g_{t,i}$. For any competitor $u \in \Delta_N$,
+where the first inequality follows from the assumption
+\eqref{equation:experts-one-dimensional-assumption}. Now, let $G_{t,i} =
+\sum_{t=1}^T g_{t,i}$. For any competitor $u \in \Delta_N$,
 \begingroup
 \allowdisplaybreaks
 \begin{align*}
