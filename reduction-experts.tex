@@ -97,11 +97,11 @@ where the first inequality follows from the assumption
 \begin{align*}
 \allowdisplaybreaks
 \Regret_T(u)
-& = \sum_{t=1}^T \langle \ell_t, p_t - u \rangle \\
-& = \sum_{t=1}^T \sum_{i=1}^N u_i \left( \langle \ell_t, p_t \rangle - \ell_{t,i} \right) \\
+& = \sum_{t=1}^T \langle \ell_t, p_t - u \rangle 
+= \sum_{t=1}^T \sum_{i=1}^N u_i \left( \langle \ell_t, p_t \rangle - \ell_{t,i} \right) \\
 & \le \sum_{t=1}^T \sum_{i=1}^N u_i g_{t,i} & \text{(by definition of $g_{t,i}$)} \\
-& = \sum_{i=1}^N u_i G_{T,i} \\
-& = \sum_{i=1}^N u_i f_T^{-1}\left[\ln \exp\left(f_T(G_{T,i})\right)\right] \\
+& = \sum_{i=1}^N u_i G_{T,i} 
+ = \sum_{i=1}^N u_i f_T^{-1}\left[\ln \exp\left(f_T(G_{T,i})\right)\right] \\
 & \le f_T^{-1}\left(\sum_{i=1}^N u_i \left[\ln \exp\left(f_T(G_{T,i})\right)\right]\right) & \text{(by concavity of $f_T$)} \\
 & = f_T^{-1}\left(\sum_{i=1}^N u_i \left[\ln \frac{\pi_i}{u_i}\exp\left(f_T(G_{T,i})\right)+ \ln\frac{u_i}{\pi_i}\right]\right) \\
 & = f_T^{-1}\left(\sum_{i=1}^N u_i \left[\ln \frac{\pi_i}{u_i}\exp\left(f_T(G_{T,i})\right)\right] + \KL{u}{\pi}\right) \\

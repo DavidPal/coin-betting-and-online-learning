@@ -42,12 +42,12 @@ endowment $\epsilon$. It also shows that KT estimator $\beta_t$, as defined by
 \begin{algorithmic}
 {
 \REQUIRE{Initial endowment $\epsilon > 0$}
-\STATE{Initialize $\Wealth_0 \leftarrow \epsilon$}
+%\STATE{Initialize $\Wealth_0 \leftarrow \epsilon$}
 \FOR{$t=1,2,\dots$}
-\STATE{Set $w_t \leftarrow \frac{1}{t} \Wealth_{t-1} \sum_{i=1}^{t-1} g_i$}
+\STATE{Set $w_t \leftarrow \frac{\sum_{i=1}^{t-1} g_i}{t} \left(\epsilon + \sum_{i=1}^{t-1} \langle g_t, w_t \rangle \right)$}
 \STATE{Predict $w_t$}
-\STATE{Receive reward vector $g_t \in \H$ such that $\|g_t\| \le 1$}
-\STATE{Update $\Wealth_t \leftarrow \Wealth_{t-1} \ + \ \langle g_t, w_t \rangle$}
+\STATE{Receive vector $g_t \in \H$ such that $\|g_t\| \le 1$}
+%\STATE{Update $\Wealth_t \leftarrow \Wealth_{t-1} \ + \ \langle g_t, w_t \rangle$}
 \ENDFOR
 }
 \end{algorithmic}
@@ -65,7 +65,8 @@ Theorem~\ref{theorem:kt-potential}, the formula for $\beta_t$ simplifies to
 $\beta_t = \frac{\norm{\sum_{i=1}^{t-1} g_i}}{t}$. Hence, the prediction can be
 written as
 $$
-w_t = \frac{1}{t} \Wealth_{t-1} \sum_{i=1}^{t-1} g_i \; .
+w_t = \frac{1}{t} \Wealth_{t-1} \sum_{i=1}^{t-1} g_i 
+= \frac{\sum_{i=1}^{t-1} g_i}{t} \left(\epsilon + \sum_{i=1}^{t-1} \langle g_t, w_t \rangle \right)\; .
 $$
 The algorithm is stated as Algorithm~\ref{algorithm:kt-hilbert-space-olo}.
 
@@ -90,7 +91,34 @@ $$
 
 \subsection{Learning with Expert Advice}
 
-\begin{algorithm}
+We will construct an algorithm for Learning with Expert Advice based on
+\emph{shifted KT potential}. The shifted potential and the resulting algorithm
+requires to know the number of round $T$ in advance. The shifted potential is
+defined as
+$$
+F_t(x) = \frac{2^t \cdot \Gamma(T/2 + 1) \Gamma(\frac{t+T/2+1}{2} + \frac{x}{2}) \Gamma(\frac{t+T/2+1}{2} - \frac{x}{2})}{\Gamma(\frac{T/2+1}{2})^2 \cdot \Gamma(t+T/2+1)} \; .
+$$
+The reason for its name is that, up to a multiplicative constant, $F_t$ is equal
+to the KT potential shifted in time by $T$, i.e., $t$ is replaced by $T/2+t$.
+According to Theorem~\ref{theorem:kt-potential}, the shifted KT potentials form
+a sequence of coin-betting potentials for initial endowment $1$. Futhermore, the
+corresponding betting fraction is
+$$
+\beta_t = \frac{\sum_{j=1}^{t-1} g_j}{T/2+t} \; .
+$$
+Recall that for construction of the final algorithm, we need, as an intermediate
+step, an OLO algorithm for one-dimensional Hilbert space $\R$. This algorithm
+predicts for any sequence $\{g_t\}_{t=1}^\infty$ of reward vectors.
+$$
+w_t
+= \beta_t \Wealth_{t-1}
+= \beta_t \left(1 + \sum_{j=1}^{t-1} g_j w_j \right)
+= \frac{\sum_{i=1}^{t-1} g_i}{T/2+t} \left(1 + \sum_{j=1}^{t-1} g_j w_j \right) \; .
+$$
+Following the construction in Section~\ref{section:reduction-experts}, we arrive
+at the final algorithm, Algorithm~\ref{algorithm:kt-experts}.
+
+\begin{algorithm}[t]
 \begin{algorithmic}
 \caption{Algorithm for Learning with Expert Advice based on shifted KT potential
 \label{algorithm:kt-experts}}
@@ -115,32 +143,6 @@ $$
 \end{algorithmic}
 \end{algorithm}
 
-We will construct an algorithm for Learning with Expert Advice based on
-\emph{shifted KT potential}. The shifted potential and the resulting algorithm
-requires to know the number of round $T$ in advance. The shifted potential is
-defined as
-$$
-F_t(x) = \frac{2^t \cdot \Gamma(T + 1) \Gamma(\frac{t+T+1}{2} + \frac{x}{2}) \Gamma(\frac{t+T+1}{2} - \frac{x}{2})}{\Gamma(\frac{T+1}{2})^2 \cdot \Gamma(t+T+1)} \; .
-$$
-The reason for its name is that, up to a multiplicative constant, $F_t$ is equal
-to the KT potential shifted in time by $T$, i.e., $t$ is replaced by $T+t$.
-According to Theorem~\ref{theorem:kt-potential}, the shifted KT potentials form
-a sequence of coin-betting potentials for initial endowment $1$. Futhermore, the
-corresponding betting fraction is
-$$
-\beta_t = \frac{\sum_{j=1}^{t-1} g_j}{T+t} \; .
-$$
-Recall that for construction of the final algorithm, we need, as an intermediate
-step, an OLO algorithm for one-dimensional Hilbert space $\R$. This algorithm
-predicts for any sequence $\{g_t\}_{t=1}^\infty$ of reward vectors.
-$$
-w_t
-= \beta_t \Wealth_{t-1}
-= \beta_t \left(1 + \sum_{j=1}^{t-1} g_j w_j \right)
-= \frac{\sum_{i=1}^{t-1} g_i}{T+t} \left(1 + \sum_{j=1}^{t-1} g_j w_j \right) \; .
-$$
-Following the construction in Section~\ref{section:reduction-experts}, we arrive
-at the final algorithm, which we state as Algorithm~\ref{algorithm:kt-experts}.
 
 We can derive a regret bound for Algorithm~\ref{algorithm:kt-experts} by
 applying Theorem~\ref{theorem:regret-bound-experts} to the shifted KT potential.
@@ -162,6 +164,7 @@ $$
 \forall u \in \Delta_N \qquad \qquad \Regret_T(u) \le \sqrt{3T (4 + \KL{u}{\pi})} \; .
 $$
 \end{corollary}
+Changing $T/2$ in Algorithm~\ref{algorithm:kt-experts} to another fraction of $T$ is possible to trade-off the leading constant $3$ for the constant $4$ present in the square root.
 
 The requirement of knowing the number of rounds $T$ in advance can be lifted by
 the standard doubling trick~\citep[Section 2.3.1]{Shalev-Shwartz12}. We obtain

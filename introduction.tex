@@ -10,17 +10,17 @@ cumulative losses of the algorithm and of the (hypothetical) strategy that
 would choose in every round the same best point, $u$, in hindsight. Typically,
 one tries to prove that the regret grows at most sub-linearly in time. Most of
 the \ac{OLO} algorithms are based on the nowadays standard tools of strong
-convexity/strong smoothness duality, see for example~\citet{OrabonaCCB15}.
+convexity/strong smoothness duality, see for example~\citet{Shalev-Shwartz12}.
 
 \ac{OLO} is a basic building block in many other related problems. For example,
 \ac{OCO}, the analogous problem where $\langle \ell_t, w_t \rangle$ is
 generalized to $\ell_t(w_t)$ where $\ell_t$ are arbitrary convex functions, is
 solved through a reduction to an \ac{OLO}
 problem~\citep{Cesa-BianchiL06,Shalev-Shwartz12}.
-\ac{OLEA}~\citep{LittlestoneW94,Vovk98,Cesa-BianchiFHHSW97} is an \ac{OLO}
+\ac{LEA}~\citep{LittlestoneW94,Vovk98,Cesa-BianchiFHHSW97} is an \ac{OLO}
 problem in which the loss vectors belong to $[0,1]^N$ and $w_t$ is constrained
 to be in the simplex. Also, batch and stochastic optimization of convex
-functions can also be solved through a reduction to \ac{OLO}. Statistical
+functions can also be solved through a reduction to \ac{OLO}~\citep{Shalev-Shwartz12}. Statistical
 learning with convex losses can also seen as stochastic optimization of convex
 functions and so solved through \ac{OCO}~\citep{Munro1951}. Hence, a sublinear
 regret in \ac{OLO} becomes a convergence guarantee or a generalization bound.
@@ -29,15 +29,15 @@ However, as essential as it is to achieve sublinear regret, this is only half
 of the problem in online learning. In fact, we are often interested in the
 adaptation to the (often unknown) characteristics of the data. Most of the
 time, online and batch learning algorithms fail on this side, requiring to set
-hyperparameters, e.g. learning rates, step sizes, regularization weights, to
-oracle choices in order to achieve the best possible theoretical performance.
+hyperparameters, e.g., learning rates, step sizes, and regularization weights, to
+oracle choices in order to achieve the best possible theoretical and empirical performance.
 Recently, a new family of algorithms that adapts to the data has been proposed,
 both in the
 \ac{OLO}/\ac{OCO}~\citep{StreeterM12,Orabona13,McMahanA13,McMahanO14,Orabona14}
-and in the \ac{OLEA}
+and in the \ac{LEA}
 domains~\citep{ChaudhuriYH09,ChernovV10,LuoE14,LuoS15,KoolenE15}. These
 algorithms adapt to the norm of the optimal predictor and to the number of
-experts, respectively. Given the connections between \ac{OLO}/\ac{OLEA} and
+experts, respectively. Given the connections between \ac{OLO}/\ac{LEA} and
 machine learning, these algorithms allow to design parameter-free batch machine
 learning algorithms through straightforward
 reductions~\citep{Orabona14,LuoS15}. Both family of algorithms seem to require
@@ -46,17 +46,17 @@ Surprisingly enough, these two families of algorithms are also very similar,
 yet no attempt has been made to unify them.
 
 In this paper, we claim that a more fundamental notion subsumes both \ac{OLO}
-and \ac{OLEA}. This notion is linked to the ability of an algorithm to
+and \ac{LEA}. This notion is linked to the ability of an algorithm to
 optimally bet on an arbitrary sequence of outcomes from a coin (Section~\ref{section:coin-betting-potentials}). In fact, we show black
 box reductions from the coin betting scenario to \ac{OLO} in Hilbert spaces and
-to \ac{OLEA}, where the guarantee on the wealth accumulated by any coin betting
+to \ac{LEA}, where the guarantee on the wealth accumulated by any coin betting
 algorithm easily translates in regret bounds for the two domains (Sections~\ref{section:reduction_hilbert} and~\ref{section:reduction-experts}). We prove that
 coin betting strategies that assure an exponential growth of the wealth for
 biased coins allow to obtain parameter-free regret bounds in \ac{OLO} and in
-\ac{OLEA}. In particular, we show that the known optimal strategy for
+\ac{LEA}. In particular, we show that the known optimal strategy for
 sequential betting, the \ac{KT} bettor~\citep{KrichevskyT81}, can be used in a
 simple a direct way to recover and slightly improve parameter-free algorithms
-for \ac{OLO} and \ac{OLEA} (Section~\ref{section:kt-estimator}). The obtained algorithm are extremely natural and
+for \ac{OLO} and \ac{LEA} (Section~\ref{section:kt-estimator}). The obtained algorithm are extremely natural and
 intuitive, the proofs of the regret bounds are immediate given the reductions,
 and they also shed a light on previous ad-hoc and complex constructions.
 
