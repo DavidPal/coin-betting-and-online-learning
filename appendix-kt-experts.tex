@@ -1,4 +1,94 @@
 \section{Proof of Corollary~\ref{corollary:kt-experts-regret}}
 \label{section:kt-experts-proof}
 
-TODO
+We first prove a lower bound on the potential function of the \ac{KT} estimator. This is a generalization to real numbers of the lower bound proved for integers in \citet{WillemsST95}.
+\begin{lemma}
+\label{lemma:approx_gamma_real}
+If $c\geq1$ and $a,b$ are non-negative reals such that $a +
+b = c$ then
+$$
+\ln \frac{\Gamma(a + 1/2) \cdot \Gamma(b + 1/2)}{\pi \cdot \Gamma(c+1)} 
+\geq - \ln(e \pi \sqrt{2}) -\frac{1}{2} \ln(c) +\ln \left(\left( \frac{a}{c} \right)^a \left( \frac{b}{c} \right)^b\right) \; .
+$$
+\end{lemma}
+%
+\begin{proof}
+Using \cite{WhittakerW27}[p. 263 Ex. 45], implies that
+\[
+\frac{\Gamma(a+1/2)\Gamma(b+1/2)}{\Gamma(a+b+1)} > \sqrt{2\pi} \frac{(a+1/2)^a (b+1/2)^b}{(a+b+1)^{a+b+1/2}} \ \forall a,b>0~.
+\]
+It remains to show that
+$$
+\sqrt{2\pi} \frac{(a+1/2)^a (b+1/2)^b}{(a+b+1)^{a+b+1/2}} > \frac{\sqrt{\pi}}{e} \frac{1}{\sqrt{a+b}} \left( \frac{a}{a+b} \right)^a \left( \frac{b}{a+b} \right)^b \; ,
+$$
+which is equavivalent to
+$$
+\frac{(1+\frac{1}{2a})^a (1+\frac{1}{2b})^b}{(1+\frac{1}{a+b})^{a+b+1/2}} > \frac{1}{e\sqrt{2}} \; .
+$$
+From the inequality $1 \le (1+1/x)^x < e$ valid for any $x \ge 0$, it follows
+that $1 \le (1+\frac{1}{2a})^a < \sqrt{e}$ and $1 \le (1+\frac{1}{2b})^b < \sqrt{e}$
+and $1 \le (1+1/(a+b))^{a+b} < e$. Hence,
+$$
+\frac{(1+\frac{1}{2a})^a (1+\frac{1}{2b})^b}{(1+\frac{1}{a+b})^{a+b+1/2}}
+> \frac{1}{e \sqrt{1 + \frac{1}{a+b}}}
+\ge \frac{1}{e \sqrt{2}} \; .
+$$
+\end{proof}
+
+
+\begin{lemma}
+\label{lemma:ratio_gamma}
+Let $\delta \geq 0$. Then
+\[
+\frac{\Gamma(\delta+1)}{2^\delta \Gamma(\frac{\delta+1}{2})^2} 
+\geq \frac{\sqrt{\delta+1}}{\pi}~.
+\]
+\end{lemma}
+%
+\begin{proof}
+We will prove the equivalent statement that
+\[
+\ln \frac{\Gamma(\delta+1) \pi}{2^\delta \Gamma(\frac{\delta+1}{2})^2 \sqrt{\delta+1}} \geq 0~.
+\]
+The inequality is verified with equality in $\delta=0$, so it is enough to prove that the derivative of the rhs is positive for $\delta>0$.
+
+The derivative is equal to
+\[
+\Psi(\delta+1) - \frac{1}{2(\delta+1)} -\ln(2) -\Psi(\frac{\delta+1}{2}),
+\]
+where $\Psi(x)$ is the digamma function.
+
+We will use the following upper~\citep{Chen05} and lower bound~\citep{Batir08} to the digamma function, for any $x>0$
+\begin{align*}
+\Psi(x) &< \ln(x) -\frac{1}{2x} -\frac{1}{12 x^2}\\
+\Psi(x+1) &> \ln(x+\frac{1}{2})~.
+\end{align*}
+Hence we obtain
+\begin{align*}
+\Psi(\delta+1) - \frac{1}{2(\delta+1)} -\ln(2) -\Psi(\frac{\delta+1}{2})
+&\geq \ln(\delta+\frac{1}{2})- \frac{1}{2(\delta+1)} -\ln(2) -\ln\frac{\delta+1}{2} +\frac{1}{\delta+1} +\frac{1}{3 (\delta+1)^2} \\
+&= \ln(1+\frac{\delta}{\delta+1})+ \frac{1}{2(\delta+1)} -\ln(2)+\frac{1}{3 (\delta+1)^2} \\
+&\geq \frac{\delta}{\delta+1} - (1-\ln(2))\frac{\delta^2}{(\delta+1)^2}+ \frac{1}{2(\delta+1)} -\ln(2)+\frac{1}{3 (\delta+1)^2}\\
+&= \frac{\delta^2 \ln(2)+\frac{3}{2}\delta +\frac{5}{6}}{(\delta+1)^2} - \ln(2)\\
+&= \frac{(\frac{3}{2}-\ln(4)) \delta +\frac{5}{6}-\ln(2)}{(\delta+1)^2} >0,
+\end{align*}
+where in the second inequality we used the elementary inequality $\ln(x+1) \leq x - (1-\ln(2))x^2, \ \forall 0\leq x \leq 1$.
+\end{proof}
+
+\begin{lemma}
+\begin{align*}
+\epsilon \frac{2^T \cdot \Gamma(\delta+1) \Gamma \left(\frac{T+\delta+1}{2} + \frac{x}{2} \right) \cdot \Gamma \left(\frac{T+\delta+1}{2} - \frac{x}{2} \right)}{ \Gamma(\frac{\delta+1}{2})^2 \Gamma(T+\delta+1)} 
+&\geq \epsilon \exp\left(\frac{x^2}{2(T+\delta)} +\frac{1}{2} \ln \frac{1+\delta}{T+\delta} -3\right) \;.
+\end{align*}
+\end{lemma}
+\begin{proof}
+Using Lemma~\ref{lemma:approx_gamma_real}, we have
+\begin{align*}
+&\ln \frac{2^T \cdot \Gamma(\delta+1) \Gamma \left(\frac{T+\delta+1}{2} + \frac{x}{2} \right) \cdot \Gamma \left(\frac{T+\delta+1}{2} - \frac{x}{2} \right)}{ \Gamma(\frac{\delta+1}{2})^2 \Gamma(T+\delta+1)} \\
+&\quad \geq \ln \frac{2^{T+\delta} \sqrt{\delta+1} \cdot \Gamma \left(\frac{T+\delta+1}{2} + \frac{x}{2} \right) \cdot \Gamma \left(\frac{T+\delta+1}{2} - \frac{x}{2} \right)}{ \pi \Gamma(T+\delta+1)} \\
+&\quad \geq -\ln(e \pi \sqrt{2}) +\frac{1}{2} \ln\left(\frac{1+\delta}{T+\delta}\right) +\ln \left(\left( 1+\frac{x}{T+\delta} \right)^\frac{T+\delta+x}{2} \left( 1+\frac{x}{T+\delta} \right)^\frac{T+\delta-x}{2}\right) \\
+&\quad = -\ln(e \pi \sqrt{2}) +\frac{1}{2} \ln\left(\frac{1+\delta}{T+\delta}\right)+ (T+\delta) \, \KL{\frac{1}{2}+\frac{x}{2(T+\delta)}}{\frac{1}{2}} \\
+&\quad \geq -\ln(e \pi \sqrt{2}) +\frac{1}{2} \ln\left(\frac{1+\delta}{T+\delta}\right)+ \frac{x^2}{2(T+\delta)} ,
+\end{align*}
+where in the first inequality we used Lemma~\ref{lemma:ratio_gamma}, in the second one Lemma~\ref{lemma:approx_gamma_real}, and in third one the known lower bound to the divergence $\KL{\frac{1}{2}+\frac{x}{2}}{\frac{1}{2}} \geq \frac{x^2}{2}$. Exponentiating and overapproximating, we get the stated bound.
+\end{proof}
