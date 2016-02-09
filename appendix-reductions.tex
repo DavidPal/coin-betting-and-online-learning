@@ -1,34 +1,5 @@
-\section{Appendix}
-
-\subsection{Optimal Betting Fraction}
-\begin{theorem}
-\label{theo:opt_beta}
-Assume that the function $\phi(z)=F_t(x+z)$, is piece-wise logarithmically convex in $[-\infty,0)$ and $(0,\infty]$. Then, for any $z\in \R$, we have
-\[
-\argmin_{\beta} \max_{|g_t|\leq 1} \ \frac{F_t(x+g_t)}{1 + \beta g_t} =\frac{F_t(x+1) - F_t(x-1)}{F_t(x+1) + F_t(x-1)}~.
-\]
-\end{theorem}
-\begin{proof}
-First consider the case that $g_t=0$. In this case, $\frac{F_t(x+g_t)}{1 + \beta g_t}=F_t(x)$, independently of $\beta$. Hence, in the following we can exclude the case $g_t=0$.
-
-Minimizing $\frac{\phi(z)}{1+\beta z}$ is equivalent to minimize the function $g(z,\beta)$ defined as
-\[
-g(z,\beta) := \ln \phi(z) - \log(1+\beta z)~.
-\]
-We have that $g(z,\beta)$ is piece-wise convex on $[-\infty,0)$ and $(0,\infty]$, w.r.t. the first argument.
-Hence, the maximum of $g(z,\beta)$ is attained in $z=-1$ or $z=1$, given that the case $z=0$ is escluded by assumption.
-Hence, we want to choose $\beta$ as
-\[
-\argmin_{\beta} \max_{z \in \{-1, 1\}} \ g(z,\beta),
-\]
-in other words we want to set $\beta$ such that $g(1)=g(-1)$, that is
-\[
-\beta^* = \frac{\exp\left(\ln \phi(1) - \ln \phi(-1)\right)-1}{\exp\left(\ln \phi(1) - \ln \phi(-1)\right)+1} 
-= \frac{\phi(1) - \phi(-1)}{\phi(1) + \phi(-1)}~.
-\]
-\end{proof}
-
-\subsection{Proof of Lemma~\ref{lemma:recursion_hilbert}}
+\section{Proof of Lemma~\ref{lemma:recursion_hilbert}}
+\label{section:hilbert-space-reduction}
 
 First we state the following Lemma from~\cite{McMahanO14} and reported here with our notation for completeness.
 \begin{lemma}[Extremes]
@@ -101,4 +72,3 @@ We can now prove Lemma~\ref{lemma:recursion_hilbert}.
 \end{align*}
 where the first inequality comes from Lemma~\ref{lemma:extremes}, the second one from the property 3 of a coin-betting potential.
 \end{proof}
-

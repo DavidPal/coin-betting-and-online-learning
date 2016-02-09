@@ -1,4 +1,4 @@
-\section{KT Estimator and Its Applications}
+\section{Krichevsky-Trofimov Estimator and Its Applications}
 \label{section:kt-estimator}
 
 In this section we show that the potentials associated with Krichevsky-Trofimov
@@ -19,16 +19,18 @@ of the probability of the next bit $b_i$ being $1$. Equation
 \eqref{equation:kt-estimator} follows via linear transformation $g_t = 2b_t - 1$
 and hence $\beta_t = 2k_t - 1$.
 
-The coin-betting potential corresponding to KT estimator $\beta_t$ is
+The potential corresponding to KT estimator $\beta_t$ is
 \begin{equation}
 \label{equation:kt-estimator-potential}
 F_t(x) = \epsilon \frac{2^t \Gamma(\frac{t+1}{2} + \frac{x}{2}) \Gamma(\frac{t+1}{2} - \frac{x}{2})}{\pi \cdot t!} \; ,
 \end{equation}
 where $\Gamma(x) = ￼\int_0^\infty t^{-x} e^{-t} dt$ is Euler's gamma function.
+The potential was introduced by~\citet{KrichevskyT81} who used it for proving
+regret bound for online prediction with log-loss; see also \cite[Section 9.7]{Cesa-BianchiL06}.
 The potential is defined on the interval $I_t = (-\frac{t+1}{2},
 \frac{t+1}{2})$. Theorem~\ref{theorem:kt-potential} stated in the Appendix shows
 that $\{F_t\}_{t=0}^\infty$ is a sequence of coin-betting potentials for initial
-endownment $\epsilon$. It also shows that KT estimator, $\beta_t$, as defined by
+endownment $\epsilon$. It also shows that KT estimator $\beta_t$, as defined by
 \eqref{equation:kt-estimator}, is a potential-based strategy, i.e., it satisfies
 \eqref{equation:potential-based-strategy}.
 
@@ -143,7 +145,7 @@ at the final algorithm, which we state as Algorithm~\ref{algorithm:kt-experts}.
 We can derive a regret bound for Algorithm~\ref{algorithm:kt-experts} by
 applying Theorem~\ref{theorem:regret-bound-experts} to the shifted KT potential.
 The result is stated as Corollary~\ref{corollary:kt-experts-regret} below. The
-proof of the corollary is in the Appendix. The hardest part of the proof is an
+proof of the corollary is in the Appendix~\ref{section:}. The hardest part of the proof is an
 upper on $f_t^{-1}(x)$, which we conveniently do by lower bounding $F_t(x)$. The
 reason for using the shifted potential comes from the analysis of $f_t^{-1}(x)$.
 Unshifted algorithm would have $O(\sqrt{T (\log T + \KL{u}{\pi}})$ regret bound;
