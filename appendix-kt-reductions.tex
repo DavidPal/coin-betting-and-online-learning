@@ -1,0 +1,202 @@
+\section{Proofs of Corollaries~\ref{corollary:kt-hilbert-space-olo-regret} and~\ref{corollary:kt-experts-regret}}
+\label{section:corollaries_reductions}
+
+First we state some technical lemmas that will be used in the following proofs.
+
+We first prove a lower bound on the potential function of the \ac{KT} estimator. This is a generalization to real numbers of the lower bound proved for integers in \citet{WillemsST95}.
+\begin{lemma}
+\label{lemma:approx_gamma_real}
+If $c\geq1$ and $a,b$ are non-negative reals such that $a +
+b = c$ then
+$$
+\ln \frac{\Gamma(a + 1/2) \cdot \Gamma(b + 1/2)}{\pi \cdot \Gamma(c+1)} 
+\geq - \ln(e \pi \sqrt{2}) -\frac{1}{2} \ln(c) +\ln \left(\left( \frac{a}{c} \right)^a \left( \frac{b}{c} \right)^b\right) \; .
+$$
+\end{lemma}
+%
+\begin{proof}
+Using \cite{WhittakerW27}[p. 263 Ex. 45], implies that
+\[
+\frac{\Gamma(a+1/2)\Gamma(b+1/2)}{\Gamma(a+b+1)} > \sqrt{2\pi} \frac{(a+1/2)^a (b+1/2)^b}{(a+b+1)^{a+b+1/2}} \ \forall a,b>0~.
+\]
+It remains to show that
+$$
+\sqrt{2\pi} \frac{(a+1/2)^a (b+1/2)^b}{(a+b+1)^{a+b+1/2}} > \frac{\sqrt{\pi}}{e} \frac{1}{\sqrt{a+b}} \left( \frac{a}{a+b} \right)^a \left( \frac{b}{a+b} \right)^b \; ,
+$$
+which is equavivalent to
+$$
+\frac{(1+\frac{1}{2a})^a (1+\frac{1}{2b})^b}{(1+\frac{1}{a+b})^{a+b+1/2}} > \frac{1}{e\sqrt{2}} \; .
+$$
+From the inequality $1 \le (1+1/x)^x < e$ valid for any $x \ge 0$, it follows
+that $1 \le (1+\frac{1}{2a})^a < \sqrt{e}$ and $1 \le (1+\frac{1}{2b})^b < \sqrt{e}$
+and $1 \le (1+1/(a+b))^{a+b} < e$. Hence,
+$$
+\frac{(1+\frac{1}{2a})^a (1+\frac{1}{2b})^b}{(1+\frac{1}{a+b})^{a+b+1/2}}
+> \frac{1}{e \sqrt{1 + \frac{1}{a+b}}}
+\ge \frac{1}{e \sqrt{2}} \; .
+$$
+\end{proof}
+
+
+\begin{lemma}
+\label{lemma:ratio_gamma}
+Let $\delta \geq 0$. Then
+\[
+\frac{\Gamma(\delta+1)}{2^\delta \Gamma(\frac{\delta+1}{2})^2} 
+\geq \frac{\sqrt{\delta+1}}{\pi}~.
+\]
+\end{lemma}
+%
+\begin{proof}
+We will prove the equivalent statement that
+\[
+\ln \frac{\Gamma(\delta+1) \pi}{2^\delta \Gamma(\frac{\delta+1}{2})^2 \sqrt{\delta+1}} \geq 0~.
+\]
+The inequality is verified with equality in $\delta=0$, so it is enough to prove that the derivative of the rhs is positive for $\delta>0$.
+
+The derivative is equal to
+\[
+\Psi(\delta+1) - \frac{1}{2(\delta+1)} -\ln(2) -\Psi(\frac{\delta+1}{2}),
+\]
+where $\Psi(x)$ is the digamma function.
+
+We will use the following upper~\citep{Chen05} and lower bound~\citep{Batir08} to the digamma function, for any $x>0$
+\begin{align*}
+\Psi(x) &< \ln(x) -\frac{1}{2x} -\frac{1}{12 x^2}\\
+\Psi(x+1) &> \ln(x+\frac{1}{2})~.
+\end{align*}
+Hence we obtain
+\begin{align*}
+\Psi(\delta+1) - \frac{1}{2(\delta+1)} -\ln(2) -\Psi(\frac{\delta+1}{2})
+&\geq \ln(\delta+\frac{1}{2})- \frac{1}{2(\delta+1)} -\ln(2) -\ln\frac{\delta+1}{2} +\frac{1}{\delta+1} +\frac{1}{3 (\delta+1)^2} \\
+&= \ln(1+\frac{\delta}{\delta+1})+ \frac{1}{2(\delta+1)} -\ln(2)+\frac{1}{3 (\delta+1)^2} \\
+&\geq \frac{\delta}{\delta+1} - (1-\ln(2))\frac{\delta^2}{(\delta+1)^2}+ \frac{1}{2(\delta+1)} -\ln(2)+\frac{1}{3 (\delta+1)^2}\\
+&= \frac{\delta^2 \ln(2)+\frac{3}{2}\delta +\frac{5}{6}}{(\delta+1)^2} - \ln(2)\\
+&= \frac{(\frac{3}{2}-\ln(4)) \delta +\frac{5}{6}-\ln(2)}{(\delta+1)^2} >0,
+\end{align*}
+where in the second inequality we used the elementary inequality $\ln(x+1) \leq x - (1-\ln(2))x^2, \ \forall 0\leq x \leq 1$.
+\end{proof}
+
+\begin{lemma}
+Let $T,\delta,x \in \R$, $T\geq1$, and $\delta\geq0$. Then
+\begin{align*}
+\frac{2^T \cdot \Gamma(\delta+1) \Gamma \left(\frac{T+\delta+1}{2} + \frac{x}{2} \right) \cdot \Gamma \left(\frac{T+\delta+1}{2} - \frac{x}{2} \right)}{ \Gamma(\frac{\delta+1}{2})^2 \Gamma(T+\delta+1)} 
+&\geq\exp\left(\frac{x^2}{2(T+\delta)} +\frac{1}{2} \ln \frac{1+\delta}{T+\delta} -3\right) \;.
+\end{align*}
+\end{lemma}
+\begin{proof}
+Using Lemma~\ref{lemma:approx_gamma_real}, we have
+\begin{align*}
+&\ln \frac{2^T \cdot \Gamma(\delta+1) \Gamma \left(\frac{T+\delta+1}{2} + \frac{x}{2} \right) \cdot \Gamma \left(\frac{T+\delta+1}{2} - \frac{x}{2} \right)}{ \Gamma(\frac{\delta+1}{2})^2 \Gamma(T+\delta+1)} \\
+&\quad \geq \ln \frac{2^{T+\delta} \sqrt{\delta+1} \cdot \Gamma \left(\frac{T+\delta+1}{2} + \frac{x}{2} \right) \cdot \Gamma \left(\frac{T+\delta+1}{2} - \frac{x}{2} \right)}{ \pi \Gamma(T+\delta+1)} \\
+&\quad \geq -\ln(e \pi \sqrt{2}) +\frac{1}{2} \ln\left(\frac{1+\delta}{T+\delta}\right) +\ln \left(\left( 1+\frac{x}{T+\delta} \right)^\frac{T+\delta+x}{2} \left( 1+\frac{x}{T+\delta} \right)^\frac{T+\delta-x}{2}\right) \\
+&\quad = -\ln(e \pi \sqrt{2}) +\frac{1}{2} \ln\left(\frac{1+\delta}{T+\delta}\right)+ (T+\delta) \, \KL{\frac{1}{2}+\frac{x}{2(T+\delta)}}{\frac{1}{2}} \\
+&\quad \geq -\ln(e \pi \sqrt{2}) +\frac{1}{2} \ln\left(\frac{1+\delta}{T+\delta}\right)+ \frac{x^2}{2(T+\delta)} ,
+\end{align*}
+where in the first inequality we used Lemma~\ref{lemma:ratio_gamma}, in the second one Lemma~\ref{lemma:approx_gamma_real}, and in third one the known lower bound to the divergence $\KL{\frac{1}{2}+\frac{x}{2}}{\frac{1}{2}} \geq \frac{x^2}{2}$. Exponentiating and overapproximating, we get the stated bound.
+\end{proof}
+
+
+\subsection{}
+Define the Lambert function $W(x):\R\rightarrow\R$ as the one that satisfies
+the equality\footnote{For $x<0$ the Lambert function is multivalued. Hence, to
+avoid complication and because we only need non-negative arguments, we will
+define it only for positive values of $x$.}
+\begin{equation}
+\label{eq:lambert}
+x=W(x) \exp \left(W(x)\right), \ \forall x\geq0.
+\end{equation}
+It satisfies the following properties.
+%
+\begin{lemma}
+\label{lemma:lambert}
+The Lambert function satisfies $0.6321 \log(x+1) \leq W(x) \leq \log(x+1), \forall x\geq0$.
+\end{lemma}
+%
+\begin{proof}
+The inequalities are satisfied for $x=0$, hence we in the following we assume $x>0$.
+We first prove the lower bound. From \eqref{eq:lambert} we have
+\begin{equation}
+W(x) = \log\left(\frac{x}{W(x)}\right)~. \label{eq:lm_lambert_1}
+%&= \log\left(\frac{x}{\log(x/W(x))}\right). \label{eq:lm_lambert_1b}
+\end{equation}
+From the first equality, using the elementary inequality $\ln (x) \leq \frac{a}{e} x^\frac{1}{a}$ for any $a>0$, we get
+\[
+W(x) \leq \frac{1}{a\, e}\left(\frac{x}{W(x)}\right)^a  \ \ \forall a>0,
+\]
+that is
+\begin{equation}
+\label{eq:lm_lambert_2}
+W(x) \leq \left(\frac{1}{a\, e}\right)^\frac{1}{1+a} x^\frac{a}{1+a} \ \ \forall a>0.
+\end{equation}
+Using \eqref{eq:lm_lambert_2} in \eqref{eq:lm_lambert_1}, we have
+\begin{align*}
+W(x)
+\geq \log\left(\frac{x}{\left(\frac{1}{a\, e}\right)^\frac{1}{1+a} x^\frac{a}{1+a}}\right)
+= \frac{1}{1+a}\log\left(a \, e\, x\right) \ \ \forall a>0~.
+\end{align*}
+Consider now the function $g(x)=\frac{x}{x+1} - \frac{b}{\log(1+b) (b+1)}
+\log(x+1), x\geq b$. This function has a maximum in $x^*=(1+\frac{1}{b})
+\log(1+b)-1$, the derivative is positive in $[0,x^*]$ and negative in
+$[x^*,b]$. Hence the minimum is in $x=0$ and in $x=b$, where it is equal to
+$0$.  Using the property just proved on $g$, setting $a=\frac{1}{x}$, we have
+\begin{align*}
+W(x)
+\geq \frac{x}{x+1} \geq \frac{b}{\log(1+b) (b+1)} \log(x+1) \ \  \forall x\leq b~.
+\end{align*}
+For $x>b$, setting $a=\frac{x+1}{e x}$, we have
+\begin{align}
+W(x)
+&\geq \frac{e\,x}{(e+1) x + 1} \log(x+1) \geq \frac{e\,b}{(e+1) b + 1} \log(x+1)
+\end{align}
+Hence, we set $b$ such that
+\[
+\frac{e\, b}{(e+1)b + 1} = \frac{b}{\log(1+b) (b+1)}
+\]
+Numerically, $b=1.71825...$, so
+\[
+W(x) \geq 0.6321 \log(x+1)~.
+%\qedhere
+\]
+
+For the upper bound, we use Theorem~2.3 in \cite{hoorfar2008inequalities}, that says that
+\[
+W(x) \leq \log\frac{x+C}{1+\log(C)}, \quad \forall x> -\frac{1}{e}, \ C>\frac{1}{e}.
+\]
+Setting $C=1$, we obtain the stated bound.
+\end{proof}
+
+\begin{lemma}
+Define $f(\theta)= \beta \exp\frac{x^2}{2 \alpha}$, for $\alpha,\beta>0$, $x\geq0$. Then
+\[
+f^*(y)=y \sqrt{\alpha W\left(\frac{\alpha y^2}{\beta^2}\right)} - \beta \exp\left(\frac{W\left(\frac{\alpha y^2}{\beta^2}\right)}{2}\right).
+\]
+Moreover
+\[
+f^*(y) \leq y \sqrt{\alpha \log \left(\frac{\alpha y^2}{\beta^2} +1 \right)} - \beta.
+\]
+\end{lemma}
+\begin{proof}
+From the definition of Fenchel dual, we have
+\begin{align*}
+f^*(y)= \max_{x} \  x\, y - f(x) = \max_{x} \  x\, y - \beta \exp\frac{x^2}{2 \alpha} \leq x^*\,y -\beta
+\end{align*}
+where $x^*= \argmax_{x} x\, y - f(x)$. We now use the fact that $x^*$ satisfies $y = f'(x^*)$, to have
+\begin{align*}
+x^*=\sqrt{\alpha W\left(\frac{\alpha y^2}{\beta^2}\right)},
+\end{align*}
+where the $W(\cdot)$ is the Lambert function.
+Using Lemma~\ref{lemma:lambert}, we obtain the stated bound.
+\end{proof}
+
+\begin{lemma}[ {\citep[Example 13.7]{BauschkeC2011}} ]
+Let $f:\R \rightarrow (-\infty, +\infty]$ be even. Then $(f \circ \norm{\cdot})^*=f^* \circ \norm{\cdot}$.
+\end{lemma}
+
+\begin{corollary}
+\label{cor:dual_exp_square}
+Define $f(\theta)= \beta \exp\frac{\norm{\theta}^2}{2 \alpha}$, for $\alpha,\beta>0$. Then
+\[
+f^*(w) \leq  \norm{w} \sqrt{\alpha \log \left(\frac{\alpha \norm{w}^2}{\beta^2} +1 \right)} - \beta.
+\]
+\end{corollary}
