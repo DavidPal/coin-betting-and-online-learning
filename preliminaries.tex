@@ -2,14 +2,14 @@
 
 The Kullback-Leibler divergence between two discrete
 distributions $p$ and $q$ is
-$$
-\KL{p}{q} = \sum_{i} p_i \ln\left( \frac{p_i}{q_i} \right) \; ,
-$$
+$
+\KL{p}{q} = \sum_{i} p_i \ln\left( \frac{p_i}{q_i} \right)
+$,
 where the sum is over all possible outcomes. Abusing notation, if $p,q$ are real
 numbers in $[0,1]$, we denote by
-$$
-\KL{p}{q} = p \ln \left(\frac{p}{q} \right) + (1-p) \ln \left(\frac{1-p}{1-q} \right) \; .
-$$
+$
+\KL{p}{q} = p \ln \left(\frac{p}{q} \right) + (1-p) \ln \left(\frac{1-p}{1-q} \right)
+$.
 the Kullback-Leibler divergence between Bernoulli distributions with parameters
 $p$ and $q$.
 
@@ -51,7 +51,7 @@ respect to a competitor $u \in \H$ is defined as
 \label{equation:regret-definition}
 \Regret_T(u) = \sum_{t=1}^T \langle g_t , u - w_t \rangle \; .
 \end{equation}
-In this paper we make the assumption that $\norm{g_t} \le 1$.
+In this paper, without loss of generality, we make the assumption that $\norm{g_t} \le 1$.
 
 
 \subsection{Learning with Expert Advice}
@@ -139,4 +139,4 @@ $$
 \forall \beta \in [-1,1] \qquad \qquad \ln(\Wealth_t) \ge \ln(\Wealth_t(\beta)) \ - \ \frac{1}{2} \ln t \ - \ \ln(2) \; ,
 $$
 where $\Wealth_t(\beta)$ is the wealth of a strategy that bets the same fraction
-$\beta$ in every round.
+$\beta$ in every round. This guarantee is optimal up to constant additive factors~\citep{Cesa-BianchiL06}.

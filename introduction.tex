@@ -45,7 +45,7 @@ much more complex than the previous ones. Surprisingly enough, these two
 families of algorithms are also very similar, yet no attempt has been made to
 unify them.
 
-In this paper, we claim that a more fundamental notion subsumes both \ac{OLO}
+Our contributions are as follows. We claim that a more fundamental notion subsumes both \ac{OLO}
 and \ac{LEA}. This notion is linked to the ability of an algorithm to repeatedly
 bet on an outcome of a coin flip
 (Section~\ref{section:coin-betting-potentials}). In fact, we show black box
@@ -58,10 +58,16 @@ wealth for biased coins allow to obtain parameter-free regret bounds in \ac{OLO}
 and in \ac{LEA}. In particular, we show that the strategy for sequential betting
 based on the well-known \ac{KT} estimator~\citep{KrichevskyT81} can be used in a
 simple and direct way to recover and slightly improve parameter-free algorithms
-for \ac{OLO} and \ac{LEA} (Section~\ref{section:kt-estimator}). The obtained
-algorithm are extremely natural and intuitive, the proofs of the regret bounds
+for \ac{OLO} and \ac{LEA} (Section~\ref{section:kt-estimator}). 
+We obtain a $O(\norm{u}\sqrt{T \log(1+T \norm{u}}))$ regret with respect to any competitor $u$ for \ac{OLO}. For
+\ac{LEA} we obtain $O(\sqrt{T (1 +
+\KL{u}{\pi})})$ regret against any competitor $u$ and where $\KL{u}{\pi}$ is the
+Kullback-Leibler divergence between algorithm's prior distribution $\pi$ and the
+competitor.
+Both algorithms are simple reductions from \ac{KT} coin betting, are extremely natural and intuitive, the proofs of the regret bounds
 are immediate given the reductions, and they also shed a light on previous
-ad-hoc and complex constructions. Finally, in Section~\ref{sec:discussion} we discuss in details previous and future work.
+ad-hoc and complex constructions. 
+Finally, in Section~\ref{sec:discussion} we discuss in details previous and future work.
 
 %We will also show connections between the optimal betting strategy known in
 %economics as Kelly betting \citep{Kelly56} and online learning, and hence
