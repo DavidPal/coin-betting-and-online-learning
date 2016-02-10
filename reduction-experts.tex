@@ -1,7 +1,7 @@
 \section{From Coin Betting to Learning with Expert Advice}
 \label{section:reduction-experts}
 
-We show how to use an algorithm for OLO in one-dimensional Hilbert space $\R$
+We show how to use an algorithm for OLO over one-dimensional Hilbert space $\R$
 to construct an algorithm for learning with expert advice.
 
 Let $N \ge 2$ be the number of experts and $\Delta_N$ be the $N$-dimensional
@@ -10,12 +10,12 @@ any \emph{prior} distribution. Let $A$ be an algorithm for OLO over
 one-dimensional Hilbert space $\R$. We instantiate $N$ copies of $A$.
 
 Consider any round $t$. Let $w_{t,i} \in \R$ be the prediction of $i$-th copy of
-$A$. The expert algorithm computes $\widehat p_t = (\widehat p_{t,1}, \widehat
+$A$. The LEA algorithm computes $\widehat p_t = (\widehat p_{t,1}, \widehat
 p_{t,2}, \dots, \widehat p_{t,N}) \in \R_{0,+}^N$,
 $$
 \widehat p_{t,i} = \pi_i \cdot [w_{t,i}]_+
 $$
-where $[x]_+ = \max\{0,x\}$ is the positive part of $x$. Then, the experts
+where $[x]_+ = \max\{0,x\}$ is the positive part of $x$. Then, the LEA
 algorithm predicts $p_t = (p_{t,1}, p_{t,2}, \dots, p_{t,N}) \in \Delta^N$,
 $$
 p_t = \frac{\widehat p_t}{\norm{\widehat p_t}_1} \; .
@@ -33,17 +33,18 @@ g_{t,i} =
 \end{cases}
 \end{align}
 
-Suppose that the algorithm $A$ satisfies for any sequence
+Suppose that the algorithm $A$, for any sequence
 $\{g_t\}_{t=1}^\infty$ such that $g_t \in [-1,1]$, satisfies
 \begin{equation}
 \label{equation:experts-one-dimensional-assumption}
 \Wealth_t = 1 + \sum_{i=1}^t g_i w_i \ge F_t\left(\sum_{i=1}^t g_i\right) \; .
 \end{equation}
-where $\{F_t\}_{t=0}^\infty$ is sequence of coin-betting potentials for initial
-endowment $1$.\footnote{Any initial endowment $\epsilon > 0$ can be rescaled to
-$1$. Instead of $F_t(x)$ we would use $F_t(x)/\epsilon$. The prediction $w_t$
-would become $w_t/\epsilon$. The key observation is that $p_t$ is invariant to
-scaling of $w_t$, hence the resulting algorithm would be the same regardless of $\epsilon$.}
+where $\{F_t\}_{t=0}^\infty$ is a sequence of coin-betting potentials for
+initial endowment $1$.\footnote{Any initial endowment $\epsilon > 0$ can be
+rescaled to $1$. Instead of $F_t(x)$ we would use $F_t(x)/\epsilon$. The
+prediction $w_t$ would become $w_t/\epsilon$. The key observation is that $p_t$
+is invariant to scaling of $w_t$, hence the resulting LEA algorithm would be the
+same regardless of $\epsilon$.}
 
 We show how to convert \eqref{equation:experts-one-dimensional-assumption} into
 a regret bound for the experts algorithm. The regret bound is expressed in terms
@@ -52,17 +53,18 @@ restrict the function $f_t$ to the domain $I_t \cap [0, \infty)$. By the
 definition of coin-betting potential, $f_t$ is convex, strictly increasing.
 Image of $f_t$ contains $[0,\infty)$, because $F_t(0) \le 1$ and because $F_t$
 satisfies \eqref{equation:potential-limit-assumption}. We define $f_t^{-1}$ as
-the inverse of $f_t$. Note that $f_t$ is strictly increasing and concave and its
+the inverse of $f_t$. Note that $f_t$ is strictly increasing, concave, and its
 domain contains $[0, \infty)$.
 
 \begin{theorem}[Regret Bound for Experts]
 \label{theorem:regret-bound-experts}
 Let $\{F_t\}_{t=0}^\infty$ be a sequence of coin-betting potentials for initial
 endowment $1$. Let $f_t^{-1}$ be in the inverse of $f_t(x) = \ln(F_t(x))$.
-Let $A$ be an OLO algorithm for one-dimensional Hilbert space
-$\R$ that satisfies \eqref{equation:experts-one-dimensional-assumption} for any
-sequence $\{g_t\}_{t=1}^\infty$ such that $g_t \in [-1,1]$. Then, the regret of
-the experts algorithm with prior $\pi \in \Delta_N$, based on $A$, satisfies
+Let $A$ be an algorithm for OLO over one-dimensional Hilbert space
+$\R$. Suppose that $A$ satisfies
+\eqref{equation:experts-one-dimensional-assumption} for any sequence
+$\{g_t\}_{t=1}^\infty$ such that $g_t \in [-1,1]$. Then, the regret of the
+experts algorithm with prior $\pi \in \Delta_N$, based on $A$, satisfies
 $$
 \forall u \in \Delta_N \qquad \qquad
 \Regret_t(u) \le f_t^{-1}\left( \KL{u}{\pi} \right) \; .
@@ -84,28 +86,28 @@ therefore $\norm{\widehat p_t}_1 \sum_{i=1}^N p_{t,i} (\langle \ell_t, p_t \rang
 $\sum_{i \, : \, \pi_i w_{t,i} > 0} \pi_i [w_{t,i}]_+ (\langle \ell_t, p_t \rangle - \ell_{t,i}) = 0$.
 If $\norm{\widehat p_t}_1 > 0$ then $\pi_i [w_{t,i}]_+ = \widehat p_{t,i} = \norm{\widehat p_t}_1 p_{t,i}$ for all $i$.
 
-Hence,
+Inequality $\sum_{i=1}^N \pi_i g_{t,i} w_{t,i} \le 0$ and the assumption
+\eqref{equation:experts-one-dimensional-assumption} imply
 \begin{equation}
 \label{equation:bounded-potential}
 \sum_{i=1}^N  \pi_i F_t \left(\sum_{t=1}^T g_{t,i} \right) \le 1 + \sum_{i=1}^N \pi_i \sum_{t=1}^T  g_{t,i} w_{t,i} \le 1 \; .
 \end{equation}
-where the first inequality follows from the assumption
-\eqref{equation:experts-one-dimensional-assumption}. Now, let $G_{t,i} =
+Now, let $G_{t,i} =
 \sum_{t=1}^T g_{t,i}$. For any competitor $u \in \Delta_N$,
 \begingroup
 \allowdisplaybreaks
 \begin{align*}
 \allowdisplaybreaks
 \Regret_T(u)
-& = \sum_{t=1}^T \langle \ell_t, p_t - u \rangle 
+& = \sum_{t=1}^T \langle \ell_t, p_t - u \rangle
 = \sum_{t=1}^T \sum_{i=1}^N u_i \left( \langle \ell_t, p_t \rangle - \ell_{t,i} \right) \\
 & \le \sum_{t=1}^T \sum_{i=1}^N u_i g_{t,i} & \text{(by definition of $g_{t,i}$)} \\
-& = \sum_{i=1}^N u_i G_{T,i} 
- = \sum_{i=1}^N u_i f_T^{-1}\left[\ln \exp\left(f_T(G_{T,i})\right)\right] \\
-& \le f_T^{-1}\left(\sum_{i=1}^N u_i \left[\ln \exp\left(f_T(G_{T,i})\right)\right]\right) & \text{(by concavity of $f_T$)} \\
-& = f_T^{-1}\left(\sum_{i=1}^N u_i \left[\ln \frac{\pi_i}{u_i}\exp\left(f_T(G_{T,i})\right)+ \ln\frac{u_i}{\pi_i}\right]\right) \\
-& = f_T^{-1}\left(\sum_{i=1}^N u_i \left[\ln \frac{\pi_i}{u_i}\exp\left(f_T(G_{T,i})\right)\right] + \KL{u}{\pi}\right) \\
-& \le f_T^{-1}\left(\ln \left(\sum_{i=1}^N \pi_i \exp\left(f_T(G_{T,i})\right) \right) + \KL{u}{\pi}\right) & \text{(by concavity of $\ln(\cdot)$)} \\
+& \le \sum_{i=1}^N u_i |G_{T,i}| & \text{(since $u \ge 0$)}  \\
+& = \sum_{i=1}^N u_i f_T^{-1}\left(\ln [F_T(G_{T,i})] \right)  & \text{(since $F_T(x) = \exp(f_T(x))$ is even)} \\
+& \le f_T^{-1}\left(\sum_{i=1}^N u_i \ln \left[ F_T(G_{T,i}) \right]\right) & \text{(by concavity of $f_T$)} \\
+& = f_T^{-1}\left(\sum_{i=1}^N u_i \left\{\ln \left[ \frac{\pi_i}{u_i} F_T(G_{T,i}) \right] + \ln \left[\frac{u_i}{\pi_i}\right] \right\} \right) \\
+& = f_T^{-1}\left(\sum_{i=1}^N u_i \left\{\ln \left[\frac{\pi_i}{u_i} F_T(G_{T,i}) \right]\right\} + \KL{u}{\pi}\right) \\
+& \le f_T^{-1}\left(\ln \left(\sum_{i=1}^N \pi_i F_T(G_{T,i}) \right) + \KL{u}{\pi}\right) & \text{(by concavity of $\ln(\cdot)$)} \\
 & \le f_T^{-1}\left(\KL{u}{\pi}\right) & \text{(by \eqref{equation:bounded-potential})}.
 \end{align*}
 \endgroup
