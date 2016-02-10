@@ -13,7 +13,7 @@ ad-hoc choice of the potential were just approximation of the optimal obtainable
 wealth.
 
 In particular, in previous \ac{LEA} papers the potential used for expert $j$ at time $t$
-is $\mathcal{O}(\exp(\frac{[\sum_{i=1}^{t-1} g_{i,j}]_+}{t})$~\citep{ChaudhuriYH09,LuoE14,LuoS15}.
+is $\mathcal{O}(\exp(\frac{([\sum_{i=1}^{t-1} g_{i,j}]_+)^2}{t})$~\citep{ChaudhuriYH09,LuoE14,LuoS15}.
 It is now clear that that potential is just an approximation of the optimal wealth achievable by a coin-betting algorithm.
 Moreover, that potential and the ones in~\citet{ChernovV10,KoolenE15} are not even, introducing a lot of techical difficulties in the analysis. Instead, our reduction moves the truncation outside of the potential, see \eqref{eq:gradients_experts_reduction}, making the analysis straightforward. Also, as observed by \citet{ChernovV10}, our bound in terms of the KL divergence is superior to the $\epsilon$-quantile bounds.
 
