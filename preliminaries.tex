@@ -24,16 +24,16 @@ $F(x)$ is logarithmically convex, then it is also convex (in the usual sense),
 since $F(x) = \exp(f(x))$ is a composition of a convex function $f(x)$ and an
 increasing convex function $\exp(\cdot)$.
 
-Let $f:V \to \R \cup \{\pm\infty\}$ be a function defined on a vector space $V$.
-Fenchel conjugate of $f$ is a function $f^*:V^* \to \R \cup \{\pm \infty\}$
+Let $f:V \to \R \cup \{\pm\infty\}$ be a function defined on a real vector space
+$V$. Fenchel conjugate of $f$ is a function $f^*:V^* \to \R \cup \{\pm \infty\}$
 defined on the dual vector space $V^*$ by
 $$
 f^*(\theta) = \sup_{x \in V} \ \langle \theta, x \rangle - f(x) \; .
 $$
-The function $f$ is said to be proper if it never attains $-\infty$ and attains
-finite value at at least one point. If $f$ is lower semi-continuous proper
-convex then $f^*$ is also is lower semi-continuous convex proper, and
-furthermore the Fenchel conjugate of $f^*$ is $f$.
+A function $f:V \to \R \cup \{\pm \infty\}$ is said to be proper if it never
+attains $-\infty$ and attains finite value at least one point. If $f$ is a
+proper lower semi-continuous convex function then $f^*$ is also is proper lower
+semi-continuous convex, and furthermore the Fenchel conjugate of $f^*$ is $f$.
 
 \subsection{Online Linear Optimization over a Hilbert Space}
 
@@ -57,13 +57,13 @@ In this paper we make the assumption that $\|g_t\| \le 1$.
 \subsection{Learning with Expert Advice}
 
 Let $N \ge 2$ be a positive integer. \textsc{Learning with expert advice} is an
-online problem in which an algorithm chooses a point $p_t$ in $N$-dimensional
-probability simplex $\Delta_N = \{ x \in \R^N ~:~ x \ge 0, \|x\|_1 = 1 \}$ and
-receives a loss\footnote{The reason for using loss, instead of reward, will be
-apparent in Section~\ref{section:reduction-experts}.} vector $\ell_t \in
-[0,1]^N$. Similarly as before, the goal of the algorithm is to minimize its
-regret after $T$ rounds with respect to any competitor $u \in \Delta_N$, which
-is defined as
+online problem in which, in each round $t$, an algorithm chooses a point $p_t$
+in $N$-dimensional probability simplex $\Delta_N = \{ x \in \R^N ~:~ x \ge 0,
+\|x\|_1 = 1 \}$ and receives a loss\footnote{The reason for using loss, instead
+of reward, will be apparent in Section~\ref{section:reduction-experts}.} vector
+$\ell_t \in [0,1]^N$. Similarly as before, the goal of the algorithm is to
+minimize its regret after $T$ rounds with respect to any competitor $u \in
+\Delta_N$, which is defined as
 $$
 \Regret_T(u) = \sum_{t=1}^T \langle \ell_t, p_t \rangle - \sum_{t=1}^T \langle \ell_t, u \rangle \; .
 $$
@@ -84,7 +84,7 @@ gets the same amount as a reward. Note that it does not make sense for the
 gambler to bet on both outcomes, since the same winnings can be achieved by
 betting the difference of the two amounts on one of the outcomes and betting
 zero on the other outcome. We encode gambler's bet in round $t$ by a single
-number $\beta_t \in (-1,1)$. The sign of $\beta_t$ encodes whether he is betting
+number $\beta_t \in [-1,1]$. The sign of $\beta_t$ encodes whether he is betting
 on heads or tails. The absolute value encodes the betted amount as the fraction
 of his current wealth.
 
@@ -112,9 +112,10 @@ wealth and reward remain exactly the same.
 
 \subsection{Kelly Betting and Krichevsky-Trofimov Estimator}
 
-\citet{Kelly56} proposed a coin betting strategy for the case when the
-coin flips $\{g_t\}_{t=1}^\infty$  are generated i.i.d. with known probability
-of heads. If $p \in (0,1)$ is the probability of heads, Kelly bet is
+\citet{Kelly56} proposed a coin betting strategy for the case when the coin
+flips $\{g_t\}_{t=1}^\infty$, $g_t \in \{+1,-1\}$, are generated i.i.d. with
+known probability of heads. If $p \in [0,1]$ is the probability of heads, Kelly
+bet is
 $$
 \beta_t = 2p - 1 \; .
 $$
@@ -129,9 +130,9 @@ $$
 \beta_t = 2k_t - 1 = \frac{\sum_{i=1}^{t-1} g_i}{t}
 $$
 which we call \emph{adaptive Kelly betting based on KT estimator}.
-They showed that
+\citeauthor{KrichevskyT81} showed that
 $$
-\forall \beta \in (-1,1) \qquad \qquad \ln(\Wealth_t) \ge \ln(\Wealth_t(\beta)) \ - \ \frac{1}{2} \ln t \ - \ ??? \; ,
+\forall \beta \in [-1,1] \qquad \qquad \ln(\Wealth_t) \ge \ln(\Wealth_t(\beta)) \ - \ \frac{1}{2} \ln t \ - \ ??? \; ,
 $$
-where $\Wealth_t(\beta)$ is the wealth of a strategy that uses betting fraction
+where $\Wealth_t(\beta)$ is the wealth of a strategy that bets the same fraction
 $\beta$ in every round.
