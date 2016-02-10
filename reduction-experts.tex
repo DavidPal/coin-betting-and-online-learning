@@ -1,8 +1,10 @@
 \section{From Coin Betting to Learning with Expert Advice}
 \label{section:reduction-experts}
 
-We show how to use an algorithm for OLO over one-dimensional Hilbert space $\R$
-to construct an algorithm for learning with expert advice.
+We show how to use the algorithm for OLO over one-dimensional Hilbert space $\R$
+from Section~\ref{section:one-dimensional-hilbert-space-olo}--which is itself
+based on a coin-betting strategy---to construct an algorithm for learning with
+expert advice.
 
 Let $N \ge 2$ be the number of experts and $\Delta_N$ be the $N$-dimensional
 probability simplex. Let $\pi = (\pi_1, \pi_2, \dots, \pi_N) \in \Delta_N$ be
@@ -48,7 +50,7 @@ is invariant to scaling of $w_t$, hence the resulting LEA algorithm would be the
 same regardless of $\epsilon$.}
 
 We show how to convert \eqref{equation:experts-one-dimensional-assumption} into
-a regret bound for the experts algorithm. The regret bound is expressed in terms
+a regret bound for the LEA algorithm. The regret bound is expressed in terms
 of the inverse of $f_t(x) = \ln(F_t(x))$. We define it as follows. We
 restrict the function $f_t$ to the domain $I_t \cap [0, \infty)$. By the
 definition of coin-betting potential, $f_t$ is convex, strictly increasing.
@@ -65,7 +67,7 @@ Let $A$ be an algorithm for OLO over one-dimensional Hilbert space
 $\R$. Suppose that $A$ satisfies
 \eqref{equation:experts-one-dimensional-assumption} for any sequence
 $\{g_t\}_{t=1}^\infty$ such that $g_t \in [-1,1]$. Then, the regret of the
-experts algorithm with prior $\pi \in \Delta_N$, based on $A$, satisfies
+LEA algorithm with prior $\pi \in \Delta_N$, based on $A$, satisfies
 $$
 \forall u \in \Delta_N \qquad \qquad
 \Regret_t(u) \le f_t^{-1}\left( \KL{u}{\pi} \right) \; .
