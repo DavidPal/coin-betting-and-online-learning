@@ -71,7 +71,7 @@ Applying the lemma to the function $F(x) = F_T(x) - \epsilon$, we get a regret
 upper bound
 $$
 \forall u \in \H \qquad \qquad
-\Regret_T(u) \le F_T^*\left(\sum_{t=1}^T g_t \right) \ + \ \epsilon \; .
+\Regret_T(u) \le F_T^*(u) \ + \ \epsilon \; .
 $$
 
 \subsection{Arbitrary Hilbert Space}
@@ -114,7 +114,7 @@ prediction $w_t$ defined by \eqref{equation:hilbert-space-olo} and
 \eqref{equation:potential-based-strategy-hilbert-space} satisfies
 $$
 \forall u \in \H \qquad \qquad
-\Regret_T(u) \le F_T^*\left(\norm{\sum_{t=1}^T g_t} \right) \ + \ \epsilon \; .
+\Regret_T(u) \le F_T^*\left(\norm{u} \right) \ + \ \epsilon \; .
 $$
 \end{theorem}
 
@@ -137,8 +137,9 @@ For $t \ge 1$, if we let $x = \sum_{i=1}^{t-1} g_i$, we have
 = F_t\left(\norm{\sum_{i=1}^t g_i} \right) \; .
 \end{align*}
 The only non-trivial inequality is marked with a question mark. The inequality
-is the content of the Lemma~\ref{lemma:recursion_hilbert}, whose proof is in Appendix~\ref{section:hilbert-space-reduction}. The proof relies
-mainly on property (4) of Definition~\ref{definition:potential}.
+is the content of the Lemma~\ref{lemma:recursion_hilbert}, whose proof is in
+Appendix~\ref{section:hilbert-space-reduction}. The proof relies mainly on
+property (4) of Definition~\ref{definition:potential}.
 
 \begin{lemma}
 \label{lemma:recursion_hilbert}
