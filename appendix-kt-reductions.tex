@@ -9,7 +9,7 @@ We first prove a lower bound on the potential function of the \ac{KT} estimator.
 If $c\geq1$ and $a,b$ are non-negative reals such that $a +
 b = c$ then
 $$
-\ln \frac{\Gamma(a + 1/2) \cdot \Gamma(b + 1/2)}{\pi \cdot \Gamma(c+1)} 
+\ln \frac{\Gamma(a + 1/2) \cdot \Gamma(b + 1/2)}{\pi \cdot \Gamma(c+1)}
 \geq - \ln(e \pi \sqrt{2}) -\frac{1}{2} \ln(c) +\ln \left(\left( \frac{a}{c} \right)^a \left( \frac{b}{c} \right)^b\right) \; .
 $$
 \end{lemma}
@@ -42,7 +42,7 @@ $$
 \label{lemma:ratio_gamma}
 Let $\delta \geq 0$. Then
 \[
-\frac{\Gamma(\delta+1)}{2^\delta \Gamma(\frac{\delta+1}{2})^2} 
+\frac{\Gamma(\delta+1)}{2^\delta \Gamma(\frac{\delta+1}{2})^2}
 \geq \frac{\sqrt{\delta+1}}{\pi}~.
 \]
 \end{lemma}
@@ -52,18 +52,19 @@ We will prove the equivalent statement that
 \[
 \ln \frac{\Gamma(\delta+1) \pi}{2^\delta \Gamma(\frac{\delta+1}{2})^2 \sqrt{\delta+1}} \geq 0~.
 \]
-The inequality is verified with equality in $\delta=0$, so it is enough to prove that the derivative of the rhs is positive for $\delta>0$.
+The inequality holds with equality in $\delta=0$, so it is enough to prove
+that the derivative of the right-hand side is positive for $\delta > 0$.
 
 The derivative is equal to
 \[
-\Psi(\delta+1) - \frac{1}{2(\delta+1)} -\ln(2) -\Psi(\frac{\delta+1}{2}),
+\Psi(\delta+1) - \frac{1}{2(\delta+1)} -\ln(2) - \Psi\left(\frac{\delta+1}{2} \right),
 \]
 where $\Psi(x)$ is the digamma function.
 
 We will use the following upper~\citep{Chen05} and lower bound~\citep{Batir08} to the digamma function, for any $x>0$
 \begin{align*}
 \Psi(x) &< \ln(x) -\frac{1}{2x} -\frac{1}{12 x^2}\\
-\Psi(x+1) &> \ln(x+\frac{1}{2})~.
+\Psi(x+1) &> \ln(x+\frac{1}{2}) \; .
 \end{align*}
 Hence we obtain
 \begin{align*}
@@ -81,7 +82,7 @@ where in the second inequality we used the elementary inequality $\ln(x+1) \leq 
 \label{lemma:lower_bound_gamma}
 Let $T,\delta,x \in \R$, $T\geq1$, and $\delta\geq0$. Then
 \begin{align*}
-\frac{2^T \cdot \Gamma(\delta+1) \Gamma \left(\frac{T+\delta+1}{2} + \frac{x}{2} \right) \cdot \Gamma \left(\frac{T+\delta+1}{2} - \frac{x}{2} \right)}{ \Gamma(\frac{\delta+1}{2})^2 \Gamma(T+\delta+1)} 
+\frac{2^T \cdot \Gamma(\delta+1) \Gamma \left(\frac{T+\delta+1}{2} + \frac{x}{2} \right) \cdot \Gamma \left(\frac{T+\delta+1}{2} - \frac{x}{2} \right)}{ \Gamma(\frac{\delta+1}{2})^2 \Gamma(T+\delta+1)}
 &\geq\exp\left(\frac{x^2}{2(T+\delta)} +\frac{1}{2} \ln \frac{1+\delta}{T+\delta} -3\right) \;.
 \end{align*}
 \end{lemma}
@@ -98,7 +99,8 @@ where in the first inequality we used Lemma~\ref{lemma:ratio_gamma}, in the seco
 \end{proof}
 
 
-\subsection{Proofs of Corollary~\ref{corollary:kt-hilbert-space-olo-regret}}
+\subsection{Proof of Corollary~\ref{corollary:kt-hilbert-space-olo-regret}}
+
 Define the Lambert function $W(x):\R\rightarrow\R$ as the one that satisfies
 the equality\footnote{For $x<0$ the Lambert function is multivalued. Hence, to
 avoid complication and because we only need non-negative arguments, we will
@@ -212,14 +214,14 @@ G_t(x) \leq \frac{2^T \cdot \Gamma(\delta+1) \Gamma \left(\frac{T+\delta+1}{2} +
 that implies $F^*_t(x) \leq G_t^*(x)$.
 Using Corollary~\ref{cor:dual_exp_square}, we have
 \[
-\forall u \in \H \qquad \qquad 
-F^*_t\left(\left\| \sum_{t=1}^T g_t \right\|\right) 
+\forall u \in \H \qquad \qquad
+F^*_t\left(\left\| \sum_{t=1}^T g_t \right\|\right)
 \leq \sqrt{T \log \left(\frac{4 T^2 \norm{u}^2}{\epsilon^2} +1 \right)}+\epsilon\left(1-\frac{1}{2\sqrt{T}}\right).
 \]
 An application of Theorem~\ref{theorem:hilbert-space-olo-regret-bound} completes the proof.
 \end{proof}
 
-\subsection{Proofs of Corollary~\ref{corollary:kt-experts-regret}}
+\subsection{Proof of Corollary~\ref{corollary:kt-experts-regret}}
 
 \begin{proof}
 Define $G_t(x)=\exp\left(\frac{x^2}{2(t+\delta)} +\frac{1}{2} \ln \frac{1+\delta}{t+\delta} -3\right)$ and $g_t(x)=\ln(G_t(x))$.
