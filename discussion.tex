@@ -1,11 +1,40 @@
 \section{Discussion of the Results and Related Work}
 \label{sec:discussion}
 
-The interpretation of parameter-free algorithms as coin-betting algorithms is new. This interpretation, far from being just a mathematical gimmick, reveals the common hidden structure of previous parameter-free algorithms. For example, it is clear now that the characteristic of parameter-freeness is just a consequence of having an algorithm that guarantee the maximum reward possible. In this sense, all the online learning algorithm requiring parameter tuning are just guarantying a suboptimal wealth growth. At the same time, the previous ad-hoc choice of the potential were just approximation of the optimal obtainable wealth.
+The interpretation of parameter-free algorithms as coin-betting algorithms is
+new. This interpretation, far from being just a mathematical gimmick, reveals
+the common hidden structure of previous parameter-free algorithms. For example,
+it is clear now that the characteristic of parameter-freeness is just a
+consequence of having an algorithm that guarantee the maximum reward possible.
+In this sense, all the online learning algorithm requiring parameter tuning are
+just guaranteeing a suboptimal wealth growth. At the same time, the previous
+ad-hoc choice of the potential were just approximation of the optimal obtainable
+wealth.
 
-The obtained bounds, in Corollaries~\ref{corollary:kt-hilbert-space-olo-regret} and~\ref{corollary:kt-experts-regret}, improves the previous ones in terms of missing $\ln \ln T$ terms and in simplicity of the algorithms. Moreover, the reductions make possible to transfer any advancement on the problem of coin-betting to \ac{OLO} and \ac{LEA}. Notice that, being the \ac{KT} betting strategy in a worst case sense, the only possible improvement is in having data-dependent bound, for example like the ones in~\cite{KoolenE15}. Indeed, it is very easy to extend the proof of our reductions to hold in the data-dependent case as well.
+The obtained bounds, in Corollaries~\ref{corollary:kt-hilbert-space-olo-regret}
+and~\ref{corollary:kt-experts-regret}, improves the previous ones in terms of
+missing $\ln(\ln(T))$ terms and in simplicity of the algorithms. Moreover, the
+reductions make possible to transfer any advancement on the problem of
+coin-betting to \ac{OLO} and \ac{LEA}. Notice that, being the \ac{KT} betting
+strategy in a worst case sense, the only possible improvement is in having
+data-dependent bound, for example like the ones in~\cite{KoolenE15}. Indeed, it
+is very easy to extend the proof of our reductions to hold in the data-dependent
+case as well.
 
-Moreover, as already proved in previous papers, the existence of parameter-free algorithms have broad consequences. For example, \citet{LuoS15} prove that a parameter-free expert algorithm can be used to to design an efficient algorithm that predicts as the best pruning tree. In the context of risk minimization over Lipschitz convex losses in an infinite dimensional Hilbert space, \citet{Orabona14} proved that the parameter-free \ac{OLO} can be used to obtain risk bound guarantees that compete with the a regularized \ac{ERM} solution with oracle tuning of the regularizer. In simpler words, the parameter-free Algorithm~\ref{algorithm:kt-hilbert-space-olo} can be used to obtain, for example, the same risk guarantee of a kernel \ac{SVM} with optimal (unknown) tuning of the regularizer.
+Moreover, as already proved in previous papers, the existence of parameter-free
+algorithms have broad consequences. For example, \citet{LuoS15} prove that a
+parameter-free expert algorithm can be used to to design an efficient algorithm
+that predicts as the best pruning tree. In the context of risk minimization over
+Lipschitz convex losses in an infinite dimensional Hilbert space,
+\citet{Orabona14} proved that the parameter-free \ac{OLO} can be used to obtain
+risk bound guarantees that compete with the regularized \ac{ERM} solution with
+oracle tuning of the regularizer. In simpler words, the parameter-free
+Algorithm~\ref{algorithm:kt-hilbert-space-olo} can be used to obtain, for
+example, the same risk guarantee of a kernel \ac{SVM} with optimal (unknown)
+tuning of the regularizer.
 
-Regarding the tightness of the reductions, it is easy to see that they are in a certain sense optimal. In fact, the obtained algorithms~\ref{algorithm:kt-hilbert-space-olo} and~\ref{algorithm:kt-experts} achieves the optimal worst case upper bound on regret, see \citet{Orabona13} and \citet{} respectively.
-
+Regarding the tightness of the reductions, it is easy to see that they are in a
+certain sense optimal. In fact, the obtained
+Algorithms~\ref{algorithm:kt-hilbert-space-olo} and~\ref{algorithm:kt-experts}
+achieves the optimal worst case upper bound on regret, see \citet{Orabona13} and
+\citet{???} respectively.
