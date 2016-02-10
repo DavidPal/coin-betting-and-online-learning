@@ -37,8 +37,8 @@ i.e., it satisfies \eqref{equation:potential-based-strategy}.
 \REQUIRE{Initial endowment $\epsilon > 0$}
 %\STATE{Initialize $\Wealth_0 \leftarrow \epsilon$}
 \FOR{$t=1,2,\dots$}
-\STATE{Set $w_t \leftarrow \frac{1}{t} \left(\epsilon + \sum_{i=1}^{t-1} \langle g_t, w_t \rangle \right) \sum_{i=1}^{t-1} g_i$}
-\STATE{Predict $w_t$}
+\STATE{Predict with $w_t \leftarrow \frac{1}{t} \left(\epsilon + \sum_{i=1}^{t-1} \langle g_t, w_t \rangle \right) \sum_{i=1}^{t-1} g_i$}
+%\STATE{Predict $w_t$}
 \STATE{Receive reward vector $g_t \in \H$ such that $\norm{g_t} \le 1$}
 %\STATE{Update $\Wealth_t \leftarrow \Wealth_{t-1} \ + \ \langle g_t, w_t \rangle$}
 \ENDFOR
