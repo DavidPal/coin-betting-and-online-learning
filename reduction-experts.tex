@@ -26,6 +26,7 @@ $\ell_t = (\ell_{t,1}, \ell_{t,2}, \dots, \ell_{t,N}) \in [0,1]^N$. Finally, it
 feeds reward to each copy of $A$. The reward for $i$-th copy is $g_{t,i} \in
 [-1,1]$ defined as
 \begin{align}
+\label{eq:gradients_experts_reduction}
 g_{t,i} =
 \begin{cases}
 \langle \ell_t, p_t \rangle - \ell_{t,i} & \text{if } w_{t,i} > 0 \; , \\
