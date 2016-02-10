@@ -6,11 +6,10 @@ First we state some technical lemmas that will be used in the following proofs.
 We first prove a lower bound on the potential function of the \ac{KT} estimator. This is a generalization to real numbers of the lower bound proved for integers in \citet{WillemsST95}.
 \begin{lemma}
 \label{lemma:approx_gamma_real}
-If $c\geq1$ and $a,b$ are non-negative reals such that $a +
-b = c$ then
+If $c \ge 1$ and $a,b$ are non-negative reals such that $a + b = c$ then
 $$
-\ln \frac{\Gamma(a + 1/2) \cdot \Gamma(b + 1/2)}{\pi \cdot \Gamma(c+1)}
-\geq - \ln(e \pi \sqrt{2}) -\frac{1}{2} \ln(c) +\ln \left(\left( \frac{a}{c} \right)^a \left( \frac{b}{c} \right)^b\right) \; .
+\ln \left(\frac{\Gamma(a + 1/2) \cdot \Gamma(b + 1/2)}{\pi \cdot \Gamma(c+1)} \right)
+\ge - \ln(e \pi \sqrt{2}) -\frac{1}{2} \ln(c) +\ln \left(\left( \frac{a}{c} \right)^a \left( \frac{b}{c} \right)^b\right) \; .
 $$
 \end{lemma}
 %
@@ -52,38 +51,37 @@ We will prove the equivalent statement that
 \[
 \ln \frac{\Gamma(\delta+1) \pi}{2^\delta \Gamma(\frac{\delta+1}{2})^2 \sqrt{\delta+1}} \geq 0~.
 \]
-The inequality holds with equality in $\delta=0$, so it is enough to prove
-that the derivative of the right-hand side is positive for $\delta > 0$.
-
-The derivative is equal to
-\[
-\Psi(\delta+1) - \frac{1}{2(\delta+1)} -\ln(2) - \Psi\left(\frac{\delta+1}{2} \right),
-\]
+The inequality holds with equality in $\delta=0$, so it is enough to prove that
+the derivative of the right-hand side is positive for $\delta > 0$. The
+derivative of the right-hand side is equal to
+$$
+\Psi(\delta+1) - \frac{1}{2(\delta+1)} -\ln(2) - \Psi\left(\frac{\delta+1}{2} \right) \; ,
+$$
 where $\Psi(x)$ is the digamma function.
 
 We will use the following upper~\citep{Chen05} and lower bound~\citep{Batir08} to the digamma function, for any $x>0$
 \begin{align*}
 \Psi(x) &< \ln(x) -\frac{1}{2x} -\frac{1}{12 x^2}\\
-\Psi(x+1) &> \ln(x+\frac{1}{2}) \; .
+\Psi(x+1) &> \ln \left(x+\frac{1}{2} \right) \; .
 \end{align*}
-Hence we obtain
+Hence, we obtain
 \begin{align*}
-&\Psi(\delta+1) - \frac{1}{2(\delta+1)} -\ln(2) -\Psi(\frac{\delta+1}{2}) \\
-&\quad \geq \ln(\delta+\frac{1}{2})- \frac{1}{2(\delta+1)} -\ln(2) -\ln\frac{\delta+1}{2} +\frac{1}{\delta+1} +\frac{1}{3 (\delta+1)^2} \\
-&\quad = \ln(1+\frac{\delta}{\delta+1})+ \frac{1}{2(\delta+1)} -\ln(2)+\frac{1}{3 (\delta+1)^2} \\
-&\quad \geq \frac{\delta}{\delta+1} - (1-\ln(2))\frac{\delta^2}{(\delta+1)^2}+ \frac{1}{2(\delta+1)} -\ln(2)+\frac{1}{3 (\delta+1)^2}\\
+&\Psi(\delta+1) - \frac{1}{2(\delta+1)} - \ln(2) - \Psi \left(\frac{\delta+1}{2} \right) \\
+&\quad \ge \ln \left(\delta+\frac{1}{2} \right) - \frac{1}{2(\delta+1)} -\ln(2) -\ln \left(\frac{\delta+1}{2}\right) + \frac{1}{\delta+1} +\frac{1}{3 (\delta+1)^2} \\
+&\quad = \ln \left(1+\frac{\delta}{\delta+1} \right)+ \frac{1}{2(\delta+1)} -\ln(2)+\frac{1}{3 (\delta+1)^2} \\
+&\quad \ge \frac{\delta}{\delta+1} - (1-\ln(2))\frac{\delta^2}{(\delta+1)^2}+ \frac{1}{2(\delta+1)} -\ln(2)+\frac{1}{3 (\delta+1)^2}\\
 &\quad = \frac{\delta^2 \ln(2)+\frac{3}{2}\delta +\frac{5}{6}}{(\delta+1)^2} - \ln(2)\\
 &\quad = \frac{(\frac{3}{2}-\ln(4)) \delta +\frac{5}{6}-\ln(2)}{(\delta+1)^2} >0,
 \end{align*}
-where in the second inequality we used the elementary inequality $\ln(x+1) \leq x - (1-\ln(2))x^2, \ \forall 0\leq x \leq 1$.
+where in the second inequality we used the elementary inequality $\ln(x+1) \leq x - (1-\ln(2))x^2$ valid for $x \in [0,1]$.
 \end{proof}
 
 \begin{lemma}
 \label{lemma:lower_bound_gamma}
-Let $T,\delta,x \in \R$, $T\geq1$, and $\delta\geq0$. Then
+Let $T \ge 1$, $\delta \ge 0$, and $x \in [-T,T]$. Then
 \begin{align*}
 \frac{2^T \cdot \Gamma(\delta+1) \Gamma \left(\frac{T+\delta+1}{2} + \frac{x}{2} \right) \cdot \Gamma \left(\frac{T+\delta+1}{2} - \frac{x}{2} \right)}{ \Gamma(\frac{\delta+1}{2})^2 \Gamma(T+\delta+1)}
-&\geq\exp\left(\frac{x^2}{2(T+\delta)} +\frac{1}{2} \ln \frac{1+\delta}{T+\delta} -3\right) \;.
+&\geq\exp\left(\frac{x^2}{2(T+\delta)} +\frac{1}{2} \ln \left(\frac{1+\delta}{T+\delta}\right) - 3\right) \;.
 \end{align*}
 \end{lemma}
 \begin{proof}
@@ -159,7 +157,6 @@ Hence, we set $b$ such that
 Numerically, $b=1.71825...$, so
 \[
 W(x) \geq 0.6321 \log(x+1)~.
-%\qedhere
 \]
 
 For the upper bound, we use Theorem~2.3 in \cite{hoorfar2008inequalities}, that says that
