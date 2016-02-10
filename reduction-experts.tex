@@ -3,8 +3,7 @@
 
 We show how to use the algorithm for OLO over one-dimensional Hilbert space $\R$
 from Section~\ref{section:one-dimensional-hilbert-space-olo}--which is itself
-based on a coin-betting strategy---to construct an algorithm for learning with
-expert advice.
+based on a coin-betting strategy---to construct an algorithm for \ac{LEA}.
 
 Let $N \ge 2$ be the number of experts and $\Delta_N$ be the $N$-dimensional
 probability simplex. Let $\pi = (\pi_1, \pi_2, \dots, \pi_N) \in \Delta_N$ be
@@ -101,17 +100,17 @@ Now, let $G_{t,i} =
 \allowdisplaybreaks
 \begin{align*}
 \allowdisplaybreaks
-\Regret_T(u)
-& = \sum_{t=1}^T \langle \ell_t, p_t - u \rangle
+&\Regret_T(u)
+= \sum_{t=1}^T \langle \ell_t, p_t - u \rangle
 = \sum_{t=1}^T \sum_{i=1}^N u_i \left( \langle \ell_t, p_t \rangle - \ell_{t,i} \right) \\
-& \le \sum_{t=1}^T \sum_{i=1}^N u_i g_{t,i} & \text{(by definition of $g_{t,i}$)} \\
-& \le \sum_{i=1}^N u_i |G_{T,i}| & \text{(since $u \ge 0$)}  \\
-& = \sum_{i=1}^N u_i f_T^{-1}\left(\ln [F_T(G_{T,i})] \right)  & \text{(since $F_T(x) = \exp(f_T(x))$ is even)} \\
-& \le f_T^{-1}\left(\sum_{i=1}^N u_i \ln \left[ F_T(G_{T,i}) \right]\right) & \text{(by concavity of $f_T$)} \\
-& = f_T^{-1}\left(\sum_{i=1}^N u_i \left\{\ln \left[ \frac{\pi_i}{u_i} F_T(G_{T,i}) \right] + \ln \left[\frac{u_i}{\pi_i}\right] \right\} \right) \\
-& = f_T^{-1}\left(\sum_{i=1}^N u_i \left\{\ln \left[\frac{\pi_i}{u_i} F_T(G_{T,i}) \right]\right\} + \KL{u}{\pi}\right) \\
-& \le f_T^{-1}\left(\ln \left(\sum_{i=1}^N \pi_i F_T(G_{T,i}) \right) + \KL{u}{\pi}\right) & \text{(by concavity of $\ln(\cdot)$)} \\
-& \le f_T^{-1}\left(\KL{u}{\pi}\right) & \text{(by \eqref{equation:bounded-potential})}.
+& \le \sum_{t=1}^T \sum_{i=1}^N u_i g_{t,i} \qquad \text{(by definition of $g_{t,i}$)} \\
+& \le \sum_{i=1}^N u_i |G_{T,i}| \qquad \text{(since $u \ge 0$)}  \\
+& = \sum_{i=1}^N u_i f_T^{-1}\left(\ln [F_T(G_{T,i})] \right)  \qquad \text{(since $F_T(x) = \exp(f_T(x))$ is even)} \\
+& \le f_T^{-1}\left(\sum_{i=1}^N u_i \ln \left[ F_T(G_{T,i}) \right]\right) \qquad \text{(by concavity of $f_T$)} \\
+& = f_T^{-1}\left(\sum_{i=1}^N u_i \left\{\ln \left[\frac{u_i}{\pi_i}\right] +\ln \left[ \frac{\pi_i}{u_i} F_T(G_{T,i}) \right] \right\} \right) 
+= f_T^{-1}\left(\KL{u}{\pi}+\sum_{i=1}^N u_i\ln \left[\frac{\pi_i}{u_i} F_T(G_{T,i}) \right]\right) \\
+& \le f_T^{-1}\left(\KL{u}{\pi}+\ln \left(\sum_{i=1}^N \pi_i F_T(G_{T,i}) \right)\right) \qquad \text{(by concavity of $\ln(\cdot)$)} \\
+& \le f_T^{-1}\left(\KL{u}{\pi}\right) \qquad \text{(by \eqref{equation:bounded-potential})}.
 \end{align*}
 \endgroup
 The chain of inequalities above is based on a simple modification of the change
