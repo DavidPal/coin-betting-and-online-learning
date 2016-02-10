@@ -122,13 +122,13 @@ $$
 He showed that this strategy maximizes $\Exp[\ln(\Wealth_t)]$.
 
 For adversarial coins, Kelly betting does not make sense. However, we can
-replace $p$ with an estimate. This problem was studied in information theory by
-\citet{KrichevskyT81}, who proposed that after seeing coin flips $g_1, g_2,
-\dots, g_{t-1}$ insteaf of $p$ we use an empirical estimate\footnote{Compared
-the more common maximum likelihood estimate $\frac{\sum_{i=1}^{t-1} \indicator[g_i = +1]}{t-1}$,
-the KT estimator ``shrinks'' slightly towards $\frac{1}{2}$.}
-$k_t = \frac{1/2 + \sum_{i=1}^{t-1} \indicator[g_i = +1]}{t}$.
-This results in betting strategy
+replace $p$ with an estimate. This problem was studied by \citet{KrichevskyT81},
+who proposed that after seeing coin flips $g_1, g_2, \dots, g_{t-1}$ an
+empirical estimate $k_t = \frac{1/2 + \sum_{i=1}^{t-1} \indicator[g_i = +1]}{t}$
+should be used instead of $p$. Their estimate is commonly called \emph{KT
+estimator}.\footnote{Compared the standard maximum likelihood estimate
+$\frac{\sum_{i=1}^{t-1} \indicator[g_i = +1]}{t-1}$, KT estimator ``shrinks''
+slightly towards $\frac{1}{2}$.} KT estimator results in betting strategy
 \begin{equation}
 \label{equation:kt-estimator-betting-strategy}
 \beta_t = 2k_t - 1 = \frac{\sum_{i=1}^{t-1} g_i}{t}
@@ -136,7 +136,7 @@ This results in betting strategy
 which we call \emph{adaptive Kelly betting based on KT estimator}.
 \citeauthor{KrichevskyT81} showed that
 $$
-\forall \beta \in [-1,1] \qquad \qquad \ln(\Wealth_t) \ge \ln(\Wealth_t(\beta)) \ - \ \frac{1}{2} \ln t \ - \ ??? \; ,
+\forall \beta \in [-1,1] \qquad \qquad \ln(\Wealth_t) \ge \ln(\Wealth_t(\beta)) \ - \ \frac{1}{2} \ln t \ - \ \ln(2) \; ,
 $$
 where $\Wealth_t(\beta)$ is the wealth of a strategy that bets the same fraction
 $\beta$ in every round.
