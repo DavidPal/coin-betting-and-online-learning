@@ -2,10 +2,10 @@
 \label{section:reduction_hilbert}
 
 We show how to use a sequence of coin-betting potentials $\{F_t\}_{t=0}^\infty$
-to construct an algorithm for online linear optimization over a Hilbert space
+to construct an algorithm for \ac{OLO} over a Hilbert space
 and how to prove regret bound for it. The basic idea is to realize that
 continuous coin-betting corresponds to a certain type of algorithms
-for online linear optimization over one-dimensional Hilbert space $\R$.
+for \ac{OLO} over one-dimensional Hilbert space $\R$.
 This idea can be then generalized to an arbitrary Hilbert space $\H$.
 
 \subsection{A Warm-Up: One-Dimensional Hilbert Space}
@@ -43,7 +43,7 @@ one-dimensional Hilbert space $\R$ according to equation
 \eqref{equation:one-dimensional-olo}.
 
 If the betting algorithm is based on a sequence of coin-betting potentials
-$\{F_t\}_{t=1}^\infty$ then according to \eqref{equation:wealth-lower-bound-generic},
+$\{F_t\}_{t=1}^\infty$ then using \eqref{equation:wealth-lower-bound-generic},
 \begin{equation}
 \label{equation:one-dimensional-olo-reward-lower-bound}
 \Reward_T
@@ -119,8 +119,7 @@ $$
 \end{theorem}
 
 \begin{proof}
-Compared to the one dimensional case, the only hard part is to show an analogue of
-inequality \eqref{equation:wealth-lower-bound-generic},
+Compared to the one dimensional case, the only hard part is to show an analogue of \eqref{equation:wealth-lower-bound-generic},
 \begin{equation}
 \label{equation:wealth-lower-bound-hilbert-space}
 \Wealth_t \ge F_t\left(\norm{\sum_{t=1}^T g_t} \right) \; .
