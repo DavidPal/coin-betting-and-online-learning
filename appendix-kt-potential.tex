@@ -20,14 +20,16 @@ and
 
 \begin{proof}
 $F(x)$ is obviously even. $\Gamma(z) = \int_0^\infty t^{z-1} e^{-t} dt$ is
-defined for any positive real $z$. Hence $F$ is defined on the interval $(-a,a)$. Bohr-Mollerup theorem
-states that $\Gamma(x)$ is logarithmically convex on $(0,\infty)$; see e.g.
-\cite[Chapter 2]{Artin64}. Hence $F(x)$ is also logarithimically convex, since
-$\ln (F(x)) = \ln(\Gamma(a+x)) + \ln(\Gamma(a-x))$ is a sum of convex functions.
+defined for any positive real $z$. Hence $F$ is defined on the interval
+$(-a,a)$. According to Bohr-Mollerup theorem \cite[Theorem 2.1]{Artin64},
+$\Gamma(x)$ is logarithmically convex on $(0,\infty)$. Hence $F(x)$ is also
+logarithimically convex, since $\ln (F(x)) = \ln(\Gamma(a+x)) +
+\ln(\Gamma(a-x))$ is a sum of convex functions.
 
 It is well known that $\lim_{z \searrow 0} \Gamma(z) = +\infty$. Thus,
 $$
 \lim_{x \nearrow a} F(x)
+= \lim_{x \nearrow a} \Gamma(a+x) \Gamma(a-x)
 = \Gamma(2a) \lim_{x \nearrow a} \Gamma(a-x)
 = \Gamma(2a) \lim_{z \searrow 0} \Gamma(0)
 = + \infty \; ,
@@ -68,7 +70,7 @@ since all coefficients are positive (except for zero order term).
 Finally, to prove \eqref{equation:gamma-property-4}, note that
 for any $x \in (-a,a)$,
 $$
-f(x) = c_0 + \sum_{n \ge 2}^\infty c_n x^n
+f(x) = c_0 + \sum_{n=2}^\infty c_n x^n
 $$
 where $c_2, c_3, \dots$ are non-negative coefficients. Thus
 \begin{align*}
@@ -82,9 +84,12 @@ F'(x) & = f'(x) \cdot F(x) &
 & \text{and} &
 F''(x) & = \left[f''(x) + (f'(x))^2 \right] \cdot F(x) \; .
 \end{align*}
-Therefore,
+Therefore, for $x \in [0,a)$,
 $$
-x \cdot F''(x) = x [f''(x) + (f'(x))^2] F(x) \ge [f'(x) + x (f'(x))^2] F(x) \ge f'(x) F(x) = F'(x) \; .
+x \cdot F''(x)
+= x \left[ f''(x) + (f'(x))^2 \right] F(x)
+\ge \left[ f'(x) + x (f'(x))^2 \right] F(x)
+\ge f'(x) F(x) = F'(x) \; .
 $$
 This proves \eqref{equation:gamma-property-4}.
 \end{proof}
@@ -109,7 +114,7 @@ Property (2) and (4) of the definition follow from
 Lemma~\ref{lemma:kt-potential-analytic-properties}.
 Property (1) follows by simple substitution for $t=0$ and $x=0$.
 
-Before verifying property (2), we prove \eqref{equation:kt-potential-beta}. We
+Before verifying property (3), we prove \eqref{equation:kt-potential-beta}. We
 use an alebgraic property of the Gamma function that states that $\Gamma(1+z) =
 z \Gamma(z)$ for any positive $z$. Equation \eqref{equation:kt-potential-beta}
 follows from
@@ -121,7 +126,7 @@ follows from
 & = \frac{x}{t+\delta} \; .
 \end{align*}
 
-Let $\phi(g) = \frac{F_t(x+g)}{F_{t-1}(x)}$. To very property (2) of the definition,
+Let $\phi(g) = \frac{F_t(x+g)}{F_{t-1}(x)}$. To verify property (3) of the definition,
 it suffices to show that $\phi(g) \le 1 + g \frac{x}{t+\delta}$
 for any $x \in [-t+1, t-1]$ and any $g \in [-1,1]$. We can write $\phi(g)$ as
 \begin{align*}
