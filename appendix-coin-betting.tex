@@ -1,33 +1,40 @@
 \section{Optimal Betting Fraction}
 \label{section:optimal-betting-fraction}
 
-\begin{theorem}
-\label{theo:opt_beta}
-Assume that the function $\phi(z)=F_t(x+z)$, is piece-wise logarithmically
-convex in $[-\infty,0)$ and $(0,\infty]$. Then, for any $z\in \R$, we have
-\[
-\argmin_{\beta} \max_{|g_t|\leq 1} \ \frac{F_t(x+g_t)}{1 + \beta g_t} =\frac{F_t(x+1) - F_t(x-1)}{F_t(x+1) + F_t(x-1)}~.
-\]
+\begin{theorem}[Optimal Betting Fraction]
+\label{theorem:optimal-betting-fraction}
+Let $x \in \R$. Let $F$ be logaritmically convex function defined on an interval
+containing $[x-1,x+1]$ as a subset. Then,
+$$
+\argmin_{\beta \in (-1,1)} \max_{g \in [-1,1]} \ \frac{F(x+g)}{1 + \beta g}
+= \frac{F(x+1) - F(x-1)}{F(x+1) + F(x-1)} \; .
+$$
 \end{theorem}
-\begin{proof}
-First consider the case that $g_t=0$. In this case, $\frac{F_t(x+g_t)}{1 +
-\beta g_t}=F_t(x)$, independently of $\beta$. Hence, in the following we can
-exclude the case $g_t=0$.
 
-Minimizing $\frac{\phi(z)}{1+\beta z}$ is equivalent to minimize the function $g(z,\beta)$ defined as
-\[
-g(z,\beta) := \ln \phi(z) - \log(1+\beta z)~.
-\]
-We have that $g(z,\beta)$ is piece-wise convex on $[-\infty,0)$ and
-$(0,\infty]$, w.r.t. the first argument.  Hence, the maximum of $g(z,\beta)$ is
-attained in $z=-1$ or $z=1$, given that the case $z=0$ is excluded by
-assumption.  Hence, we want to choose $\beta$ as
-\[
-\argmin_{\beta} \max_{z \in \{-1, 1\}} \ g(z,\beta),
-\]
-in other words we want to set $\beta$ such that $g(1)=g(-1)$, that is
-\[
-\beta^* = \frac{\exp\left(\ln \phi(1) - \ln \phi(-1)\right)-1}{\exp\left(\ln \phi(1) - \ln \phi(-1)\right)+1}
-= \frac{\phi(1) - \phi(-1)}{\phi(1) + \phi(-1)}~.
-\]
+\begin{proof}
+We define the functions $h,f:[-1,1] \times (-1,1) \to \R$ as
+\begin{align*}
+h(g, \beta) & = \frac{F(x+g)}{1 + \beta g} &
+& \text{and} &
+f(g, \beta) & = \ln (h(g,\beta)) = \ln(F(x+g)) - \ln(1 + \beta g) \; .
+\end{align*}
+Clearly, $\argmin_{\beta \in (-1,1)} \max_{g \in [-1,1]} h(g,\beta) = \argmin_{\beta \in (-1,1)} \max_{g \in [-1,1]} f(g,\beta)$
+and we can work with $f$ instead of $h$. Function $h$ is logarithmically convex
+in $g$ and thus $f$ is convex in $g$. Therefore,
+$$
+\forall \beta \in (-1,1) \qquad \qquad
+\max_{g \in [-1,1]} f(g,\beta) = \max \left\{ f(+1,\beta), f(-1,\beta) \right\} \; .
+$$
+Let $\phi(\beta) = \max \left\{ f(+1,\beta), f(-1,\beta) \right\}$. We seek to
+find $\argmin_{\beta \in (-1,1)} \phi(\beta)$. Since $f(+1,\beta)$ is decreasing
+in $\beta$ and $f(-1,\beta)$ is increasing in $\beta$, the minimum of
+$\phi(\beta)$ is at a point $\beta^*$ such that $f(+1,\beta^*) = f(-1,\beta^*)$.
+In other words, $\beta^*$ satisfies
+$$
+\ln(F(x+1)) - \ln(1 + \beta^*) =  \ln(F(x-1)) - \ln(1 - \beta^*) \; .
+$$
+The only solution of this equation is
+$$
+\beta^* = \frac{F(x+1) - F(x-1)}{F(x+1) + F(x-1)} \; .
+$$
 \end{proof}
