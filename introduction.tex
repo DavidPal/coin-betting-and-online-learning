@@ -10,7 +10,7 @@ cumulative losses of the algorithm and of the (hypothetical) strategy that
 would choose in every round the same best point, $u$, in hindsight. Typically,
 one tries to prove that the regret grows at most sub-linearly in time. Most of
 the \ac{OLO} algorithms are based on the nowadays standard tools of strong
-convexity/strong smoothness duality, see for example~\citet{Shalev-Shwartz12}.
+convexity/strong smoothness duality; see for example~\citet{Shalev-Shwartz12}.
 
 \ac{OLO} is a basic building block in many other related problems. For example,
 \ac{OCO}, the analogous problem where $\langle \ell_t, w_t \rangle$ is
@@ -19,8 +19,8 @@ solved through a reduction to an \ac{OLO}
 problem~\citep{Cesa-BianchiL06,Shalev-Shwartz12}.
 \ac{LEA}~\citep{LittlestoneW94,Vovk98,Cesa-BianchiFHHSW97} is an \ac{OLO}
 problem in which the loss vectors belong to $[0,1]^N$ and $w_t$ is constrained
-to be in the simplex. Also, batch and stochastic optimization of convex
-functions can be solved through a reduction to
+to be in the probability simplex. Also, batch and stochastic optimization of
+convex functions can be solved through a reduction to
 \ac{OLO}~\citep{Shalev-Shwartz12}. Statistical learning with convex losses can
 also seen as stochastic optimization of convex functions and hence solved
 through \ac{OCO}~\citep{Munro1951}. Thus, a sublinear regret in \ac{OLO} becomes
@@ -57,7 +57,7 @@ We prove that coin betting strategies that assure an exponential growth of the
 wealth for biased coins allow to obtain parameter-free regret bounds in \ac{OLO}
 and in \ac{LEA}. In particular, we show that the strategy for sequential betting
 based on the well-known \ac{KT} estimator~\citep{KrichevskyT81} can be used in a
-simple a direct way to recover and slightly improve parameter-free algorithms
+simple and direct way to recover and slightly improve parameter-free algorithms
 for \ac{OLO} and \ac{LEA} (Section~\ref{section:kt-estimator}). The obtained
 algorithm are extremely natural and intuitive, the proofs of the regret bounds
 are immediate given the reductions, and they also shed a light on previous

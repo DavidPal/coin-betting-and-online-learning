@@ -65,10 +65,10 @@ from online coin betting to online linear optimization over Hilbert spaces and
 to learning with expert advice. We instantiate our framework using a betting
 algorithm based on the Krichevsky-Trofimov estimator. We obtain a simple
 algorithm for online linear optimization over any Hilbert space with
-$O(\|u\|\sqrt{T \log(1+T\|u\|}))$ regret with respect to any competitor $u$. For
+$O(\norm{u}\sqrt{T \log(1+T \norm{u}}))$ regret with respect to any competitor $u$. For
 learning with expert advice we obtain an algorithm that has $O(\sqrt{T (1 +
 \KL{u}{\pi})})$ regret against any competitor $u$ and where $\KL{u}{\pi}$ is the
-Kullback-Leibler divergence between algorithm's prior distribution and the
+Kullback-Leibler divergence between algorithm's prior distribution $\pi$ and the
 competitor. In both cases, no parameters need to be tuned.
 \end{abstract}
 

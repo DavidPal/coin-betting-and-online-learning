@@ -3,7 +3,7 @@
 
 In this section we show that Krichevsky-Trofimov (KT) estimator has associated a
 sequence of excellent coin-betting potentials, which we call \emph{KT
-potential}. We then prove corollaries of the regret bounds for OLO in Hilbert
+potentials}. We then prove corollaries of the regret bounds for OLO over Hilbert
 space and learning with expert advice that we proved in previous sections.
 
 The potential corresponding to adaptive Kelly betting strategy
@@ -11,19 +11,20 @@ $\beta_t$ defined by \eqref{equation:kt-estimator-betting-strategy}
 based on the KT estimator is
 \begin{equation}
 \label{equation:kt-estimator-potential}
-F_t(x) = \epsilon \frac{2^t \cdot \Gamma \left( \frac{t+1}{2} + \frac{x}{2} \right) \cdot \Gamma \left( \frac{t+1}{2} - \frac{x}{2} \right)}{\pi \cdot t!} \; ,
+F_t(x) = \epsilon \frac{2^t \cdot \Gamma \left( \frac{t+1}{2} + \frac{x}{2} \right) \cdot \Gamma \left( \frac{t+1}{2} - \frac{x}{2} \right)}{\pi \cdot t!}
+\qquad \qquad \text{$t \ge 0$, \ $x \in \left(- \, \frac{t+1}{2}, \frac{t+1}{2}\right)$,}
 \end{equation}
 where $\Gamma(x) = ￼\int_0^\infty t^{-x} e^{-t} dt$ is Euler's gamma function.
 The potential was introduced by~\citet{KrichevskyT81} who used it for proving
 regret bound for online prediction with log-loss; see also \cite[Section
-9.7]{Cesa-BianchiL06}. The potential is defined on the interval $I_t =
-(-\frac{t+1}{2}, \frac{t+1}{2})$. Theorem~\ref{theorem:kt-potential} stated in
-Appendix~\ref{section:properties-kt-potential} shows that $\{F_t\}_{t=0}^\infty$
-is a sequence of excellent coin-betting potentials for initial endowment
-$\epsilon$. Theorem~\ref{theorem:kt-potential} also shows that KT betting
-strategy $\beta_t$ as defined by \eqref{equation:kt-estimator-betting-strategy},
-is a potential-based strategy, i.e., it satisfies
-\eqref{equation:potential-based-strategy}.
+9.7]{Cesa-BianchiL06}. The potential is defined on the interval.
+Theorem~\ref{theorem:kt-potential} stated in
+Appendix~\ref{section:properties-kt-potential} shows that
+\eqref{equation:kt-estimator-potential} is a sequence of excellent coin-betting
+potentials for initial endowment $\epsilon$. Theorem~\ref{theorem:kt-potential}
+also shows that KT betting strategy $\beta_t$ as defined by
+\eqref{equation:kt-estimator-betting-strategy}, is a potential-based strategy,
+i.e., it satisfies \eqref{equation:potential-based-strategy}.
 
 \subsection{OLO in Hilbert Space}
 
@@ -37,14 +38,14 @@ is a potential-based strategy, i.e., it satisfies
 \FOR{$t=1,2,\dots$}
 \STATE{Set $w_t \leftarrow \frac{1}{t} \left(\epsilon + \sum_{i=1}^{t-1} \langle g_t, w_t \rangle \right) \sum_{i=1}^{t-1} g_i$}
 \STATE{Predict $w_t$}
-\STATE{Receive reward vector $g_t \in \H$ such that $\|g_t\| \le 1$}
+\STATE{Receive reward vector $g_t \in \H$ such that $\norm{g_t} \le 1$}
 %\STATE{Update $\Wealth_t \leftarrow \Wealth_{t-1} \ + \ \langle g_t, w_t \rangle$}
 \ENDFOR
 }
 \end{algorithmic}
 \end{algorithm}
 
-We apply KT potential for construction of an OLO algorithm in a Hilbert
+We apply KT potential for construction of an OLO algorithm over a Hilbert
 space $\H$. According to \eqref{equation:hilbert-space-olo}, the resulting algorithm predicts
 in round $t$,
 $$
@@ -68,7 +69,7 @@ applying Theorem~\ref{theorem:hilbert-space-olo-regret-bound} to the KT
 potential \eqref{equation:kt-estimator-potential}. The regret bound is stated as
 Corollary~\ref{corollary:kt-hilbert-space-olo-regret} below. Its proof can be
 found in the Appendix~\ref{section:corollaries_reductions}. The only technical part of the
-proof is an upper bound on Fenchel conjugate $F_t^*$ since $F_t^*$ cannot be
+proof is an upper bound on Fenchel conjugate $F_t^*$ since it cannot be
 expressed as an elementary function.
 
 \begin{corollary}[Regret Bound for Algorithm~\ref{algorithm:kt-hilbert-space-olo}]
@@ -123,7 +124,7 @@ at the final algorithm, Algorithm~\ref{algorithm:kt-experts}.
 \STATE{For each $i \in [N]$, set $\widehat{p}_{t,i} \leftarrow \pi_i [w_{t,i}]_+$}
 \STATE{Set $p_t \leftarrow
 \begin{cases}
-\hat{p}_t/\norm{\widehat{p}}_1 & \text{if $\norm{\widehat p}_1 > 0$} \\
+\widehat{p}_t/\norm{\widehat{p}}_1 & \text{if $\norm{\widehat p}_1 > 0$} \\
 \frac{1}{N}(1,1,\dots,1) & \text{if $\norm{\widehat p}_1 = 0$}
 \end{cases}$}
 \STATE{Predict $p_t$}

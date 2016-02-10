@@ -12,13 +12,25 @@ At the same time, the previous
 ad-hoc choice of the potential were just approximation of the optimal obtainable
 wealth.
 
-In particular, in previous \ac{LEA} papers the potential used for expert $j$ at time $t$
-is $\mathcal{O}(\exp(\frac{[\sum_{i=1}^{t-1} g_{i,j}]_+}{t})$~\citep{ChaudhuriYH09,LuoE14,LuoS15}.
-It is now clear that that potential is just an approximation of the optimal wealth achievable by a coin-betting algorithm.
-Moreover, that potential and the ones in~\citet{ChernovV10,KoolenE15} are not even, introducing a lot of techical difficulties in the analysis. Instead, our reduction moves the truncation outside of the potential, see \eqref{eq:gradients_experts_reduction}, making the analysis straightforward. Also, as observed by \citet{ChernovV10}, our bound in terms of the KL divergence is superior to the $\epsilon$-quantile bounds.
+In particular, in previous \ac{LEA} papers the potential used for expert $j$ at
+time $t$ is $\mathcal{O}\left(\exp \left(\frac{[\sum_{i=1}^{t-1} g_{i,j}]_+}{t}
+\right) \right)$; see \citep{ChaudhuriYH09,LuoE14,LuoS15}. It is now clear that
+that potential is just an approximation of the optimal wealth achievable by a
+coin-betting algorithm. Moreover, that potential and the ones
+in~\citet{ChernovV10,KoolenE15} are not even, introducing a lot of techical
+difficulties in the analysis. Instead, our reduction moves the truncation
+outside of the potential, see \eqref{eq:gradients_experts_reduction}, making the
+analysis straightforward. Also, as observed by \citet{ChernovV10}, our bound in
+terms of the KL divergence is superior to the $\epsilon$-quantile bounds.
 
-In the \ac{OLO} setting, \citet{StreeterM12} used a 1-d potential of the form $\mathcal{O}(\exp\frac{|\sum_{i=1}^{t-1} g_{i}|}{\sqrt{t}})$, obtaining a suboptimal regret bound. \citet{Orabona13} extended it to the infinite dimensional case.
-The optimal bound has been obtained in \citet{McMahanO14} with potential of the right form: $\mathcal{O}(\exp\frac{\|\sum_{i=1}^{t-1} g_{i}\|^2}{t})$. Indeed, it is very easy to show that such a potential is an excellent coin betting potential.
+In the \ac{OLO} setting, \citet{StreeterM12} used a one-dimensional potential of
+the form $\mathcal{O}\left(\exp \left(\frac{|\sum_{i=1}^{t-1}
+g_{i}|}{\sqrt{t}}\right)\right)$, obtaining a suboptimal regret bound.
+\citet{Orabona13} extended it to the infinite dimensional case. The optimal
+bound has been obtained in \citet{McMahanO14} with potential of the right form:
+$\mathcal{O}\left(\exp \left(\frac{\|\sum_{i=1}^{t-1}
+g_{i}\|^2}{t}\right)\right)$. Indeed, it is very easy to show that such a
+potential is an excellent coin betting potential.
 
 The obtained bounds, in Corollaries~\ref{corollary:kt-hilbert-space-olo-regret}
 and~\ref{corollary:kt-experts-regret}, improves the previous ones in terms of
@@ -48,5 +60,9 @@ Algorithms~\ref{algorithm:kt-hilbert-space-olo} and~\ref{algorithm:kt-experts}
 achieves the optimal worst case upper bound on regret, see \citet{Orabona13} and
 \citet{Cesa-BianchiL06} respectively.
 
-It is also possible to have data-dependent bounds, through data-dependent coin-bettin potentials.
-For example, it is an easy excercise to show that a potential of the form $\mathcal{O}(\exp\frac{\|\sum_{i=1}^{t-1} g_{i}\|^2}{1+\sum_{i=1}^{t-1} \|g_{i}\|})$ is an excellent coin betting potential. Through our reductions, such potential would recover at the same time the bound in \citet{LuoS15} and \citet{Orabona14}.
+It is also possible to have data-dependent bounds, through data-dependent
+coin-bettin potentials. For example, it is an easy excercise to show that a
+potential of the form $\mathcal{O}\left(\exp \left(\frac{\|\sum_{i=1}^{t-1}
+g_{i}\|^2}{1+\sum_{i=1}^{t-1} \|g_{i}\|}\right)\right)$ is an excellent coin
+betting potential. Through our reductions, such potential would recover at the
+same time the bound in \citet{LuoS15} and \citet{Orabona14}.
