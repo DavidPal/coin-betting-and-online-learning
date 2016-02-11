@@ -20,7 +20,7 @@ and
 
 \begin{proof}
 $F(x)$ is obviously even. $\Gamma(z) = \int_0^\infty t^{z-1} e^{-t} dt$ is
-defined for any positive real $z$. Hence $F$ is defined on the interval
+defined for any real number $z > 0$. Hence $F$ is defined on the interval
 $(-a,a)$. According to Bohr-Mollerup theorem \cite[Theorem 2.1]{Artin64},
 $\Gamma(x)$ is logarithmically convex on $(0,\infty)$. Hence $F(x)$ is also
 logarithimically convex, since $\ln (F(x)) = \ln(\Gamma(a+x)) +
@@ -31,7 +31,7 @@ $$
 \lim_{x \nearrow a} F(x)
 = \lim_{x \nearrow a} \Gamma(a+x) \Gamma(a-x)
 = \Gamma(2a) \lim_{x \nearrow a} \Gamma(a-x)
-= \Gamma(2a) \lim_{z \searrow 0} \Gamma(0)
+= \Gamma(2a) \lim_{z \searrow 0} \Gamma(z)
 = + \infty \; ,
 $$
 since $\Gamma$ is continous at $2a$. Becauce $F(x)$ is even, we also have
@@ -41,7 +41,7 @@ To show that $F(x)$ is increasing and that it satifies
 \eqref{equation:gamma-property-4}, we write $f(x) = \ln(F(x))$ as a Mclaurin series.
 The derivatives of $\ln(\Gamma(z))$ are so called polygamma functions
 $$
-\psi^{(n)}(z) = \frac{d^{n+1}}{dx^{n+1}} \ln(\Gamma(z))
+\psi^{(n)}(z) = \frac{d^{n+1}}{dz^{n+1}} \ln(\Gamma(z))
 \qquad \qquad \text{for $z > 0$ and $n=0,1,2,\dots$.}
 $$
 Polygamma functions have well-known integral representation
@@ -64,7 +64,7 @@ for even $n \ge 2$, $\psi_{n-1}(a)$ is positive and can be upper bounded as
 & = \frac{1}{1 - 1/e} a^{-n} \Gamma(n) + a^{-n-1} \Gamma(n+1) \\
 & \le \frac{1}{1 - 1/e} a^{-n} n! (1 + 1/a) \; .
 \end{align*}
-From the Mclaurin expansion we see that $f(x)$ is increasing on $[0,-a)$
+From the Mclaurin expansion we see that $f(x)$ is increasing on $[0,a)$
 since all coefficients are positive (except for zero order term).
 
 Finally, to prove \eqref{equation:gamma-property-4}, note that
@@ -127,7 +127,7 @@ follows from
 \end{align*}
 
 Let $\phi(g) = \frac{F_t(x+g)}{F_{t-1}(x)}$. To verify property (3) of the definition,
-it suffices to show that $\phi(g) \le 1 + g \frac{x}{t+\delta}$
+we need to show that $\phi(g) \le 1 + g \frac{x}{t+\delta}$
 for any $x \in [-t+1, t-1]$ and any $g \in [-1,1]$. We can write $\phi(g)$ as
 \begin{align*}
 \phi(g)

@@ -4,7 +4,7 @@
 First we state some technical lemmas that will be used in the following proofs.
 
 We first prove a lower bound on the potential function of the \ac{KT} estimator. This is a generalization to real numbers of the lower bound proved for integers in \citet{WillemsST95}.
-\begin{lemma}
+\begin{lemma}[Lower Bound on KT Potential]
 \label{lemma:approx_gamma_real}
 If $c \ge 1$ and $a,b$ are non-negative reals such that $a + b = c$ then
 $$
@@ -14,15 +14,15 @@ $$
 \end{lemma}
 %
 \begin{proof}
-Using \cite{WhittakerW27}[p. 263 Ex. 45], implies that
+From \cite{WhittakerW27}[p. 263 Ex. 45], we have
 \[
-\frac{\Gamma(a+1/2)\Gamma(b+1/2)}{\Gamma(a+b+1)} > \sqrt{2\pi} \frac{(a+1/2)^a (b+1/2)^b}{(a+b+1)^{a+b+1/2}} \ \forall a,b>0~.
+\frac{\Gamma(a+1/2)\Gamma(b+1/2)}{\Gamma(a+b+1)} \ge \sqrt{2\pi} \frac{(a+1/2)^a (b+1/2)^b}{(a+b+1)^{a+b+1/2}} \; .
 \]
 It remains to show that
 $$
 \sqrt{2\pi} \frac{(a+1/2)^a (b+1/2)^b}{(a+b+1)^{a+b+1/2}} > \frac{\sqrt{\pi}}{e} \frac{1}{\sqrt{a+b}} \left( \frac{a}{a+b} \right)^a \left( \frac{b}{a+b} \right)^b \; ,
 $$
-which is equavivalent to
+which is equivalent to
 $$
 \frac{(1+\frac{1}{2a})^a (1+\frac{1}{2b})^b}{(1+\frac{1}{a+b})^{a+b+1/2}} > \frac{1}{e\sqrt{2}} \; .
 $$
@@ -78,7 +78,7 @@ Hence, we obtain
 where in the second inequality we used the elementary inequality $\ln(x+1) \leq x - (1-\ln(2))x^2$ valid for $x \in [0,1]$.
 \end{proof}
 
-\begin{lemma}
+\begin{lemma}[Lower Bound on Shifted KT Potential]
 \label{lemma:lower_bound_gamma}
 Let $T \ge 1$, $\delta \ge 0$, and $x \in [-T,T]$. Then
 \begin{align*}
@@ -107,13 +107,13 @@ avoid complication and because we only need non-negative arguments, we will
 define it only for positive values of $x$.}
 \begin{equation}
 \label{eq:lambert}
-x=W(x) \exp \left(W(x)\right), \ \forall x\geq0.
+x=W(x) \exp \left(W(x)\right) \qquad \qquad \text{for $\ge 0$}.
 \end{equation}
-It satisfies the following properties.
+Lmabert function has the following properties.
 %
 \begin{lemma}
 \label{lemma:lambert}
-The Lambert function satisfies $0.6321 \log(x+1) \leq W(x) \leq \log(x+1), \forall x\geq0$.
+The Lambert function satisfies $0.6321 \log(x+1) \leq W(x) \leq \log(x+1)$ for $x \ge 0$.
 \end{lemma}
 %
 \begin{proof}
@@ -227,5 +227,5 @@ $$
 \forall u \in \Delta_t \qquad \qquad
 \Regret_t(u) \le f_t^{-1}(\KL{u}{\pi}) \le g_t^{-1}(\KL{u}{\pi}) \; .
 $$
-Setting $t=T$ and $\delta = T/2$, and overapproximating we get the stated bound.
+Setting $t=T$ and $\delta = T/2$, and overapproximating $g_t^{-1}(\KL{u}{\pi})$ we get the stated bound.
 \end{proof}

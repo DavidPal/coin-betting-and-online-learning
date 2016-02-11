@@ -5,42 +5,40 @@ The interpretation of parameter-free algorithms as coin-betting algorithms is
 new. This interpretation, far from being just a mathematical gimmick, reveals
 the common hidden structure of previous parameter-free algorithms. For example,
 it is clear now that the characteristic of parameter-freeness is just a
-consequence of having an algorithm that guarantee the maximum reward possible.
+consequence of having an algorithm that guarantees the maximum reward possible.
 In this sense, all the online learning algorithm requiring parameter tuning are
-just guaranteeing a suboptimal wealth growth. The concept itself of ``learning rate'' becomes questionable to the light of the presented results.
-At the same time, the previous
-ad-hoc choice of the potential were just approximation of the optimal obtainable
-wealth.
+just guaranteeing a suboptimal wealth growth. The concept itself of ``learning
+rate'' becomes questionable in the light of the presented results. At the same
+time, the previous ad-hoc choices of the potentials were just approximations of
+the optimal obtainable wealth.
 
 In particular, in previous \ac{LEA} papers the potential used for expert $j$ at
-time $t$ is $\exp \left(\frac{([\sum_{i=1}^{t-1} g_{i,j}]_+)^2}{t}
-\right)$; see \citep{ChaudhuriYH09,LuoE14,LuoS15}. It is now clear that
-that potential is just an approximation of the optimal wealth achievable by a
-coin-betting algorithm. Moreover, that potential and the ones
-in~\citet{ChernovV10,KoolenE15} are not even, introducing a lot of techical
-difficulties in the analysis. Instead, our reduction moves the truncation
-outside of the potential, see \eqref{eq:gradients_experts_reduction}, making the
-analysis straightforward. Also, as observed by \citet{ChernovV10}, our bound in
-terms of the KL divergence is superior to the $\epsilon$-quantile bounds.
+time $t$ is $\exp \left(\frac{([x]_+)^2}{t} \right)$; see
+\citep{ChaudhuriYH09,LuoE14,LuoS15}. It is now clear that that potential is just
+an approximation of the optimal wealth achievable by a coin-betting algorithm.
+Moreover, that potential and the ones in~\citet{ChernovV10,KoolenE15} are not
+even, introducing a lot of techical difficulties in the analysis. Instead, our
+reduction moves the truncation outside of the potential (see equation
+\eqref{eq:gradients_experts_reduction}) making the analysis straightforward.
+Also, as observed by \citet{ChernovV10}, our bound in terms of the KL divergence
+is superior to the $\epsilon$-quantile bounds.
 
 In the \ac{OLO} setting, \citet{StreeterM12} used a one-dimensional potential of
-the form $\exp \left(\frac{|\sum_{i=1}^{t-1}
-g_{i}|}{\sqrt{t}}\right)$, obtaining a suboptimal regret bound.
+the form $\exp \left(\frac{|x|}{\sqrt{t}}\right)$, obtaining a suboptimal regret bound.
 \citet{Orabona13} extended it to the infinite dimensional case. The optimal
 bound has been obtained in \citet{McMahanO14} with potential of the right form:
-$\exp \left(\frac{\|\sum_{i=1}^{t-1}
-g_{i}\|^2}{t}\right)$. Indeed, it is very easy to show that such a
+$\exp \left(\frac{\norm{x}^2}{t}\right)$. Indeed, it is very easy to show that such a
 potential is an excellent coin betting potential.
 
 The obtained bounds, in Corollaries~\ref{corollary:kt-hilbert-space-olo-regret}
 and~\ref{corollary:kt-experts-regret}, improves the previous ones in terms of
-missing $\ln(\ln(T))$ terms and/or in the simplicity of the algorithms. Moreover, the
-reductions make possible to transfer any advancement on the problem of
-coin-betting to \ac{OLO} and \ac{LEA}. Notice that, being the \ac{KT} betting
-strategy in a worst case sense, the only possible improvement is in having
-data-dependent bound, for example like the ones in~\cite{KoolenE15}. Indeed, it
-is very easy to extend the proof of our reductions to hold in the data-dependent
-case as well.
+missing $\ln(\ln(T))$ terms and/or in the simplicity of the algorithms.
+Moreover, the reductions make possible to transfer any advancement on the
+problem of coin-betting to \ac{OLO} and \ac{LEA}. Notice that since the adaptive
+Kelly strategy based on \ac{KT} estimator is very close to optimal, the only
+possible improvement is to have a data-dependent bound, for example like the
+ones in~\cite{KoolenE15}. Indeed, it is very easy to extend the proof of our
+reductions to hold in the data-dependent case as well.
 
 Moreover, as already proved in previous papers, the existence of parameter-free
 algorithms have broad consequences. For example, \citet{LuoS15} prove that a
@@ -62,7 +60,7 @@ achieves the optimal worst case upper bound on regret, see \citet{Orabona13} and
 
 It is also possible to have data-dependent bounds, through data-dependent
 coin-bettin potentials. For example, it is an easy excercise to show that a
-potential of the form $\exp \left(\frac{\|\sum_{i=1}^{t-1}
-g_{i}\|^2}{1+\sum_{i=1}^{t-1} \|g_{i}\|}\right)$ is an excellent coin
-betting potential. Through our reductions, such potential would recover at the
-same time the bound in \citet{LuoS15} and \citet{Orabona14}.
+potential of the form $\exp \left(\frac{\norm{x}^2}{1+\sum_{i=1}^{t-1}
+\|g_{i}\|}\right)$ is an excellent coin betting potential. Through our
+reductions, such potential would recover at the same time the bound in
+\citet{LuoS15} and \citet{Orabona14}.

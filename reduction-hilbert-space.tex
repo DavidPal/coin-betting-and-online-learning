@@ -28,7 +28,7 @@ predictions are of the form \begin{equation}
 w_t = \beta_t \Wealth_{t-1}
 = \beta_t \left(\epsilon+ \sum_{i=1}^{t-1} g_i w_i \right),
 \end{equation}
-where $\beta_t \in (-1,1)$, we see that the recurrence
+where $\beta_t \in [-1,1]$, we see that the recurrence
 \eqref{equation:wealth-recurrence} holds. Indeed,
 $$
 \Wealth_t
@@ -38,7 +38,7 @@ $$
 $$
 This of course works in reverse: If we have a coin-betting algorithm that on a
 sequence of coin flips $\{g_t\}_{t=1}^\infty$, $g_t \in [-1,1]$, bets fractions
-$\beta_t \in (-1,1)$, we can use it to construct an OLO algorithm in a
+$\beta_t \in [-1,1]$, we can use it to construct an OLO algorithm in a
 one-dimensional Hilbert space $\R$ according to equation
 \eqref{equation:one-dimensional-olo}.
 

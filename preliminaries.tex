@@ -1,15 +1,10 @@
 \section{Preliminaries}
 
 The Kullback-Leibler divergence between two discrete
-distributions $p$ and $q$ is
-$
-\KL{p}{q} = \sum_{i} p_i \ln\left( \frac{p_i}{q_i} \right)
-$,
+distributions $p$ and $q$ is $\KL{p}{q} = \sum_{i} p_i \ln\left( \frac{p_i}{q_i} \right)$,
 where the sum is over all possible outcomes. Abusing notation, if $p,q$ are real
 numbers in $[0,1]$, we denote by
-$
-\KL{p}{q} = p \ln \left(\frac{p}{q} \right) + (1-p) \ln \left(\frac{1-p}{1-q} \right)
-$.
+$\KL{p}{q} = p \ln \left(\frac{p}{q} \right) + (1-p) \ln \left(\frac{1-p}{1-q} \right)$
 the Kullback-Leibler divergence between Bernoulli distributions with parameters
 $p$ and $q$.
 
@@ -96,7 +91,7 @@ recurrence
 & \text{and} &
 \Wealth_t & = (1 + g_t \beta_t) \Wealth_{t-1} \qquad \text{for $t \ge 1$} \; .
 \end{align}
-Note that since $\beta_t \in (-1,1)$, gambler's wealth is always positive.
+Note that since $\beta_t \in [-1,1]$, gambler's wealth stays always non-negative.
 Gambler's net reward (difference of wealth and initial endowment) after $t$
 rounds is
 \begin{align}

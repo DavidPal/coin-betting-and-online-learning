@@ -13,12 +13,12 @@ based on the KT estimator is
 \begin{equation}
 \label{equation:kt-estimator-potential}
 F_t(x) = \epsilon \frac{2^t \cdot \Gamma \left( \frac{t+1}{2} + \frac{x}{2} \right) \cdot \Gamma \left( \frac{t+1}{2} - \frac{x}{2} \right)}{\pi \cdot t!}
-\qquad \qquad \text{$t \ge 0$, \ $x \in \left(- \, \frac{t+1}{2}, \frac{t+1}{2}\right)$,}
+\qquad \qquad \text{$t \ge 0$, \quad $x \in \left(-t-1, t+1\right)$,}
 \end{equation}
 where $\Gamma(x) = ￼\int_0^\infty t^{-x} e^{-t} dt$ is Euler's gamma function.
 The potential was introduced by~\citet{KrichevskyT81} who used it for proving
 regret bound for online prediction with log-loss; see also \cite[Section
-9.7]{Cesa-BianchiL06}. The potential is defined on the interval.
+9.7]{Cesa-BianchiL06}.
 Theorem~\ref{theorem:kt-potential} stated in
 Appendix~\ref{section:properties-kt-potential} shows that
 \eqref{equation:kt-estimator-potential} is a sequence of excellent coin-betting
@@ -37,7 +37,7 @@ i.e., it satisfies \eqref{equation:potential-based-strategy}.
 \REQUIRE{Initial endowment $\epsilon > 0$}
 %\STATE{Initialize $\Wealth_0 \leftarrow \epsilon$}
 \FOR{$t=1,2,\dots$}
-\STATE{Predict with $w_t \leftarrow \frac{1}{t} \left(\epsilon + \sum_{i=1}^{t-1} \langle g_t, w_t \rangle \right) \sum_{i=1}^{t-1} g_i$}
+\STATE{Predict with $w_t \leftarrow \frac{1}{t} \left(\epsilon + \sum_{i=1}^{t-1} \langle g_i, w_i \rangle \right) \sum_{i=1}^{t-1} g_i$}
 %\STATE{Predict $w_t$}
 \STATE{Receive reward vector $g_t \in \H$ such that $\norm{g_t} \le 1$}
 %\STATE{Update $\Wealth_t \leftarrow \Wealth_{t-1} \ + \ \langle g_t, w_t \rangle$}
@@ -61,7 +61,7 @@ written as
 $$
 w_t
 = \frac{1}{t} \Wealth_{t-1} \sum_{i=1}^{t-1} g_i
-= \frac{1}{t} \left(\epsilon + \sum_{i=1}^{t-1} \langle g_t, w_t \rangle \right) \sum_{i=1}^{t-1} g_i \; .
+= \frac{1}{t} \left(\epsilon + \sum_{i=1}^{t-1} \langle g_i, w_i \rangle \right) \sum_{i=1}^{t-1} g_i \; .
 $$
 The algorithm is stated as Algorithm~\ref{algorithm:kt-hilbert-space-olo}.
 
@@ -89,8 +89,8 @@ $$
 
 We will construct an algorithm for Learning with Expert Advice based on
 \emph{shifted KT potential}. The shifted potential and the resulting algorithm
-requires to know the number of rounds $T$ in advance. The shifted potential is
-defined as
+requires to know the number of rounds $T$ in advance. The shifted KT
+potential is defined as
 $$
 F_t(x) = \frac{2^t \cdot \Gamma\left(T/2 + 1 \right) \cdot \Gamma\left(\frac{t+T/2+1}{2} + \frac{x}{2} \right) \cdot \Gamma\left(\frac{t+T/2+1}{2} - \frac{x}{2} \right)}{\Gamma\left(\frac{T/2+1}{2} \right)^2 \cdot \Gamma \left(t+T/2+1\right)} \; .
 $$
@@ -104,7 +104,7 @@ $$
 $$
 Recall that for construction of the final algorithm, we need, as an intermediate
 step, an OLO algorithm for one-dimensional Hilbert space $\R$. This algorithm
-predicts for any sequence $\{g_t\}_{t=1}^\infty$ of reward vectors.
+predicts for any sequence $\{g_t\}_{t=1}^\infty$ of reward vectors,
 $$
 w_t
 = \beta_t \Wealth_{t-1}
@@ -143,12 +143,12 @@ at the final algorithm, Algorithm~\ref{algorithm:kt-experts}.
 We can derive a regret bound for Algorithm~\ref{algorithm:kt-experts} by
 applying Theorem~\ref{theorem:regret-bound-experts} to the shifted KT potential.
 The result is stated as Corollary~\ref{corollary:kt-experts-regret} below. The
-proof of the corollary is in the Appendix~\ref{section:corollaries_reductions}. The
-hardest part of the proof is an upper on $f_t^{-1}(x)$, which we conveniently do
-by lower bounding $F_t(x)$. The reason for using the shifted potential comes
-from the analysis of $f_t^{-1}(x)$. Unshifted algorithm would have $O(\sqrt{T
-(\log T + \KL{u}{\pi}})$ regret bound; shifting improves the bound to $O(\sqrt{T
-(1 + \KL{u}{\pi}})$.
+proof of the corollary is in the Appendix~\ref{section:corollaries_reductions}.
+The technical part of the proof is an upper bound on $f_t^{-1}(x)$, which we
+conveniently do by lower bounding $F_t(x)$. The reason for using the shifted
+potential comes from the analysis of $f_t^{-1}(x)$. Unshifted algorithm would
+have $O(\sqrt{T (\log T + \KL{u}{\pi}})$ regret bound; shifting improves the
+bound to $O(\sqrt{T (1 + \KL{u}{\pi}})$.
 
 \begin{corollary}[Regret Bound for Algorithm~\ref{algorithm:kt-experts}]
 \label{corollary:kt-experts-regret}
