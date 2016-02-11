@@ -6,55 +6,65 @@ new. This interpretation, far from being just a mathematical gimmick, reveals
 the common hidden structure of previous parameter-free algorithms. For example,
 it is clear now that the characteristic of parameter-freeness is just a
 consequence of having an algorithm that guarantees the maximum reward possible.
-In this sense, all the online learning algorithms requiring parameter tuning are
-just guaranteeing a suboptimal wealth growth. The concept itself of ``learning
-rate'' becomes questionable in the light of the presented results. At the same
-time, the previous ad-hoc choices of the potentials were just approximations of
-the optimal obtainable wealth.
+In this sense, all the online learning algorithms requiring parameter tuning
+are just guaranteeing a suboptimal wealth growth. The concept of
+``learning rate'' becomes questionable in the light of the presented results.
+At the same time, the previous ad-hoc choices of the potentials were just
+approximations of the optimal obtainable wealth.
 
-In particular, in previous \ac{LEA} papers the potential used for expert $j$ at
+In particular, in previous \ac{LEA} papers the potential used for an expert at
 time $t$ is $\exp \left(\frac{([x]_+)^2}{t} \right)$; see
-\citep{ChaudhuriYH09,LuoE14,LuoS15}. It is now clear that that potential is just
-an approximation of the optimal wealth achievable by a coin-betting algorithm.
-Moreover, that potential and the ones in~\citet{ChernovV10,KoolenE15} are not
-even, introducing a lot of techical difficulties in the analysis. Instead, our
-reduction moves the truncation outside of the potential (see equation
+\citep{ChaudhuriYH09,LuoE14,LuoS15}. It is now clear that that potential is
+just an approximation of the optimal wealth achievable by a coin-betting
+algorithm.  Moreover, that potential and the ones
+by~\citet{ChernovV10} and \cite{KoolenE15} are not even, which introduces a lot of
+technical difficulties in the analysis. Instead, our reduction moves the
+truncation outside of the potential (see equation
 \eqref{eq:gradients_experts_reduction}) making the analysis straightforward.
-Also, as observed by \citet{ChernovV10}, our bound in terms of the KL divergence
-is superior to the $\epsilon$-quantile bounds.
+Also, as observed by \citet{ChernovV10}, our bound in terms of the KL
+divergence is superior to the $\epsilon$-quantile bounds.
 
-In the \ac{OLO} setting, \citet{StreeterM12} used a one-dimensional potential of
-the form $\exp \left(\frac{|x|}{\sqrt{t}}\right)$, the same base potential used in EG~\citep{KivinenW97}, obtaining a suboptimal regret bound.
-\citet{Orabona13} extended it to the infinite dimensional case, unveiling the connection with EG. 
-Notice that the same suboptimality is present in EG: the learning rate has to be tuned with the knowledge of the number of experts.
-The optimal
-bound has been obtained in \citet{McMahanO14} with potential of the right form:
-$\exp \left(\frac{x^2}{t}\right)$. Indeed, it is very easy to show that such a
-potential is an excellent coin betting potential.
+In the \ac{OLO} setting, \citet{StreeterM12} used a one-dimensional potential
+of the form $\exp \left(\frac{|x|}{\sqrt{t}}\right)$, the same base potential
+as in \ac{EG}~\citep{KivinenW97}, obtaining a suboptimal regret
+bound.  \citet{Orabona13} extended it to the infinite dimensional case,
+unveiling the connection with \ac{EG}.  Notice that the same suboptimality is
+present in \ac{EG}: the learning rate has to be tuned with the knowledge of the
+number of experts.  The optimal bound has been obtained in \citet{McMahanO14}
+with potential of the right form $\exp \left(\frac{x^2}{t}\right)$. Indeed, it
+is very easy to show that this potential is an excellent coin betting
+potential.
 
 The obtained bounds, in Corollaries~\ref{corollary:kt-hilbert-space-olo-regret}
-and~\ref{corollary:kt-experts-regret}, improve the previous ones and/or correspond to simpler algorithms.
-In particular, the only known bound for \ac{LEA} without a $\ln(\ln(T))$ is due to \citet{ChernovV10} for a prediction strategy that does not have a closed form.
-Moreover, the reductions make possible to transfer any advancement on the
-problem of coin-betting to \ac{OLO} and \ac{LEA}. Notice that since the adaptive
-Kelly strategy based on \ac{KT} estimator is very close to optimal, the only
-possible improvement is to have a data-dependent bound, for example like the
-ones in~\cite{KoolenE15}. Indeed, it is very easy to extend the proof of our
-reductions to hold in the data-dependent case as well. For example, it is an easy excercise to show that a
+and~\ref{corollary:kt-experts-regret}, improve the previous ones and/or
+correspond to simpler algorithms.  In particular, the only known bound for
+\ac{LEA} without a $\ln(\ln(T))$ is due to \citet{ChernovV10} for a prediction
+strategy that does not have a closed form.  Moreover, the reductions make
+possible to transfer any advancement on the problem of coin-betting to \ac{OLO}
+and \ac{LEA}. Notice that since the adaptive Kelly strategy based on \ac{KT}
+estimator is very close to optimal, the only possible improvement is to have a
+data-dependent bound, for example like the ones in~\cite{KoolenE15}. Indeed, it
+is very easy to extend the proof of our reductions to hold in the
+data-dependent case as well. For example, it is an easy exercise to show that a
 potential of the form $\exp \left(\frac{x^2}{1+\sum_{i=1}^{t-1}
 \|g_{i}\|}\right)$ is an excellent coin betting potential. Through our
 reductions, such potential would recover at the same time the bounds in
-\citet{LuoS15} and \citet{Orabona14}. It is an open problem how to design coin betting potentials of the form $\exp \left(\frac{x^2}{1+\sum_{i=1}^{t-1} \|g_{i}\|^2}\right)$, that would allow to recover immediately the bounds in~\citet{KoolenE15} and the
-optimistic bounds for smooth losses in \ac{OCO}~\citep{SrebroST10} with a parameter-free algorithm (see the discussion in \citet{Orabona14}).
+\citet{LuoS15} and \citet{Orabona14}. It is an open problem how to design coin
+betting potentials of the form $\exp \left(\frac{x^2}{1+\sum_{i=1}^{t-1}
+\|g_{i}\|^2}\right)$, that would allow to recover immediately the bounds
+in~\citet{KoolenE15} and the optimistic bounds for smooth losses in
+\ac{OCO}~\citep{SrebroST10} with a parameter-free algorithm (see the discussion
+in \citet{Orabona14}).
 
 Moreover, as already proved in previous papers, the existence of parameter-free
-algorithms have broad consequences, beyond online learning. For example, \citet{LuoS15} prove that a
-parameter-free expert algorithm can be used to to design an efficient algorithm
-that predicts as the best pruning tree. In the context of risk minimization over
-Lipschitz convex losses in an infinite dimensional Hilbert space,
-\citet{Orabona14} proved that the parameter-free \ac{OLO} can be used to obtain
-risk bound guarantees that compete with the regularized \acl{ERM} solution with
-oracle tuning of the regularizer. In simpler words, the parameter-free
+algorithms have broad consequences, beyond online learning. For example,
+\citet{LuoS15} prove that a parameter-free expert algorithm can be used to
+design an efficient algorithm that predicts as the best pruning tree. In the
+context of risk minimization over Lipschitz convex losses in an infinite
+dimensional Hilbert space, \citet{Orabona14} proved that the parameter-free
+\ac{OLO} can be used to obtain risk bound guarantees that compete with the
+regularized \acl{ERM} solution with oracle tuning of the regularizer. In
+simpler words, the parameter-free
 Algorithm~\ref{algorithm:kt-hilbert-space-olo} can be used to obtain, for
 example, the same risk guarantee of a kernel \acl{SVM} with optimal (unknown)
 tuning of the regularizer.
@@ -62,5 +72,5 @@ tuning of the regularizer.
 Regarding the tightness of the reductions, it is easy to see that they are in a
 certain sense optimal. In fact, the obtained
 Algorithms~\ref{algorithm:kt-hilbert-space-olo} and~\ref{algorithm:kt-experts}
-achieves the optimal worst case upper bound on regret, see \citet{Orabona13} and
-\citet{Cesa-BianchiL06} respectively.
+achieves the optimal worst case upper bound on regret, see \citet{Orabona13}
+and \citet{Cesa-BianchiL06} respectively.
