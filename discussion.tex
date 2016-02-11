@@ -72,5 +72,9 @@ tuning of the regularizer.
 Regarding the tightness of the reductions, it is easy to see that they are in a
 certain sense optimal. In fact, the obtained
 Algorithms~\ref{algorithm:kt-hilbert-space-olo} and~\ref{algorithm:kt-experts}
-achieves the optimal worst case upper bound on regret, see \citet{Orabona13}
-and \citet{Cesa-BianchiL06} respectively.
+achieves the optimal worst case upper bound on regret, see \citet{Orabona13} and
+\citet{Cesa-BianchiL06} respectively. Also, it is easy to use the  reduction
+from Section~\ref{section:reduction-experts} to derive an $\Omega(\norm{u}
+\sqrt{T\log(1+\norm{u})})$ lower bound for \ac{OLO} over (one-dimensional)
+Hilbert space from the well known $\Omega(\sqrt{T \log N})$ lower bound for
+\ac{LEA}.
