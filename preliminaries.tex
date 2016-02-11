@@ -9,8 +9,8 @@ the Kullback-Leibler divergence between Bernoulli distributions with parameters
 $p$ and $q$.
 
 We denote by $\H$ a Hilbert space, by $\langle \cdot, \cdot\rangle$ its
-associated inner product, and by $\norm{\cdot}$ the norm induced by the dot
-product. We denote by $\norm{\cdot}_1$ the $1$-norm in $\R^N$, that is,
+associated inner product, and by $\norm{\cdot}$ the induced norm.
+We denote by $\norm{\cdot}_1$ the $1$-norm in $\R^N$, that is,
 $\norm{x}_1 = \sum_{i=1}^N |x_i|$.
 
 A function $F:I \to \R_+$ defined on an interval $I$ is called
@@ -107,9 +107,9 @@ wealth and reward remain exactly the same.
 
 \subsection{Kelly Betting and Krichevsky-Trofimov Estimator}
 
-\citet{Kelly56} proposed a coin betting strategy for the case when the coin
+\citet{Kelly56} proposed a general strategy for sequential bets. For coin betting, the strategy assumes that the coin
 flips $\{g_t\}_{t=1}^\infty$, $g_t \in \{+1,-1\}$, are generated i.i.d. with
-known probability of heads. If $p \in [0,1]$ is the probability of heads, Kelly
+known probability of heads. If $p \in [0,1]$ is the probability of heads, the Kelly
 bet is
 $$
 \beta_t = 2p - 1 \; .
