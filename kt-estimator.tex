@@ -69,9 +69,9 @@ We derive a regret bound for Algorithm~\ref{algorithm:kt-hilbert-space-olo} by
 applying Theorem~\ref{theorem:hilbert-space-olo-regret-bound} to the KT
 potential \eqref{equation:kt-estimator-potential}. The regret bound is stated as
 Corollary~\ref{corollary:kt-hilbert-space-olo-regret} below. Its proof can be
-found in the Appendix~\ref{section:corollaries_reductions}. The only technical part of the
-proof is an upper bound on Fenchel conjugate $F_t^*$ since it cannot be
-expressed as an elementary function.
+found in the Appendix~\ref{section:corollaries_reductions}. The only technical
+part of the proof is an upper bound on Fenchel conjugate $F_t^*$ since it cannot
+be expressed as an elementary function.
 
 \begin{corollary}[Regret Bound for Algorithm~\ref{algorithm:kt-hilbert-space-olo}]
 \label{corollary:kt-hilbert-space-olo-regret}
@@ -89,7 +89,7 @@ $$
 
 We will construct an algorithm for Learning with Expert Advice based on
 \emph{shifted KT potential}. The shifted potential and the resulting algorithm
-requires to know the number of round $T$ in advance. The shifted potential is
+requires to know the number of rounds $T$ in advance. The shifted potential is
 defined as
 $$
 F_t(x) = \frac{2^t \cdot \Gamma\left(T/2 + 1 \right) \cdot \Gamma\left(\frac{t+T/2+1}{2} + \frac{x}{2} \right) \cdot \Gamma\left(\frac{t+T/2+1}{2} - \frac{x}{2} \right)}{\Gamma\left(\frac{T/2+1}{2} \right)^2 \cdot \Gamma \left(t+T/2+1\right)} \; .

@@ -215,11 +215,17 @@ An application of Theorem~\ref{theorem:hilbert-space-olo-regret-bound} completes
 \subsection{Proof of Corollary~\ref{corollary:kt-experts-regret}}
 
 \begin{proof}
-Define $G_t(x)=\exp\left(\frac{x^2}{2(t+\delta)} +\frac{1}{2} \ln \frac{1+\delta}{t+\delta} -3\right)$ and $g_t(x)=\ln(G_t(x))$.
-Using Lemma~\ref{lemma:lower_bound_gamma}, we have
-\[
-G_t(x) \leq \frac{2^T \cdot \Gamma(\delta+1) \Gamma \left(\frac{T+\delta+1}{2} + \frac{x}{2} \right) \cdot \Gamma \left(\frac{T+\delta+1}{2} - \frac{x}{2} \right)}{ \Gamma(\frac{\delta+1}{2})^2 \Gamma(T+\delta+1)} \;.
-\]
-From the above, it is immediate to have that $f^{-1}_t(x) \leq g^{-1}_t(x)$.
-Setting $\delta=\frac{T}{2}$ and overapproximating we get the stated bound.
+Let
+\begin{align*}
+F_t(x) & = \frac{2^t \cdot \Gamma(\delta + 1) \Gamma(\frac{t+\delta+1}{2} + \frac{x}{2}) \Gamma(\frac{t+\delta+1}{2} - \frac{x}{2})}{\Gamma(\frac{\delta+1}{2})^2 \Gamma(t+\delta+1)} \; , \\
+G_t(x) & = \exp\left(\frac{x^2}{2(t+\delta)} +\frac{1}{2} \ln \left(\frac{1+\delta}{t+\delta}\right) - 3\right) \; .
+\end{align*}
+Let $f_t(x) = \ln(F_t(x))$ and $g_t(x)=\ln(G_t(x))$. By Lemma~\ref{lemma:lower_bound_gamma}, $G_t(x) \le F_t(x)$
+and therefore $f^{-1}_t(x) \leq g^{-1}_t(x)$ for all $x \ge 0$.
+Theorem~\ref{theorem:regret-bound-experts} implies that
+$$
+\forall u \in \Delta_t \qquad \qquad
+\Regret_t(u) \le f_t^{-1}(\KL{u}{\pi}) \le g_t^{-1}(\KL{u}{\pi}) \; .
+$$
+Setting $t=T$ and $\delta = T/2$, and overapproximating we get the stated bound.
 \end{proof}
