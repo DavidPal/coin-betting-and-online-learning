@@ -32,16 +32,16 @@ semi-continuous convex, and furthermore the Fenchel conjugate of $f^*$ is $f$.
 
 \subsection{Online Linear Optimization over a Hilbert Space}
 
-Let $\H$ be a Hilbert space. \textsc{Online Linear Optimization over a Hilbert
-Space $\H$} is an online problem where in each round $t$, an algorithm chooses a
-point $w_t \in \H$ and then receives a reward vector $g_t \in \H$. Algorithm's
-instantaneous reward in round $t$ is $\langle g_t, w_t \rangle$. The aim of the
-algorithm is to minimize its \emph{regret} after $T$ rounds, that is, the
-difference between its cumulative reward $\sum_{t=1}^T \langle g_t, w_t \rangle$
-and the cumulative reward $\sum_{t=1}^T \langle g_t, u \rangle$ of the of a
-hypothetical strategy (\emph{competitor}) that would choose the same point $u
-\in \H$ in every round. Formally, regret of the algorithm after $T$ rounds with
-respect to a competitor $u \in \H$ is defined as
+\textsc{Online Linear Optimization over a Hilbert Space $\H$} is an online
+problem where in each round $t$, an algorithm chooses a point $w_t \in \H$ and
+then receives a reward vector $g_t \in \H$. Algorithm's instantaneous reward in
+round $t$ is $\langle g_t, w_t \rangle$. The aim of the algorithm is to minimize
+its \emph{regret} after $T$ rounds, that is, the difference between its
+cumulative reward $\sum_{t=1}^T \langle g_t, w_t \rangle$ and the cumulative
+reward $\sum_{t=1}^T \langle g_t, u \rangle$ of the of a hypothetical strategy
+(\emph{competitor}) that would choose the same point $u \in \H$ in every round.
+Formally, regret of the algorithm after $T$ rounds with respect to a competitor
+$u \in \H$ is defined as
 \begin{equation}
 \label{equation:regret-definition}
 \Regret_T(u) = \sum_{t=1}^T \langle g_t , u - w_t \rangle \; .
@@ -107,10 +107,10 @@ wealth and reward remain exactly the same.
 
 \subsection{Kelly Betting and Krichevsky-Trofimov Estimator}
 
-\citet{Kelly56} proposed a general strategy for sequential bets. For coin betting, the strategy assumes that the coin
-flips $\{g_t\}_{t=1}^\infty$, $g_t \in \{+1,-1\}$, are generated i.i.d. with
-known probability of heads. If $p \in [0,1]$ is the probability of heads, the Kelly
-bet is
+\citet{Kelly56} proposed a general strategy for sequential bets. For coin
+betting, the strategy assumes that the coin flips $\{g_t\}_{t=1}^\infty$, $g_t
+\in \{+1,-1\}$, are generated i.i.d. with known probability of heads. If $p \in
+[0,1]$ is the probability of heads, the Kelly bet is
 $$
 \beta_t = 2p - 1 \; .
 $$

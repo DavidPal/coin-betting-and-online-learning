@@ -1,9 +1,10 @@
 \section{Proofs of Corollaries~\ref{corollary:kt-hilbert-space-olo-regret} and~\ref{corollary:kt-experts-regret}}
 \label{section:corollaries_reductions}
 
-First we state some technical lemmas that will be used in the following proofs.
+We state some technical lemmas that will be used in the following proofs. We
+start with a lower bound on the \ac{KT} potential. It is a generalization of the
+lower bound proved for integers in \citet{WillemsST95} to real numbers.
 
-We first prove a lower bound on the potential function of the \ac{KT} estimator. This is a generalization to real numbers of the lower bound proved for integers in \citet{WillemsST95}.
 \begin{lemma}[Lower Bound on KT Potential]
 \label{lemma:approx_gamma_real}
 If $c \ge 1$ and $a,b$ are non-negative reals such that $a + b = c$ then
@@ -59,12 +60,13 @@ $$
 $$
 where $\Psi(x)$ is the digamma function.
 
-We will use the following upper~\citep{Chen05} and lower bound~\citep{Batir08} to the digamma function, for any $x>0$
+We will use the upper~\citep{Chen05} and lower bound~\citep{Batir08}
+to the digamma function, which state that for any $x>0$,
 \begin{align*}
-\Psi(x) &< \ln(x) -\frac{1}{2x} -\frac{1}{12 x^2} +\frac{1}{120 x^4}\\
+\Psi(x) &< \ln(x) -\frac{1}{2x} -\frac{1}{12 x^2} +\frac{1}{120 x^4} \\
 \Psi(x+1) &> \ln \left(x+\frac{1}{2} \right) \; .
 \end{align*}
-Hence, we obtain
+Using these bounds we have
 \begin{align*}
 &\Psi(\delta+1) - \frac{1}{2(\delta+1)} - \ln(2) - \Psi \left(\frac{\delta+1}{2} \right) \\
 &\quad \ge \ln \left(\delta+\frac{1}{2} \right) - \frac{1}{2(\delta+1)} -\ln(2) -\ln \left(\frac{\delta+1}{2}\right) + \frac{1}{\delta+1} +\frac{1}{3 (\delta+1)^2} -\frac{2}{15 (\delta+1)^4}\\
@@ -101,13 +103,11 @@ where in the first inequality we used Lemma~\ref{lemma:ratio_gamma}, in the seco
 
 \subsection{Proof of Corollary~\ref{corollary:kt-hilbert-space-olo-regret}}
 
-Define the Lambert function $W(x):\R\rightarrow\R$ as the one that satisfies
-the equality\footnote{For $x<0$ the Lambert function is multivalued. Hence, to
-avoid complication and because we only need non-negative arguments, we will
-define it only for positive values of $x$.}
+Lambert function $W(x):[0,\infty) \to [0,\infty)$ by
+the equality
 \begin{equation}
 \label{eq:lambert}
-x=W(x) \exp \left(W(x)\right) \qquad \qquad \text{for $\ge 0$}.
+x=W(x) \exp \left(W(x)\right) \qquad \qquad \text{for $x \ge 0$}.
 \end{equation}
 Lambert function has the following properties.
 %
@@ -194,7 +194,7 @@ Using Lemma~\ref{lemma:lambert}, we obtain the stated bound.
 
 
 \begin{proof}[Proof of Corollary~\ref{corollary:kt-hilbert-space-olo-regret}]
-Notice that the KT potential can written as
+Notice that the KT potential can be written as
 $$
 F_t(x) = \epsilon \cdot \frac{2^t \cdot \Gamma(1) \Gamma \left(\frac{t+1}{2} + \frac{x}{2} \right) \cdot \Gamma \left(\frac{t+1}{2} - \frac{x}{2} \right)}{ \Gamma(\frac{1}{2})^2 \Gamma(t+1)} \; .
 $$
