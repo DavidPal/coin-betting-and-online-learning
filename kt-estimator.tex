@@ -128,8 +128,8 @@ at the final algorithm, Algorithm~\ref{algorithm:kt-experts}.
 \STATE{For each $i \in [N]$, set $\widehat{p}_{t,i} \leftarrow \pi_i [w_{t,i}]_+$}
 \STATE{Predict with $p_t \leftarrow
 \begin{cases}
-\widehat{p}_t/\norm{\widehat{p}}_1 & \text{if $\norm{\widehat p}_1 > 0$} \\
-\frac{1}{N}(1,1,\dots,1) & \text{if $\norm{\widehat p}_1 = 0$}
+\widehat{p}_t/\norm{\widehat{p_t}}_1 & \text{if $\norm{\widehat p_t}_1 > 0$} \\
+\frac{1}{N}(1,1,\dots,1) & \text{if $\norm{\widehat p_t}_1 = 0$}
 \end{cases}$}
 %\STATE{Predict $p_t$}
 \STATE{Receive loss vector $\ell_t \in [0,1]^N$}

@@ -15,12 +15,11 @@ convexity/strong smoothness duality; see for example~\citet{Shalev-Shwartz12}.
 \ac{OLO} is a basic building block in many other related problems. For example,
 \ac{OCO}, the analogous problem where $\langle \ell_t, w_t \rangle$ is
 generalized to $\ell_t(w_t)$ where $\ell_t$ is an arbitrary convex function, is
-solved through a reduction to an \ac{OLO}
-problem~\citep{Cesa-BianchiL06,Shalev-Shwartz12}.
-\ac{LEA}~\citep{LittlestoneW94,Vovk98,Cesa-BianchiFHHSW97} is an \ac{OLO}
-problem in which the loss vectors belong to $[0,1]^N$ and $w_t$ is constrained
-to be in the probability simplex. Also, batch and stochastic optimization of
-convex functions can be solved through a reduction to
+solved through a reduction to an \ac{OLO} problem~\citep{Cesa-BianchiL06,
+Shalev-Shwartz12}. \ac{LEA}~\citep{LittlestoneW94, Vovk98, Cesa-BianchiFHHSW97}
+is an \ac{OLO} problem in which the loss vectors belong to $[0,1]^N$ and $w_t$
+is constrained to be in the probability simplex. Also, batch and stochastic
+optimization of convex functions can be solved through a reduction to
 \ac{OLO}~\citep{Shalev-Shwartz12}. Statistical learning with convex losses can
 also seen as stochastic optimization of convex functions and hence solved
 through \ac{OCO}~\citep{Munro1951}. Thus, a sublinear regret in \ac{OLO} becomes
@@ -33,16 +32,17 @@ online and batch learning algorithms fail on this side, requiring to set
 hyperparameters (e.g., learning rates, step sizes, and regularization weights)
 to oracle choices in order to achieve the best possible theoretical and
 empirical performance. Recently, a new family of algorithms that adapt to the
-data has been proposed, both for \ac{LEA}~\citep{ChaudhuriYH09,ChernovV10,LuoE14,LuoS15,KoolenE15}
-and for \ac{OLO}/\ac{OCO} over Hilbert spaces~\citep{StreeterM12,Orabona13,McMahanA13,McMahanO14,Orabona14}.
-These algorithms adapt to the number of experts and to the norm of the optimal
-predictor, respectively, without the need to tune parameters. Given the connections between \ac{OLO}/\ac{LEA} and
-machine learning, these algorithms allow to design parameter-free batch machine
-learning algorithms through straightforward reductions~\citep{Orabona14,LuoS15}.
-Both family of algorithms seem to require very sophisticated analysis tools,
-much more complex than the previous ones. Surprisingly enough, these two
-families of algorithms are also very similar, yet no attempt has been made to
-unify them.
+data has been proposed, both for \ac{LEA}~\citep{ChaudhuriYH09, ChernovV10,
+LuoE14, LuoS15, KoolenE15} and for \ac{OLO}/\ac{OCO} over Hilbert
+spaces~\citep{StreeterM12, Orabona13, McMahanA13, McMahanO14, Orabona14}. These
+algorithms adapt to the number of experts and to the norm of the optimal
+predictor, respectively, without the need to tune parameters. Given the
+connections between \ac{OLO}/\ac{LEA} and machine learning, these algorithms
+allow to design parameter-free batch machine learning algorithms through
+straightforward reductions~\citep{Orabona14,LuoS15}. Both families of algorithms
+seem to require very sophisticated analysis tools, much more complex than the
+previous ones. Surprisingly enough, these two families of algorithms are also
+very similar, yet no attempt has been made to unify them.
 
 Our contributions are as follows. We claim that a more fundamental notion
 subsumes both \ac{OLO} and \ac{LEA}. This notion is linked to the ability of an
