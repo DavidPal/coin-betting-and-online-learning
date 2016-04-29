@@ -1,0 +1,129 @@
+\section{Binary and Continuous Coin Betting}
+
+% The Kullback-Leibler divergence between two discrete
+% distributions $p$ and $q$ is $\KL{p}{q} = \sum_{i} p_i \ln\left( \frac{p_i}{q_i} \right)$,
+% where the sum is over all possible outcomes. Abusing notation, if $p,q$ are real
+% numbers in $[0,1]$, we denote by
+% $\KL{p}{q} = p \ln \left(\frac{p}{q} \right) + (1-p) \ln \left(\frac{1-p}{1-q} \right)$
+% the Kullback-Leibler divergence between Bernoulli distributions with parameters
+% $p$ and $q$.
+% 
+% We denote by $\H$ a Hilbert space, by $\langle \cdot, \cdot\rangle$ its
+% associated inner product, and by $\norm{\cdot}$ the induced norm.
+% We denote by $\norm{\cdot}_1$ the $1$-norm in $\R^N$, that is,
+% $\norm{x}_1 = \sum_{i=1}^N |x_i|$.
+% 
+% A function $F:I \to \R_+$ defined on an interval $I$ is called
+% \emph{logarithmically convex} if $f(x) = \ln(F(x))$ is convex. Note that if
+% $F(x)$ is logarithmically convex, then it is also convex (in the usual sense),
+% since $F(x) = \exp(f(x))$ is a composition of a convex function $f(x)$ and an
+% increasing convex function $\exp(\cdot)$.
+% 
+% Let $f:V \to \R \cup \{\pm\infty\}$ be a function defined on a real vector space
+% $V$. Fenchel conjugate of $f$ is a function $f^*:V^* \to \R \cup \{\pm \infty\}$
+% defined on the dual vector space $V^*$ by
+% $
+% f^*(\theta) = \sup_{x \in V} \ \langle \theta, x \rangle - f(x)
+% $.
+% A function $f:V \to \R \cup \{\pm \infty\}$ is said to be proper if it never
+% attains $-\infty$ and attains finite value at at least one point. If $f$ is a
+% proper lower semi-continuous convex function then $f^*$ is also is proper lower
+% semi-continuous convex, and furthermore the Fenchel conjugate of $f^*$ is $f$.
+% 
+% \noindent\textbf{Online Linear Optimization over a Hilbert Space $\H$} is an online
+% problem where in each round $t$, an algorithm chooses a point $w_t \in \H$ and
+% then receives a reward vector $g_t \in \H$. Algorithm's instantaneous reward in
+% round $t$ is $\langle g_t, w_t \rangle$. The aim of the algorithm is to minimize
+% its \emph{regret} after $T$ rounds, that is, the difference between its
+% cumulative reward $\sum_{t=1}^T \langle g_t, w_t \rangle$ and the cumulative
+% reward $\sum_{t=1}^T \langle g_t, u \rangle$ of the of a hypothetical strategy
+% (\emph{competitor}) that would choose the same point $u \in \H$ in every round.
+% Formally, regret of the algorithm after $T$ rounds with respect to a competitor
+% $u \in \H$ is defined as
+% \begin{equation}
+% \label{equation:regret-definition}
+% \Regret_T(u) = \sum_{t=1}^T \langle g_t , u - w_t \rangle \; .
+% \end{equation}
+% In this paper, without loss of generality, we make the assumption that $\norm{g_t} \le 1$.
+% 
+% 
+% \noindent\textbf{Learning with Expert Advice.} Let $N \ge 2$ be a positive integer. \textsc{Learning with expert advice} is an
+% online problem in which, in each round $t$, an algorithm chooses a point $p_t$
+% in $N$-dimensional probability simplex $\Delta_N = \{ x \in \R^N ~:~ x \ge 0,
+% \norm{x}_1 = 1 \}$ and receives a loss vector $\ell_t \in [0,1]^N$. Similarly
+% as before, the goal of the algorithm is to minimize its regret after $T$ rounds
+% with respect to any competitor $u \in \Delta_N$, which is defined as
+% $$
+% \Regret_T(u) = \sum_{t=1}^T \langle \ell_t, p_t \rangle - \sum_{t=1}^T \langle \ell_t, u \rangle \; .
+% $$
+
+We consider a gambler making repeated bets on outcomes of adversarial coin
+flips. The gambler starts with an initial endowment $\epsilon > 0$. In each
+round $t$, he bets on an outcome of a coin flip $g_t \in \{-1,1\}$ where $+1$
+denotes heads and $-1$ denotes tails. We do not make any assumption on how $g_t$
+is generated, that is, it can be chosen by an adversary.
+
+The gambler can bet any amount on either heads or tails. However, he is not
+allowed to borrow any additional money. If he loses (i.e. he bets on the
+incorrect outcome), he loses the betted amount. If he wins (i.e. he bets on the
+correct outcome), he gets the betted amount back and, in addition to that, he
+gets the same amount as a reward.
+%Note that it does not make sense for the
+%gambler to bet on both outcomes, since the same winnings can be achieved by
+%betting the difference of the two amounts on one of the outcomes and betting
+%zero on the other outcome.
+We encode gambler's bet in round $t$ by a single
+number $\beta_t \in [-1,1]$. The sign of $\beta_t$ encodes whether he is betting
+on heads or tails. The absolute value encodes the betted amount as the fraction
+of his current wealth.
+
+Let $\Wealth_t$ be gambler's wealth at the end of round $t$. It satisfies the
+recurrence
+\begin{align}
+\label{equation:wealth-recurrence}
+\Wealth_0 & = \epsilon &
+& \text{and} &
+\Wealth_t & = (1 + g_t \beta_t) \Wealth_{t-1} \qquad \text{for $t \ge 1$} \; .
+\end{align}
+Note that since $\beta_t \in [-1,1]$, gambler's wealth stays always non-negative.
+Gambler's net reward (difference of wealth and initial endowment) after $t$
+rounds is
+\begin{align}
+\label{equation:reward-wealth}
+\Reward_t = \Wealth_t - \ \epsilon \; .
+\end{align}
+
+We generalize the problem slightly by allowing the outcome of the coin flip
+$g_t$ to be any real number in the interval $[-1,1]$. In this case we talk about
+\emph{betting on a continuous coin}. The formulas
+\eqref{equation:wealth-recurrence} and \eqref{equation:reward-wealth} defining
+wealth and reward remain exactly the same.
+
+\noindent\textbf{Kelly Betting and Krichevsky-Trofimov Estimator.} \citet{Kelly56} proposed a general strategy for sequential bets. For coin
+betting, the strategy assumes that the coin flips $\{g_t\}_{t=1}^\infty$, $g_t
+\in \{+1,-1\}$, are generated i.i.d. with known probability of heads. If $p \in
+[0,1]$ is the probability of heads, the Kelly bet is
+$
+\beta_t = 2p - 1
+$.
+He showed that this strategy maximizes $\Exp[\ln(\Wealth_t)]$.
+
+For adversarial coins, Kelly betting does not make sense. However, we can
+replace $p$ with an estimate. This problem was studied by \citet{KrichevskyT81},
+who proposed that after seeing coin flips $g_1, g_2, \dots, g_{t-1}$ an
+empirical estimate $k_t = \frac{1/2 + \sum_{i=1}^{t-1} \indicator[g_i = +1]}{t}$
+should be used instead of $p$. Their estimate is commonly called \emph{KT
+estimator}.\footnote{Compared to the standard maximum likelihood estimate
+$\frac{\sum_{i=1}^{t-1} \indicator[g_i = +1]}{t-1}$, KT estimator ``shrinks''
+slightly towards $\frac{1}{2}$.} KT estimator results in betting strategy
+\begin{equation}
+\label{equation:kt-estimator-betting-strategy}
+\beta_t = 2k_t - 1 = \frac{\sum_{i=1}^{t-1} g_i}{t}
+\end{equation}
+which we call \emph{adaptive Kelly betting based on KT estimator}.
+\citeauthor{KrichevskyT81} showed that
+$$
+\forall \beta \in [-1,1] \qquad \qquad \ln(\Wealth_t) \ge \ln(\Wealth_t(\beta)) \ - \ \frac{1}{2} \ln t \ - \ \ln(2) \; ,
+$$
+where $\Wealth_t(\beta)$ is the wealth of a strategy that bets the same fraction
+$\beta$ in every round. This guarantee is optimal up to constant additive factors~\citep{Cesa-BianchiL06}.
