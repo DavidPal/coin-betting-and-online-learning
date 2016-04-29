@@ -1,0 +1,98 @@
+\section{Design and Analysis of Algorithms}
+
+We explain the intuition behind
+algorithms~\ref{algorithm:hilbert-space-olo}~and~\ref{algorithm:experts}.  Both
+are based on the adversarial coin-betting problem. We first explain the
+adversarial coin betting game. In section~\ref{subsection:connection}, we
+explain the connection to
+algorithms~\ref{algorithm:hilbert-space-olo}~and~\ref{algorithm:experts}.
+
+Consider a gambler making repeated bets on outcomes of adversarial coin flips.
+The gambler starts with an initial endowment $1$ dollar. In each round $t$, he
+bets on an outcome of a coin flip $g_t \in \{-1,1\}$ where $+1$ denotes heads
+and $-1$ denotes tails. We do not make any assumption on how $g_t$ is
+generated, that is, it can be chosen by an adversary.  The gambler can bet any
+amount on either heads or tails. However, he is not allowed to borrow any
+additional money. If he loses (i.e. he bets on the incorrect outcome), he loses
+the betted amount. If he wins (i.e. he bets on the correct outcome), he gets
+the betted amount back and, in addition to that, he gets the same amount as a
+reward. Note that it does not make sense for the gambler to bet on both
+outcomes, since the same winnings can be achieved by betting the difference of
+the two amounts on one of the outcomes and betting zero on the other outcome.
+We encode gambler's bet in round $t$ by a single number $\beta_t \in (-1,1)$.
+The sign of $\beta_t$ encodes whether he is betting on heads or tails. The
+absolute value encodes the betted amount as the fraction of his current wealth.
+
+Let $\Wealth_t$ be gambler's wealth at the end of round $t$. It satisfies the
+recurrence
+\begin{align}
+\label{equation:wealth-recurrence}
+\Wealth_0 & = 1 &
+& \text{and} &
+\Wealth_t & = (1 + g_t \beta_t) \Wealth_{t-1} \qquad \text{for $t \ge 1$} \; .
+\end{align}
+Note that since $\beta_t \in (-1,1)$, gambler's wealth stays always non-negative.
+
+The problem can be generalized slightly by allowing the outcome of the coin
+flip $g_t$ to be any real number in the interval $[-1,1]$. The formula
+\eqref{equation:wealth-recurrence} for wealth remains exactly the same.
+
+\subsection{Kelly Betting and Krichevsky-Trofimov Estimator}
+
+\citet{Kelly-1956} proposed a general strategy for sequential bets. For coin
+betting, the strategy assumes that the coin flips $\{g_t\}_{t=1}^\infty$, $g_t
+\in \{+1,-1\}$, are generated i.i.d. with known probability of heads. If $p \in
+[0,1]$ is the probability of heads, the Kelly bet is
+$$
+\beta_t = 2p - 1 \; .
+$$
+He showed that this strategy maximizes $\Exp[\ln(\Wealth_t)]$.
+
+For adversarial coins, Kelly betting does not make sense. However, we can
+replace $p$ with an estimate. This problem was studied by
+\citet{Krichevsky-Trofimov-1981}, who proposed that after seeing coin flips
+$g_1, g_2, \dots, g_{t-1}$ an empirical estimate $k_t = \frac{1/2 +
+\sum_{i=1}^{t-1} \indicator[g_i = +1]}{t}$ should be used instead of $p$. Their
+estimate is commonly called \emph{KT estimator}.\footnote{Compared to the
+standard maximum likelihood estimate $\frac{\sum_{i=1}^{t-1} \indicator[g_i =
++1]}{t-1}$, KT estimator ``shrinks'' slightly towards $\frac{1}{2}$.} KT
+estimator results in betting strategy
+\begin{equation}
+\label{equation:kt-estimator-betting-strategy}
+\beta_t = 2k_t - 1 = \frac{\sum_{i=1}^{t-1} g_i}{t}
+\end{equation}
+which we call \emph{adaptive Kelly betting based on KT estimator}.
+\citeauthor{Krichevsky-Trofimov-1981} showed that
+\begin{equation}
+\label{equation:wealth-lower-bound}
+\forall \beta \in [-1,1] \qquad \qquad \ln(\Wealth_t) \ge \ln(\Wealth_t(\beta)) \ - \ \frac{1}{2} \ln t \ - \ \ln(2) \; ,
+\end{equation}
+where $\Wealth_t(\beta)$ is the wealth of a strategy that bets the same
+fraction $\beta$ in every round. This guarantee is optimal up to constant
+additive factors~\citep{Cesa-Bianchi-Lugosi-2006}.
+
+\subsection{Connection to Algorithms~\ref{algorithm:hilbert-space-olo}~and~\ref{algorithm:experts}}
+\label{subsection:connection}
+
+In Algorithm~\ref{algorithm:hilbert-space-olo}, the ``coin outcome'' is
+$g_t = -\ell_t$ and algorithm's wealth is
+$$
+\Wealth_t = 1 - \sum_{i=1}^t \langle \ell_i, x_i \rangle \; .
+$$
+The algorithm explicitly keeps track of its wealth. It bets the ``vectorial fraction''
+$$
+\beta_t = - \frac{\sum_{i=1}^{t-1} \ell_i}{t} \; .
+$$
+
+In Algorithm~\ref{algorithm:experts}, there are $N$ independent coordinates.
+With each coordinate $i$ there is an associated coin outcome $g_{t,i}$, wealth
+$$
+\Wealth_{t,i} = 1 + \sum_{j=1}^t g_{j,i} w_{j,i}
+$$
+and a betting fraction
+$$
+\beta_{t,i} = \frac{\sum_{j=1}^t g_{j,i}}{t + T/2} \; .
+$$
+The regret bounds for both algorithms are a consequence of the wealth lower
+bound~\label{equation:wealth-lower-bound}.  For more details, see full version
+of the paper~\citep{Orabona-Pal-2016-parameter-free}.
