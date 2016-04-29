@@ -5,17 +5,17 @@ In this section we show that the optimal Krichevsky-Trofimov (KT) estimator has 
 We then prove regret bounds for \ac{OLO} over Hilbert space and \ac{LEA}, obtaining optimal regret bounds.
 
 
-\citet{KrichevskyT81} proposed that after seeing coin flips $g_1, g_2, \dots, g_{t-1}$ you bet a fraction of your money equal to
+\citet{Krichevsky-Trofimov-1981} proposed that after seeing coin flips $g_1, g_2, \dots, g_{t-1}$ you bet a fraction of your money equal to
 \begin{equation}
 \label{equation:kt-estimator-betting-strategy}
 \beta_t =  \tfrac{\sum_{i=1}^{t-1} g_i}{t} \; .
 \end{equation}
-\citeauthor{KrichevskyT81} proved the following guarantee on the wealth obtained by such strategy
+\citeauthor{Krichevsky-Trofimov-1981} proved the following guarantee on the wealth obtained by such strategy
 $$
 \forall \beta \in [-1,1] \qquad \qquad \ln(\Wealth_t) \ge \ln(\Wealth_t(\beta)) \ - \ \tfrac{1}{2} \ln t \ - \ \ln(2) \; ,
 $$
 where $\Wealth_t(\beta)$ is the wealth of a strategy that bets the same fraction
-$\beta$ in every round. This guarantee is optimal up to constant additive factors~\citep{Cesa-BianchiL06}.
+$\beta$ in every round. This guarantee is optimal up to constant additive factors~\citep{Cesa-Bianchi-Lugosi-2006}.
 
 We will use a generalized version of the KT estimator.
 First, define the \emph{shifted KT potential} with parameter $\delta$ as
@@ -122,12 +122,12 @@ $$
 
 
 The requirement of knowing the number of rounds $T$ in advance can be lifted by
-the standard doubling trick~\citep[Section 2.3.1]{Shalev-Shwartz12}. We obtain
+the standard doubling trick~\citep[Section 2.3.1]{Shalev-Shwartz-2011}. We obtain
 an anytime algorithm at the expense of slightly worse regret bound,
 $$
 \forall \, T \ge 0 \quad \forall u \in \Delta_N \qquad \qquad
 \Regret_T(u) \le \tfrac{\sqrt{2}}{\sqrt{2} - 1} \sqrt{3T (4 + \KL{u}{\pi})} \; .
 $$
 
-%Also, as observed by \citet{ChernovV10}, bounds in terms of the KL
+%Also, as observed by \citet{Chernov-Vovk-2010}, bounds in terms of the KL
 %divergence are superior to the $\epsilon$-quantile bounds.

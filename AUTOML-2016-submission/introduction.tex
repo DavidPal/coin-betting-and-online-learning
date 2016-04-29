@@ -1,8 +1,8 @@
 \section{Introduction}
 \label{section:introduction}
 
-We consider the standard \ac{OLO}~\citep{Cesa-BianchiL06,
-Shalev-Shwartz12} setting. In each round $t$, an algorithm chooses a point $x_t$ from a convex \emph{decision set}
+We consider the standard \ac{OLO}~\citep{Cesa-Bianchi-Lugosi-2006,
+Shalev-Shwartz-2011} setting. In each round $t$, an algorithm chooses a point $x_t$ from a convex \emph{decision set}
 $K$ and then receives a loss vector $\ell_t$. Algorithm's goal is to keep its
 \emph{regret} small, defined as the difference between its cumulative loss and the cumulative loss of a fixed strategy $u \in K$, that is
 $$
@@ -13,70 +13,48 @@ We focus on two particular sets, the $N$-dimensional probability simplex
 $\Delta_N = \{ x \in \R^N ~:~ x \ge 0, \norm{x}_1 = 1\}$ and the Hilbert space.
 \ac{OLO} over $\Delta_N$ is referred to as the problem of \ac{LEA}.
 
-
 \ac{OLO} is a basic building block in many other related problems. For example,
 \ac{OCO}, the analogous problem where $\langle \ell_t, w_t \rangle$ is
 generalized to $\ell_t(w_t)$ where $\ell_t$ is an arbitrary convex function, is
-solved through a reduction to an \ac{OLO} problem~\citep{Shalev-Shwartz12}. \ac{LEA}~\citep{LittlestoneW94, Vovk98, Cesa-BianchiFHHSW97}
-is an \ac{OLO} problem in which the loss vectors belong to $[0,1]^N$ and $w_t$
-is constrained to be in the probability simplex. Also, batch and stochastic
-convex optimization can be solved through a reduction to
-\ac{OLO}~\citep{Shalev-Shwartz12}. Statistical learning with convex losses can
-also seen as stochastic convex optimization and solved
-through \ac{OCO}~\citep{Munro1951}.
-%In particular, a sublinear regret in \ac{OLO} becomes
-%a convergence guarantee or a generalization bound.
+solved through a reduction to an \ac{OLO} problem~\citep{Shalev-Shwartz-2011}.
+\ac{LEA}~\citep{Littlestone-Warmuth-1994, Vovk-1998,
+Cesa-Bianchi-Freund-Haussler-Helmbold-Schapire-Warmuth-1997} is an \ac{OLO}
+problem in which the loss vectors belong to $[0,1]^N$ and $w_t$ is constrained
+to be in the probability simplex. Also, batch and stochastic convex
+optimization can be solved through a reduction to
+\ac{OLO}~\citep{Shalev-Shwartz-2011}. Statistical learning with convex losses
+can also seen as stochastic convex optimization and solved through
+\ac{OCO}~\citep{Munro-1951}.
 
-However, as essential as it is to achieve sublinear regret, this is only half of
-the problem in online learning. In fact, we are often interested in the
-adaptation to the (often unknown) characteristics of the data. Most of the time,
-online and batch learning algorithms fail on this side, requiring to set
+However, as essential as it is to achieve sublinear regret, this is only half
+of the problem in online learning. In fact, we are often interested in the
+adaptation to the (often unknown) characteristics of the data. Most of the
+time, online and batch learning algorithms fail on this side, requiring to set
 hyperparameters (e.g., learning rates, step sizes, and regularization weights)
 to oracle choices in order to achieve the best possible theoretical and
 empirical performance. Recently, a new family of algorithms that adapt to the
-data has been proposed, both for \ac{LEA}~\citep{ChaudhuriYH09, ChernovV10,
-LuoE14, LuoS15, KoolenE15} and for \ac{OLO}/\ac{OCO} over Hilbert
-spaces~\citep{StreeterM12, Orabona13, McMahanA13, McMahanO14, Orabona14}. These
-algorithms adapt to the number of experts and to the norm of the optimal
+data has been proposed, both for \ac{LEA}~\citep{Chaudhuri-Freund-Hsu-2009,
+Chernov-Vovk-2010, Luo-Schapire-2014, Luo-Schapire-2015, Koolen-van-Erven-2015}
+and for \ac{OLO}/\ac{OCO} over Hilbert spaces~\citep{Streeter-McMahan-2012,
+Orabona-2013, McMahan-Abernethy-2013, McMahan-Orabona-2014, Orabona-2014}.
+These algorithms adapt to the number of experts and to the norm of the optimal
 predictor, respectively, without the need to tune parameters. Given the
 connections between \ac{OLO}/\ac{LEA} and machine learning, these algorithms
 allow to design parameter-free batch machine learning algorithms through
-straightforward reductions~\citep{Orabona14,LuoS15}.
-%Both families of algorithms
-%seem to require very sophisticated analysis tools, much more complex than the
-%previous ones.
-Surprisingly enough, these two families of algorithms are also
-very similar, yet no attempt has been made to unify them.
+straightforward reductions~\citep{Orabona-2014,Luo-Schapire-2015}.  Surprisingly enough,
+these two families of algorithms are also very similar, yet no attempt has been
+made to unify them.
 
 Our contributions are as follows. We claim that a more fundamental notion
-subsumes both \ac{OLO} and \ac{LEA} parameter-free algorithms. This notion is linked to the ability of an
-algorithm to repeatedly bet on an outcome of a coin flip
-(Section~\ref{section:coin-betting-potentials}). In fact, we show black box
-reductions from the coin betting scenario to \ac{OLO} over Hilbert spaces and to
-\ac{LEA}
-%, where the guarantee on the wealth accumulated by any coin betting
-%algorithm easily translates to regret bounds for the two domains
-(Sections~\ref{section:reduction_hilbert} and~\ref{section:reduction-experts}).
-We prove that coin betting strategies that assure an exponential growth of the
-wealth for biased coins allow to obtain optimal worst-case parameter-free regret bounds in \ac{OLO}
-and in \ac{LEA}.
-%Namely, we show that the optimal strategy for sequential
-%betting based on the well-known \ac{KT} estimator~\citep{KrichevskyT81} can be
-%used in a simple and direct way to recover and slightly improve parameter-free
-%algorithms for \ac{OLO} and \ac{LEA} (Section~\ref{section:kt-estimator}). In
-%particular, for \ac{OLO} over any Hilbert space, we obtain $O(\norm{u}\sqrt{T
-%\log(1+T \norm{u}}))$ regret with respect to any competitor $u$. For \ac{LEA},
-%we obtain $O(\sqrt{T (1 + \KL{u}{\pi})})$ regret against any competitor $u$ and
-%where $\KL{u}{\pi}$ is the Kullback-Leibler divergence between algorithm's prior
-%distribution $\pi$ and the competitor. Both algorithms are simple reductions
-%from \ac{KT} coin betting, are extremely natural and intuitive, the proofs of
-%the regret bounds are immediate given the reductions, and they also shed a light
-%on previous ad-hoc and complex constructions.
-%Finally, in Section~\ref{sec:discussion} we discuss in details previous and future work.
-
-%We will also show connections between the optimal betting strategy known in
-%economics as Kelly betting \citep{Kelly56} and online learning, and hence
-%indirectly with stochastic optimization and statistical learning.
+subsumes both \ac{OLO} and \ac{LEA} parameter-free algorithms. This notion is
+linked to the ability of an algorithm to repeatedly bet on an outcome of a coin
+flip (Section~\ref{section:coin-betting-potentials}). In fact, we show black
+box reductions from the coin betting scenario to \ac{OLO} over Hilbert spaces
+and to \ac{LEA} (Sections~\ref{section:reduction_hilbert}
+and~\ref{section:reduction-experts}).  We prove that coin betting strategies
+that assure an exponential growth of the wealth for biased coins allow to
+obtain optimal worst-case parameter-free regret bounds in \ac{OLO} and in
+\ac{LEA}.
 
 \noindent\textbf{Notation and Definitions.}
 We will use the following notation in the rest of this note. We denote by
@@ -85,27 +63,5 @@ $\indicator$ the vector $(1,1,\dots,1) \in \R^N$. Shannon entropy $H(u) =
 Kullback-Leibler divergence $\KL{u}{v} = \sum_{i=1}^N u_i \ln(u_i/v_i)$ is
 defined for any $u,v \in \Delta_N$. If $\H$ is a real Hilbert space, we denote
 by $\langle \cdot, \cdot \rangle$ its inner product, and by $\norm{\cdot}$ the
-induced norm. In this paper, without loss of generality, we make the assumption that $\norm{\ell_t} \le 1$.
-
-%We will use the following well know facts. The negative Shannon entropy, $-H(u)$,
-%defined on $\Delta_N$ is $1$-strongly convex with respect to $\norm{\cdot}_1$.
-%The dual norm of $\norm{\cdot}_1$ is $\norm{\cdot}_\infty$.  The function $R(u)
-%= \frac{1}{2}\norm{u}^2$ defined on Hilbert space with norm $\norm{\cdot}$ is
-%$1$-strongly convex with respect to $\norm{\cdot}$.
-
-% Follow The Regularized Leader (FTRL) algorithm with regularizer $R:K \to \R$
-% and \emph{learning rate} $\eta > 0$ in round $t$ chooses
-% $
-% x_t = \argmin_{x \in K} \left( \frac{1}{\eta} R(x) + \sum_{s=1}^{t-1} \langle \ell_s, x \rangle \right)
-% $.
-% The following theorem is a slight modification of \citet[Theorem 2.11]{Shalev-Shwartz-2011}.
-% \begin{theorem}[Regret of FTRL]
-% \label{theorem:ftrl-regret}
-% If $R:K \to \R$ is $1$-strongly convex function with respect a norm
-% $\norm{\cdot}$ then for any sequence $\{\ell_t\}_{t=1}^\infty$ such that
-% $\|\ell_t\|_* \le 1$, FTRL with learning rate $\eta$ satisfies
-% $$
-% \forall T \ge 0 \quad \forall u \in K \qquad \Regret_T(u) \le \frac{R(u) - \inf_{v \in K} R(v)}{\eta} + \frac{\eta T}{2} \; .
-% $$
-% \end{theorem}
-% 
+induced norm. In this paper, without loss of generality, we make the assumption
+that $\norm{\ell_t} \le 1$.

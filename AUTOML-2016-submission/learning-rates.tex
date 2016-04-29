@@ -1,20 +1,23 @@
 \section{How Do You Tune the Learning Rates?}
-\label{sec:learning_rates}
+\label{section:learning-rates}
+
 Consider \ac{OLO} a Hilbert Space $\H$. \ac{FTRL} with regularizer
-$\tfrac{1}{2}\norm{u}^2$ and learning rate $\eta$ satisfies ~\cite{}
+$\tfrac{1}{2}\norm{u}^2$ and learning rate $\eta$ satisfies~\cite{???}
 \begin{equation}
 \label{equation:ftrl-vanila}
 \forall u \in \H \qquad \Regret_T(u) \le \norm{u}^2/(2\eta) + (\eta T)/2 \; .
 \end{equation}
-%Bound~\eqref{equation:ftrl-vanila} is a direct analogue of \eqref{equation:hedge-bound-2} for LEA.
-It is obvious that the optimal tuning of the learning rate depends on the unknown norm of $u$.
+It is obvious that the optimal tuning of the learning rate depends on the
+unknown norm of $u$.
 
 A simple choice $\eta = 1/\sqrt{T}$ leads to an algorithm that satisfies
 \begin{equation}
 \label{equation:ftrl-vanila-2}
 \Regret_T(u) \le 0.5\left(1+\norm{u}^2\right)\sqrt{T} \; .
 \end{equation}
-However, in this bound the dependency on $\norm{u}$ is suboptimal. As we will see shortly, the quadratic dependency can be replaced by an (almost) linear dependency.
+However, in this bound the dependency on $\norm{u}$ is suboptimal. As we will
+see shortly, the quadratic dependency can be replaced by an (almost) linear
+dependency.
 
 Starting from \eqref{equation:ftrl-vanila}, if we choose learning rate $\eta =
 D/\sqrt{T}$, we get a family of algorithms parametrized by $D \in [0,\infty)$

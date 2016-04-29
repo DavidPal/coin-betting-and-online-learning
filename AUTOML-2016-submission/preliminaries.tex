@@ -109,7 +109,7 @@ $.
 He showed that this strategy maximizes $\Exp[\ln(\Wealth_t)]$.
 
 For adversarial coins, Kelly betting does not make sense. However, we can
-replace $p$ with an estimate. This problem was studied by \citet{KrichevskyT81},
+replace $p$ with an estimate. This problem was studied by \citet{Krichevsky-Trofimov-1981},
 who proposed that after seeing coin flips $g_1, g_2, \dots, g_{t-1}$ an
 empirical estimate $k_t = \frac{1/2 + \sum_{i=1}^{t-1} \indicator[g_i = +1]}{t}$
 should be used instead of $p$. Their estimate is commonly called \emph{KT
@@ -121,9 +121,9 @@ slightly towards $\frac{1}{2}$.} KT estimator results in betting strategy
 \beta_t = 2k_t - 1 = \frac{\sum_{i=1}^{t-1} g_i}{t}
 \end{equation}
 which we call \emph{adaptive Kelly betting based on KT estimator}.
-\citeauthor{KrichevskyT81} showed that
+\citeauthor{Krichevsky-Trofimov-1981} showed that
 $$
 \forall \beta \in [-1,1] \qquad \qquad \ln(\Wealth_t) \ge \ln(\Wealth_t(\beta)) \ - \ \frac{1}{2} \ln t \ - \ \ln(2) \; ,
 $$
 where $\Wealth_t(\beta)$ is the wealth of a strategy that bets the same fraction
-$\beta$ in every round. This guarantee is optimal up to constant additive factors~\citep{Cesa-BianchiL06}.
+$\beta$ in every round. This guarantee is optimal up to constant additive factors~\citep{Cesa-Bianchi-Lugosi-2006}.
