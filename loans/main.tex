@@ -1,0 +1,379 @@
+%\documentclass[anon]{colt2016} % Anonymized submission
+%\documentclass{colt2016} % Include author names
+\documentclass{colt2016_empty} % Include author names
+
+\usepackage[nolist]{acronym}
+\usepackage{algorithm,algorithmic}
+\usepackage{times}
+\usepackage{enumerate}
+
+\DeclareMathOperator*{\Exp}{\mathbf{E}}
+\DeclareMathOperator{\Regret}{Regret}
+\DeclareMathOperator{\Wealth}{Wealth}
+\DeclareMathOperator{\Reward}{Reward}
+
+\newcommand{\N}{\mathbb{N}}     % natural numbers
+\newcommand{\R}{\mathbb{R}}     % real numbers
+\newcommand{\C}{\mathbb{C}}     % complex numbers
+\renewcommand{\H}{\mathcal{H}}  % Hilbert space
+\newcommand{\KL}[2]{D\left({#1}\middle\|{#2}\right)}  % KL divergence
+\newcommand{\norm}[1]{\left\|{#1}\right\|}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\newcommand{\indicator}{\mathbf{1}}
+
+\begin{acronym}
+\acro{EG}{Exponentiated Gradient}
+\acro{DFEG}{Dimension-Free Exponentiated Gradient}
+\acro{OMD}{Online Mirror Descent}
+\acro{ASGD}{Averaged Stochastic Gradient Descent}
+\acro{SGD}{Stochastic Gradient Descent}
+\acro{PiSTOL}{Parameter-free STOchastic Learning}
+\acro{OCO}{Online Convex Optimization}
+\acro{OLO}{Online Linear Optimization}
+\acro{RKHS}{Reproducing Kernel Hilbert Space}
+\acro{IID}{Independent and Identically Distributed}
+\acro{SVM}{Support Vector Machine}
+\acro{ERM}{Empirical Risk Minimization}
+\acro{COCOB}{Continous Coin Betting}
+\acro{MBA}{Master Betting Algorithm}
+\acro{KT}{Krichevsky-Trofimov}
+\acro{LEA}{Learning with Expert Advice}
+\end{acronym}
+
+\coltauthor{%
+   \Name{Francesco Orabona} \Email{francesco@orabona.com}\\
+   \Name{D\'avid P\'al} \Email{dpal@yahoo-inc.com}\\
+{\addr Yahoo Research, New York}
+}
+
+\title{From Coin Betting to Parameter-Free Online Learning}
+
+\begin{document}
+
+\maketitle
+
+\section{Preliminaries}
+
+The Kullback-Leibler divergence between two discrete
+distributions $p$ and $q$ is $\KL{p}{q} = \sum_{i} p_i \ln\left( \frac{p_i}{q_i} \right)$,
+where the sum is over all possible outcomes. Abusing notation, if $p,q$ are real
+numbers in $[0,1]$, we denote by
+$\KL{p}{q} = p \ln \left(\frac{p}{q} \right) + (1-p) \ln \left(\frac{1-p}{1-q} \right)$
+the Kullback-Leibler divergence between Bernoulli distributions with parameters
+$p$ and $q$.
+
+We denote by $\H$ a Hilbert space, by $\langle \cdot, \cdot\rangle$ its
+associated inner product, and by $\norm{\cdot}$ the induced norm.
+We denote by $\norm{\cdot}_1$ the $1$-norm in $\R^N$, that is,
+$\norm{x}_1 = \sum_{i=1}^N |x_i|$.
+
+A function $F:I \to \R_+$ defined on an interval $I$ is called
+\emph{logarithmically convex} if $f(x) = \ln(F(x))$ is convex. Note that if
+$F(x)$ is logarithmically convex, then it is also convex (in the usual sense),
+since $F(x) = \exp(f(x))$ is a composition of a convex function $f(x)$ and an
+increasing convex function $\exp(\cdot)$.
+
+Let $f:V \to \R \cup \{\pm\infty\}$ be a function defined on a real vector space
+$V$. Fenchel conjugate of $f$ is a function $f^*:V^* \to \R \cup \{\pm \infty\}$
+defined on the dual vector space $V^*$ by
+$$
+f^*(\theta) = \sup_{x \in V} \ \langle \theta, x \rangle - f(x) \; .
+$$
+A function $f:V \to \R \cup \{\pm \infty\}$ is said to be proper if it never
+attains $-\infty$ and attains finite value at at least one point. If $f$ is a
+proper lower semi-continuous convex function then $f^*$ is also is proper lower
+semi-continuous convex, and furthermore the Fenchel conjugate of $f^*$ is $f$.
+
+\subsection{Online Linear Optimization over a Hilbert Space}
+
+\textsc{Online Linear Optimization over a Hilbert Space $\H$} is an online
+problem where in each round $t$, an algorithm chooses a point $w_t \in \H$ and
+then receives a reward vector $g_t \in \H$. Algorithm's instantaneous reward in
+round $t$ is $\langle g_t, w_t \rangle$. The aim of the algorithm is to minimize
+its \emph{regret} after $T$ rounds, that is, the difference between its
+cumulative reward $\sum_{t=1}^T \langle g_t, w_t \rangle$ and the cumulative
+reward $\sum_{t=1}^T \langle g_t, u \rangle$ of the of a hypothetical strategy
+(\emph{competitor}) that would choose the same point $u \in \H$ in every round.
+Formally, regret of the algorithm after $T$ rounds with respect to a competitor
+$u \in \H$ is defined as
+\begin{equation}
+\label{equation:regret-definition}
+\Regret_T(u) = \sum_{t=1}^T \langle g_t , u - w_t \rangle \; .
+\end{equation}
+In this paper, without loss of generality, we make the assumption that $\norm{g_t} \le 1$.
+
+
+\subsection{Learning with Expert Advice}
+
+Let $N \ge 2$ be a positive integer. \textsc{Learning with expert advice} is an
+online problem in which, in each round $t$, an algorithm chooses a point $p_t$
+in $N$-dimensional probability simplex $\Delta_N = \{ x \in \R^N ~:~ x \ge 0,
+\norm{x}_1 = 1 \}$ and receives a loss\footnote{The reason for using loss,
+instead of reward, will become apparent in
+Section~\ref{section:reduction-experts}.} vector $\ell_t \in [0,1]^N$. Similarly
+as before, the goal of the algorithm is to minimize its regret after $T$ rounds
+with respect to any competitor $u \in \Delta_N$, which is defined as
+$$
+\Regret_T(u) = \sum_{t=1}^T \langle \ell_t, p_t \rangle - \sum_{t=1}^T \langle \ell_t, u \rangle \; .
+$$
+
+\subsection{Binary and Continuous Coin Betting}
+
+We consider a gambler making repeated bets on outcomes of adversarial coin
+flips. The gambler starts with an initial endowment $\epsilon_0 > 0$. In each
+round $t$, he bets on an outcome of a coin flip $g_t \in \{-1,1\}$ where $+1$
+denotes heads and $-1$ denotes tails. We do not make any assumption on how $g_t$
+is generated, that is, it can be chosen by an adversary.
+
+The gambler can bet any amount on either heads or tails. He is also
+allowed to borrow additional money $\epsilon_t$ at the end of each round $t$. If he loses (i.e. he bets on the
+incorrect outcome), he loses the betted amount. If he wins (i.e. he bets on the
+correct outcome), he gets the betted amount back and, in addition to that, he
+gets the same amount as a reward. Note that it does not make sense for the
+gambler to bet on both outcomes, since the same winnings can be achieved by
+betting the difference of the two amounts on one of the outcomes and betting
+zero on the other outcome. We encode gambler's bet in round $t$ by a single
+number $\beta_t \in [-1,1]$. The sign of $\beta_t$ encodes whether he is betting
+on heads or tails. The absolute value encodes the betted amount as the fraction
+of his current wealth.
+
+Let $\Wealth_t$ be gambler's wealth at the end of round $t$. It satisfies the
+recurrence
+\begin{align}
+\label{equation:wealth-recurrence}
+\Wealth_0 & = \epsilon_0 &
+& \text{and} &
+\Wealth_t & = (1 + g_t \beta_t) \Wealth_{t-1} + \epsilon_{t} \qquad \text{for $t \ge 1$} \; .
+\end{align}
+Note that since $\beta_t \in [-1,1]$, gambler's wealth stays always non-negative.
+Gambler's net reward (difference of wealth and initial endowment plus the borrowed money) after $t\geq1$
+rounds is
+\begin{align}
+\label{equation:reward-wealth}
+\Reward_t = \Wealth_t - \sum_{i=0}^t \epsilon_i \; .
+\end{align}
+
+We generalize the problem slightly by allowing the outcome of the coin flip
+$g_t$ to be any real number in the interval $[-1,1]$. In this case we talk about
+\emph{betting on a continuous coin}. The formulas
+\eqref{equation:wealth-recurrence} and \eqref{equation:reward-wealth} defining
+wealth and reward remain exactly the same.
+
+\subsection{Kelly Betting and Krichevsky-Trofimov Estimator}
+
+\citet{Kelly56} proposed a general strategy for sequential bets. For coin
+betting, the strategy assumes that the coin flips $\{g_t\}_{t=1}^\infty$, $g_t
+\in \{+1,-1\}$, are generated i.i.d. with known probability of heads. If $p \in
+[0,1]$ is the probability of heads, the Kelly bet is
+$$
+\beta_t = 2p - 1 \; .
+$$
+He showed that this strategy maximizes $\Exp[\ln(\Wealth_t)]$.
+
+For adversarial coins, Kelly betting does not make sense. However, we can
+replace $p$ with an estimate. This problem was studied by \citet{KrichevskyT81},
+who proposed that after seeing coin flips $g_1, g_2, \dots, g_{t-1}$ an
+empirical estimate $k_t = \frac{1/2 + \sum_{i=1}^{t-1} \indicator[g_i = +1]}{t}$
+should be used instead of $p$. Their estimate is commonly called \emph{KT
+estimator}.\footnote{Compared to the standard maximum likelihood estimate
+$\frac{\sum_{i=1}^{t-1} \indicator[g_i = +1]}{t-1}$, KT estimator ``shrinks''
+slightly towards $\frac{1}{2}$.} KT estimator results in betting strategy
+\begin{equation}
+\label{equation:kt-estimator-betting-strategy}
+\beta_t = 2k_t - 1 = \frac{\sum_{i=1}^{t-1} g_i}{t}
+\end{equation}
+which we call \emph{adaptive Kelly betting based on KT estimator}.
+\citeauthor{KrichevskyT81} showed that
+$$
+\forall \beta \in [-1,1] \qquad \qquad \ln(\Wealth_t) \ge \ln(\Wealth_t(\beta)) \ - \ \frac{1}{2} \ln t \ - \ \ln(2) \; ,
+$$
+where $\Wealth_t(\beta)$ is the wealth of a strategy that bets the same fraction
+$\beta$ in every round. This guarantee is optimal up to constant additive factors~\citep{Cesa-BianchiL06}.
+
+
+\section{Coin-Betting Potentials}
+\label{section:coin-betting-potentials}
+
+We consider betting strategies for the (continuous) coin betting problem. The
+type of betting strategies we consider can be viewed as abstractions of
+adaptive Kelly betting based on KT estimator. For these strategies it is
+possible to prove that for any sequence $g_1, g_2, \dots, g_t \in [-1,1]$,
+\begin{equation}
+\label{equation:wealth-lower-bound-generic}
+\Wealth_t \ge F_t \left( \sum_{i=1}^t g_i \right)\; ,
+\end{equation}
+where $F_t(x)$ is a certain function. We call such functions \emph{potentials}.
+We consider potential-based strategy that in round $t$ chooses fraction
+\begin{equation}
+\label{equation:potential-based-strategy}
+\beta_t = \frac{F_t(\sum_{i=1}^{t-1} g_i + 1) - F_t(\sum_{i=1}^{t-1} g_i - 1)}{F_t(\sum_{i=1}^{t-1} g_i + 1) + F_t(\sum_{i=1}^{t-1} g_i - 1) -2 \epsilon_t} \; .
+\end{equation}
+If $F_t(x)>\epsilon_t$, $\beta_t \in (-1,1)$ and hence it is a valid
+strategy. However, without further conditions on the sequence of potentials
+$\{F_t\}_{t=0}^\infty$ is is not clear if the strategy
+\eqref{equation:potential-based-strategy} implies the lower bound
+\eqref{equation:wealth-lower-bound-generic} on its wealth. We restrict our
+attention to potentials for which \eqref{equation:wealth-lower-bound-generic}
+holds; these are specified in the definition below.
+
+\begin{definition}[Coin-Betting Potential]
+\label{definition:potential}
+Let $\epsilon_0 > 0$ and $\epsilon_t\geq0$ $t=1,\ldots$. Let $\{F_t\}_{t=0}^\infty$ be a sequence of functions
+$F_t:I_t  \to \R_+$ where $I_t = (-a_t, a_t)$ is an open symmetric
+interval\footnote{We allow $a_t = +\infty$.} containing $[-t,t]$.  The sequence
+$\{F_t\}_{t=0}^\infty$ is called a \textbf{sequence of coin-betting potentials
+for initial endowment $\epsilon_0$}, if it satisfies the following three
+conditions:
+\begin{enumerate}[(1)]
+\item $F_0(0) = \epsilon_0$.
+
+\item For every $t \ge 0$, $F_t(x)$ is even, logarithmically convex, strictly
+increasing on $[0,a_t)$, and
+\begin{equation}
+\label{equation:potential-limit-assumption}
+\lim_{x \nearrow a_t} F_t(x) = \lim_{x \searrow -a_t} F_t(x) = +\infty \; .
+\end{equation}
+
+\item For every $t \ge 1$, every $x \in [-(t-1), (t-1)]$ and every $g \in [-1,1]$,
+$$
+\left(1 + g \frac{F_t(x + 1) - F_t(x - 1)}{F_t(x + 1) + F_t(x - 1) - 2 \epsilon_t} \right) F_{t-1}(x) \ge F_t(x+g) -\epsilon_t\; .
+$$
+\item $F_t(x) > \epsilon_t$.
+\end{enumerate}
+The sequence $\{F_t\}_{t=0}^\infty$ is called a
+\textbf{sequence of excellent coin-betting potentials for initial
+endowment $\epsilon$} if it satisfies conditions (1)--(3) and the condition (4)
+below.
+\begin{enumerate}[(1)]
+\setcounter{enumi}{4}
+\item For every $t \ge 0$, $F_t$ is twice-differentiable and
+satisfies $x \cdot F_t''(x) \ge F_t'(x)$ for every $x \in I_t$.
+\end{enumerate}
+\end{definition}
+
+We can even rewrite condition (3), with $\tilde{F}_t(x) = F_t(x) - \epsilon_t$, to have
+\[
+\left(1 + g \frac{\tilde{F}_t(x + 1) - \tilde{F}_t(x - 1)}{\tilde{F}_t(x + 1) + \tilde{F}_t(x - 1)} \right) \left(\tilde{F}_{t-1}(x) +\epsilon_{t-1}\right)\ge \tilde{F}_t(x+g)\; .
+\]
+
+It is a routine exercise to show by induction on $t$ that conditions 2 and 3 of
+the definition together with recurrence \eqref{equation:wealth-recurrence} imply
+that the \emph{potential based strategy}
+\eqref{equation:potential-based-strategy} satisfies
+\eqref{equation:wealth-lower-bound-generic}. The base case $t=0$ is trivial,
+since both sides of \eqref{equation:wealth-lower-bound-generic} are equal to
+$\epsilon$. For $t \ge 1$, if we let $x = \sum_{i=1}^{t-1} g_i$, then
+$$
+\Wealth_t
+= (1+g_t \beta_t) \Wealth_{t-1} + \epsilon_{t}
+\ge (1 + g_t \beta_t) F_{t-1}(x) + \epsilon_{t}
+\ge F_t(x + g_t)
+= F_t \left( \sum_{i=1}^t g_i \right) \; .
+$$
+
+The formula for the potential-based
+strategy~\eqref{equation:potential-based-strategy} might seem strange. However,
+it can be derived by considering the inequality
+$$
+(1+g_t\beta_t) F_{t-1}(x) \ge F_{t}(x + g_t) - \epsilon_{t}
+$$
+used in the induction proof above. Dividing through $1+g_t\beta_t$, the left-hand
+side becomes independent of $g_t$ and $\beta_t$ and the right-hand side becomes
+a function of $\beta_t$ and $g_t$,
+$$
+h(g_t, \beta_t) = \frac{F_{t}(x + g_t)- \epsilon_{t}}{1 + g_t\beta_t}
+$$
+Since $g_t \in [-1,1]$ is chosen by an adversary, our best hope is to find
+$\beta_t$ that minimizes $\max_{g_t \in [-1,1]} h(g_t,\beta_t)$. Solution of
+this minimization problem is $\beta_t$ given by
+\eqref{equation:potential-based-strategy}; see
+Theorem~\ref{theorem:optimal-betting-fraction} in
+Appendix~\ref{section:optimal-betting-fraction}.
+
+We now prove that the following conditions implies 3.
+\[
+\frac{1}{2}\left(\tilde{F}_t(x+1)+\tilde{F}_t(x-1)\right) \leq F_{t-1}(x)~.
+\]
+that is
+\[
+\frac{1}{2}\left(F_t(x+1)+F_t(x-1)\right) \leq F_{t-1}(x) + \epsilon_t~.
+\]
+Consider 
+\[
+\phi(g)=\ln \tilde{F}_{t}(x+g) - \ln \left(1 + g \beta_t \right) 
+\]
+where $\beta_t=\frac{\tilde{F}_t(x + 1) - \tilde{F}_t(x - 1)}{\tilde{F}_t(x + 1) + \tilde{F}_t(x - 1)}$. 
+Also, $\phi(g)$ is piece-wise convex because ???
+Hence, we have
+\begin{align}
+\phi(g) \leq \phi(0) + g \, (\phi(1)-\phi(0)) \ \ \forall 0\leq g\leq 1 \\
+\phi(g) \leq \phi(0) + g \, (\phi(0)-\phi(-1)) \ \ \forall -1\leq g\leq 0~.
+\end{align}
+From the choice of $\beta_t$, we have that $\phi(1)=\phi(-1)$. Hence, putting all together, we have
+\[
+\phi(g) \leq \phi(0) +|g| \, (\phi(1)-\phi(0)) \ \  \forall g~.
+\]
+Hence, we have
+\begin{align*}
+&\ln \left(1 + g \beta_t \right) + \ln F_{t-1}(x) - \ln \tilde{F}_{t}(x+g) \\
+&\quad \geq |g| \left(\ln \tilde{F}_{t}(x) -  \ln \tilde{F}_{t}(x+1) + \ln \left(1 + \beta_t \right) \right) - \ln \tilde{F}_{t}(x) + \ln F_{t-1}(x)\\
+&\quad \geq |g| \left(\ln \tilde{F}_{t}(x) -  \ln \tilde{F}_{t}(x+1) + \ln \left(1 + \frac{\tilde{F}_t(x + 1) - \tilde{F}_t(x - 1)}{\tilde{F}_t(x + 1) + \tilde{F}_t(x - 1)} \right) \right) - \ln \tilde{F}_{t}(x) + \ln F_{t-1}(x)\\
+&\quad= |g| \left(\ln \tilde{F}_{t}(x) - \ln \frac{\tilde{F}_t(x + 1) + \tilde{F}_t(x - 1)}{2}  \right) - \ln \tilde{F}_{t}(x) + \ln F_{t-1}(x)\\
+&\quad\geq |g| \left(\ln \tilde{F}_{t}(x) - \ln \left(F_{t-1}(x) (1+\epsilon_t) - \epsilon_t \right)  \right) - \ln \tilde{F}_{t}(x) + \ln F_{t-1}(x)\\
+&\quad\geq |g| \left(\ln \tilde{F}_{t}(x) - \ln \left(F_{t-1}(x) (1+\epsilon_t) \right)  \right) - \ln \tilde{F}_{t}(x) + \ln F_{t-1}(x)\\
+&\quad= (1-|g|) \left(\ln F_{t-1}(x) -\ln \tilde{F}_{t}(x) \right) - |g|\ln (1+\epsilon_t)\\
+&\quad= (1-|g|) \left(\ln F_{t-1}(x) -\ln (F_{t}(x) -\epsilon_t)\right)- |g|\ln (1+\epsilon_t)\\
+&\quad\geq (1-|g|) \left(\ln F_{t-1}(x) -\ln (F_{t-1}(x) -\epsilon_t)\right)- |g|\ln (1+\epsilon_t)\\
+&\quad= (1-|g|) \ln \left(1+\frac{\epsilon_t}{F_{t-1}(x) -\epsilon_t}\right)- |g|\ln (1+\epsilon_t)\\
+&\quad\geq - |g|\ln (1+\epsilon_t)~.
+\end{align*}
+Hence, we just have to prove that $\tilde{F}_{t}(x)\leq F_{t-1}(x)$, but this is obvious because $F_t(x)$ is decreasing in $t$:
+\[
+\tilde{F}_t (x)= F_t (x) -\epsilon_t \leq F_{t-1} (x)~.
+\]
+
+
+Consider the KT potential. We have that $F_t(x+1)=(1+\frac{x}{t}) \, F_{t-1}(x)$ and $F_t(x-1)=(1-\frac{x}{t}) \, F_{t-1}(x)$
+Define the potential $F'_t(x)=\psi(t) F^\alpha_t(x)$.
+We have
+\begin{align}
+&\frac{1}{2}\left(F'_t(x+1)+F'_t(x-1)\right) - F'_{t-1}(x) \\
+&\quad = \frac{1}{2} \left(\psi(t) \, F^\alpha_t(x+1)+\psi(t) \, F^\alpha_t(x-1)\right)-\psi(t-1) \, F^\alpha_{t-1}(x-1) \\
+&\quad = F^\alpha_{t-1}(x) \left[\frac{\psi(t)}{2} \left(  (1+\frac{x}{t})^\alpha +(1-\frac{x}{t})^\alpha \right) -\psi(t-1) \right]~.
+\end{align}
+We now use the fact that $(1+y)^a+(1-y)^a \leq 2+a(a-1)x^2$, because all the terms of the taylor expansion are negative (TO BE PROVEN).
+Hence, we have
+\begin{align}
+&\frac{1}{2}\left(F'_t(x+1)+F'_t(x-1)\right) - F'_{t-1}(x) \\
+&\quad \leq \psi(t) F^\alpha_{t-1}(x) \left[1-\frac{x^2}{2a(1-a)t^2} -\frac{\psi(t-1)}{\psi(t)} \right]~.
+\end{align}
+We have that the quantity in parenthesis is positive when
+\begin{align}
+x^2 \leq 2a(1-a) t^2 (1-\frac{\psi(t-1)}{\psi(t)}) \leq 2a(1-a) t^2 \frac{\psi'(t-1)}{\psi(t)}
+\end{align}
+where we used the fact that $\psi(t)$ is concave in $t$.
+Fix $\psi(t)=(t+1)^\beta$, so we have
+\begin{align}
+x^2 \leq 2a(1-a) t^2 \frac{\beta }{t} \leq 2a(1-a) \beta t ~.
+\end{align}
+
+Putting all together, we have
+\begin{align}
+&\frac{1}{2}\left(F'_t(x+1)+F'_t(x-1)\right) - F'_{t-1}(x) \\
+&\quad \leq F^\alpha_{t-1}(\sqrt{2a(1-a) \beta t}) \left[\psi(t)-\psi(t-1) \right]~.
+\end{align}
+The sum of the epsilon becomes 
+\[
+\left[\psi(T)-\psi(0) \right] \max_t F^\alpha_{t-1}(\sqrt{2a(1-a) \beta t}) 
+\]
+and the final bound
+\[
+\exp\left( \frac{x^2}{2 \alpha T} +(\beta-\frac{1}{2\alpha})\log T\right) - T^\beta
+\]
+
+\bibliography{learning}
+
+
+
+\end{document}
