@@ -1,11 +1,21 @@
-%\documentclass[anon]{colt2016} % Anonymized submission
-%\documentclass{colt2016} % Include author names
-\documentclass{colt2016_empty} % Include author names
+\documentclass{article}
 
+\usepackage[final]{nips_2016}
+% For anonymous submission use:  \usepackage{nips_2016} 
+% For camera-ready version use:  \usepackage[final]{nips_2016} 
+
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{amssymb,amsmath,amsthm}
 \usepackage[nolist]{acronym}
 \usepackage{algorithm,algorithmic}
-\usepackage{times}
 \usepackage{enumerate}
+
+\newtheorem{definition}{Definition}
+\newtheorem{lemma}[definition]{Lemma}
+\newtheorem{theorem}[definition]{Theorem}
+\newtheorem{corollary}[definition]{Corollary}
+\newtheorem{proposition}[definition]{Proposition}
 
 \DeclareMathOperator*{\Exp}{\mathbf{E}}
 \DeclareMathOperator{\Regret}{Regret}
@@ -41,10 +51,14 @@
 \acro{LEA}{Learning with Expert Advice}
 \end{acronym}
 
-\coltauthor{%
-   \Name{Francesco Orabona} \Email{francesco@orabona.com}\\
-   \Name{D\'avid P\'al} \Email{dpal@yahoo-inc.com}\\
-{\addr Yahoo Research, New York}
+\author{
+  Francesco Orabona\\
+  Yahoo Research, New York\\
+  \texttt{francesco@orabona.com}
+  \And
+  D\'avid P\'al\\
+  Yahoo Research, New York\\
+  \texttt{dpal@yahoo-inc.com}
 }
 
 \title{From Coin Betting to Parameter-Free Online Learning}
@@ -66,11 +80,11 @@ from online coin betting to online linear optimization over Hilbert spaces and
 to learning with expert advice. We instantiate our framework using a betting
 algorithm based on the Krichevsky-Trofimov estimator. We obtain a simple
 algorithm for online linear optimization over any Hilbert space with
-$O(\norm{u}\sqrt{T \log(1+T \norm{u}}))$ regret with respect to any competitor $u$. For
-learning with expert advice we obtain an algorithm that has $O(\sqrt{T (1 +
-\KL{u}{\pi})})$ regret against any competitor $u$ and where $\KL{u}{\pi}$ is the
-Kullback-Leibler divergence between algorithm's prior distribution $\pi$ and the
-competitor. In both cases, no parameters need to be tuned.
+$O(\norm{u}\sqrt{T \log(1+T \norm{u}}))$ regret with respect to any competitor
+$u$. For learning with expert advice we obtain an algorithm that has $O(\sqrt{T
+(1 + \KL{u}{\pi})})$ regret against any competitor $u$ and where $\KL{u}{\pi}$
+is the Kullback-Leibler divergence between algorithm's prior distribution $\pi$
+and the competitor. In both cases, no parameters need to be tuned.
 \end{abstract}
 
 \input{introduction}
@@ -81,9 +95,13 @@ competitor. In both cases, no parameters need to be tuned.
 \input{kt-estimator}
 \input{discussion}
 
-% Acknowledgments---Will not appear in anonymized version
-\acks{The authors thank Jacob Abernethy, Nicol\`{o} Cesa-Bianchi, Satyen Kale, Chansoo Lee, and Giuseppe Molteni for useful discussions on this work.}
+% Acknowledgments: Comment out in anonymous submission.
 
+\subsubsection*{Acknowledgments}
+The authors thank Jacob Abernethy, Nicol\`{o} Cesa-Bianchi, Satyen Kale,
+Chansoo Lee, and  Giuseppe Molteni for useful discussions on this work.
+
+\bibliographystyle{abbrvnat}
 \bibliography{learning}
 
 \appendix
@@ -91,6 +109,5 @@ competitor. In both cases, no parameters need to be tuned.
 \input{appendix-reductions}
 \input{appendix-kt-potential}
 \input{appendix-kt-reductions}
-
 
 \end{document}

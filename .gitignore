@@ -7,3 +7,9 @@
 *.toc
 
 main.pdf
+
+# Vim temporary files
+*~
+*.swp
+*.swo
+

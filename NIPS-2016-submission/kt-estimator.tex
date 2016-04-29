@@ -1,0 +1,179 @@
+\section{Applications of Krichevsky-Trofimov Estimator}
+\label{section:kt-estimator}
+
+In the previous two sections we have shown that a coin-betting potential with a
+guaranteed rapid growth of the wealth will give good regret guarantees for
+\ac{OLO} and \ac{LEA}. In this section we show that the optimal
+Krichevsky-Trofimov (KT) estimator has associated a sequence of excellent
+coin-betting potentials, which we call \emph{KT potentials}. We then prove
+corollaries of the regret bounds for \ac{OLO} over Hilbert space and \ac{LEA}
+that we have proved in previous sections, obtaining optimal regret bounds.
+
+The potential corresponding to adaptive Kelly betting strategy
+$\beta_t$ defined by \eqref{equation:kt-estimator-betting-strategy}
+based on the KT estimator is
+\begin{equation}
+\label{equation:kt-estimator-potential}
+F_t(x) = \epsilon \frac{2^t \cdot \Gamma \left( \frac{t+1}{2} + \frac{x}{2} \right) \cdot \Gamma \left( \frac{t+1}{2} - \frac{x}{2} \right)}{\pi \cdot t!}
+\qquad \qquad \text{$t \ge 0$, \quad $x \in \left(-t-1, t+1\right)$,}
+\end{equation}
+where $\Gamma(x) = ￼\int_0^\infty t^{-x} e^{-t} dt$ is Euler's gamma function.
+The potential was introduced by~\citet{KrichevskyT81} who used it for proving
+regret bound for online prediction with log-loss; see also \cite[Section
+9.7]{Cesa-BianchiL06}.
+Theorem~\ref{theorem:kt-potential} stated in
+Appendix~\ref{section:properties-kt-potential} shows that
+\eqref{equation:kt-estimator-potential} is a sequence of excellent coin-betting
+potentials for initial endowment $\epsilon$. Theorem~\ref{theorem:kt-potential}
+also shows that KT betting strategy $\beta_t$ as defined by
+\eqref{equation:kt-estimator-betting-strategy}, is a potential-based strategy,
+i.e., it satisfies \eqref{equation:potential-based-strategy}.
+
+\subsection{OLO in Hilbert Space}
+
+\begin{algorithm}[t]
+\caption{Algorithm for OLO over Hilbert space $\H$ based on KT potential
+\label{algorithm:kt-hilbert-space-olo}}
+\begin{algorithmic}
+{
+\REQUIRE{Initial endowment $\epsilon > 0$}
+%\STATE{Initialize $\Wealth_0 \leftarrow \epsilon$}
+\FOR{$t=1,2,\dots$}
+\STATE{Predict with $w_t \leftarrow \frac{1}{t} \left(\epsilon + \sum_{i=1}^{t-1} \langle g_i, w_i \rangle \right) \sum_{i=1}^{t-1} g_i$}
+%\STATE{Predict $w_t$}
+\STATE{Receive reward vector $g_t \in \H$ such that $\norm{g_t} \le 1$}
+%\STATE{Update $\Wealth_t \leftarrow \Wealth_{t-1} \ + \ \langle g_t, w_t \rangle$}
+\ENDFOR
+}
+\end{algorithmic}
+\end{algorithm}
+
+We apply KT potential for construction of an OLO algorithm over a Hilbert
+space $\H$. According to \eqref{equation:hilbert-space-olo}, the resulting algorithm predicts
+in round $t$,
+$$
+w_t = \beta_t \Wealth_{t-1} \frac{\sum_{i=1}^{t-1} g_i}{\norm{\sum_{i=1}^{t-1} g_i}}
+$$
+where $\beta_t$ is defined by
+\eqref{equation:potential-based-strategy-hilbert-space}. According to
+Theorem~\ref{theorem:kt-potential} in Appendix
+\ref{section:properties-kt-potential}, the formula for $\beta_t$ simplifies to
+$\beta_t = \frac{\norm{\sum_{i=1}^{t-1} g_i}}{t}$. Hence, the prediction can be
+written as
+$$
+w_t
+= \frac{1}{t} \Wealth_{t-1} \sum_{i=1}^{t-1} g_i
+= \frac{1}{t} \left(\epsilon + \sum_{i=1}^{t-1} \langle g_i, w_i \rangle \right) \sum_{i=1}^{t-1} g_i \; .
+$$
+The algorithm is stated as Algorithm~\ref{algorithm:kt-hilbert-space-olo}.
+
+We derive a regret bound for Algorithm~\ref{algorithm:kt-hilbert-space-olo} by
+applying Theorem~\ref{theorem:hilbert-space-olo-regret-bound} to the KT
+potential \eqref{equation:kt-estimator-potential}. The regret bound is stated as
+Corollary~\ref{corollary:kt-hilbert-space-olo-regret} below. Its proof can be
+found in the Appendix~\ref{section:corollaries_reductions}. The only technical
+part of the proof is an upper bound on Fenchel conjugate $F_t^*$ since it cannot
+be expressed as an elementary function.
+
+\begin{corollary}[Regret Bound for Algorithm~\ref{algorithm:kt-hilbert-space-olo}]
+\label{corollary:kt-hilbert-space-olo-regret}
+Let $\epsilon > 0$. Let $\{g_t\}_{t=1}^\infty$ be any sequence of reward vectors
+in a Hilbert space $\H$ such that $\norm{g_t} \le 1$.
+Algorithm~\ref{algorithm:kt-hilbert-space-olo} satisfies
+$$
+\forall \, T \ge 0 \quad
+\forall u \in \H \qquad \qquad
+\Regret_T(u) \le \norm{u} \sqrt{T \ln\left(1 + \frac{4T^2 \norm{u}^2}{\epsilon^2} \right)} + \epsilon \left(1 - \frac{1}{2\sqrt{T}} \right) \;.
+$$
+\end{corollary}
+
+\subsection{Learning with Expert Advice}
+
+We will construct an algorithm for Learning with Expert Advice based on
+\emph{shifted KT potential}. The shifted potential and the resulting algorithm
+requires to know the number of rounds $T$ in advance. The shifted KT
+potential is defined as
+$$
+F_t(x) = \frac{2^t \cdot \Gamma\left(T/2 + 1 \right) \cdot \Gamma\left(\frac{t+T/2+1}{2} + \frac{x}{2} \right) \cdot \Gamma\left(\frac{t+T/2+1}{2} - \frac{x}{2} \right)}{\Gamma\left(\frac{T/2+1}{2} \right)^2 \cdot \Gamma \left(t+T/2+1\right)} \; .
+$$
+The reason for its name is that, up to a multiplicative constant, $F_t$ is equal
+to the KT potential shifted in time by $T/2$, i.e., $t$ is replaced by $T/2+t$.
+According to Theorem~\ref{theorem:kt-potential} in Appendix
+\ref{section:properties-kt-potential}, the shifted KT potentials form
+a sequence of coin-betting potentials for initial endowment $1$. Furthermore, the
+corresponding betting fraction is
+$$
+\beta_t = \frac{\sum_{j=1}^{t-1} g_j}{T/2+t} \; .
+$$
+Recall that for construction of the final algorithm, we need, as an intermediate
+step, an OLO algorithm for one-dimensional Hilbert space $\R$. This algorithm
+predicts for any sequence $\{g_t\}_{t=1}^\infty$ of reward vectors,
+$$
+w_t
+= \beta_t \Wealth_{t-1}
+= \beta_t \left(1 + \sum_{j=1}^{t-1} g_j w_j \right)
+= \frac{\sum_{i=1}^{t-1} g_i}{T/2+t} \left(1 + \sum_{j=1}^{t-1} g_j w_j \right) \; .
+$$
+Following the construction in Section~\ref{section:reduction-experts}, we arrive
+at the final algorithm, Algorithm~\ref{algorithm:kt-experts}.
+
+\begin{algorithm}[t]
+\begin{algorithmic}
+\caption{Algorithm for Learning with Expert Advice based on shifted KT potential
+\label{algorithm:kt-experts}}
+{
+\REQUIRE{Number of experts $N$, number of rounds $T$, prior distribution $\pi \in \Delta_N$}
+\FOR{$t=1,2,\dots,T$}
+\STATE{For each $i \in [N]$, set $w_{t,i} \leftarrow \tfrac{\sum_{j=1}^{t-1} g_{j,i}}{t+T/2} \left(1 + \sum_{j=1}^{t-1} g_{j,i} w_{j,i} \right)$}
+\STATE{For each $i \in [N]$, set $\widehat{p}_{t,i} \leftarrow \pi_i [w_{t,i}]_+$}
+\STATE{Predict with $p_t \leftarrow
+\begin{cases}
+\widehat{p}_t/\norm{\widehat{p_t}}_1 & \text{if $\norm{\widehat p_t}_1 > 0$} \\
+\frac{1}{N}(1,1,\dots,1) & \text{if $\norm{\widehat p_t}_1 = 0$}
+\end{cases}$}
+%\STATE{Predict $p_t$}
+\STATE{Receive loss vector $\ell_t \in [0,1]^N$}
+\STATE{For each $i \in [N]$, set $g_{t,i} \leftarrow \begin{cases}
+\langle \ell_t, p_t \rangle - \ell_{t,i} & \text{if $w_{t,i} > 0$} \\
+[\langle \ell_t, p_t \rangle - \ell_{t,i}]_+ & \text{if $w_{t,i} \le 0$}
+\end{cases}$}
+\ENDFOR
+}
+\end{algorithmic}
+\end{algorithm}
+
+
+We can derive a regret bound for Algorithm~\ref{algorithm:kt-experts} by
+applying Theorem~\ref{theorem:regret-bound-experts} to the shifted KT potential.
+The result is stated as Corollary~\ref{corollary:kt-experts-regret} below. The
+proof of the corollary is in the Appendix~\ref{section:corollaries_reductions}.
+The technical part of the proof is an upper bound on $f_t^{-1}(x)$, which we
+conveniently do by lower bounding $F_t(x)$. The reason for using the shifted
+potential comes from the analysis of $f_t^{-1}(x)$. The unshifted algorithm would
+have $O(\sqrt{T (\log T + \KL{u}{\pi}})$ regret bound; shifting improves the
+bound to $O(\sqrt{T (1 + \KL{u}{\pi}})$.
+
+\begin{corollary}[Regret Bound for Algorithm~\ref{algorithm:kt-experts}]
+\label{corollary:kt-experts-regret}
+Let $N \ge 2$ and $T \ge 0$ be integers. Let $\pi \in \Delta_N$ be a prior.
+For any sequence $\ell_1, \ell_2, \dots, \ell_T \in
+[0,1]^N$ of loss vectors, Algorithm~\ref{algorithm:kt-experts}
+with input $N,T,\pi$ satisfies
+$$
+\forall u \in \Delta_N \qquad \qquad \Regret_T(u) \le \sqrt{3T (4 + \KL{u}{\pi})} \; .
+$$
+\end{corollary}
+By changing $T/2$ in Algorithm~\ref{algorithm:kt-experts} to another constant
+fraction of $T$, it is possible to trade-off between the two constants $3$ and
+$4$ present in the square root.
+
+The requirement of knowing the number of rounds $T$ in advance can be lifted by
+the standard doubling trick~\citep[Section 2.3.1]{Shalev-Shwartz12}. We obtain
+an anytime algorithm at the expense of slightly worse regret bound,
+$$
+\forall \, T \ge 0 \quad \forall u \in \Delta_N \qquad \qquad
+\Regret_T(u) \le \frac{\sqrt{2}}{\sqrt{2} - 1} \sqrt{3T (4 + \KL{u}{\pi})} \; .
+$$
+
+Also, as observed by \citet{ChernovV10}, bounds in terms of the KL
+divergence are superior to the $\epsilon$-quantile bounds.

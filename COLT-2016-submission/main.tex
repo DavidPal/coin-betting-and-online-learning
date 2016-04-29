@@ -1,0 +1,97 @@
+%\documentclass[anon]{colt2016} % Anonymized submission
+%\documentclass{colt2016} % Include author names
+\documentclass{colt2016_empty} % Include author names
+
+\usepackage[nolist]{acronym}
+\usepackage{algorithm,algorithmic}
+\usepackage{times}
+\usepackage{enumerate}
+
+\DeclareMathOperator*{\Exp}{\mathbf{E}}
+\DeclareMathOperator{\Regret}{Regret}
+\DeclareMathOperator{\Wealth}{Wealth}
+\DeclareMathOperator{\Reward}{Reward}
+
+\newcommand{\N}{\mathbb{N}}     % natural numbers
+\newcommand{\R}{\mathbb{R}}     % real numbers
+\newcommand{\C}{\mathbb{C}}     % complex numbers
+\renewcommand{\H}{\mathcal{H}}  % Hilbert space
+\newcommand{\KL}[2]{D\left({#1}\middle\|{#2}\right)}  % KL divergence
+\newcommand{\norm}[1]{\left\|{#1}\right\|}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\newcommand{\indicator}{\mathbf{1}}
+
+\begin{acronym}
+\acro{EG}{Exponentiated Gradient}
+\acro{DFEG}{Dimension-Free Exponentiated Gradient}
+\acro{OMD}{Online Mirror Descent}
+\acro{ASGD}{Averaged Stochastic Gradient Descent}
+\acro{SGD}{Stochastic Gradient Descent}
+\acro{PiSTOL}{Parameter-free STOchastic Learning}
+\acro{OCO}{Online Convex Optimization}
+\acro{OLO}{Online Linear Optimization}
+\acro{RKHS}{Reproducing Kernel Hilbert Space}
+\acro{IID}{Independent and Identically Distributed}
+\acro{SVM}{Support Vector Machine}
+\acro{ERM}{Empirical Risk Minimization}
+\acro{COCOB}{Continous Coin Betting}
+\acro{MBA}{Master Betting Algorithm}
+\acro{KT}{Krichevsky-Trofimov}
+\acro{LEA}{Learning with Expert Advice}
+\end{acronym}
+
+\coltauthor{%
+   \Name{Francesco Orabona} \Email{francesco@orabona.com}\\
+   \Name{D\'avid P\'al} \Email{dpal@yahoo-inc.com}\\
+{\addr Yahoo Research, New York}
+}
+
+\title{From Coin Betting to Parameter-Free Online Learning}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+In the recent years a number of parameter-free algorithms for online linear
+optimization over Hilbert spaces and for learning with expert advice have been
+developed. While these two families of algorithms might seem different to a
+distract eye, the proof methods are indeed very similar, making the reader
+wonder if such a connection is only accidental.
+
+In this paper, we unify these two families, showing that both can be
+instantiated from online coin betting algorithms. We present two new reductions
+from online coin betting to online linear optimization over Hilbert spaces and
+to learning with expert advice. We instantiate our framework using a betting
+algorithm based on the Krichevsky-Trofimov estimator. We obtain a simple
+algorithm for online linear optimization over any Hilbert space with
+$O(\norm{u}\sqrt{T \log(1+T \norm{u}}))$ regret with respect to any competitor $u$. For
+learning with expert advice we obtain an algorithm that has $O(\sqrt{T (1 +
+\KL{u}{\pi})})$ regret against any competitor $u$ and where $\KL{u}{\pi}$ is the
+Kullback-Leibler divergence between algorithm's prior distribution $\pi$ and the
+competitor. In both cases, no parameters need to be tuned.
+\end{abstract}
+
+\input{introduction}
+\input{preliminaries}
+\input{coin-betting-potentials}
+\input{reduction-hilbert-space}
+\input{reduction-experts}
+\input{kt-estimator}
+\input{discussion}
+
+% Acknowledgments---Will not appear in anonymized version
+\acks{The authors thank Jacob Abernethy, Nicol\`{o} Cesa-Bianchi, Satyen Kale,
+Chansoo Lee, and  Giuseppe Molteni for useful discussions on this work.}
+
+\bibliography{learning}
+
+\appendix
+\input{appendix-coin-betting}
+\input{appendix-reductions}
+\input{appendix-kt-potential}
+\input{appendix-kt-reductions}
+
+
+\end{document}
