@@ -1,0 +1,52 @@
+\section{\ac{LEA}}
+\label{section:experts}
+
+We present an algorithm for \ac{LEA}.
+
+\begin{algorithm}[h]
+\begin{algorithmic}
+\caption{Algorithm for Learning with Expert Advice \label{algorithm:experts}}
+{
+\REQUIRE{Number of experts $N$, number of rounds $T$, prior distribution $\pi \in \Delta_N$}
+\FOR{$t=1,2,\dots,T$}
+\STATE{For each $i \in [N]$, set $w_{t,i} \leftarrow \tfrac{\sum_{j=1}^{t-1} g_{j,i}}{t+T/2} \left(1 + \sum_{j=1}^{t-1} g_{j,i} w_{j,i} \right)$}
+\STATE{For each $i \in [N]$, set $\widehat{p}_{t,i} \leftarrow \pi_i [w_{t,i}]_+$}
+\STATE{Predict with $p_t \leftarrow
+\begin{cases}
+\widehat{p}_t/\norm{\widehat{p_t}}_1 & \text{if $\norm{\widehat p_t}_1 > 0$} \\
+\frac{1}{N}(1,1,\dots,1) & \text{if $\norm{\widehat p_t}_1 = 0$}
+\end{cases}$}
+\STATE{Receive loss vector $\ell_t \in [0,1]^N$}
+\STATE{For each $i \in [N]$, set $g_{t,i} \leftarrow \begin{cases}
+\langle \ell_t, p_t \rangle - \ell_{t,i} & \text{if $w_{t,i} > 0$} \\
+[\langle \ell_t, p_t \rangle - \ell_{t,i}]_+ & \text{if $w_{t,i} \le 0$}
+\end{cases}$}
+\ENDFOR
+}
+\end{algorithmic}
+\end{algorithm}
+
+
+The theorem below upper bounds the regret of the algorithm.
+The proof can be found in~\cite{Orabona-Pal-2016-parameter-free}.
+
+\begin{theorem}[Regret Bound for Algorithm~\ref{algorithm:experts}]
+\label{theorem:experts-regret}
+Let $N \ge 2$ and $T \ge 0$ be integers. Let $\pi \in \Delta_N$ be a prior.
+For any sequence $\ell_1, \ell_2, \dots, \ell_T \in
+[0,1]^N$ of loss vectors, Algorithm~\ref{algorithm:experts}
+with input $N,T,\pi$ satisfies
+$$
+\forall u \in \Delta_N \qquad \qquad \Regret_T(u) \le \sqrt{3T (4 + \KL{u}{\pi})} \; .
+$$
+\end{theorem}
+
+The requirement of knowing the number of rounds $T$ in advance can be lifted by
+the standard doubling trick~\citep[Section 2.3.1]{Shalev-Shwartz-2011}. We obtain
+an anytime algorithm at the expense of slightly worse regret bound,
+$$
+\forall \, T \ge 0 \quad \forall u \in \Delta_N \qquad \qquad
+\Regret_T(u) \le \tfrac{\sqrt{2}}{\sqrt{2} - 1} \sqrt{3T (4 + \KL{u}{\pi})} \; .
+$$
+
+

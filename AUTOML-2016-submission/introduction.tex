@@ -2,29 +2,33 @@
 \label{section:introduction}
 
 We consider the standard \ac{OLO}~\citep{Cesa-Bianchi-Lugosi-2006,
-Shalev-Shwartz-2011} setting. In each round $t$, an algorithm chooses a point $x_t$ from a convex \emph{decision set}
-$K$ and then receives a loss vector $\ell_t$. Algorithm's goal is to keep its
-\emph{regret} small, defined as the difference between its cumulative loss and the cumulative loss of a fixed strategy $u \in K$, that is
+Shalev-Shwartz-2011} setting. In each round $t$, an algorithm chooses a point
+$x_t$ from a convex \emph{decision set} $K$ and then receives a loss vector
+$\ell_t$. Algorithm's goal is to keep its \emph{regret} small, defined as the
+difference between its cumulative loss and the cumulative loss of a fixed
+strategy $u \in K$, that is
 $$
 \Regret_T(u) = \sum_{t=1}^T \langle \ell_t, x_t \rangle - \sum_{t=1}^T \langle \ell_t, u \rangle \; .
 $$
 
 We focus on two particular sets, the $N$-dimensional probability simplex
-$\Delta_N = \{ x \in \R^N ~:~ x \ge 0, \norm{x}_1 = 1\}$ and the Hilbert space.
-\ac{OLO} over $\Delta_N$ is referred to as the problem of \ac{LEA}.
+$\Delta_N = \{ x \in \R^N ~:~ x \ge 0, \norm{x}_1 = 1\}$ and the Hilbert space
+$\H$.  \ac{OLO} over $\Delta_N$ is referred to as the problem of \ac{LEA}.  We
+assume bounds on the norms of the loss vectors: For \ac{OLO} over $\H$, we
+assume that $\norm{\ell_t}_2 \le 1$, and for \ac{LEA} we assume that
+$\ell_t \in [0,1]^N$.
 
-\ac{OLO} is a basic building block in many other related problems. For example,
-\ac{OCO}, the analogous problem where $\langle \ell_t, w_t \rangle$ is
+\ac{OLO} is a basic building block of many machine learning problems. For
+example, \ac{OCO}, the analogous problem where $\langle \ell_t, w_t \rangle$ is
 generalized to $\ell_t(w_t)$ where $\ell_t$ is an arbitrary convex function, is
-solved through a reduction to an \ac{OLO} problem~\citep{Shalev-Shwartz-2011}.
+solved through a reduction to an \ac{OLO}~\citep{Shalev-Shwartz-2011}.
 \ac{LEA}~\citep{Littlestone-Warmuth-1994, Vovk-1998,
-Cesa-Bianchi-Freund-Haussler-Helmbold-Schapire-Warmuth-1997} is an \ac{OLO}
-problem in which the loss vectors belong to $[0,1]^N$ and $w_t$ is constrained
-to be in the probability simplex. Also, batch and stochastic convex
-optimization can be solved through a reduction to
-\ac{OLO}~\citep{Shalev-Shwartz-2011}. Statistical learning with convex losses
-can also seen as stochastic convex optimization and solved through
-\ac{OCO}~\citep{Munro-1951}.
+Cesa-Bianchi-Freund-Haussler-Helmbold-Schapire-Warmuth-1997} provides a way of
+combining classifiers and it at the heart of
+boosting~\cite{Freund-Schapire-1997}. Batch and stochastic convex optimization
+can be solved through a reduction to \ac{OLO}~\citep{Shalev-Shwartz-2011}.
+Statistical learning with convex losses can also seen as stochastic convex
+optimization and solved through \ac{OCO}~\citep{Munro-1951}.
 
 However, as essential as it is to achieve sublinear regret, this is only half
 of the problem in online learning. In fact, we are often interested in the
@@ -41,9 +45,9 @@ These algorithms adapt to the number of experts and to the norm of the optimal
 predictor, respectively, without the need to tune parameters. Given the
 connections between \ac{OLO}/\ac{LEA} and machine learning, these algorithms
 allow to design parameter-free batch machine learning algorithms through
-straightforward reductions~\citep{Orabona-2014,Luo-Schapire-2015}.  Surprisingly enough,
-these two families of algorithms are also very similar, yet no attempt has been
-made to unify them.
+straightforward reductions~\citep{Orabona-2014,Luo-Schapire-2015}.
+Surprisingly enough, these two families of algorithms are also very similar,
+yet no attempt has been made to unify them.
 
 Our contributions are as follows. We claim that a more fundamental notion
 subsumes both \ac{OLO} and \ac{LEA} parameter-free algorithms. This notion is
@@ -56,12 +60,10 @@ that assure an exponential growth of the wealth for biased coins allow to
 obtain optimal worst-case parameter-free regret bounds in \ac{OLO} and in
 \ac{LEA}.
 
-\noindent\textbf{Notation and Definitions.}
-We will use the following notation in the rest of this note. We denote by
-$\indicator$ the vector $(1,1,\dots,1) \in \R^N$. Shannon entropy $H(u) =
--\sum_{i=1}^N u_i \ln u_i$ is defined for any $u \in \Delta_N$.  The
-Kullback-Leibler divergence $\KL{u}{v} = \sum_{i=1}^N u_i \ln(u_i/v_i)$ is
-defined for any $u,v \in \Delta_N$. If $\H$ is a real Hilbert space, we denote
-by $\langle \cdot, \cdot \rangle$ its inner product, and by $\norm{\cdot}$ the
-induced norm. In this paper, without loss of generality, we make the assumption
-that $\norm{\ell_t} \le 1$.
+\noindent\textbf{Notation and Definitions.} We will use the following notation
+in the rest of this note. We denote by $\indicator$ the vector $(1,1,\dots,1)
+\in \R^N$. Shannon entropy $H(u) = -\sum_{i=1}^N u_i \ln u_i$ is defined for
+any $u \in \Delta_N$.  The Kullback-Leibler divergence $\KL{u}{v} =
+\sum_{i=1}^N u_i \ln(u_i/v_i)$ is defined for any $u,v \in \Delta_N$. If $\H$
+is a real Hilbert space, we denote by $\langle \cdot, \cdot \rangle$ its inner
+product, and by $\norm{\cdot}$ the induced norm.

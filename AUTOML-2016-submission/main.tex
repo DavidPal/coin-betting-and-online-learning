@@ -26,6 +26,7 @@
 \acro{DFEG}{Dimension-Free Exponentiated Gradient}
 \acro{OMD}{Online Mirror Descent}
 \acro{ASGD}{Averaged Stochastic Gradient Descent}
+\acro{GD}{Gradient Descent}
 \acro{SGD}{Stochastic Gradient Descent}
 \acro{PiSTOL}{Parameter-free STOchastic Learning}
 \acro{OCO}{Online Convex Optimization}
@@ -62,22 +63,25 @@
 \maketitle
 
 \begin{abstract}
-In the recent years a number of parameter-free algorithms for online linear
-optimization over Hilbert spaces and for learning with expert advice have been
-developed.
-In this paper, we unify these two families, showing that both can be
-reduced to online coin betting. We instantiate our framework using a betting
-algorithm based on the Krichevsky-Trofimov estimator. We obtain very simple and novel
-algorithms with optimal parameter-free regret bounds.
+We present two new algorithms for online linear optimization.  The first is an
+algorithm for unbounded online linear optimization over a Hilbert space.  The
+second is an algorithm for learning with expert advice. Both algorithms are
+simple and are easy to implement.  The regret of the first algorithm is as good
+as regret of gradient descent with best possible learning rate. The regret of
+the second algorithm is as good as the regret of the well-known Hedge algorithm
+with best possible learning rate. A unified analysis of both algorithms can be
+given via adversarial coin-betting game, Kelly betting and Krichevsky-Trofimov
+estimator.
 \end{abstract}
 
 \input{introduction}
 \input{learning-rates}
-%\input{preliminaries}
-\input{coin-betting-potentials}
-\input{reduction-hilbert-space}
-\input{reduction-experts}
-\input{kt-estimator}
+\input{hilbert-space-olo}
+\input{experts}
+%\input{coin-betting-potentials}
+%\input{reduction-hilbert-space}
+%\input{reduction-experts}
+%\input{kt-estimator}
 \input{discussion}
 
 % Acknowledgments---Will not appear in anonymized version

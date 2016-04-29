@@ -1,0 +1,33 @@
+\section{\ac{OLO} over Hilbert Space}
+
+We present an extremely simple algorithm for \ac{OLO}
+over real Hilbert space $\H$. The algorithm can be used as drop-in replacement for
+\ac{GD}.
+
+\begin{algorithm}[h]
+\caption{Algorithm for OLO over Hilbert space $\H$
+\label{algorithm:hilbert-space-olo}}
+\begin{algorithmic}
+{
+\FOR{$t=1,2,\dots$}
+\STATE{Predict with $w_t \leftarrow - \frac{1}{t} \left(1 - \sum_{i=1}^{t-1} \langle \ell_i, w_i \rangle \right) \sum_{i=1}^{t-1} \ell_i$}
+\STATE{Receive loss vector $\ell_t \in \H$ such that $\norm{\ell_t} \le 1$}
+\ENDFOR
+}
+\end{algorithmic}
+\end{algorithm}
+
+The theorem below upper bounds the regret of the algorithm.
+The proof can be found in~\cite{Orabona-Pal-2016-parameter-free}.
+
+\begin{theorem}[Regret Bound for Algorithm~\ref{algorithm:hilbert-space-olo}]
+\label{theorem:hilbert-space-olo-regret}
+Let $\{\ell_t\}_{t=1}^\infty$ be any sequence of loss vectors
+in a Hilbert space $\H$ such that $\norm{\ell_t} \le 1$.
+Algorithm~\ref{algorithm:hilbert-space-olo} satisfies
+$$
+\forall \, T \ge 0 \quad
+\forall u \in \H \qquad \qquad
+\Regret_T(u) \le \norm{u} \sqrt{T \ln\left(1 + 4T^2 \norm{u}^2 \right)} + 1 \;.
+$$
+\end{theorem}
