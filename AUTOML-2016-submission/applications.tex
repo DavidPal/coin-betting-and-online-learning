@@ -1,8 +1,26 @@
 \section{From Online Learning to Convex Optimization and Machine Learning}
+\label{section:applications}
 
-\begin{algorithm}[t]
-\caption{SGD algorithm based on KT potential
-\label{algo:kt-sgd}}
+The results in the previous sections immediately implies new algorithms and
+results in convex optimization and machine learning.
+
+\textbf{Convex Optimization.} It is immediate to transform
+Algorithm~\ref{algorithm:hilbert-space-olo} into a \ac{SGD} algorithm.  For
+example, consider the popular setting of minimizing an empirical risk of the
+form
+\begin{equation}
+\label{equation:objective-function}
+\widehat{F}(w) = \frac{1}{N} \sum_{i=1}^N \ell_t(w),
+\end{equation}
+where $\ell$ is convex and $w \in \R^d$. Without loss of generality, we also
+assume that the norm of the sub-gradient of $\ell$ is bounded by 1. Also,
+define $\widehat{w}=  \argmin_w \widehat{F}(w)$.  The corresponding reduction to OLO
+gives rise\footnote{For simplicity, we show the algorithm and its convergence
+guarantee in $\R^d$, but it can be implemented with kernels as well.} to the
+Algorithm~\ref{algorithm:kt-sgd}.
+
+\begin{algorithm}[h]
+\caption{SGD algorithm based on KT potential \label{algorithm:kt-sgd}}
 \begin{algorithmic}
 {
 \STATE{Initialize $m_0 \leftarrow 1$}
@@ -12,56 +30,70 @@
 \STATE{Update $\theta_t = \theta_{t-1}-g_t$}
 \STATE{Update $m_t = m_{t-1}-g_t^\top w_t$}
 \ENDFOR
-\STATE{Output $\bar{w}_T=\tfrac{1}{T}\sum_{t=1}^T w_t$}
+\STATE{Output $\overline{w}_T=\tfrac{1}{T}\sum_{t=1}^T w_t$}
 }
 \end{algorithmic}
 \end{algorithm}
 
-The results in the previous sections immediately implies new algorithms and results in convex optimization and machine learning.
-
-\textbf{Convex Optimization.} It is immediate to transform Algorithm~\ref{} in a \ac{SGD} algorithm.
-For example, consider the popular setting of minimizing an empirical risk of the form
-\begin{equation}
-\label{eq:obj_func}
-\hat{F}(w) = \frac{1}{N} \sum_{i=1}^N \ell_t(w),
-\end{equation}
-where $\ell$ is convex and $w \in \R^d$. Without loss of generality, we also assume that the norm of the sub-gradient of $\ell$ is bounded by 1. Also, define $\hat{w}=  \argmin_w \hat{F}(w)$.
-The corresponding reduction to OLO gives rise\footnote{For simplicity, we show the algorithm and its convergence guarantee in $\R^d$, but it can be implemented with kernels as well.} to the Algorithm~\ref{algo:kt-sgd}.
-
-Beside the simplicity of the algorithm, its important property is that it \emph{does not have a learning rate to be tuned}, yet it achieves optimal convergence rate w.r.t. the norm of the optimal solution.
+Beside the simplicity of the algorithm, its important property is that it
+\emph{does not have a learning rate to be tuned}, yet it achieves optimal
+convergence rate w.r.t. the norm of the optimal solution.
 
 \begin{theorem}
-After $T$ iterations of Algorithm~\ref{algo:kt-sgd} to minimize the function \eqref{eq:obj_func}, we have that
-\[
-\hat{F}(\bar{w}_T) - \hat{F}(\hat{w}) \leq \frac{\norm{\hat{w}}}{\sqrt{T}} \sqrt{\log(1+4 T^2 \norm{\hat{w}}^2)} +\tfrac{1}{T} \; .
-\]
+After $T$ iterations of Algorithm~\ref{algorithm:kt-sgd}, $\overline{w}_T$ is
+an approximate minimizer of the function \eqref{equation:objective-function} in
+the sense
+$$
+\widehat{F}(\overline{w}_T) - \widehat{F}(\widehat{w}) \leq \frac{\norm{\widehat{w}}}{\sqrt{T}} \sqrt{\log(1+4 T^2 \norm{\widehat{w}}^2)} +\tfrac{1}{T} \; .
+$$
 \end{theorem}
-Note that in the above theorem, $T$ can be larger (multiple epochs) or smaller than $N$ (not using all the samples).
+Note that in the above theorem, $T$ can be larger (multiple epochs) or smaller
+than $N$ (not using all the samples).
 
-\textbf{Machine Learning.} In a machine learning view, the minimization of a function \eqref{eq:obj_func} is just a proxy to minimize the \emph{true risk} over an unknown distribution. For example, $\ell_t(w)$ can be a regression loss, e.g. the logistic loss, over a sample $(x_t, y_t)$. That is, $\ell_t(w)=\ell(w,x_t,y_t)$. A very common approach in order to have a small risk on the test set is to minimize a regularized objective function:
+\textbf{Machine Learning.} In a machine learning view, the minimization of a
+function \eqref{equation:objective-function} is just a proxy to minimize the
+\emph{true risk} over an unknown distribution. For example, $\ell_t(w)$ can be
+a regression loss, e.g. the logistic loss, over a sample $(x_t, y_t)$. That is,
+$\ell_t(w)=\ell(w,x_t,y_t)$. A very common approach in order to have a small
+risk on the test set is to minimize a regularized objective function:
 \begin{equation}
 \label{eq:reg_logloss}
-\hat{F}^{Reg}(w) = \lambda \norm{w}^2 + \frac{1}{N} \sum_{i=1}^N \ell(w,x_t,y_t) \; .
+\widehat{F}^{\text{Reg}}(w) = \lambda \norm{w}^2 + \frac{1}{N} \sum_{i=1}^N \ell(w,x_t,y_t) \; .
 \end{equation}
-This problem is strongly convex, so there are very efficient methods to minimize it, we can assume that we are able to get the minimizer of $\hat{F}^{Reg}$ with arbitrary good precision. Yet, this is not enough. In fact, we are rarely interested in the value of the objective function, rather we are interested in the \emph{true risk} of a solution $w$, that is $E[\ell(w,X,Y)]$ where $X,Y$ comes from an unknown distribution from which we sample training and test points.
-Hence, in order to get a good performance we have to select a good regularization parameter. In particular, from the results in \cite{} immediately follows that we have
-\[
-E[\ell(\hat{w},X,Y)] - E[\ell(w^*,X,Y)] \leq O(\lambda \norm{w^*}^2 + \tfrac{1}{\lambda N}),
-\]
-where $w^*=\argmin_w E[\ell(w,X,Y)]$.
-From the above bound, it is clear that the optimal value of $\lambda$ depends on the $\norm{w^*}$ that is unknown. We would like to stress that this is not just a theoretical problem: Any practictioner knows how painfull is to find the right regularization for the problem at hand.
-Assuming to known the unknown quantity $\norm{w^*}$, we could set $\lambda = O(\tfrac{1}{\norm{w^*} \sqrt{N}})$ to achieve
+This problem is strongly convex, so there are very efficient methods to
+minimize it, we can assume that we are able to get the minimizer of
+$\widehat{F}^{\text{Reg}}$ with arbitrary good precision. Yet, this is not enough. In
+fact, we are rarely interested in the value of the objective function, rather
+we are interested in the \emph{true risk} of a solution $w$, that is
+$\Exp[\ell(w,X,Y)]$ where $X,Y$ comes from an unknown distribution from which we
+sample training and test points.  Hence, in order to get a good performance we
+have to select a good regularization parameter. In particular, from the results
+in \cite{???} immediately follows that we have
+$$
+\Exp[\ell(\widehat{w},X,Y)] - \Exp[\ell(w^*,X,Y)] \le O(\lambda \norm{w^*}^2 + \tfrac{1}{\lambda N}),
+$$
+where $w^*=\argmin_w \Exp[\ell(w,X,Y)]$.  From the above bound, it is clear
+that the optimal value of $\lambda$ depends on the $\norm{w^*}$ that is
+unknown. We would like to stress that this is not just a theoretical problem:
+Any practictioner knows how painfull it is to find the right regularization for
+the problem at hand.  Assuming we know $\norm{w^*}$ (which is in practice
+unknown), we can set $\lambda = O(1/(\norm{w^*} \sqrt{N}))$ to achieve
 \begin{equation}
-\label{eq:opt_rate}
-E[\ell(\hat{w},X,Y)] - E[\ell(w^*,X,Y)] \leq O(\tfrac{\norm{w^*}}{\sqrt{N}}) \; .
+\label{equation:optimal-rate}
+\Exp[\ell(\widehat{w},X,Y)] - \Exp[\ell(w^*,X,Y)] \le O\left(\tfrac{\norm{w^*}}{\sqrt{N}}\right) \; .
 \end{equation}
 
-We now show that using again Algorithm~\ref{algo:kt-sgd} with only one pass over the dataset, we have almost the same guarantee in \eqref{eq:opt_rate} \emph{without parameters to tune}, no learning rates nor regularization parameters.
+Using again Algorithm~\ref{algorithm:kt-sgd} with only one pass
+over the dataset, we get almost the same guarantee \eqref{equation:optimal-rate}
+\emph{without tuning any parameters}, learning rates, regularization parameters, etc.
 \begin{theorem}
-Shuffle the dataset and do only one pass over the training set, using $\ell_t(w)=\ell(w,x_t,y_t)$.
-Then, we have 
-\[
-E[\ell(\bar{w}_N,X,Y)] - E[\ell(w^*,X,Y)] \leq \frac{\norm{w^*}}{\sqrt{N}} \sqrt{\log(1+4 N^2 \norm{w^*}^2)} +\tfrac{1}{N} \; .
-\]
+Shuffle the dataset and do only one pass over the training set, using
+$\ell_t(w)=\ell(w,x_t,y_t)$.  Then, we have
+$$
+\Exp[\ell(\overline{w}_N,X,Y)] - \Exp[\ell(w^*,X,Y)] \le \frac{\norm{w^*}}{\sqrt{N}} \sqrt{\log(1+4 N^2 \norm{w^*}^2)} + \tfrac{1}{N} \; .
+$$
 \end{theorem}
-Comparing this guarantee to the one in \eqref{opt_rate}, we see that, just paying a very small logarithmic price, we obtain the optimal convergence rate and we remove all the parameters, i.e. learning rate and/or regularization parameters.
+Comparing this guarantee to the one in \eqref{equation:optimal-rate}, we see
+that, just paying a very small logarithmic price, we obtain the optimal
+convergence rate and we remove all the parameters, i.e. learning rate and/or
+regularization parameters.
