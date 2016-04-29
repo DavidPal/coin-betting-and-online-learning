@@ -10,7 +10,7 @@ over real Hilbert space $\H$. The algorithm can be used as drop-in replacement f
 \begin{algorithmic}
 {
 \FOR{$t=1,2,\dots$}
-\STATE{Predict with $w_t \leftarrow - \frac{1}{t} \left(1 - \sum_{i=1}^{t-1} \langle \ell_i, w_i \rangle \right) \sum_{i=1}^{t-1} \ell_i$}
+\STATE{Predict with $x_t \leftarrow - \frac{1}{t} \left(1 - \sum_{i=1}^{t-1} \langle \ell_i, x_i \rangle \right) \sum_{i=1}^{t-1} \ell_i$}
 \STATE{Receive loss vector $\ell_t \in \H$ such that $\norm{\ell_t} \le 1$}
 \ENDFOR
 }
