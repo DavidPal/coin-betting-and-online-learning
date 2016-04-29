@@ -1,27 +1,20 @@
 \section{Design and Analysis of Algorithms}
 
-We explain the intuition behind
-algorithms~\ref{algorithm:hilbert-space-olo}~and~\ref{algorithm:experts}.  Both
-are based on the adversarial coin-betting problem. We first explain the
-adversarial coin betting game.
+The algorithms~\ref{algorithm:hilbert-space-olo}~and~\ref{algorithm:experts}
+are based on the adversarial coin-betting problem.
 
 \textbf{Adversarial Coin Betting.}
 Consider a gambler making repeated bets on outcomes of adversarial coin flips.
 The gambler starts with an initial endowment $1$ dollar. In each round $t$, he
 bets on an outcome of a coin flip $g_t \in \{-1,1\}$ where $+1$ denotes heads
-and $-1$ denotes tails. We do not make any assumption on how $g_t$ is
-generated, that is, it can be chosen by an adversary.  The gambler can bet any
-amount on either heads or tails. However, he is not allowed to borrow any
-additional money. If he loses (i.e. he bets on the incorrect outcome), he loses
-the betted amount. If he wins (i.e. he bets on the correct outcome), he gets
-the betted amount back and, in addition to that, he gets the same amount as a
-reward.
-%Note that it does not make sense for the gambler to bet on both
-%outcomes, since the same winnings can be achieved by betting the difference of
-%the two amounts on one of the outcomes and betting zero on the other outcome.
-We encode gambler's bet in round $t$ by a single number $\beta_t \in (-1,1)$.
-The sign of $\beta_t$ encodes whether he is betting on heads or tails. The
-absolute value encodes the betted amount as the fraction of his current wealth.
+and $-1$ denotes tails. The outcome $g_t$ is chosen by an adversary.  The
+gambler can bet any amount on either heads or tails. However, he cannot borrow
+any additional money. If he bets on the incorrect outcome, he loses the betted
+amount. If he bets on the correct outcome, he gets the betted amount back and,
+in addition to that, he gets the same amount as a reward.  We encode gambler's
+bet in round $t$ by a single number $\beta_t \in (-1,1)$.  The sign of
+$\beta_t$ encodes whether he is betting on heads or tails. The absolute value
+encodes the betted amount as the fraction of his current wealth.
 
 Let $\Wealth_t$ be gambler's wealth at the end of round $t$. It satisfies the
 recurrence
@@ -33,10 +26,6 @@ recurrence
 \end{align}
 Note that since $\beta_t \in (-1,1)$, gambler's wealth stays always non-negative.
 
-The problem can be generalized slightly by allowing the outcome of the coin
-flip $g_t$ to be any real number in the interval $[-1,1]$. The formula
-\eqref{equation:wealth-recurrence} for wealth remains exactly the same.
-
 \textbf{Kelly Betting and Krichevsky-Trofimov Estimator.}
 \citet{Kelly-1956} proposed a general strategy for sequential bets. For coin
 betting, the strategy assumes that the coin flips $\{g_t\}_{t=1}^\infty$, $g_t
@@ -47,19 +36,18 @@ $
 $.
 He showed that this strategy maximizes $\Exp[\ln(\Wealth_t)]$.
 
-For adversarial coins, Kelly betting does not make sense. However, we can
-replace $p$ with an estimate. This problem was studied by
-\citet{Krichevsky-Trofimov-1981}, who proposed that after seeing coin flips
-$g_1, g_2, \dots, g_{t-1}$ an empirical estimate $k_t = \frac{1/2 +
-\sum_{i=1}^{t-1} \indicator[g_i = +1]}{t}$ should be used instead of $p$. Their
-estimate is commonly called \emph{KT estimator}.\footnote{Compared to the
+For adversarial coins, Kelly betting does not make sense.
+\citet{Krichevsky-Trofimov-1981} proposed to replace $p$ with an estimate:
+After seeing coin flips
+$g_1, g_2, \dots, g_{t-1}$ we use the empirical estimate $k_t = \frac{1/2 +
+\sum_{i=1}^{t-1} \indicator[g_i = +1]}{t}$. Their
+estimate is commonly called \emph{KT estimator}~\footnote{Compared to the
 standard maximum likelihood estimate $\frac{\sum_{i=1}^{t-1} \indicator[g_i =
-+1]}{t-1}$, KT estimator ``shrinks'' slightly towards $\frac{1}{2}$.} KT
-estimator results in betting strategy
-\begin{equation}
-\label{equation:kt-estimator-betting-strategy}
++1]}{t-1}$, KT estimator ``shrinks'' slightly towards $\frac{1}{2}$.}
+and it results in the betting strategy
+$
 \beta_t = 2k_t - 1 = \tfrac{\sum_{i=1}^{t-1} g_i}{t}
-\end{equation}
+$
 which we call \emph{adaptive Kelly betting based on KT estimator}.
 \citeauthor{Krichevsky-Trofimov-1981} showed that
 \begin{equation}
