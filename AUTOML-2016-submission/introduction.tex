@@ -3,12 +3,12 @@
 
 We consider the \ac{OLO}~\citep{Cesa-Bianchi-Lugosi-2006,
 Shalev-Shwartz-2011} setting. In each round $t$, an algorithm chooses a point
-$x_t$ from a convex \emph{decision set} $K$ and then receives a loss vector
+$w_t$ from a convex \emph{decision set} $K$ and then receives a loss vector
 $\ell_t$. Algorithm's goal is to keep its \emph{regret} small, defined as the
 difference between its cumulative loss and the cumulative loss of a fixed
 strategy $u \in K$, that is
 $$
-\Regret_T(u) = \sum_{t=1}^T \langle \ell_t, x_t \rangle - \sum_{t=1}^T \langle \ell_t, u \rangle \; .
+\Regret_T(u) = \sum_{t=1}^T \langle \ell_t, w_t \rangle - \sum_{t=1}^T \langle \ell_t, u \rangle \; .
 $$
 
 We focus on two particular sets, the $N$-dimensional probability simplex
@@ -30,14 +30,10 @@ can be solved through a reduction to \ac{OLO}~\citep{Shalev-Shwartz-2011}.
 Statistical learning with convex losses can also seen as stochastic convex
 optimization and solved through \ac{OCO}~\citep{Munro-1951}, that in turns can be reduced to \ac{OLO}.
 
-However, as essential as it is to achieve sublinear regret, this is only half
-of the problem in online learning. In fact, we are often interested in the
-adaptation to the (often unknown) characteristics of the data. Most of the
-time, online and batch learning algorithms fail on this side, requiring to set
-hyperparameters (e.g., learning rates, number of epochs, regularization weights)
-to oracle choices in order to achieve the best possible theoretical and
-empirical performance. Recently, a new family of algorithms that adapt to the
-data has been proposed, both for \ac{LEA}~\citep{Chaudhuri-Freund-Hsu-2009,
+However, to achieve small regret, most of the algorithms still require to set
+hyperparameters (e.g., learning rates, regularization weights) in
+order to achieve the best possible theoretical and empirical performance.
+Recently, a new family of parameter-free algorithms that has been proposed, both for \ac{LEA}~\citep{Chaudhuri-Freund-Hsu-2009,
 Chernov-Vovk-2010, Luo-Schapire-2014, Luo-Schapire-2015, Koolen-van-Erven-2015}
 and for \ac{OLO}/\ac{OCO} over Hilbert spaces~\citep{Streeter-McMahan-2012,
 Orabona-2013, McMahan-Abernethy-2013, McMahan-Orabona-2014, Orabona-2014}.
@@ -50,7 +46,7 @@ Surprisingly enough, these two families of algorithms are very similar, and, a p
 
 Our contributions are as follows. We claim that a more fundamental notion
 subsumes both \ac{OLO} and \ac{LEA} parameter-free algorithms. This notion is
-linked to the ability of an algorithm to repeatedly bet on an outcome of a coin
+linked to the ability to repeatedly bet on an outcome of a coin
 flip. This new notion allows us to design novel parameter-free algorithms. In particular, the algorithms are simple and somehow ``natural''. We also show some applications of our results to convex optimization and machine learning.
 
 \noindent\textbf{Notation and Definitions.} We will use the following notation

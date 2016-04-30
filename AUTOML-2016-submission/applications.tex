@@ -9,8 +9,7 @@
 \FOR{$t=1,2,\dots,T$}
 \STATE{Set $w_t \leftarrow m_{t-1} \tfrac{\theta_{t-1}}{t} $}
 \STATE{Select a $j$ at random in $1,\ldots,N$ and receive $g_t \in \partial \ell_j(w_{t-1})$}
-\STATE{Update $\theta_t = \theta_{t-1}-g_t$}
-\STATE{Update $m_t = m_{t-1}-g_t^\top w_t$}
+\STATE{Update $\theta_t = \theta_{t-1}-g_t$ and $m_t = m_{t-1}-g_t^\top w_t$}
 \ENDFOR
 \STATE{Output $\overline{w}_T=\tfrac{1}{T}\sum_{t=1}^T w_t$}
 }
@@ -41,7 +40,7 @@ convergence rate.
 After $T$ iterations of Algorithm~\ref{algorithm:kt-sgd}, $\overline{w}_T$ is
 an approximate minimizer of the function \eqref{equation:objective-function}:
 $$
-\widehat{F}(\overline{w}_T) - \widehat{F}(\widehat{w}) \leq \frac{\norm{\widehat{w}}}{\sqrt{T}} \sqrt{\log(1+4 T^2 \norm{\widehat{w}}^2)} +\tfrac{1}{T} \; .
+\widehat{F}(\overline{w}_T) - \widehat{F}(\widehat{w}) \leq \tfrac{\norm{\widehat{w}}}{\sqrt{T}} \sqrt{\log(1+4 T^2 \norm{\widehat{w}}^2)} +\tfrac{1}{T} \; .
 $$
 \end{theorem}
 Note that in the above theorem, $T$ can be larger (multiple epochs) or smaller

@@ -51,16 +51,16 @@ McMahan-Orabona-2014,Orabona-Pal-2016-parameter-free} that satisfy a slightly we
 \label{equation:olo-parameter-free-2}
 \forall u \in \H \qquad \Regret_T(u) \le \big(O(1)+\polylog(1 + \norm{u})\norm{u} \big) \sqrt{T} \; ,
 \end{equation}
-where $\polylog(1 + \norm{u})$ represents a function that is upper bounded
-by a polynomial in $\log(1+\norm{u})$.\footnote{It can be shown
+It can be shown
 that for \ac{OLO} over Hilbert space the extra poly-logarithmic factor is
-necessary~\citep{McMahan-Abernethy-2013,Orabona-2013}.} Algorithms satisfying
+necessary~\citep{McMahan-Abernethy-2013,Orabona-2013}. Algorithms satisfying
 \eqref{equation:olo-parameter-free-2} are called \emph{parameter-free}, since
 they do not need to know $D$, yet they have an optimal dependency on $\norm{u}$.
 
-The \emph{exact} same problem is present for \ac{LEA}.  Hedge algorithm~\citep{Freund-Schapire-1997}
-is identical to \ac{OMD} with regularizer $R(u) = -H(u)$. It is easy to show that
-Hedge with learning rate $\eta$ satisfies
+The \emph{same} problem is present for \ac{LEA}.
+%Hedge algorithm~\citep{Freund-Schapire-1997}
+%is identical to \ac{OMD} with regularizer $R(u) = -H(u)$.
+It is easy to show that Hedge with learning rate $\eta$ satisfies
 \begin{equation}
 \label{equation:hedge-bound-2}
 \Regret_T(u) \le \tfrac{\ln N - H(u)}{\eta} + \tfrac{\eta T}{2} \; .
