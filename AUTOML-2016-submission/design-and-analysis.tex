@@ -64,20 +64,12 @@ $g_t = -\ell_t$ and algorithm's wealth is
 $
 \Wealth_t = 1 - \sum_{i=1}^t \langle \ell_i, x_i \rangle
 $.
-The algorithm explicitly keeps track of its wealth. It bets the ``vectorial fraction''
-$
-\beta_t = - \tfrac{\sum_{i=1}^{t-1} \ell_i}{t}
-$.
+The algorithm explicitly keeps track of its wealth. Betting the ``vectorial fraction''
+$\beta_t = - \tfrac{\sum_{i=1}^{t-1} \ell_i}{t}$, it maximizes a worst case guarantee on the wealth.
 
 In Algorithm~\ref{algorithm:experts}, there are $N$ independent coordinates.
 With each coordinate $i$ there is an associated coin outcome $g_{t,i}$, wealth
-$
-\Wealth_{t,i} = 1 + \sum_{j=1}^t g_{j,i} w_{j,i}
-$
-and a betting fraction
-$
-\beta_{t,i} = \tfrac{\sum_{j=1}^t g_{j,i}}{t + T/2}
-$.
+$\Wealth_{t,i} = 1 + \sum_{j=1}^t g_{j,i} w_{j,i}$, and a betting fraction
+$\beta_{t,i} = \tfrac{\sum_{j=1}^t g_{j,i}}{t + T/2}$.
 The regret bounds for both algorithms are a consequence of the wealth lower
-bound~\eqref{equation:wealth-lower-bound}.  For more details, see full version
-of the paper~\citep{Orabona-Pal-2016-parameter-free}.
+bound~\eqref{equation:wealth-lower-bound} and the duality between regret and wealth.  For more details, see~\cite{Orabona-Pal-2016-parameter-free}.

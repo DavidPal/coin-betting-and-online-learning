@@ -1,7 +1,7 @@
 \section{Introduction}
 \label{section:introduction}
 
-We consider the standard \ac{OLO}~\citep{Cesa-Bianchi-Lugosi-2006,
+We consider the \ac{OLO}~\citep{Cesa-Bianchi-Lugosi-2006,
 Shalev-Shwartz-2011} setting. In each round $t$, an algorithm chooses a point
 $x_t$ from a convex \emph{decision set} $K$ and then receives a loss vector
 $\ell_t$. Algorithm's goal is to keep its \emph{regret} small, defined as the
@@ -19,22 +19,22 @@ assume that $\norm{\ell_t}_2 \le 1$, and for \ac{LEA} we assume that
 $\ell_t \in [0,1]^N$.
 
 \ac{OLO} is a basic building block of many machine learning problems. For
-example, \ac{OCO}, the analogous problem where $\langle \ell_t, w_t \rangle$ is
+example, \ac{OCO}, the problem analogous to \ac{OLO} where $\langle \ell_t, w_t \rangle$ is
 generalized to $\ell_t(w_t)$ where $\ell_t$ is an arbitrary convex function, is
 solved through a reduction to an \ac{OLO}~\citep{Shalev-Shwartz-2011}.
 \ac{LEA}~\citep{Littlestone-Warmuth-1994, Vovk-1998,
 Cesa-Bianchi-Freund-Haussler-Helmbold-Schapire-Warmuth-1997} provides a way of
-combining classifiers and it at the heart of
-boosting~\cite{Freund-Schapire-1997}. Batch and stochastic convex optimization
+combining classifiers and it is at the heart of
+boosting~\citep{Freund-Schapire-1997}. Batch and stochastic convex optimization
 can be solved through a reduction to \ac{OLO}~\citep{Shalev-Shwartz-2011}.
 Statistical learning with convex losses can also seen as stochastic convex
-optimization and solved through \ac{OCO}~\citep{Munro-1951}.
+optimization and solved through \ac{OCO}~\citep{Munro-1951}, that in turns can be reduced to \ac{OLO}.
 
 However, as essential as it is to achieve sublinear regret, this is only half
 of the problem in online learning. In fact, we are often interested in the
 adaptation to the (often unknown) characteristics of the data. Most of the
 time, online and batch learning algorithms fail on this side, requiring to set
-hyperparameters (e.g., learning rates, step sizes, and regularization weights)
+hyperparameters (e.g., learning rates, number of epochs, regularization weights)
 to oracle choices in order to achieve the best possible theoretical and
 empirical performance. Recently, a new family of algorithms that adapt to the
 data has been proposed, both for \ac{LEA}~\citep{Chaudhuri-Freund-Hsu-2009,
@@ -46,18 +46,12 @@ predictor, respectively, without the need to tune parameters. Given the
 connections between \ac{OLO}/\ac{LEA} and machine learning, these algorithms
 allow to design parameter-free batch machine learning algorithms through
 straightforward reductions~\citep{Orabona-2014,Luo-Schapire-2015}.
-Surprisingly enough, these two families of algorithms are also very similar,
-yet no attempt has been made to unify them.
+Surprisingly enough, these two families of algorithms are very similar, and, a part for the non-constructive framework in \cite{Foster-Rakhlin-Sridharan-2015}, there is no unifying framework.
 
 Our contributions are as follows. We claim that a more fundamental notion
 subsumes both \ac{OLO} and \ac{LEA} parameter-free algorithms. This notion is
 linked to the ability of an algorithm to repeatedly bet on an outcome of a coin
-flip. In fact, we show black
-box reductions from the coin betting scenario to \ac{OLO} over Hilbert spaces
-and to \ac{LEA}.  We prove that coin betting strategies
-that assure an exponential growth of the wealth for biased coins allow to
-obtain optimal worst-case parameter-free regret bounds in \ac{OLO} and in
-\ac{LEA}.
+flip. This new notion allows us to design novel parameter-free algorithms. In particular, the algorithms are simple and somehow ``natural''. We also show some applications of our results to convex optimization and machine learning.
 
 \noindent\textbf{Notation and Definitions.} We will use the following notation
 in the rest of this note. We denote by $\indicator$ the vector $(1,1,\dots,1)

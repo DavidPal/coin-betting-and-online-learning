@@ -4,7 +4,7 @@
 \begin{algorithm}[t]
 \caption{Algorithm for OLO over Hilbert space $\H$
 \label{algorithm:hilbert-space-olo}}
-\begin{algorithmic}
+\begin{algorithmic}[1]
 {
 \FOR{$t=1,2,\dots$}
 \STATE{Predict with $x_t \leftarrow - \frac{1}{t} \left(1 - \sum_{i=1}^{t-1} \langle \ell_i, x_i \rangle \right) \sum_{i=1}^{t-1} \ell_i$}
@@ -13,9 +13,8 @@
 }
 \end{algorithmic}
 \end{algorithm}
-
 \begin{algorithm}[t]
-\begin{algorithmic}
+\begin{algorithmic}[1]
 \caption{Algorithm for Learning with Expert Advice \label{algorithm:experts}}
 {
 \REQUIRE{Number of experts $N$, number of rounds $T$, prior distribution $\pi \in \Delta_N$}
@@ -39,8 +38,8 @@
 
 We present algorithms for \ac{OLO} over real Hilbert space $\H$
 (Algorithm~\ref{algorithm:hilbert-space-olo}) and
-\ac{LEA}~(Algorithm~\ref{algorithm:experts}).  The theorem below upper bounds
-its regret, the proof can be found in~\cite{Orabona-Pal-2016-parameter-free}.
+\ac{LEA}~(Algorithm~\ref{algorithm:experts}).  The theorems below upper bound
+their regret, the proofs can be found in~\cite{Orabona-Pal-2016-parameter-free}.
 
 \begin{theorem}[Regret Bound for Algorithm~\ref{algorithm:hilbert-space-olo}]
 \label{theorem:hilbert-space-olo-regret}
@@ -65,8 +64,8 @@ $$
 $$
 \end{theorem}
 
-The requirement of knowing the number of rounds $T$ in advance can be lifted by
-the standard doubling trick; for details
+Note that, the requirement of knowing the number of rounds $T$ in Algorithm~\ref{algorithm:experts} can be lifted by
+the standard doubling trick, again in a parameter-free way; for details
 see~\cite{Orabona-Pal-2016-parameter-free}.
 
 

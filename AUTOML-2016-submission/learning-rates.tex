@@ -10,7 +10,7 @@ $\tfrac{1}{2}\norm{u}^2$ and learning rate $\eta$ satisfies~\citep{Shalev-Shwart
 It is obvious that the optimal tuning of the learning rate depends on the
 unknown norm of $u$.
 
-A simple choice $\eta = 1/\sqrt{T}$ leads to an algorithm that satisfies
+The simple choice $\eta = 1/\sqrt{T}$ leads to an algorithm that satisfies
 \begin{equation}
 \label{equation:ftrl-vanila-2}
 \Regret_T(u) \le \tfrac{1}{2}\left(1+\norm{u}^2\right)\sqrt{T} \; .
@@ -19,15 +19,15 @@ However, in this bound the dependency on $\norm{u}$ is suboptimal. As we will
 see shortly, the quadratic dependency can be replaced by an (almost) linear
 dependency.
 
-Starting from \eqref{equation:ftrl-vanila}, if we choose learning rate $\eta =
+Starting from \eqref{equation:ftrl-vanila}, if we choose the learning rate $\eta =
 D/\sqrt{T}$, we get a family of algorithms parametrized by $D \in [0,\infty)$
 that satisfy
 \begin{equation}
 \label{equation:ftrl-vanila-3}
 \forall u \in \H : \norm{u} \le D \quad  \Longrightarrow \quad \Regret_T(u) \le D \sqrt{T} \; .
 \end{equation}
-Instead of family of algorithms parametrized by $D \in [0,\infty)$ satisfying
-bound \eqref{equation:ftrl-vanila-3}, one \emph{would like
+Instead of a family of algorithms parametrized by $D \in [0,\infty)$ satisfying
+the bound \eqref{equation:ftrl-vanila-3}, one \emph{would like
 to have} a single algorithm (without any tuning parameters) satisfying
 \begin{equation}
 \label{equation:olo-parameter-free}
@@ -45,7 +45,7 @@ than \eqref{equation:ftrl-vanila-2}.
 
 There have been a lot of work on algorithms
 \citep{Streeter-McMahan-2012, Orabona-2013, McMahan-Abernethy-2013,
-McMahan-Orabona-2014} that satisfy a slightly weaker version of
+McMahan-Orabona-2014,Orabona-Pal-2016-parameter-free} that satisfy a slightly weaker version of
 \eqref{equation:olo-parameter-free}
 \begin{equation}
 \label{equation:olo-parameter-free-2}
