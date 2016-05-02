@@ -3,80 +3,12 @@
 
 We show how to use a sequence of coin-betting potentials $\{F_t\}_{t=0}^\infty$
 to construct an algorithm for \ac{OLO} over a Hilbert space
-and how to prove regret bound for it. The basic idea is to realize that
-regret minimization is equivalent to wealth maximization over one-dimensional Hilbert space $\R$.
-This idea is then generalized to an arbitrary Hilbert space $\H$.
+and how to prove regret bound for it.
 
-\subsection{A Warm-Up: One-Dimensional Hilbert Space}
-\label{section:one-dimensional-hilbert-space-olo}
+%\subsection{Arbitrary Hilbert Space}
 
-Let us consider an algorithm for OLO over one-dimensional Hilbert space $\R$.
-Let $\{w_t\}_{t=1}^\infty$ be its sequence of predictions on a sequence of
-rewards $\{g_t\}_{t=1}^\infty$, $g_t \in [-1,1]$. The total reward of the
-algorithm after $t$ rounds is
-\[
-\Reward_t = \sum_{i=1}^t g_i w_i \; .
-\]
-Let us define ``wealth'' of the OLO algorithm as $\Wealth_t = \epsilon +
-\Reward_t$ in accordance with equation
-\eqref{equation:reward-wealth}. Now, suppose we want to satisfy the recurrence
-\eqref{equation:wealth-recurrence}. Clearly, the recurrence is not necessarily
-satisfied for an arbitrary OLO algorithm. However, if we assume that its
-predictions are of the form \begin{equation}
-\label{equation:one-dimensional-olo}
-w_t = \beta_t \Wealth_{t-1}
-= \beta_t \left(\epsilon+ \sum_{i=1}^{t-1} g_i w_i \right),
-\end{equation}
-where $\beta_t \in [-1,1]$, we see that the recurrence
-\eqref{equation:wealth-recurrence} holds. Indeed,
-\[
-\Wealth_t
-= g_t w_t + \Wealth_{t-1}
-= \beta_t \Wealth_{t-1} + \Wealth_{t-1}
-= (1+\beta_t) \Wealth_{t-1} \; .
-\]
-This of course works in reverse: If we have a coin-betting algorithm that on a
-sequence of coin flips $\{g_t\}_{t=1}^\infty$, $g_t \in [-1,1]$, bets fractions
-$\beta_t \in [-1,1]$, we can use it to construct an OLO algorithm in a
-one-dimensional Hilbert space $\R$ according to equation
-\eqref{equation:one-dimensional-olo}.
-
-If the betting algorithm is based on a sequence of coin-betting potentials
-$\{F_t\}_{t=1}^\infty$ then using \eqref{equation:wealth-lower-bound-generic},
-\begin{equation}
-\label{equation:one-dimensional-olo-reward-lower-bound}
-\Reward_T
-= \sum_{t=1}^T g_t w_t
-= \Wealth_T \ - \ \epsilon \ge F_T\left(\sum_{t=1}^T g_t \right) \ - \ \epsilon \; .
-\end{equation}
-It is straightforward to convert a lower bound on the reward to an upper bound
-on the regret. This can be done using the following lemma, as observed
-by~\cite{McMahanO14}.
-\begin{lemma}[Reward-Regret relationship]
-\label{lemma:reward-regret}
-Let $V,V^*$ be a pair of dual vector spaces. Let $F:V \to \R \cup \{+\infty\}$
-be a proper convex lower semi-continuous function and let $F^*:V^* \to \R \cup
-\{+\infty\}$ be its Fenchel conjugate. Let $w_1, w_2, \dots, w_T \in V$ and
-$g_1, g_2, \dots, g_T \in V^*$ be two sequences of vectors.  Then,
-\[
-\underbrace{\sum_{t=1}^T \langle g_t, w_t \rangle}_{\Reward_T} \ge F\left( \sum_{t=1}^T g_t \right)
-\qquad \text{is equivalent to} \qquad
-\forall u \in V^*, \quad
-\underbrace{\sum_{t=1}^T \langle g_t, u - w_t\rangle}_{\Regret_T(u)} \le F^*(u) \; .
-\]
-\end{lemma}
-
-Applying the lemma to the function $F(x) = F_T(x) - \epsilon$, we get a regret
-upper bound
-\[
-\forall u \in \H \qquad \qquad
-\Regret_T(u) \le F_T^*(u) \ + \ \epsilon \; .
-\]
-
-\subsection{Arbitrary Hilbert Space}
-
-The one-dimensional construction for OLO can be generalized to an arbitrary
-Hilbert space $\H$. Reward and wealth are defined analogously
+The one-dimensional construction in Section~\ref{section:one-dimensional-hilbert-space-olo} can be generalized to an arbitrary
+Hilbert space $\H$. First, define reward and wealth analogously
 to the one-dimensional case:
 \begin{align*}
 \Reward_t &= \sum_{i=1}^t \langle g_i, w_i \rangle &
