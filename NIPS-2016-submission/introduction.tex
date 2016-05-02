@@ -41,10 +41,9 @@ straightforward reductions~\cite{Orabona14,LuoS15}.
 Yet, not all of them are practical algorithms and/or have optimal regret bounds, see Table~\ref{tab:bounds}.
 Alos, surprisingly enough, these two families of algorithms are very similar, and, a part for the non-constructive framework in \cite{FosterRS15}, there is no unifying framework.
 
-Our contributions are as follows. Rather than crafting yet another potential function, we claim that a more fundamental notion
-subsumes both \ac{OLO} and \ac{LEA} parameter-free algorithms. This notion is
-linked to the ability to repeatedly bet on an outcome of a coin
-flip. This new notion allows us to design novel parameter-free algorithms. In particular, the resulting algorithms are simple and have optimal guarantees, Table~\ref{tab:bounds}. We also show some applications of our results to convex optimization and machine learning.
+\textbf{Contributions.} Rather than crafting yet another potential function, we claim that a more fundamental notion
+subsumes both \ac{OLO} and \ac{LEA} parameter-free algorithms. We show that the ability to maximize the wealth in bets on the outcomes of coin flips implies \ac{OLO} and \ac{LEA} parameter-free algorithms.
+In particular, the resulting algorithms are simple and have optimal guarantees, Table~\ref{tab:bounds}. We also show some applications of our results to convex optimization and machine learning.
 
 \begin{table}
 \begin{center}
@@ -63,7 +62,7 @@ Hegde, $\eta=\sqrt{\tfrac{\ln N - U}{T}}$ & $\scO\left(\sqrt{T (\ln N -U)}\right
 \cite{ChaudhuriFH09}  & $\scO\left(\sqrt{T \KL{u}{\tfrac{1}{N}\boldsymbol{1}}}+\ln^2 N\right)$, $\forall u \in \Delta_N$ &  & \checkmark \\
 \cite{ChernovV10} & $\scO\left(\sqrt{T}\left(\sqrt{\KL{u}{\tfrac{1}{N}\boldsymbol{1}}}+1\right)\right)$, $\forall u \in \Delta_N$ &  & \checkmark \\
 \cite{LuoS15,KoolenE15} & $\scO\left(\sqrt{T \left(\ln \ln T+\KL{u}{\tfrac{1}{N}\boldsymbol{1}}\right)}\right)$, $\forall u \in \Delta_N$ & \checkmark & \checkmark \\
-\cite{FosterRS15} & $\scO\left(\sqrt{T \left(1+\KL{u}{\tfrac{1}{N}\boldsymbol{1}}\right)}\right)$, $\forall u \in \Delta_N$ &  & \checkmark & \checkmark \\
+\cite{FosterRS15} & $\scO\left(\sqrt{T\max(\KL{u}{\tfrac{1}{N}\boldsymbol{1}},1)} \right)$, $\forall u \in \Delta_N$ &  & \checkmark & \checkmark \\
 This paper, Sec.~\ref{sec:kt-lea} & $\scO\left(\sqrt{T \left(1+\KL{u}{\tfrac{1}{N}\boldsymbol{1}}\right)}\right)$, $\forall u \in \Delta_N$ & \checkmark & \checkmark & \checkmark\\
 \bottomrule
 \end{tabular}}
