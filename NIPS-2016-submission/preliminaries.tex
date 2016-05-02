@@ -28,38 +28,38 @@ attains $-\infty$ and attains finite value at at least one point. If $f$ is a
 proper lower semi-continuous convex function then $f^*$ is also is proper lower
 semi-continuous convex, and the Fenchel conjugate of $f^*$ is $f$.
 
-\subsection{Online Linear Optimization over a Hilbert Space}
-
-\textsc{Online Linear Optimization over a Hilbert Space $\H$} is an online
-problem where in each round $t$, an algorithm chooses a point $w_t \in \H$ and
-then receives a reward vector $g_t \in \H$. Algorithm's instantaneous reward in
-round $t$ is $\langle g_t, w_t \rangle$. The aim of the algorithm is to minimize
-its \emph{regret} after $T$ rounds, that is, the difference between its
-cumulative reward $\sum_{t=1}^T \langle g_t, w_t \rangle$ and the cumulative
-reward $\sum_{t=1}^T \langle g_t, u \rangle$ of the of a hypothetical strategy
-(\emph{competitor}) that would choose the same point $u \in \H$ in every round.
-Formally, regret of the algorithm after $T$ rounds with respect to a competitor
-$u \in \H$ is defined as
-\begin{equation}
-\label{equation:regret-definition}
-\Regret_T(u) = \sum_{t=1}^T \langle g_t , u - w_t \rangle \; .
-\end{equation}
-In this paper, without loss of generality, we make the assumption that $\norm{g_t} \le 1$.
-
-
-\subsection{Learning with Expert Advice}
-
-Let $N \ge 2$ be a positive integer. \textsc{Learning with expert advice} is an
-online problem in which, in each round $t$, an algorithm chooses a point $p_t$
-in $N$-dimensional probability simplex $\Delta_N = \{ x \in \R^N ~:~ x \ge 0,
-\norm{x}_1 = 1 \}$ and receives a loss\footnote{The reason for using loss,
-instead of reward, will become apparent in
-Section~\ref{section:reduction-experts}.} vector $\ell_t \in [0,1]^N$. Similarly
-as before, the goal of the algorithm is to minimize its regret after $T$ rounds
-with respect to any competitor $u \in \Delta_N$, which is defined as
-$$
-\Regret_T(u) = \sum_{t=1}^T \langle \ell_t, p_t \rangle - \sum_{t=1}^T \langle \ell_t, u \rangle \; .
-$$
+% \subsection{Online Linear Optimization over a Hilbert Space}
+% 
+% \textsc{Online Linear Optimization over a Hilbert Space $\H$} is an online
+% problem where in each round $t$, an algorithm chooses a point $w_t \in \H$ and
+% then receives a reward vector $g_t \in \H$. Algorithm's instantaneous reward in
+% round $t$ is $\langle g_t, w_t \rangle$. The aim of the algorithm is to minimize
+% its \emph{regret} after $T$ rounds, that is, the difference between its
+% cumulative reward $\sum_{t=1}^T \langle g_t, w_t \rangle$ and the cumulative
+% reward $\sum_{t=1}^T \langle g_t, u \rangle$ of the of a hypothetical strategy
+% (\emph{competitor}) that would choose the same point $u \in \H$ in every round.
+% Formally, regret of the algorithm after $T$ rounds with respect to a competitor
+% $u \in \H$ is defined as
+% \begin{equation}
+% \label{equation:regret-definition}
+% \Regret_T(u) = \sum_{t=1}^T \langle g_t , u - w_t \rangle \; .
+% \end{equation}
+% In this paper, without loss of generality, we make the assumption that $\norm{g_t} \le 1$.
+% 
+% 
+% \subsection{Learning with Expert Advice}
+% 
+% Let $N \ge 2$ be a positive integer. \textsc{Learning with expert advice} is an
+% online problem in which, in each round $t$, an algorithm chooses a point $p_t$
+% in $N$-dimensional probability simplex $\Delta_N = \{ x \in \R^N ~:~ x \ge 0,
+% \norm{x}_1 = 1 \}$ and receives a loss\footnote{The reason for using loss,
+% instead of reward, will become apparent in
+% Section~\ref{section:reduction-experts}.} vector $\ell_t \in [0,1]^N$. Similarly
+% as before, the goal of the algorithm is to minimize its regret after $T$ rounds
+% with respect to any competitor $u \in \Delta_N$, which is defined as
+% $$
+% \Regret_T(u) = \sum_{t=1}^T \langle \ell_t, p_t \rangle - \sum_{t=1}^T \langle \ell_t, u \rangle \; .
+% $$
 
 \subsection{Binary and Continuous Coin Betting}
 

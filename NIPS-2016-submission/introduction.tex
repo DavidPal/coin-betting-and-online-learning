@@ -2,23 +2,23 @@
 \label{section:introduction}
 
 We consider the \ac{OLO}~\cite{Cesa-BianchiL06,Shalev-Shwartz12} setting. In each round $t$, an algorithm chooses a point
-$w_t$ from a convex \emph{decision set} $K$ and then receives a loss vector
-$\ell_t$. Algorithm's goal is to keep its \emph{regret} small, defined as the
-difference between its cumulative loss and the cumulative loss of a fixed
+$w_t$ from a convex \emph{decision set} $K$ and then receives a reward vector
+$g_t$. Algorithm's goal is to keep its \emph{regret} small, defined as the
+difference between its cumulative reward and the cumulative reward of a fixed
 strategy $u \in K$, that is
 \[
-\Regret_T(u) = \sum_{t=1}^T \langle \ell_t, w_t \rangle - \sum_{t=1}^T \langle \ell_t, u \rangle \; .
+\Regret_T(u) = \sum_{t=1}^T \langle g_t, u \rangle - \sum_{t=1}^T \langle g_t, w_t \rangle \; .
 \]
 
 We focus on two particular sets, the $N$-dimensional probability simplex
 $\Delta_N = \{ x \in \R^N ~:~ x \ge 0, \norm{x}_1 = 1\}$ and the Hilbert space
 $\H$.  \ac{OLO} over $\Delta_N$ is referred to as the problem of \ac{LEA}.  We
 assume bounds on the norms of the loss vectors: For \ac{OLO} over $\H$, we
-assume that $\norm{\ell_t}_2 \le 1$, and for \ac{LEA} we assume that
-$\ell_t \in [0,1]^N$.
+assume that $\norm{g_t}_2 \le 1$, and for \ac{LEA} we assume that
+$g_t \in [0,1]^N$.
 
 \ac{OLO} is a basic building block of many machine learning problems. For
-example, \ac{OCO}, the problem analogous to \ac{OLO} where $\langle \ell_t, w_t \rangle$ is
+example, \ac{OCO}, the problem analogous to \ac{OLO} where $-\langle g_t, w_t \rangle$ is
 generalized to $\ell_t(w_t)$ where $\ell_t$ is an arbitrary convex function, is
 solved through a reduction to an \ac{OLO}~\cite{Shalev-Shwartz12}.
 \ac{LEA}~\cite{LittlestoneW94, Vovk98,Cesa-BianchiFHHSW97} provides a way of
@@ -41,32 +41,33 @@ straightforward reductions~\cite{Orabona14,LuoS15}.
 Yet, not all of them are practical algorithms and/or have optimal regret bounds, see Table~\ref{tab:bounds}.
 Alos, surprisingly enough, these two families of algorithms are very similar, and, a part for the non-constructive framework in \cite{FosterRS15}, there is no unifying framework.
 
-Our contributions are as follows. We claim that a more fundamental notion
+Our contributions are as follows. Rather than crafting yet another potential function, we claim that a more fundamental notion
 subsumes both \ac{OLO} and \ac{LEA} parameter-free algorithms. This notion is
 linked to the ability to repeatedly bet on an outcome of a coin
 flip. This new notion allows us to design novel parameter-free algorithms. In particular, the resulting algorithms are simple and have optimal guarantees, Table~\ref{tab:bounds}. We also show some applications of our results to convex optimization and machine learning.
 
 \begin{table}
 \begin{center}
-\begin{small}
-\begin{tabular}{l c c c}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{l c c c c}
 \toprule
-Algorithm & Worst-case regret guarantee& \begin{tabular}{@{}c@{}}Closed form \\  update\end{tabular} & Adaptive \\
+Algorithm & Worst-case regret guarantee& \begin{tabular}{@{}c@{}}Closed-form\\update\end{tabular} & Adaptive & \begin{tabular}{@{}c@{}}Unified \\  design\end{tabular}\\
 \midrule
-\cite{AbernethyBRT08} & $U \sqrt{T}$ for $u \in \H: \norm{u} \leq U$, $\scO(T)$ otherwise & Yes & No \\
-OGD, fixed $\eta$ \cite{Shalev-Shwartz12} & $\scO((1 + \norm{u}^2)\sqrt{T})$ for $u \in \H$ & Yes & No \\
-This paper, Sec.~\ref{sec:kt-olo} & $\scO(\norm{u}\sqrt{T \ln(1+\norm{u}T)}+1)$ for $u \in \H$ & Yes & Yes \\
+\cite{AbernethyBRT08} & \begin{tabular}{@{}c@{}}$U \sqrt{T}$, $\forall u \in \H, \norm{u} \leq U$\\
+$\scO(T)$ otherwise\end{tabular} & \checkmark &  \\
+OGD, $\eta=\tfrac{1}{\sqrt{T}}$ \cite{Shalev-Shwartz12} & $\scO((1 + \norm{u}^2)\sqrt{T})$, $\forall u \in \H$ & \checkmark &  \\
+\cite{McMahanO14} & $\scO(\norm{u}\sqrt{T \ln(1+\norm{u}T)})$, $\forall u \in \H$ & \checkmark & \checkmark \\
+This paper, Sec.~\ref{sec:kt-olo} & $\scO(\norm{u}\sqrt{T \ln(1+\norm{u}T)})$, $\forall u \in \H$ & \checkmark & \checkmark & \checkmark\\
 \midrule
-Hegde, fixed $\eta$ & $\scO\left(\sqrt{T (\ln(N)-U)}\right)$ for $u \in \Delta_N: H(u) \geq U$, & Yes & No \\
-\cite{ChaudhuriFH09}  & $\scO\left(\sqrt{T \KL{u}{\tfrac{1}{N}\boldsymbol{1}}}+\ln^2 N\right)$ for $u \in \Delta_N$ & No & Yes \\
-\cite{ChernovV10} & $\scO\left(\sqrt{T}\left(\sqrt{\KL{u}{\tfrac{1}{N}\boldsymbol{1}}}+1\right)\right)$ for $u \in \Delta_N$ & No & Yes \\
-\cite{LuoS15,KoolenE15} & $\scO\left(\sqrt{T \left(\ln \ln(T)+\KL{u}{\tfrac{1}{N}\boldsymbol{1}}\right)}\right)$ for $u \in \Delta_N$ & Yes & Yes \\
-\cite{FosterRS15} & $\scO\left(\sqrt{T \left(1+\KL{u}{\tfrac{1}{N}\boldsymbol{1}}\right)}\right)$ for $u \in \Delta_N$ & No & Yes \\
-This paper, Sec.~\ref{sec:kt-lea} & $\scO\left(\sqrt{T \left(1+\KL{u}{\tfrac{1}{N}\boldsymbol{1}}\right)}\right)$ for $u \in \Delta_N$ & Yes & Yes \\
+Hegde, $\eta=\sqrt{\tfrac{\ln N - U}{T}}$ & $\scO\left(\sqrt{T (\ln N -U)}\right)$, $\forall u \in \Delta_N, H(u) \geq U$ & \checkmark &  \\
+\cite{ChaudhuriFH09}  & $\scO\left(\sqrt{T \KL{u}{\tfrac{1}{N}\boldsymbol{1}}}+\ln^2 N\right)$, $\forall u \in \Delta_N$ &  & \checkmark \\
+\cite{ChernovV10} & $\scO\left(\sqrt{T}\left(\sqrt{\KL{u}{\tfrac{1}{N}\boldsymbol{1}}}+1\right)\right)$, $\forall u \in \Delta_N$ &  & \checkmark \\
+\cite{LuoS15,KoolenE15} & $\scO\left(\sqrt{T \left(\ln \ln T+\KL{u}{\tfrac{1}{N}\boldsymbol{1}}\right)}\right)$, $\forall u \in \Delta_N$ & \checkmark & \checkmark \\
+\cite{FosterRS15} & $\scO\left(\sqrt{T \left(1+\KL{u}{\tfrac{1}{N}\boldsymbol{1}}\right)}\right)$, $\forall u \in \Delta_N$ &  & \checkmark & \checkmark \\
+This paper, Sec.~\ref{sec:kt-lea} & $\scO\left(\sqrt{T \left(1+\KL{u}{\tfrac{1}{N}\boldsymbol{1}}\right)}\right)$, $\forall u \in \Delta_N$ & \checkmark & \checkmark & \checkmark\\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \caption{Bla.}
 \label{tab:bounds}
-\end{small}
 \end{center}
 \end{table}
