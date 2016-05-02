@@ -91,6 +91,31 @@ $$
 \subsection{Learning with Expert Advice}
 \label{sec:kt-lea}
 
+\begin{algorithm}[t]
+\begin{algorithmic}
+\caption{Algorithm for Learning with Expert Advice based on shifted KT potential
+\label{algorithm:kt-experts}}
+{
+\REQUIRE{Number of experts $N$, number of rounds $T$, prior distribution $\pi \in \Delta_N$}
+\FOR{$t=1,2,\dots,T$}
+\STATE{For each $i \in [N]$, set $w_{t,i} \leftarrow \tfrac{\sum_{j=1}^{t-1} g_{j,i}}{t+T/2} \left(1 + \sum_{j=1}^{t-1} g_{j,i} w_{j,i} \right)$}
+\STATE{For each $i \in [N]$, set $\widehat{p}_{t,i} \leftarrow \pi_i [w_{t,i}]_+$}
+\STATE{Predict with $p_t \leftarrow
+\begin{cases}
+\widehat{p}_t/\norm{\widehat{p_t}}_1 & \text{if $\norm{\widehat p_t}_1 > 0$} \\
+\tfrac{1}{N}(1,1,\dots,1) & \text{if $\norm{\widehat p_t}_1 = 0$}
+\end{cases}$}
+%\STATE{Predict $p_t$}
+\STATE{Receive loss vector $\ell_t \in [0,1]^N$}
+\STATE{For each $i \in [N]$, set $g_{t,i} \leftarrow \begin{cases}
+\langle \ell_t, p_t \rangle - \ell_{t,i} & \text{if $w_{t,i} > 0$} \\
+[\langle \ell_t, p_t \rangle - \ell_{t,i}]_+ & \text{if $w_{t,i} \le 0$}
+\end{cases}$}
+\ENDFOR
+}
+\end{algorithmic}
+\end{algorithm}
+
 We will construct an algorithm for Learning with Expert Advice based on
 \emph{shifted KT potential}. The shifted potential and the resulting algorithm
 requires to know the number of rounds $T$ in advance. The shifted KT
@@ -118,32 +143,6 @@ w_t
 $$
 Following the construction in Section~\ref{section:reduction-experts}, we arrive
 at the final algorithm, Algorithm~\ref{algorithm:kt-experts}.
-
-\begin{algorithm}[t]
-\begin{algorithmic}
-\caption{Algorithm for Learning with Expert Advice based on shifted KT potential
-\label{algorithm:kt-experts}}
-{
-\REQUIRE{Number of experts $N$, number of rounds $T$, prior distribution $\pi \in \Delta_N$}
-\FOR{$t=1,2,\dots,T$}
-\STATE{For each $i \in [N]$, set $w_{t,i} \leftarrow \tfrac{\sum_{j=1}^{t-1} g_{j,i}}{t+T/2} \left(1 + \sum_{j=1}^{t-1} g_{j,i} w_{j,i} \right)$}
-\STATE{For each $i \in [N]$, set $\widehat{p}_{t,i} \leftarrow \pi_i [w_{t,i}]_+$}
-\STATE{Predict with $p_t \leftarrow
-\begin{cases}
-\widehat{p}_t/\norm{\widehat{p_t}}_1 & \text{if $\norm{\widehat p_t}_1 > 0$} \\
-\tfrac{1}{N}(1,1,\dots,1) & \text{if $\norm{\widehat p_t}_1 = 0$}
-\end{cases}$}
-%\STATE{Predict $p_t$}
-\STATE{Receive loss vector $\ell_t \in [0,1]^N$}
-\STATE{For each $i \in [N]$, set $g_{t,i} \leftarrow \begin{cases}
-\langle \ell_t, p_t \rangle - \ell_{t,i} & \text{if $w_{t,i} > 0$} \\
-[\langle \ell_t, p_t \rangle - \ell_{t,i}]_+ & \text{if $w_{t,i} \le 0$}
-\end{cases}$}
-\ENDFOR
-}
-\end{algorithmic}
-\end{algorithm}
-
 
 We can derive a regret bound for Algorithm~\ref{algorithm:kt-experts} by
 applying Theorem~\ref{theorem:regret-bound-experts} to the shifted KT potential.

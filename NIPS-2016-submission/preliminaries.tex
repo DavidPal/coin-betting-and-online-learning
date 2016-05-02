@@ -1,27 +1,25 @@
 \section{Preliminaries}
 
 The Kullback-Leibler divergence between two discrete
-distributions $p$ and $q$ is $\KL{p}{q} = \sum_{i} p_i \ln\left( \tfrac{p_i}{q_i} \right)$,
-where the sum is over all possible outcomes. Abusing notation, if $p,q$ are real
+distributions $p$ and $q$ is $\KL{p}{q} = \sum_{i} p_i \ln\left( \tfrac{p_i}{q_i} \right)$. Abusing notation, if $p,q$ are real
 numbers in $[0,1]$, we denote by
 $\KL{p}{q} = p \ln \left(\tfrac{p}{q} \right) + (1-p) \ln \left(\tfrac{1-p}{1-q} \right)$
 the Kullback-Leibler divergence between two Bernoulli distributions with parameters
 $p$ and $q$.
 We denote by $\H$ a Hilbert space with inner product $\langle \cdot, \cdot\rangle$ and by $\norm{\cdot}$ the induced norm.
-We denote by $\norm{\cdot}_1$ the $1$-norm in $\R^N$, that is,
-$\norm{x}_1 = \sum_{i=1}^N |x_i|$.
+We denote by $\norm{\cdot}_1$ the $1$-norm in $\R^N$.
 A function $F:I \to \R_+$ is called \emph{logarithmically convex} if $f(x) = \ln(F(x))$ is convex. It follows that if
 $F(x)$ is logarithmically convex, then it is also convex (in the usual sense).
 %since $F(x) = \exp(f(x))$ is a composition of a convex function $f(x)$ and an
 %increasing convex function $\exp(\cdot)$.
 Let $f:V \to \R \cup \{\pm\infty\}$ be a function defined on a real vector space
-$V$. Fenchel conjugate of $f$ is a function $f^*:V^* \to \R \cup \{\pm \infty\}$
+$V$. Fenchel conjugate of $f$ is $f^*:V^* \to \R \cup \{\pm \infty\}$
 defined on the dual vector space $V^*$ by
 $f^*(\theta) = \sup_{x \in V} \ \langle \theta, x \rangle - f(x)$.
 A function $f:V \to \R \cup \{\pm \infty\}$ is said to be proper if it never
 attains $-\infty$ and attains finite value at at least one point. If $f$ is a
 proper lower semi-continuous convex function then $f^*$ is also is proper lower
-semi-continuous convex, and the Fenchel conjugate of $f^*$ is $f$.
+semi-continuous convex and $f^{**}=f$.
 
 % \subsection{Online Linear Optimization over a Hilbert Space}
 % 
@@ -67,10 +65,12 @@ The gambler can bet any amount on either heads or tails. However, he is not
 allowed to borrow any additional money. If he loses (i.e. he bets on the
 incorrect outcome), he loses the betted amount. If he wins (i.e. he bets on the
 correct outcome), he gets the betted amount back and, in addition to that, he
-gets the same amount as a reward. Note that it does not make sense for the
-gambler to bet on both outcomes, since the same winnings can be achieved by
-betting the difference of the two amounts on one of the outcomes and betting
-zero on the other outcome. We encode gambler's bet in round $t$ by a single
+gets the same amount as a reward.
+%Note that it does not make sense for the
+%gambler to bet on both outcomes, since the same winnings can be achieved by
+%betting the difference of the two amounts on one of the outcomes and betting
+%zero on the other outcome.
+We encode gambler's bet in round $t$ by a single
 number $\beta_t \in [-1,1]$. The sign of $\beta_t$ encodes whether he is betting
 on heads or tails. The absolute value encodes the betted amount as the fraction
 of his current wealth.
@@ -112,7 +112,7 @@ empirical estimate $k_t = \frac{1/2 + \sum_{i=1}^{t-1} \indicator[g_i = +1]}{t}$
 should be used instead of $p$. Their estimate is commonly called \emph{KT
 estimator}.\footnote{Compared to the maximum likelihood estimate
 $\frac{\sum_{i=1}^{t-1} \indicator[g_i = +1]}{t-1}$, KT estimator ``shrinks''
-slightly towards $\nicefrac{1}{2}$.} KT estimator results in betting strategy
+slightly towards $\nicefrac{1}{2}$.} KT estimator results in the betting strategy
 \begin{equation}
 \label{equation:kt-estimator-betting-strategy}
 \beta_t = 2k_t - 1 = \tfrac{\sum_{i=1}^{t-1} g_i}{t}

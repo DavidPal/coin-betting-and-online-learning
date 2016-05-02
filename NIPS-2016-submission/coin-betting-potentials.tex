@@ -74,22 +74,22 @@ $$
 
 The formula for the potential-based
 strategy~\eqref{equation:potential-based-strategy} might seem strange. However,
-it can be derived by considering the inequality
+it is derived by minimizing worst-case value the rhs of the inequality used wrt to $g_t$ in the induction proof above
 $$
-(1+g_t\beta_t) F_{t-1}(x) \ge F_{t-1}(x + g_t)
+F_{t-1}(x) \ge \tfrac{F_{t}(x + g_t)}{1+g_t\beta_t} \; .
 $$
-used in the induction proof above. Dividing through $1+g_t\beta_t$, the left-hand
-side becomes independent of $g_t$ and $\beta_t$ and the right-hand side becomes
-a function of $\beta_t$ and $g_t$,
-$$
-h(g_t, \beta_t) = \tfrac{F_{t-1}(x + g_t)}{1 + g_t\beta_t}
-$$
-Since $g_t \in [-1,1]$ is chosen by an adversary, our best hope is to find
-$\beta_t$ that minimizes $\max_{g_t \in [-1,1]} h(g_t,\beta_t)$. Solution of
-this minimization problem is $\beta_t$ given by
-\eqref{equation:potential-based-strategy}; see
-Theorem~\ref{theorem:optimal-betting-fraction} in
-Appendix~\ref{section:optimal-betting-fraction}.
+For a proof see Theorem~\ref{theorem:optimal-betting-fraction} in Appendix~\ref{section:optimal-betting-fraction}.
+
+% Dividing through $1+g_t\beta_t$, the left-hand
+% side becomes independent of $g_t$ and $\beta_t$ and the right-hand side becomes
+% a function of $\beta_t$ and $g_t$,
+% $$
+% h(g_t, \beta_t) = \tfrac{F_{t}(x + g_t)}{1 + g_t\beta_t}
+% $$
+% Since $g_t \in [-1,1]$ is chosen by an adversary, our best hope is to find
+% $\beta_t$ that minimizes $\max_{g_t \in [-1,1]} h(g_t,\beta_t)$. Solution of
+% this minimization problem is $\beta_t$ given by
+% \eqref{equation:potential-based-strategy}.
 
 We show concrete examples of sequences of coin-betting potentials in
 Section~\ref{section:kt-estimator}.
