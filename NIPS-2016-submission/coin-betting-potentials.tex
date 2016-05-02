@@ -1,8 +1,34 @@
 \section{Coin-Betting Potentials}
 \label{section:coin-betting-potentials}
 
-We consider betting strategies for the (continuous) coin betting problem. The
-type of betting strategies we consider can be viewed as abstractions of
+\citet{Kelly56} proposed a general strategy for sequential bets. For coin
+betting, the strategy assumes that the coin flips $\{g_t\}_{t=1}^\infty$, $g_t
+\in \{+1,-1\}$, are generated i.i.d. with known probability of heads. If $p \in
+[0,1]$ is the probability of heads, the Kelly bet is
+$\beta_t = 2p - 1$.
+He showed that this strategy maximizes $\Exp[\ln(\Wealth_t)]$.
+
+For adversarial coins, Kelly betting does not make sense. However, we can
+replace $p$ with an estimate. In turn, this problem was studied by \citet{KrichevskyT81},
+who proposed that after seeing coin flips $g_1, g_2, \dots, g_{t-1}$ an
+empirical estimate $k_t = \frac{1/2 + \sum_{i=1}^{t-1} \indicator[g_i = +1]}{t}$
+should be used instead of $p$. Their estimate is commonly called \emph{KT
+estimator}.\footnote{Compared to the maximum likelihood estimate
+$\frac{\sum_{i=1}^{t-1} \indicator[g_i = +1]}{t-1}$, KT estimator ``shrinks''
+slightly towards $\nicefrac{1}{2}$.} KT estimator results in the betting strategy
+\begin{equation}
+\label{equation:kt-estimator-betting-strategy}
+\beta_t = 2k_t - 1 = \tfrac{\sum_{i=1}^{t-1} g_i}{t}
+\end{equation}
+which we call \emph{adaptive Kelly betting based on KT estimator}.
+\citeauthor{KrichevskyT81} showed that
+\[
+\forall \beta \in [-1,1] \qquad \qquad \ln(\Wealth_t) \ge \ln(\Wealth_t(\beta)) \ - \ \tfrac{1}{2} \ln t \ - \ \ln(2) \; ,
+\]
+where $\Wealth_t(\beta)$ is the wealth of a strategy that bets the same fraction
+$\beta$ in every round. This guarantee is optimal up to constant additive factors~\citep{Cesa-BianchiL06}.
+
+Here, we consider betting strategies that can be viewed as abstractions of
 adaptive Kelly betting based on KT estimator. For these strategies it is
 possible to prove that for any sequence $g_1, g_2, \dots, g_t \in [-1,1]$,
 \begin{equation}

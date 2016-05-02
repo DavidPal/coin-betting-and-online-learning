@@ -1,14 +1,13 @@
 \section{From Coin Betting to OLO over Hilbert Space}
 \label{section:reduction_hilbert}
 
-We show how to use a sequence of coin-betting potentials $\{F_t\}_{t=0}^\infty$
+In this section, we show how to use a sequence of coin-betting potentials $\{F_t\}_{t=0}^\infty$
 to construct an algorithm for \ac{OLO} over a Hilbert space
 and how to prove regret bound for it.
+We will generalize the one-dimensional construction in Section~\ref{section:one-dimensional-hilbert-space-olo} to an arbitrary
+Hilbert space $\H$.
 
-%\subsection{Arbitrary Hilbert Space}
-
-The one-dimensional construction in Section~\ref{section:one-dimensional-hilbert-space-olo} can be generalized to an arbitrary
-Hilbert space $\H$. First, define reward and wealth analogously
+First, define reward and wealth analogously
 to the one-dimensional case:
 \begin{align*}
 \Reward_t &= \sum_{i=1}^t \langle g_i, w_i \rangle &
