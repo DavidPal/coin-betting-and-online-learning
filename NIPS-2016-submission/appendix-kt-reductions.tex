@@ -8,10 +8,10 @@ lower bound proved for integers in \citet{WillemsST95} to real numbers.
 \begin{lemma}[Lower Bound on KT Potential]
 \label{lemma:approx_gamma_real}
 If $c \ge 1$ and $a,b$ are non-negative reals such that $a + b = c$ then
-$$
+\[
 \ln \left(\frac{\Gamma(a + 1/2) \cdot \Gamma(b + 1/2)}{\pi \cdot \Gamma(c+1)} \right)
 \ge - \ln(e \pi \sqrt{2}) -\frac{1}{2} \ln(c) +\ln \left(\left( \frac{a}{c} \right)^a \left( \frac{b}{c} \right)^b\right) \; .
-$$
+\]
 \end{lemma}
 %
 \begin{proof}
@@ -20,21 +20,21 @@ From \cite{WhittakerW27}[p. 263 Ex. 45], we have
 \frac{\Gamma(a+1/2)\Gamma(b+1/2)}{\Gamma(a+b+1)} \ge \sqrt{2\pi} \frac{(a+1/2)^a (b+1/2)^b}{(a+b+1)^{a+b+1/2}} \; .
 \]
 It remains to show that
-$$
+\[
 \sqrt{2\pi} \frac{(a+1/2)^a (b+1/2)^b}{(a+b+1)^{a+b+1/2}} > \frac{\sqrt{\pi}}{e} \frac{1}{\sqrt{a+b}} \left( \frac{a}{a+b} \right)^a \left( \frac{b}{a+b} \right)^b \; ,
-$$
+\]
 which is equivalent to
-$$
+\[
 \frac{(1+\frac{1}{2a})^a (1+\frac{1}{2b})^b}{(1+\frac{1}{a+b})^{a+b+1/2}} > \frac{1}{e\sqrt{2}} \; .
-$$
+\]
 From the inequality $1 \le (1+1/x)^x < e$ valid for any $x \ge 0$, it follows
 that $1 \le (1+\frac{1}{2a})^a < \sqrt{e}$ and $1 \le (1+\frac{1}{2b})^b < \sqrt{e}$
 and $1 \le (1+1/(a+b))^{a+b} < e$. Hence,
-$$
+\[
 \frac{(1+\frac{1}{2a})^a (1+\frac{1}{2b})^b}{(1+\frac{1}{a+b})^{a+b+1/2}}
 > \frac{1}{e \sqrt{1 + \frac{1}{a+b}}}
 \ge \frac{1}{e \sqrt{2}} \; .
-$$
+\]
 \end{proof}
 
 
@@ -55,9 +55,9 @@ We will prove the equivalent statement that
 The inequality holds with equality in $\delta=0$, so it is enough to prove that
 the derivative of the right-hand side is positive for $\delta > 0$. The
 derivative of the right-hand side is equal to
-$$
+\[
 \Psi(\delta+1) - \frac{1}{2(\delta+1)} -\ln(2) - \Psi\left(\frac{\delta+1}{2} \right) \; ,
-$$
+\]
 where $\Psi(x)$ is the digamma function.
 
 We will use the upper~\citep{Chen05} and lower bound~\citep{Batir08}
@@ -194,13 +194,13 @@ Using Lemma~\ref{lemma:lambert}, we obtain the stated bound.
 
 \begin{proof}[Proof of Corollary~\ref{corollary:kt-hilbert-space-olo-regret}]
 Notice that the KT potential can be written as
-$$
+\[
 F_t(x) = \epsilon \cdot \frac{2^t \cdot \Gamma(1) \Gamma \left(\frac{t+1}{2} + \frac{x}{2} \right) \cdot \Gamma \left(\frac{t+1}{2} - \frac{x}{2} \right)}{ \Gamma(\frac{1}{2})^2 \Gamma(t+1)} \; .
-$$
+\]
 Using Lemma~\ref{lemma:lower_bound_gamma} with $\delta = 0$ we can lower bound $F_t(x)$ with
-$$
+\[
 G_t(x) = \epsilon \cdot \exp\left(\frac{x^2}{2t} + \frac{1}{2} \ln \left(\frac{1}{t} \right) -3 \right) \; .
-$$
+\]
 Since $G_t(x) \le F_t(x)$, we have $F^*_t(x) \le G_t^*(x)$. Using Lemma~\ref{lemma:dual_exp_square}, we have
 \[
 \forall u \in \H \qquad \qquad
@@ -222,9 +222,9 @@ G_t(x) & = \exp\left(\frac{x^2}{2(t+\delta)} +\frac{1}{2} \ln \left(\frac{1+\del
 Let $f_t(x) = \ln(F_t(x))$ and $g_t(x)=\ln(G_t(x))$. By Lemma~\ref{lemma:lower_bound_gamma}, $G_t(x) \le F_t(x)$
 and therefore $f^{-1}_t(x) \leq g^{-1}_t(x)$ for all $x \ge 0$.
 Theorem~\ref{theorem:regret-bound-experts} implies that
-$$
+\[
 \forall u \in \Delta_t \qquad \qquad
 \Regret_t(u) \le f_t^{-1}(\KL{u}{\pi}) \le g_t^{-1}(\KL{u}{\pi}) \; .
-$$
+\]
 Setting $t=T$ and $\delta = T/2$, and overapproximating $g_t^{-1}(\KL{u}{\pi})$ we get the stated bound.
 \end{proof}

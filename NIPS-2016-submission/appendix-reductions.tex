@@ -21,23 +21,23 @@ c(\norm{u}, \norm{v}) \cdot \langle u, v \rangle - h(\norm{u+v})
 If $u$ or $v$ is zero, the inequality \eqref{equation:lemma-extremes-1} clearly
 holds. From now on we assume that $u,v$ are non-zero. Let $\alpha$ be the cosine
 of the angle of between $u$ and $v$. More formally,
-$$
+\[
 \alpha = \frac{\langle u, v \rangle}{\norm{u} \cdot \norm{v}} \; .
-$$
+\]
 With this notation, the left-hand side of \eqref{equation:lemma-extremes-1} is
-$$
+\[
 f(\alpha) = c(\norm{u}, \norm{v}) \cdot \alpha \norm{u} \cdot \norm{v} - h(\sqrt{\norm{u}^2 + \norm{v}^2 + 2 \alpha \norm{u} \cdot \norm{v}}) \; .
-$$
+\]
 Since $h$ is even, the inequality \eqref{equation:lemma-extremes-1} is equivalent to
-$$
+\[
 \forall \alpha \in [-1,1] \qquad \qquad f(\alpha) \ge \min \left\{f(+1), f(-1)\right\} \; .
-$$
+\]
 The last inequality is clearly true if $f:[-1,1] \to \R$ is concave. We now
 check that $f$ is indeed concave, which we prove by showing that the second
 derivative is non-positive. The first derivative of $f$ is
-$$
+\[
 f'(\alpha) = c(\norm{u}, \norm{v}) \cdot \|u\| \cdot \|v\| - \frac{h'(\sqrt{\|u\|^2 + \|v\|^2 + 2 \alpha \|u\| \cdot \|v\|}) \cdot \|u\| \cdot \|v\|}{\sqrt{\|u\|^2 + \|v\|^2 + 2 \alpha \|u\| \cdot \|v\|}} \; .
-$$
+\]
 The second derivative of $f$ is
 \begin{multline*}
 f''(\alpha) = - \frac{\|u\|^2 \cdot \|v\|^2}{\|u\|^2 + \|v\|^2 + 2 \alpha \|u\| \cdot \|v\|} \\
@@ -57,10 +57,10 @@ Let $g_1, g_2, \dots, g_t$ be vectors in a Hilbert space $\H$ such that
 $\norm{g_1}, \norm{g_2}, \dots, \norm{g_t} \le 1$. Let $\beta_t$
 be defined by \eqref{equation:potential-based-strategy-hilbert-space}
 and let $x = \sum_{i=1}^{t-1} g_i$. Then,
-$$
+\[
 \left(1 + \beta_t \frac{\langle g_t, x \rangle}{\norm{x}} \right) F_{t-1}(\norm{x})
 \ge F_t(\norm{x + g_t}) \; .
-$$
+\]
 \end{lemma}
 %
 \begin{proof}

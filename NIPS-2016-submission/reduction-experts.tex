@@ -13,14 +13,14 @@ one-dimensional Hilbert space $\R$. We instantiate $N$ copies of $A$.
 Consider any round $t$. Let $w_{t,i} \in \R$ be the prediction of $i$-th copy of
 $A$. The LEA algorithm computes $\widehat p_t = (\widehat p_{t,1}, \widehat
 p_{t,2}, \dots, \widehat p_{t,N}) \in \R_{0,+}^N$,
-$$
+\[
 \widehat p_{t,i} = \pi_i \cdot [w_{t,i}]_+
-$$
+\]
 where $[x]_+ = \max\{0,x\}$ is the positive part of $x$. Then, the LEA
 algorithm predicts $p_t = (p_{t,1}, p_{t,2}, \dots, p_{t,N}) \in \Delta^N$,
-$$
+\[
 p_t = \frac{\widehat p_t}{\norm{\widehat p_t}_1} \; .
-$$
+\]
 If $\norm{\widehat p_t}_1 = 0$, the algorithm predicts the uniform distribution
 $p_t = \frac{1}{N}(1,1,\dots,1)$. Then, the algorithm receives the loss vector
 $\ell_t = (\ell_{t,1}, \ell_{t,2}, \dots, \ell_{t,N}) \in [0,1]^N$. Finally, it
@@ -67,9 +67,9 @@ $\R$. Suppose that $A$ satisfies
 \eqref{equation:experts-one-dimensional-assumption} for any sequence
 $\{g_t\}_{t=1}^\infty$ such that $g_t \in [-1,1]$. Then, the regret of the
 LEA algorithm with prior $\pi \in \Delta_N$, based on $A$, satisfies
-$$
+\[
 \forall u \in \Delta_N \qquad \qquad
 \Regret_t(u) \le f_t^{-1}\left( \KL{u}{\pi} \right) \; .
-$$
+\]
 \end{theorem}
 
