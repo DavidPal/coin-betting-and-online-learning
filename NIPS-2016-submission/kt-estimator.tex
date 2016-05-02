@@ -14,7 +14,7 @@ $\beta_t$ defined by \eqref{equation:kt-estimator-betting-strategy}
 based on the KT estimator is
 \begin{equation}
 \label{equation:kt-estimator-potential}
-F_t(x) = \epsilon \frac{2^t \cdot \Gamma \left( \frac{t+1}{2} + \frac{x}{2} \right) \cdot \Gamma \left( \frac{t+1}{2} - \frac{x}{2} \right)}{\pi \cdot t!}
+F_t(x) = \epsilon \tfrac{2^t \cdot \Gamma \left( \tfrac{t+1}{2} + \frac{x}{2} \right) \cdot \Gamma \left( \tfrac{t+1}{2} - \frac{x}{2} \right)}{\pi \cdot t!}
 \qquad \qquad \text{$t \ge 0$, \quad $x \in \left(-t-1, t+1\right)$,}
 \end{equation}
 where $\Gamma(x) = \int_0^\infty t^{-x} e^{-t} dt$ is Euler's gamma function.
@@ -40,7 +40,7 @@ i.e., it satisfies \eqref{equation:potential-based-strategy}.
 \REQUIRE{Initial endowment $\epsilon > 0$}
 %\STATE{Initialize $\Wealth_0 \leftarrow \epsilon$}
 \FOR{$t=1,2,\dots$}
-\STATE{Predict with $w_t \leftarrow \frac{1}{t} \left(\epsilon + \sum_{i=1}^{t-1} \langle g_i, w_i \rangle \right) \sum_{i=1}^{t-1} g_i$}
+\STATE{Predict with $w_t \leftarrow \tfrac{1}{t} \left(\epsilon + \sum_{i=1}^{t-1} \langle g_i, w_i \rangle \right) \sum_{i=1}^{t-1} g_i$}
 %\STATE{Predict $w_t$}
 \STATE{Receive reward vector $g_t \in \H$ such that $\norm{g_t} \le 1$}
 %\STATE{Update $\Wealth_t \leftarrow \Wealth_{t-1} \ + \ \langle g_t, w_t \rangle$}
@@ -53,7 +53,7 @@ We apply KT potential for construction of an OLO algorithm over a Hilbert
 space $\H$. According to \eqref{equation:hilbert-space-olo}, the resulting algorithm predicts
 in round $t$,
 $$
-w_t = \beta_t \Wealth_{t-1} \frac{\sum_{i=1}^{t-1} g_i}{\norm{\sum_{i=1}^{t-1} g_i}}
+w_t = \beta_t \Wealth_{t-1} \tfrac{\sum_{i=1}^{t-1} g_i}{\norm{\sum_{i=1}^{t-1} g_i}}
 $$
 where $\beta_t$ is defined by
 \eqref{equation:potential-based-strategy-hilbert-space}. According to
@@ -63,8 +63,8 @@ $\beta_t = \frac{\norm{\sum_{i=1}^{t-1} g_i}}{t}$. Hence, the prediction can be
 written as
 $$
 w_t
-= \frac{1}{t} \Wealth_{t-1} \sum_{i=1}^{t-1} g_i
-= \frac{1}{t} \left(\epsilon + \sum_{i=1}^{t-1} \langle g_i, w_i \rangle \right) \sum_{i=1}^{t-1} g_i \; .
+= \tfrac{1}{t} \Wealth_{t-1} \sum_{i=1}^{t-1} g_i
+= \tfrac{1}{t} \left(\epsilon + \sum_{i=1}^{t-1} \langle g_i, w_i \rangle \right) \sum_{i=1}^{t-1} g_i \; .
 $$
 The algorithm is stated as Algorithm~\ref{algorithm:kt-hilbert-space-olo}.
 
@@ -84,7 +84,7 @@ Algorithm~\ref{algorithm:kt-hilbert-space-olo} satisfies
 $$
 \forall \, T \ge 0 \quad
 \forall u \in \H \qquad \qquad
-\Regret_T(u) \le \norm{u} \sqrt{T \ln\left(1 + \frac{4T^2 \norm{u}^2}{\epsilon^2} \right)} + \epsilon \left(1 - \frac{1}{2\sqrt{T}} \right) \;.
+\Regret_T(u) \le \norm{u} \sqrt{T \ln\left(1 + \tfrac{4T^2 \norm{u}^2}{\epsilon^2} \right)} + \epsilon \left(1 - \tfrac{1}{2\sqrt{T}} \right) \;.
 $$
 \end{corollary}
 
@@ -96,7 +96,7 @@ We will construct an algorithm for Learning with Expert Advice based on
 requires to know the number of rounds $T$ in advance. The shifted KT
 potential is defined as
 $$
-F_t(x) = \frac{2^t \cdot \Gamma\left(T/2 + 1 \right) \cdot \Gamma\left(\frac{t+T/2+1}{2} + \frac{x}{2} \right) \cdot \Gamma\left(\frac{t+T/2+1}{2} - \frac{x}{2} \right)}{\Gamma\left(\frac{T/2+1}{2} \right)^2 \cdot \Gamma \left(t+T/2+1\right)} \; .
+F_t(x) = \tfrac{2^t \cdot \Gamma\left(T/2 + 1 \right) \cdot \Gamma\left(\tfrac{t+T/2+1}{2} + \frac{x}{2} \right) \cdot \Gamma\left(\tfrac{t+T/2+1}{2} - \frac{x}{2} \right)}{\Gamma\left(\tfrac{T/2+1}{2} \right)^2 \cdot \Gamma \left(t+T/2+1\right)} \; .
 $$
 The reason for its name is that, up to a multiplicative constant, $F_t$ is equal
 to the KT potential shifted in time by $T/2$, i.e., $t$ is replaced by $T/2+t$.
@@ -105,7 +105,7 @@ According to Theorem~\ref{theorem:kt-potential} in Appendix
 a sequence of coin-betting potentials for initial endowment $1$. Furthermore, the
 corresponding betting fraction is
 $$
-\beta_t = \frac{\sum_{j=1}^{t-1} g_j}{T/2+t} \; .
+\beta_t = \tfrac{\sum_{j=1}^{t-1} g_j}{T/2+t} \; .
 $$
 Recall that for construction of the final algorithm, we need, as an intermediate
 step, an OLO algorithm for one-dimensional Hilbert space $\R$. This algorithm
@@ -131,7 +131,7 @@ at the final algorithm, Algorithm~\ref{algorithm:kt-experts}.
 \STATE{Predict with $p_t \leftarrow
 \begin{cases}
 \widehat{p}_t/\norm{\widehat{p_t}}_1 & \text{if $\norm{\widehat p_t}_1 > 0$} \\
-\frac{1}{N}(1,1,\dots,1) & \text{if $\norm{\widehat p_t}_1 = 0$}
+\tfrac{1}{N}(1,1,\dots,1) & \text{if $\norm{\widehat p_t}_1 = 0$}
 \end{cases}$}
 %\STATE{Predict $p_t$}
 \STATE{Receive loss vector $\ell_t \in [0,1]^N$}
@@ -174,7 +174,7 @@ the standard doubling trick~\citep[Section 2.3.1]{Shalev-Shwartz12}. We obtain
 an anytime algorithm at the expense of slightly worse regret bound,
 $$
 \forall \, T \ge 0 \quad \forall u \in \Delta_N \qquad \qquad
-\Regret_T(u) \le \frac{\sqrt{2}}{\sqrt{2} - 1} \sqrt{3T (4 + \KL{u}{\pi})} \; .
+\Regret_T(u) \le \tfrac{\sqrt{2}}{\sqrt{2} - 1} \sqrt{3T (4 + \KL{u}{\pi})} \; .
 $$
 
 Also, as observed by \citet{ChernovV10}, bounds in terms of the KL
