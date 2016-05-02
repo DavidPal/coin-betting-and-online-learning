@@ -17,7 +17,7 @@ based on the KT estimator is
 F_t(x) = \epsilon \frac{2^t \cdot \Gamma \left( \frac{t+1}{2} + \frac{x}{2} \right) \cdot \Gamma \left( \frac{t+1}{2} - \frac{x}{2} \right)}{\pi \cdot t!}
 \qquad \qquad \text{$t \ge 0$, \quad $x \in \left(-t-1, t+1\right)$,}
 \end{equation}
-where $\Gamma(x) = ￼\int_0^\infty t^{-x} e^{-t} dt$ is Euler's gamma function.
+where $\Gamma(x) = \int_0^\infty t^{-x} e^{-t} dt$ is Euler's gamma function.
 The potential was introduced by~\citet{KrichevskyT81} who used it for proving
 regret bound for online prediction with log-loss; see also \cite[Section
 9.7]{Cesa-BianchiL06}.
@@ -30,6 +30,7 @@ also shows that KT betting strategy $\beta_t$ as defined by
 i.e., it satisfies \eqref{equation:potential-based-strategy}.
 
 \subsection{OLO in Hilbert Space}
+\label{sec:kt-olo}
 
 \begin{algorithm}[t]
 \caption{Algorithm for OLO over Hilbert space $\H$ based on KT potential
@@ -88,6 +89,7 @@ $$
 \end{corollary}
 
 \subsection{Learning with Expert Advice}
+\label{sec:kt-lea}
 
 We will construct an algorithm for Learning with Expert Advice based on
 \emph{shifted KT potential}. The shifted potential and the resulting algorithm

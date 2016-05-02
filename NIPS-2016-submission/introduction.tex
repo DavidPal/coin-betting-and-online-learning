@@ -1,73 +1,72 @@
 \section{Introduction}
 \label{section:introduction}
 
-\ac{OLO} is a problem where an algorithm repeatedly chooses a point $w_t$ from
-a convex decision set $K$, observes an arbitrary, or even adversarially chosen,
-loss vector $\ell_t$ and suffers loss $\langle \ell_t, w_t \rangle$. The goal
-of the algorithm is to have a small cumulative loss. The performance of an
-algorithm is evaluated by the so-called regret, which is the difference of the
-cumulative losses of the algorithm and of the (hypothetical) strategy that
-would choose in every round the same best point, $u$, in hindsight. Typically,
-one tries to prove that the regret grows at most sub-linearly in time. Most of
-the \ac{OLO} algorithms are based on the nowadays standard tools of strong
-convexity/strong smoothness duality; see for example~\citet{Shalev-Shwartz12}.
+We consider the \ac{OLO}~\cite{Cesa-BianchiL06,Shalev-Shwartz12} setting. In each round $t$, an algorithm chooses a point
+$w_t$ from a convex \emph{decision set} $K$ and then receives a loss vector
+$\ell_t$. Algorithm's goal is to keep its \emph{regret} small, defined as the
+difference between its cumulative loss and the cumulative loss of a fixed
+strategy $u \in K$, that is
+\[
+\Regret_T(u) = \sum_{t=1}^T \langle \ell_t, w_t \rangle - \sum_{t=1}^T \langle \ell_t, u \rangle \; .
+\]
 
-\ac{OLO} is a basic building block in many other related problems. For example,
-\ac{OCO}, the analogous problem where $\langle \ell_t, w_t \rangle$ is
+We focus on two particular sets, the $N$-dimensional probability simplex
+$\Delta_N = \{ x \in \R^N ~:~ x \ge 0, \norm{x}_1 = 1\}$ and the Hilbert space
+$\H$.  \ac{OLO} over $\Delta_N$ is referred to as the problem of \ac{LEA}.  We
+assume bounds on the norms of the loss vectors: For \ac{OLO} over $\H$, we
+assume that $\norm{\ell_t}_2 \le 1$, and for \ac{LEA} we assume that
+$\ell_t \in [0,1]^N$.
+
+\ac{OLO} is a basic building block of many machine learning problems. For
+example, \ac{OCO}, the problem analogous to \ac{OLO} where $\langle \ell_t, w_t \rangle$ is
 generalized to $\ell_t(w_t)$ where $\ell_t$ is an arbitrary convex function, is
-solved through a reduction to an \ac{OLO} problem~\citep{Cesa-BianchiL06,
-Shalev-Shwartz12}. \ac{LEA}~\citep{LittlestoneW94, Vovk98, Cesa-BianchiFHHSW97}
-is an \ac{OLO} problem in which the loss vectors belong to $[0,1]^N$ and $w_t$
-is constrained to be in the probability simplex. Also, batch and stochastic
-optimization of convex functions can be solved through a reduction to
-\ac{OLO}~\citep{Shalev-Shwartz12}. Statistical learning with convex losses can
-also seen as stochastic optimization of convex functions and hence solved
-through \ac{OCO}~\citep{Munro1951}. Thus, a sublinear regret in \ac{OLO} becomes
-a convergence guarantee or a generalization bound.
+solved through a reduction to an \ac{OLO}~\cite{Shalev-Shwartz12}.
+\ac{LEA}~\cite{LittlestoneW94, Vovk98,Cesa-BianchiFHHSW97} provides a way of
+combining classifiers and it is at the heart of
+boosting~\cite{FreundS97}. Batch and stochastic convex optimization
+can be solved through a reduction to \ac{OLO}~\cite{Shalev-Shwartz12}.
+Statistical learning with convex losses can also seen as stochastic convex
+optimization and solved through \ac{OCO}~\cite{Munro51}, that in turns can be reduced to \ac{OLO}.
 
-However, as essential as it is to achieve sublinear regret, this is only half of
-the problem in online learning. In fact, we are often interested in the
-adaptation to the (often unknown) characteristics of the data. Most of the time,
-online and batch learning algorithms fail on this side, requiring to set
-hyperparameters (e.g., learning rates, step sizes, and regularization weights)
-to oracle choices in order to achieve the best possible theoretical and
-empirical performance. Recently, a new family of algorithms that adapt to the
-data has been proposed, both for \ac{LEA}~\citep{ChaudhuriYH09, ChernovV10,
-LuoE14, LuoS15, KoolenE15} and for \ac{OLO}/\ac{OCO} over Hilbert
-spaces~\citep{StreeterM12, Orabona13, McMahanA13, McMahanO14, Orabona14}. These
-algorithms adapt to the number of experts and to the norm of the optimal
-predictor, respectively, without the need to tune parameters. Given the
-connections between \ac{OLO}/\ac{LEA} and machine learning, these algorithms
+However, to achieve small regret, most of the algorithms still require to set
+hyperparameters (e.g., learning rates, regularization weights) in
+order to achieve the best possible theoretical and empirical performance.
+Recently, a new family of parameter-free algorithms that has been proposed, both for \ac{LEA}~\cite{ChaudhuriFH09,ChernovV10,LuoS14,LuoS15,KoolenE15}
+and for \ac{OLO}/\ac{OCO} over Hilbert spaces~\cite{StreeterM12,Orabona13, McMahanA13,McMahanO14,Orabona14}.
+These algorithms adapt to the number of experts and to the norm of the optimal
+predictor, respectively, without the need to tune parameters. 
+Given the connections between \ac{OLO}/\ac{LEA} and machine learning, these algorithms
 allow to design parameter-free batch machine learning algorithms through
-straightforward reductions~\citep{Orabona14,LuoS15}. Both families of algorithms
-seem to require very sophisticated analysis tools, much more complex than the
-previous ones. Surprisingly enough, these two families of algorithms are also
-very similar, yet no attempt has been made to unify them.
+straightforward reductions~\cite{Orabona14,LuoS15}.
+Yet, not all of them are practical algorithms and/or have optimal regret bounds, see Table~\ref{tab:bounds}.
+Alos, surprisingly enough, these two families of algorithms are very similar, and, a part for the non-constructive framework in \cite{FosterRS15}, there is no unifying framework.
 
 Our contributions are as follows. We claim that a more fundamental notion
-subsumes both \ac{OLO} and \ac{LEA}. This notion is linked to the ability of an
-algorithm to repeatedly bet on an outcome of a coin flip
-(Section~\ref{section:coin-betting-potentials}). In fact, we show black box
-reductions from the coin betting scenario to \ac{OLO} over Hilbert spaces and to
-\ac{LEA}, where the guarantee on the wealth accumulated by any coin betting
-algorithm easily translates to regret bounds for the two domains
-(Sections~\ref{section:reduction_hilbert} and~\ref{section:reduction-experts}).
-We prove that coin betting strategies that assure an exponential growth of the
-wealth for biased coins allow to obtain parameter-free regret bounds in \ac{OLO}
-and in \ac{LEA}. Namely, we show that the optimal strategy for sequential
-betting based on the well-known \ac{KT} estimator~\citep{KrichevskyT81} can be
-used in a simple and direct way to recover and slightly improve parameter-free
-algorithms for \ac{OLO} and \ac{LEA} (Section~\ref{section:kt-estimator}). In
-particular, for \ac{OLO} over any Hilbert space, we obtain $O(\norm{u}\sqrt{T
-\log(1+T \norm{u}}))$ regret with respect to any competitor $u$. For \ac{LEA},
-we obtain $O(\sqrt{T (1 + \KL{u}{\pi})})$ regret against any competitor $u$ and
-where $\KL{u}{\pi}$ is the Kullback-Leibler divergence between algorithm's prior
-distribution $\pi$ and the competitor. Both algorithms are simple reductions
-from \ac{KT} coin betting, are extremely natural and intuitive, the proofs of
-the regret bounds are immediate given the reductions, and they also shed a light
-on previous ad-hoc and complex constructions. Finally, in
-Section~\ref{sec:discussion} we discuss in details previous and future work.
+subsumes both \ac{OLO} and \ac{LEA} parameter-free algorithms. This notion is
+linked to the ability to repeatedly bet on an outcome of a coin
+flip. This new notion allows us to design novel parameter-free algorithms. In particular, the resulting algorithms are simple and have optimal guarantees, Table~\ref{tab:bounds}. We also show some applications of our results to convex optimization and machine learning.
 
-%We will also show connections between the optimal betting strategy known in
-%economics as Kelly betting \citep{Kelly56} and online learning, and hence
-%indirectly with stochastic optimization and statistical learning.
+\begin{table}
+\begin{center}
+\begin{small}
+\begin{tabular}{l c c c}
+\toprule
+Algorithm & Worst-case regret guarantee& \begin{tabular}{@{}c@{}}Closed form \\  update\end{tabular} & Adaptive \\
+\midrule
+\cite{AbernethyBRT08} & $U \sqrt{T}$ for $u \in \H: \norm{u} \leq U$, $\scO(T)$ otherwise & Yes & No \\
+OGD, fixed $\eta$ \cite{Shalev-Shwartz12} & $\scO((1 + \norm{u}^2)\sqrt{T})$ for $u \in \H$ & Yes & No \\
+This paper, Sec.~\ref{sec:kt-olo} & $\scO(\norm{u}\sqrt{T \ln(1+\norm{u}T)}+1)$ for $u \in \H$ & Yes & Yes \\
+\midrule
+Hegde, fixed $\eta$ & $\scO\left(\sqrt{T (\ln(N)-U)}\right)$ for $u \in \Delta_N: H(u) \geq U$, & Yes & No \\
+\cite{ChaudhuriFH09}  & $\scO\left(\sqrt{T \KL{u}{\tfrac{1}{N}\boldsymbol{1}}}+\ln^2 N\right)$ for $u \in \Delta_N$ & No & Yes \\
+\cite{ChernovV10} & $\scO\left(\sqrt{T}\left(\sqrt{\KL{u}{\tfrac{1}{N}\boldsymbol{1}}}+1\right)\right)$ for $u \in \Delta_N$ & No & Yes \\
+\cite{LuoS15,KoolenE15} & $\scO\left(\sqrt{T \left(\ln \ln(T)+\KL{u}{\tfrac{1}{N}\boldsymbol{1}}\right)}\right)$ for $u \in \Delta_N$ & Yes & Yes \\
+\cite{FosterRS15} & $\scO\left(\sqrt{T \left(1+\KL{u}{\tfrac{1}{N}\boldsymbol{1}}\right)}\right)$ for $u \in \Delta_N$ & No & Yes \\
+This paper, Sec.~\ref{sec:kt-lea} & $\scO\left(\sqrt{T \left(1+\KL{u}{\tfrac{1}{N}\boldsymbol{1}}\right)}\right)$ for $u \in \Delta_N$ & Yes & Yes \\
+\bottomrule
+\end{tabular}
+\caption{Bla.}
+\label{tab:bounds}
+\end{small}
+\end{center}
+\end{table}

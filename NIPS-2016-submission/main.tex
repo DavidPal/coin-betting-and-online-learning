@@ -1,15 +1,24 @@
 \documentclass{article}
 
+\PassOptionsToPackage{numbers, compress}{natbib}
+
 \usepackage[final]{nips_2016}
 % For anonymous submission use:  \usepackage{nips_2016} 
 % For camera-ready version use:  \usepackage[final]{nips_2016} 
 
-\usepackage{hyperref}       % hyperlinks
-\usepackage{url}            % simple URL typesetting
 \usepackage{amssymb,amsmath,amsthm}
 \usepackage[nolist]{acronym}
 \usepackage{algorithm,algorithmic}
 \usepackage{enumerate}
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
 
 \newtheorem{definition}{Definition}
 \newtheorem{lemma}[definition]{Lemma}
@@ -26,11 +35,13 @@
 \newcommand{\R}{\mathbb{R}}     % real numbers
 \newcommand{\C}{\mathbb{C}}     % complex numbers
 \renewcommand{\H}{\mathcal{H}}  % Hilbert space
-\newcommand{\KL}[2]{D\left({#1}\middle\|{#2}\right)}  % KL divergence
+\newcommand{\KL}[2]{\D\left({#1}\middle\|{#2}\right)}  % KL divergence
 \newcommand{\norm}[1]{\left\|{#1}\right\|}
+\DeclareMathOperator*{\D}{D}
 \DeclareMathOperator*{\argmin}{arg\,min}
 \DeclareMathOperator*{\argmax}{arg\,max}
 \newcommand{\indicator}{\mathbf{1}}
+\newcommand{\scO}{\mathcal{O}}
 
 \begin{acronym}
 \acro{EG}{Exponentiated Gradient}
@@ -61,7 +72,7 @@
   \texttt{dpal@yahoo-inc.com}
 }
 
-\title{From Coin Betting to Parameter-Free Online Learning}
+\title{Coin Betting and Parameter-Free Online Learning}
 
 \begin{document}
 
@@ -78,13 +89,8 @@ In this paper, we unify these two families, showing that both can be
 instantiated from online coin betting algorithms. We present two new reductions
 from online coin betting to online linear optimization over Hilbert spaces and
 to learning with expert advice. We instantiate our framework using a betting
-algorithm based on the Krichevsky-Trofimov estimator. We obtain a simple
-algorithm for online linear optimization over any Hilbert space with
-$O(\norm{u}\sqrt{T \log(1+T \norm{u}}))$ regret with respect to any competitor
-$u$. For learning with expert advice we obtain an algorithm that has $O(\sqrt{T
-(1 + \KL{u}{\pi})})$ regret against any competitor $u$ and where $\KL{u}{\pi}$
-is the Kullback-Leibler divergence between algorithm's prior distribution $\pi$
-and the competitor. In both cases, no parameters need to be tuned.
+algorithm based on the Krichevsky-Trofimov estimator. We obtain optimal regret
+bounds with simple algorithms, and no parameters to be tuned.
 \end{abstract}
 
 \input{introduction}
@@ -101,12 +107,13 @@ and the competitor. In both cases, no parameters need to be tuned.
 The authors thank Jacob Abernethy, Nicol\`{o} Cesa-Bianchi, Satyen Kale,
 Chansoo Lee, and  Giuseppe Molteni for useful discussions on this work.
 
-\bibliographystyle{abbrvnat}
+\bibliographystyle{plainnat}
 \bibliography{learning}
 
 \appendix
 \input{appendix-coin-betting}
 \input{appendix-reductions}
+\input{appendix-expert-reduction}
 \input{appendix-kt-potential}
 \input{appendix-kt-reductions}
 
