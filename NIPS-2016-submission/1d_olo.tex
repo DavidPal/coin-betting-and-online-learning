@@ -17,15 +17,14 @@ Let us define ``wealth'' of the OLO algorithm as $\Wealth_t = \epsilon +
 %\eqref{equation:wealth-recurrence}. Clearly, the recurrence is not necessarily
 %satisfied for an arbitrary OLO algorithm.
 
-Intuitevely, we want the reward to be big, on any sequence of $g_t$. If we assume that the predictions of the algorithm
-are of the form
+Intuitevely, we want the reward to be big, on any sequence of $g_t$. We now restrict our attention to algorithms whose predictions are of the form of a bet:
 \begin{equation}
 \label{equation:one-dimensional-olo}
 w_t = \beta_t \Wealth_{t-1}
 = \beta_t \left(\epsilon+ \sum_{i=1}^{t-1} g_i w_i \right),
 \end{equation}
-where $\beta_t \in [-1,1]$, we see that the recurrence
-\eqref{equation:wealth-recurrence} holds.
+where $\beta_t \in [-1,1]$. In this way the recurrence \eqref{equation:wealth-recurrence} holds.
+
 %Indeed,
 %\[
 %\Wealth_t
@@ -37,7 +36,7 @@ This of course works in reverse: If we have a coin-betting algorithm that on a
 sequence of coin flips $\{g_t\}_{t=1}^\infty$, $g_t \in [-1,1]$, bets fractions
 $\beta_t \in [-1,1]$, we can use it to construct an OLO algorithm in a
 one-dimensional Hilbert space $\R$ according to equation
-\eqref{equation:one-dimensional-olo}. Hence, we can use a betting algorithm on 1-d \ac{OLO}.
+\eqref{equation:one-dimensional-olo}.
 
 Assume now that the betting algorithm at hand guarantees that its wealth is at least $F(\sum_{t=1}^T g_t)$ starting from an endowement $\epsilon$, then 
 \begin{equation}
@@ -54,7 +53,7 @@ on the regret. This can be done using the following lemma from~\cite{McMahanO14}
 Let $V,V^*$ be a pair of dual vector spaces. Let $F:V \to \R \cup \{+\infty\}$
 be a proper convex lower semi-continuous function and let $F^*:V^* \to \R \cup
 \{+\infty\}$ be its Fenchel conjugate. Let $w_1, w_2, \dots, w_T \in V$ and
-$g_1, g_2, \dots, g_T \in V^*$ be two sequences of vectors.  Then,
+$g_1, g_2, \dots, g_T \in V^*$.  Then,
 \[
 \underbrace{\sum_{t=1}^T \langle g_t, w_t \rangle}_{\Reward_T} \ge F\left( \sum_{t=1}^T g_t \right)
 \qquad \text{is equivalent to} \qquad
