@@ -50,20 +50,20 @@ In particular, the resulting algorithms are simple and have optimal guarantees, 
 \resizebox{\linewidth}{!}{%
 \begin{tabular}{l c c c c}
 \toprule
-Algorithm & Worst-case regret guarantee& \begin{tabular}{@{}c@{}}Closed-form\\update\end{tabular} & Adaptive & \begin{tabular}{@{}c@{}}Unified \\  design\end{tabular}\\
+Algorithm & Worst-case regret guarantee& \begin{tabular}{@{}c@{}}Time\\update\end{tabular} & Adaptive & \begin{tabular}{@{}c@{}}Unified \\  design\end{tabular}\\
 \midrule
 \cite{AbernethyBRT08} & \begin{tabular}{@{}c@{}}$U \sqrt{T}$, $\forall u \in \H, \norm{u} \leq U$\\
-$\scO(T)$ otherwise\end{tabular} & \checkmark &  \\
-OGD, $\eta=\tfrac{1}{\sqrt{T}}$ \cite{Shalev-Shwartz12} & $\scO((1 + \norm{u}^2)\sqrt{T})$, $\forall u \in \H$ & \checkmark &  \\
-\cite{McMahanO14} & $\scO(\norm{u}\sqrt{T \ln(1+\norm{u}T)})$, $\forall u \in \H$ & \checkmark & \checkmark \\
-This paper, Sec.~\ref{sec:kt-olo} & $\scO(\norm{u}\sqrt{T \ln(1+\norm{u}T)})$, $\forall u \in \H$ & \checkmark & \checkmark & \checkmark\\
+$\scO(T)$ otherwise\end{tabular} & $\scO(1)$ &  \\
+OGD, $\eta=\tfrac{1}{\sqrt{T}}$ \cite{Shalev-Shwartz12} & $\scO((1 + \norm{u}^2)\sqrt{T})$, $\forall u \in \H$ & $\scO(1)$ &  \\
+\cite{McMahanO14} & $\scO(\norm{u}\sqrt{T \ln(1+\norm{u}T)})$, $\forall u \in \H$ & $\scO(1)$ & \checkmark \\
+This paper, Sec.~\ref{sec:kt-olo} & $\scO(\norm{u}\sqrt{T \ln(1+\norm{u}T)})$, $\forall u \in \H$ & $\scO(1)$ & \checkmark & \checkmark\\
 \midrule
-Hegde, $\eta=\sqrt{\tfrac{\ln N - U}{T}}$ & $\scO\left(\sqrt{T (\ln N -U)}\right)$, $\forall u \in \Delta_N, H(u) \geq U$ & \checkmark &  \\
-\cite{ChaudhuriFH09}  & $\scO\left(\sqrt{T \KL{u}{\tfrac{1}{N}\boldsymbol{1}}}+\ln^2 N\right)$, $\forall u \in \Delta_N$ &  & \checkmark \\
-\cite{ChernovV10} & $\scO\left(\sqrt{T}\left(\sqrt{\KL{u}{\tfrac{1}{N}\boldsymbol{1}}}+1\right)\right)$, $\forall u \in \Delta_N$ &  & \checkmark \\
-\cite{ChernovV10,LuoS15,KoolenE15} & $\scO\left(\sqrt{T \left(\ln \ln T+\KL{u}{\tfrac{1}{N}\boldsymbol{1}}\right)}\right)$, $\forall u \in \Delta_N$ & \checkmark & \checkmark \\
-\cite{FosterRS15} & $\scO\left(\sqrt{T\max(\KL{u}{\tfrac{1}{N}\boldsymbol{1}},1)} \right)$, $\forall u \in \Delta_N$ &  & \checkmark & \checkmark \\
-This paper, Sec.~\ref{sec:kt-lea} & $\scO\left(\sqrt{T \left(1+\KL{u}{\tfrac{1}{N}\boldsymbol{1}}\right)}\right)$, $\forall u \in \Delta_N$ & \checkmark & \checkmark & \checkmark\\
+Hegde, $\eta=\sqrt{\tfrac{\ln N - U}{T}}$ & $\scO\left(\sqrt{T (\ln N -U)}\right)$, $\forall u \in \Delta_N, H(u) \geq U$ & $\scO(N)$ &  \\
+\cite{ChaudhuriFH09}  & $\scO\left(\sqrt{T \KL{u}{\tfrac{1}{N}\boldsymbol{1}}}+\ln^2 N\right)$, $\forall u \in \Delta_N$ & Numerical & \checkmark \\
+\cite{ChernovV10} & $\scO\left(\sqrt{T}\left(\sqrt{\KL{u}{\tfrac{1}{N}\boldsymbol{1}}}+1\right)\right)$, $\forall u \in \Delta_N$ & Numerical & \checkmark \\
+\cite{ChernovV10,LuoS15,KoolenE15} & $\scO\left(\sqrt{T \left(\ln \ln T+\KL{u}{\tfrac{1}{N}\boldsymbol{1}}\right)}\right)$, $\forall u \in \Delta_N$ & $\scO(N)$ & \checkmark \\
+\cite{FosterRS15} & $\scO\left(\sqrt{T\max(\KL{u}{\tfrac{1}{N}\boldsymbol{1}},1)} \right)$, $\forall u \in \Delta_N$ & $\scO(N \max_{u \in \Delta_N} \ln \KL{u}{\pi})$ & \checkmark & \checkmark \\
+This paper, Sec.~\ref{sec:kt-lea} & $\scO\left(\sqrt{T \left(1+\KL{u}{\tfrac{1}{N}\boldsymbol{1}}\right)}\right)$, $\forall u \in \Delta_N$ & $\scO(N)$ & \checkmark & \checkmark\\
 \bottomrule
 \end{tabular}}
 \caption{Bla.}
