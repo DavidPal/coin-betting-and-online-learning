@@ -21,10 +21,10 @@ algorithm predicts $p_t = (p_{t,1}, p_{t,2}, \dots, p_{t,N}) \in \Delta^N$,
 \[
 p_t = \frac{\widehat p_t}{\norm{\widehat p_t}_1} \; .
 \]
-If $\norm{\widehat p_t}_1 = 0$, the algorithm predicts the uniform distribution
-$p_t = \frac{1}{N}(1,1,\dots,1)$. Then, the algorithm receives the loss vector
+If $\norm{\widehat p_t}_1 = 0$, the algorithm predicts the prior, $\pi$.
+Then, the algorithm receives the loss vector
 $\ell_t = (\ell_{t,1}, \ell_{t,2}, \dots, \ell_{t,N}) \in [0,1]^N$. Finally, it
-feeds reward to each copy of $A$. The reward for $i$-th copy is $g_{t,i} \in
+feeds the reward to each copy of $A$. The reward for $i$-th copy is $g_{t,i} \in
 [-1,1]$ defined as
 \begin{align}
 \label{eq:gradients_experts_reduction}

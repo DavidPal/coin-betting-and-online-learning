@@ -83,16 +83,10 @@
 \begin{abstract}
 In the recent years a number of parameter-free algorithms for online linear
 optimization over Hilbert spaces and for learning with expert advice have been
-developed. While these two families of algorithms might seem different to a
-distract eye, the proof methods are indeed very similar, making the reader
-wonder if such a connection is only accidental.
+developed. These algorithms achieve optimal regret bounds that depend on the unknown competitors, without having to tune the learning rates with oracle choices.
 
-In this paper, we unify these two families, showing that both can be
-instantiated from online coin betting algorithms. We present two new reductions
-from online coin betting to online linear optimization over Hilbert spaces and
-to learning with expert advice. We instantiate our framework using a betting
-algorithm based on the Krichevsky-Trofimov estimator. We obtain optimal regret
-bounds with simple algorithms, and no parameters to be tuned.
+We present a new framework to reduce online linear optimization over Hilbert spaces and learning with expert advice, to betting on a coin. We instantiate our framework using a betting algorithm based on the Krichevsky-Trofimov estimator.
+We obtain optimal regret bounds with simple and natural algorithms, and no parameters to be tuned.
 \end{abstract}
 
 \input{introduction}

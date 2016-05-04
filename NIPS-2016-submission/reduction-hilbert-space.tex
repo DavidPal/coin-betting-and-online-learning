@@ -3,7 +3,7 @@
 
 In this section, we show how to use a sequence of coin-betting potentials $\{F_t\}_{t=0}^\infty$
 to construct an algorithm for \ac{OLO} over a Hilbert space
-and how to prove regret bound for it.
+and how to prove a regret bound for it.
 We will generalize the one-dimensional construction in Section~\ref{section:one-dimensional-hilbert-space-olo} to an arbitrary
 Hilbert space $\H$.
 
@@ -15,7 +15,7 @@ to the one-dimensional case:
 \Wealth_t &= \epsilon + \Reward_t \; .
 \end{align*}
 Given a sequence of coin-betting potentials $\{F_t\}_{t=0}^\infty$,
-we define fraction
+we define the fraction
 \begin{equation}
 \label{equation:potential-based-strategy-hilbert-space}
 \beta_t = \tfrac{F_t \left(\norm{\sum_{i=1}^{t-1} g_i} + 1\right) - F_t\left(\norm{\sum_{i=1}^{t-1} g_i} - 1 \right)}{F_t\left(\norm{\sum_{i=1}^{t-1} g_i} + 1 \right) + F_t\left(\norm{\sum_{i=1}^{t-1} g_i} - 1 \right)} \; .
