@@ -4,10 +4,10 @@
 \begin{theorem}[Optimal Betting Fraction]
 \label{theorem:optimal-betting-fraction}
 Let $x \in \R$. Let $F:[x-1,x+1]$ be a logaritmically convex function. Then,
-$$
+\[
 \argmin_{\beta \in (-1,1)} \max_{g \in [-1,1]} \ \frac{F(x+g)}{1 + \beta g}
 = \frac{F(x+1) - F(x-1)}{F(x+1) + F(x-1)} \; .
-$$
+\]
 \end{theorem}
 
 \begin{proof}
@@ -20,20 +20,20 @@ f(g, \beta) & = \ln (h(g,\beta)) = \ln(F(x+g)) - \ln(1 + \beta g) \; .
 Clearly, $\argmin_{\beta \in (-1,1)} \max_{g \in [-1,1]} h(g,\beta) = \argmin_{\beta \in (-1,1)} \max_{g \in [-1,1]} f(g,\beta)$
 and we can work with $f$ instead of $h$. Function $h$ is logarithmically convex
 in $g$ and thus $f$ is convex in $g$. Therefore,
-$$
+\[
 \forall \beta \in (-1,1) \qquad \qquad
 \max_{g \in [-1,1]} f(g,\beta) = \max \left\{ f(+1,\beta), f(-1,\beta) \right\} \; .
-$$
+\]
 Let $\phi(\beta) = \max \left\{ f(+1,\beta), f(-1,\beta) \right\}$. We seek to
 find $\argmin_{\beta \in (-1,1)} \phi(\beta)$. Since $f(+1,\beta)$ is decreasing
 in $\beta$ and $f(-1,\beta)$ is increasing in $\beta$, the minimum of
 $\phi(\beta)$ is at a point $\beta^*$ such that $f(+1,\beta^*) = f(-1,\beta^*)$.
 In other words, $\beta^*$ satisfies
-$$
+\[
 \ln(F(x+1)) - \ln(1 + \beta^*) =  \ln(F(x-1)) - \ln(1 - \beta^*) \; .
-$$
+\]
 The only solution of this equation is
-$$
+\[
 \beta^* = \frac{F(x+1) - F(x-1)}{F(x+1) + F(x-1)} \; .
-$$
+\]
 \end{proof}

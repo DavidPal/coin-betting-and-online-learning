@@ -9,7 +9,7 @@ $\beta_t = 2p - 1$.
 He showed that this strategy maximizes $\Exp[\ln(\Wealth_t)]$.
 
 For adversarial coins, Kelly betting does not make sense. However, we can
-replace $p$ with an estimate. In turn, this problem was studied by \citet{Krichevsky-Trofimov-1981},
+replace $p$ with an estimate. This problem was studied by \citet{Krichevsky-Trofimov-1981},
 who proposed that after seeing coin flips $g_1, g_2, \dots, g_{t-1}$ an
 empirical estimate $k_t = \frac{1/2 + \sum_{i=1}^{t-1} \indicator[g_i = +1]}{t}$
 should be used instead of $p$. Their estimate is commonly called \emph{KT
@@ -101,22 +101,14 @@ $\epsilon$. For $t \ge 1$, if we let $x = \sum_{i=1}^{t-1} g_i$, then
 
 The formula for the potential-based
 strategy~\eqref{equation:potential-based-strategy} might seem strange. However,
-it is derived by minimizing worst-case value the rhs of the inequality used wrt to $g_t$ in the induction proof above
+it is derived by minimizing worst-case value the right-hand side of the
+inequality used w.r.t. to $g_t$ in the induction proof above
 \[
 F_{t-1}(x) \ge \tfrac{F_{t}(x + g_t)}{1+g_t\beta_t} \; .
 \]
-For a proof see Theorem~\ref{theorem:optimal-betting-fraction} in Appendix~\ref{section:optimal-betting-fraction}.
-
-% Dividing through $1+g_t\beta_t$, the left-hand
-% side becomes independent of $g_t$ and $\beta_t$ and the right-hand side becomes
-% a function of $\beta_t$ and $g_t$,
-% $$
-% h(g_t, \beta_t) = \tfrac{F_{t}(x + g_t)}{1 + g_t\beta_t}
-% $$
-% Since $g_t \in [-1,1]$ is chosen by an adversary, our best hope is to find
-% $\beta_t$ that minimizes $\max_{g_t \in [-1,1]} h(g_t,\beta_t)$. Solution of
-% this minimization problem is $\beta_t$ given by
-% \eqref{equation:potential-based-strategy}.
+For a proof see Theorem~\ref{theorem:optimal-betting-fraction} in
+Appendix~\ref{section:optimal-betting-fraction}.
 
 We will show concrete examples of sequences of coin-betting potentials in
-Section~\ref{section:kt-estimator}. In the next two sections we show how to use this framework to solve \ac{OLO} and \ac{LEA}.
+Section~\ref{section:kt-estimator}. In the next two sections we show how to use
+this framework to solve \ac{OLO} and \ac{LEA}.

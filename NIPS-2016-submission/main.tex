@@ -12,14 +12,9 @@
 \usepackage{algorithm,algorithmic}
 \usepackage{enumerate}
 
-\usepackage[utf8]{inputenc} % allow utf-8 input
-\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
-\usepackage{hyperref}       % hyperlinks
-\usepackage{url}            % simple URL typesetting
+\usepackage[colorlinks,linkcolor=blue,citecolor=blue]{hyperref}
 \usepackage{booktabs}       % professional-quality tables
-\usepackage{amsfonts}       % blackboard math symbols
 \usepackage{nicefrac}       % compact symbols for 1/2, etc.
-\usepackage{microtype}      % microtypography
 \usepackage{graphicx}
 
 \newtheorem{definition}{Definition}
@@ -32,16 +27,14 @@
 \DeclareMathOperator{\Regret}{Regret}
 \DeclareMathOperator{\Wealth}{Wealth}
 \DeclareMathOperator{\Reward}{Reward}
-
-\newcommand{\N}{\mathbb{N}}     % natural numbers
-\newcommand{\R}{\mathbb{R}}     % real numbers
-\newcommand{\C}{\mathbb{C}}     % complex numbers
-\renewcommand{\H}{\mathcal{H}}  % Hilbert space
-\newcommand{\KL}[2]{\D\left({#1}\middle\|{#2}\right)}  % KL divergence
-\newcommand{\norm}[1]{\left\|{#1}\right\|}
-\DeclareMathOperator*{\D}{D}
 \DeclareMathOperator*{\argmin}{arg\,min}
 \DeclareMathOperator*{\argmax}{arg\,max}
+
+\newcommand{\R}{\mathbb{R}}     % real numbers
+\renewcommand{\H}{\mathcal{H}}  % Hilbert space
+\DeclareMathOperator*{\D}{D}    % KL divergence
+\newcommand{\KL}[2]{\D\left({#1}\middle\|{#2}\right)}  % KL divergence
+\newcommand{\norm}[1]{\left\|{#1}\right\|}
 \newcommand{\indicator}{\mathbf{1}}
 \newcommand{\scO}{\mathcal{O}}
 
@@ -88,10 +81,10 @@ unknown competitors, without having to tune the learning rates with oracle
 choices.
 
 We present a new framework to reduce online linear optimization over Hilbert
-spaces and learning with expert advice, to betting on a coin. We instantiate
-our framework using a betting algorithm based on the Krichevsky-Trofimov
-estimator.  We obtain optimal regret bounds with simple and natural algorithms,
-and no parameters to be tuned.
+spaces and learning with expert advice, to the problem of betting on outcomes
+of an adversarial coin. We instantiate our framework using a betting algorithm
+based on the Krichevsky-Trofimov estimator.  We obtain optimal regret bounds
+with simple and natural algorithms, and no parameters to be tuned.
 \end{abstract}
 
 \input{introduction}
