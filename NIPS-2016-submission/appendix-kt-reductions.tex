@@ -2,8 +2,9 @@
 \label{section:corollaries_reductions}
 
 We state some technical lemmas that will be used in the following proofs. We
-start with a lower bound on the \ac{KT} potential. It is a generalization of the
-lower bound proved for integers in \citet{WillemsST95} to real numbers.
+start with a lower bound on the \ac{KT} potential. It is a generalization of
+the lower bound proved for integers in \citet{Willems-Shtarkov-Tjalkens-1995}
+to real numbers.
 
 \begin{lemma}[Lower Bound on KT Potential]
 \label{lemma:approx_gamma_real}
@@ -15,7 +16,7 @@ If $c \ge 1$ and $a,b$ are non-negative reals such that $a + b = c$ then
 \end{lemma}
 %
 \begin{proof}
-From \cite{WhittakerW27}[p. 263 Ex. 45], we have
+From \cite{Whittaker-Watson-1962}[p. 263 Ex. 45], we have
 \[
 \frac{\Gamma(a+1/2)\Gamma(b+1/2)}{\Gamma(a+b+1)} \ge \sqrt{2\pi} \frac{(a+1/2)^a (b+1/2)^b}{(a+b+1)^{a+b+1/2}} \; .
 \]
@@ -60,7 +61,7 @@ derivative of the right-hand side is equal to
 \]
 where $\Psi(x)$ is the digamma function.
 
-We will use the upper~\citep{Chen05} and lower bound~\citep{Batir08}
+We will use the upper~\citep{Chen-2005} and lower bound~\citep{Batir-2008}
 to the digamma function, which state that for any $x>0$,
 \begin{align*}
 \Psi(x) &< \ln(x) -\frac{1}{2x} -\frac{1}{12 x^2} +\frac{1}{120 x^4} \\
@@ -160,7 +161,7 @@ Numerically, $b=1.71825...$, so
 W(x) \geq 0.6321 \log(x+1)~.
 \]
 
-For the upper bound, we use Theorem~2.3 in \cite{hoorfar2008inequalities}, that says that
+For the upper bound, we use Theorem~2.3 in \cite{Hoorfar-Hassani-2008}, that says that
 \[
 W(x) \leq \log\frac{x+C}{1+\log(C)}, \quad \forall x> -\frac{1}{e}, \ C>\frac{1}{e}.
 \]

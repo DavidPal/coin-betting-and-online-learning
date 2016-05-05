@@ -1,50 +1,62 @@
 \section{Introduction}
 \label{section:introduction}
 
-We consider the \ac{OLO}~\cite{Cesa-BianchiL06,Shalev-Shwartz12} setting. In each round $t$, an algorithm chooses a point
-$w_t$ from a convex \emph{decision set} $K$ and then receives a reward vector
-$g_t$. Algorithm's goal is to keep its \emph{regret} small, defined as the
-difference between its cumulative reward and the cumulative reward of a fixed
-strategy $u \in K$, that is
-\[
+We consider the \ac{OLO}~\cite{Cesa-Bianchi-Lugosi-2006, Shalev-Shwartz-2011}
+setting. In each round $t$, an algorithm chooses a point $w_t$ from a convex
+\emph{decision set} $K$ and then receives a reward vector $g_t$. Algorithm's
+goal is to keep its \emph{regret} small, defined as the difference between its
+cumulative reward and the cumulative reward of a fixed strategy $u \in K$, that
+is
+$$
 \Regret_T(u) = \sum_{t=1}^T \langle g_t, u \rangle - \sum_{t=1}^T \langle g_t, w_t \rangle \; .
-\]
+$$
 
 We focus on two particular sets, the $N$-dimensional probability simplex
 $\Delta_N = \{ x \in \R^N ~:~ x \ge 0, \norm{x}_1 = 1\}$ and the Hilbert space
 $\H$.  \ac{OLO} over $\Delta_N$ is referred to as the problem of \ac{LEA}.  We
 assume bounds on the norms of the loss vectors: For \ac{OLO} over $\H$, we
-assume that $\norm{g_t}_2 \le 1$, and for \ac{LEA} we assume that
-$g_t \in [0,1]^N$.
+assume that $\norm{g_t}_2 \le 1$, and for \ac{LEA} we assume that $g_t \in
+[0,1]^N$.
 
 \ac{OLO} is a basic building block of many machine learning problems. For
-example, \ac{OCO}, the problem analogous to \ac{OLO} where $-\langle g_t, w_t \rangle$ is
-generalized to $\ell_t(w_t)$ where $\ell_t$ is an arbitrary convex function, is
-solved through a reduction to an \ac{OLO}~\cite{Shalev-Shwartz12}.
-\ac{LEA}~\cite{LittlestoneW94, Vovk98,Cesa-BianchiFHHSW97} provides a way of
-combining classifiers and it is at the heart of
-boosting~\cite{FreundS97}. Batch and stochastic convex optimization
-can be solved through a reduction to \ac{OLO}~\cite{Shalev-Shwartz12}.
+example, \ac{OCO}, the problem analogous to \ac{OLO} where $-\langle g_t, w_t
+\rangle$ is generalized to $\ell_t(w_t)$ where $\ell_t$ is an arbitrary convex
+function, is solved through a reduction to an
+\ac{OLO}~\cite{Shalev-Shwartz-2011}.  \ac{LEA}~\cite{Littlestone-Warmuth-1994,
+Vovk-1998, Cesa-Bianchi-Freund-Haussler-Helmbold-Schapire-Warmuth-1997}
+provides a way of combining classifiers and it is at the heart of
+boosting~\cite{Freund-Schapire-1997}. Batch and stochastic convex optimization
+can be solved through a reduction to \ac{OLO}~\cite{Shalev-Shwartz-2011}.
 Statistical learning with convex losses can also seen as stochastic convex
-optimization and solved through \ac{OCO}~\cite{Munro51}, that in turns can be reduced to \ac{OLO}.
+optimization and solved through \ac{OCO}~\cite{Munro-1951}, that in turns can
+be reduced to \ac{OLO}.
 
 However, to achieve small regret, most of the algorithms still require to set
-hyperparameters (e.g., learning rates, regularization weights) in
-order to achieve the best possible theoretical and empirical performance.
-Recently, a new family of parameter-free algorithms that has been proposed, both for \ac{LEA}~\cite{ChaudhuriFH09,ChernovV10,LuoS14,LuoS15,KoolenE15}
-and for \ac{OLO}/\ac{OCO} over Hilbert spaces~\cite{StreeterM12,Orabona13, McMahanA13,McMahanO14,Orabona14}.
-These algorithms adapt to the number of experts and to the norm of the optimal
-predictor, respectively, without the need to tune parameters. 
-Given the connections between \ac{OLO}/\ac{LEA} and machine learning, these algorithms
-allow to design parameter-free batch machine learning algorithms through
-straightforward reductions~\cite{Orabona14,LuoS15}.
-Yet, not all of them are practical algorithms and/or have optimal regret bounds, see Table~\ref{tab:bounds}.
-Also, surprisingly enough, these two families of algorithms are very similar, and, a part for the non-constructive framework in \cite{FosterRS15}, there is no unifying framework.
+hyperparameters (e.g., learning rates, regularization weights) in order to
+achieve the best possible theoretical and empirical performance.  Recently, a
+new family of parameter-free algorithms that has been proposed, both for
+\ac{LEA}~\cite{Chaudhuri-Freund-Hsu-2009, Chernov-Vovk-2010, Luo-Schapire-2014,
+Luo-Schapire-2015, Koolen-van-Erven-2015} and for \ac{OLO}/\ac{OCO} over
+Hilbert spaces~\cite{Streeter-McMahan-2012, Orabona-2013,
+McMahan-Abernethy-2013, McMahan-Orabona-2014, Orabona-2014}.  These algorithms
+adapt to the number of experts and to the norm of the optimal predictor,
+respectively, without the need to tune parameters.  Given the connections
+between \ac{OLO}/\ac{LEA} and machine learning, these algorithms allow to
+design parameter-free batch machine learning algorithms through straightforward
+reductions~\cite{Orabona-2014, Luo-Schapire-2015}.  Yet, not all of them are
+practical algorithms and/or have optimal regret bounds, see
+Table~\ref{table:bounds}.  Also, surprisingly enough, these two families of
+algorithms are very similar, and, a part for the non-constructive framework in
+\cite{Foster-Rakhlin-Sridharan-2015}, there is no unifying framework.
 
-\textbf{Contributions.} We claim that a more fundamental notion
-subsumes both \ac{OLO} and \ac{LEA} parameter-free algorithms. We show that the ability to maximize the wealth in bets on the outcomes of coin flips \emph{implies} \ac{OLO} and \ac{LEA} parameter-free algorithms.
-Hence, we present a novel framework to characterize betting algorithms through potential functions and we instantiate it with the Krichevsky-Trofimov estimator.
-The resulting algorithms are new, simple, and natural. They also have optimal guarantees, see Table~\ref{tab:bounds}.
+\textbf{Contributions.} We claim that a more fundamental notion subsumes both
+\ac{OLO} and \ac{LEA} parameter-free algorithms. We show that the ability to
+maximize the wealth in bets on the outcomes of coin flips \emph{implies}
+\ac{OLO} and \ac{LEA} parameter-free algorithms.  Hence, we present a novel
+framework to characterize betting algorithms through potential functions and we
+instantiate it with the Krichevsky-Trofimov estimator.  The resulting
+algorithms are new, simple, and natural. They also have optimal guarantees, see
+Table~\ref{table:bounds}.
 
 \begin{table}
 \begin{center}
@@ -53,21 +65,21 @@ The resulting algorithms are new, simple, and natural. They also have optimal gu
 \toprule
 Algorithm & Worst-case regret guarantee& \begin{tabular}{@{}c@{}}Time\\update\end{tabular} & Adaptive & \begin{tabular}{@{}c@{}}Unified \\  design\end{tabular}\\
 \midrule
-\cite{AbernethyBRT08} & \begin{tabular}{@{}c@{}}$U \sqrt{T}$, $\forall u \in \H, \norm{u} \leq U$\\
+\cite{Abernethy-Bartlett-Rakhlin-Tewari-2008} & \begin{tabular}{@{}c@{}}$U \sqrt{T}$, $\forall u \in \H, \norm{u} \leq U$\\
 $\scO(T)$ otherwise\end{tabular} & $\scO(1)$ &  \\
-OGD, $\eta=\tfrac{1}{\sqrt{T}}$ \cite{Shalev-Shwartz12} & $\scO((1 + \norm{u}^2)\sqrt{T})$, $\forall u \in \H$ & $\scO(1)$ &  \\
-\cite{McMahanO14} & $\scO(\norm{u}\sqrt{T \ln(1+\norm{u}T)})$, $\forall u \in \H$ & $\scO(1)$ & \checkmark \\
+OGD, $\eta=\tfrac{1}{\sqrt{T}}$ \cite{Shalev-Shwartz-2011} & $\scO((1 + \norm{u}^2)\sqrt{T})$, $\forall u \in \H$ & $\scO(1)$ &  \\
+\cite{McMahan-Orabona-2014} & $\scO(\norm{u}\sqrt{T \ln(1+\norm{u}T)})$, $\forall u \in \H$ & $\scO(1)$ & \checkmark \\
 This paper, Sec.~\ref{sec:kt-olo} & $\scO(\norm{u}\sqrt{T \ln(1+\norm{u}T)})$, $\forall u \in \H$ & $\scO(1)$ & \checkmark & \checkmark\\
 \midrule
 Hegde, $\eta=\sqrt{\tfrac{\ln N - U}{T}}$ & $\scO\left(\sqrt{T (\ln N -U)}\right)$, $\forall u \in \Delta_N, H(u) \geq U$ & $\scO(N)$ &  \\
-\cite{ChaudhuriFH09}  & $\scO\left(\sqrt{T \KL{u}{\tfrac{1}{N}\boldsymbol{1}}}+\ln^2 N\right)$, $\forall u \in \Delta_N$ & Numerical & \checkmark \\
-\cite{ChernovV10} & $\scO\left(\sqrt{T}\left(\sqrt{\KL{u}{\tfrac{1}{N}\boldsymbol{1}}}+1\right)\right)$, $\forall u \in \Delta_N$ & Numerical & \checkmark \\
-\cite{ChernovV10,LuoS15,KoolenE15} & $\scO\left(\sqrt{T \left(\ln \ln T+\KL{u}{\tfrac{1}{N}\boldsymbol{1}}\right)}\right)$, $\forall u \in \Delta_N$ & $\scO(N)$ & \checkmark \\
-\cite{FosterRS15} & $\scO\left(\sqrt{T\max(\KL{u}{\tfrac{1}{N}\boldsymbol{1}},1)} \right)$, $\forall u \in \Delta_N$ & $\scO(N \max_{u \in \Delta_N} \ln \KL{u}{\pi})$ & \checkmark & \checkmark \\
+\cite{Chaudhuri-Freund-Hsu-2009}  & $\scO\left(\sqrt{T \KL{u}{\tfrac{1}{N}\boldsymbol{1}}}+\ln^2 N\right)$, $\forall u \in \Delta_N$ & Numerical & \checkmark \\
+\cite{Chernov-Vovk-2010} & $\scO\left(\sqrt{T}\left(\sqrt{\KL{u}{\tfrac{1}{N}\boldsymbol{1}}}+1\right)\right)$, $\forall u \in \Delta_N$ & Numerical & \checkmark \\
+\cite{Chernov-Vovk-2010, Luo-Schapire-2015,Koolen-van-Erven-2015} & $\scO\left(\sqrt{T \left(\ln \ln T+\KL{u}{\tfrac{1}{N}\boldsymbol{1}}\right)}\right)$, $\forall u \in \Delta_N$ & $\scO(N)$ & \checkmark \\
+\cite{Foster-Rakhlin-Sridharan-2015} & $\scO\left(\sqrt{T\max(\KL{u}{\tfrac{1}{N}\boldsymbol{1}},1)} \right)$, $\forall u \in \Delta_N$ & $\scO(N \max_{u \in \Delta_N} \ln \KL{u}{\pi})$ & \checkmark & \checkmark \\
 This paper, Sec.~\ref{sec:kt-lea} & $\scO\left(\sqrt{T \left(1+\KL{u}{\tfrac{1}{N}\boldsymbol{1}}\right)}\right)$, $\forall u \in \Delta_N$ & $\scO(N)$ & \checkmark & \checkmark\\
 \bottomrule
 \end{tabular}}
 \caption{Bla.}
-\label{tab:bounds}
+\label{table:bounds}
 \end{center}
 \end{table}
