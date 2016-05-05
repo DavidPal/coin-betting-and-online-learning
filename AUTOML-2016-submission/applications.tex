@@ -58,12 +58,13 @@ risk on the test set is to minimize a regularized objective function:
 \end{equation}
 This problem is strongly convex, so there are very efficient methods to
 minimize it, hence we can assume to be able to get the minimizer of
-$\widehat{F}^{\text{Reg}}$ with arbitrary high precision. Yet, this is not enough. In
-fact, we are rarely interested in the value of the objective function, rather
-we are interested in the \emph{true risk} of a solution $w$, that is
-$\Exp[\ell(w,X,Y)]$ where $X,Y$ comes from the unknown distribution from which we
-sample the training and test points.  Hence, in order to get a good performance we
-have to select a good regularization parameter. In particular, from \cite{NIPS2008_3400} we get
+$\widehat{F}^{\text{Reg}}$ with arbitrary high precision. Yet, this is not
+enough. In fact, we are rarely interested in the value of the objective
+function, rather we are interested in the \emph{true risk} of a solution $w$,
+that is $\Exp[\ell(w,X,Y)]$ where $X,Y$ comes from the unknown distribution
+from which we sample the training and test points.  Hence, in order to get a
+good performance we have to select a good regularization parameter. In
+particular, from \cite{Sridharan-Shalev-Shwartz-Srebro-2009} we get
 $$
 \Exp[\ell(\widehat{w},X,Y)] - \Exp[\ell(w^*,X,Y)] \le O(\lambda \norm{w^*}^2 + \tfrac{1}{\lambda N}),
 $$
@@ -71,15 +72,17 @@ where $w^*=\argmin_w \Exp[\ell(w,X,Y)]$.  From the above bound, it is clear
 that the optimal value of $\lambda$ depends on the $\norm{w^*}$ that is
 unknown. We would like to stress that this is not just a theoretical problem:
 Any practictioner knows how painfull it is to find the right regularization for
-the problem at hand.  Assuming to know $\norm{w^*}$, we could set $\lambda = O(1/(\norm{w^*} \sqrt{N}))$ to achieve
+the problem at hand.  Assuming to know $\norm{w^*}$, we could set $\lambda =
+O(1/(\norm{w^*} \sqrt{N}))$ to achieve
 \begin{equation}
 \label{equation:optimal-rate}
 \Exp[\ell(\widehat{w},X,Y)] - \Exp[\ell(w^*,X,Y)] \le O\left(\tfrac{\norm{w^*}}{\sqrt{N}}\right) \; .
 \end{equation}
 
-Using again Algorithm~\ref{algorithm:kt-sgd} with only one pass
-over the dataset, we get almost the same guarantee \eqref{equation:optimal-rate}
-\emph{without tuning any parameters, learning rates, regularization parameters, etc.}
+Using again Algorithm~\ref{algorithm:kt-sgd} with only one pass over the
+dataset, we get almost the same guarantee \eqref{equation:optimal-rate}
+\emph{without tuning any parameters, learning rates, regularization parameters,
+etc.}
 \begin{theorem}
 Shuffle the dataset and do only one pass over the training set, using
 $\ell_t(w)=\ell(w,x_t,y_t)$.  Then, we have
@@ -88,5 +91,5 @@ $$
 $$
 \end{theorem}
 Comparing this guarantee to the one in \eqref{equation:optimal-rate}, we see
-that, just paying a sub-logarithmic price, we obtain the optimal
-convergence rate and we remove all the parameters.
+that, just paying a sub-logarithmic price, we obtain the optimal convergence
+rate and we remove all the parameters.
