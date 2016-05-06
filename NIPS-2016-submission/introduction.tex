@@ -57,7 +57,7 @@ maximize the wealth in bets on the outcomes of coin flips \emph{implies}
 \ac{OLO} and \ac{LEA} parameter-free algorithms.  Hence, we present a novel
 framework to characterize betting algorithms through potential functions and we
 instantiate it with the Krichevsky-Trofimov estimator.  The resulting
-algorithms are new, simple, and natural. They also have optimal guarantees, see
+algorithms are new, simple, and natural. They also have optimal guarantees on time and regret, see
 Table~\ref{table:bounds}.
 
 \begin{table}
@@ -86,4 +86,4 @@ This paper, Sec.~\ref{section:kt-lea} & $\scO\left(\sqrt{T \left(1+\KL{u}{\tfrac
 \end{center}
 \end{table}
 \footnotetext[1]{These algorithms require to solve a 1-d numberical problem at each step. Hence, $K$ is the number of steps needed to reach the required precision. Yet, in these papers $K$ is not calculated.}
-\footnotetext[2]{The algorithm in \cite{Foster-Rakhlin-Sridharan-2015} does not have a per-round time complexity independent of $T$, but it can be modified to achieve the stated complexity~\cite{Daniely:private}.}
+\footnotetext[2]{The computational inefficient algorithm in \cite{Foster-Rakhlin-Sridharan-2015} can be modified to achieve the stated complexity~\cite{Daniely:private}.}

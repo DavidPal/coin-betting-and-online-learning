@@ -6,7 +6,7 @@ betting, the strategy assumes that the coin flips $\{g_t\}_{t=1}^\infty$, $g_t
 \in \{+1,-1\}$, are generated i.i.d. with known probability of heads. If $p \in
 [0,1]$ is the probability of heads, the Kelly bet is
 $\beta_t = 2p - 1$.
-He showed that this strategy maximizes $\Exp[\ln(\Wealth_t)]$.
+He showed that, in the long run, this strategy will provide more wealth than betting any other fixed fraction~\cite{Kelly-1956}.
 
 For adversarial coins, Kelly betting does not make sense. However, we can
 replace $p$ with an estimate. This problem was studied by \citet{Krichevsky-Trofimov-1981},
@@ -27,7 +27,7 @@ which we call \emph{adaptive Kelly betting based on KT estimator}.
 \]
 where $\Wealth_t(\beta)$ is the wealth of a strategy that bets the same
 fraction $\beta$ in every round. This guarantee is optimal up to constant
-additive factors~\citep{Cesa-Bianchi-Lugosi-2006}.
+additive factors~\citep{Cesa-Bianchi-Lugosi-2006} and mirrors the guarantee of the Kelly bet.
 
 Here, we consider betting strategies that can be viewed as abstractions of
 adaptive Kelly betting based on KT estimator. For these strategies it is

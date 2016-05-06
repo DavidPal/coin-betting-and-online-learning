@@ -1,14 +1,14 @@
 \section{Preliminaries}
 
 The Kullback-Leibler divergence between two discrete distributions $p$ and $q$
-is $\KL{p}{q} = \sum_{i} p_i \ln\left( \tfrac{p_i}{q_i} \right)$. Abusing
+is $\KL{p}{q} = \sum_{i} p_i \ln\left( p_i/q_i \right)$. Abusing
 notation, if $p,q$ are real numbers in $[0,1]$, we denote by $\KL{p}{q} = p \ln
-\left(\tfrac{p}{q} \right) + (1-p) \ln \left(\tfrac{1-p}{1-q} \right)$ the
+\left(p/q \right) + (1-p) \ln \left((1-p)/(1-q) \right)$ the
 Kullback-Leibler divergence between two Bernoulli distributions with parameters
 $p$ and $q$.  We denote by $\H$ a Hilbert space with inner product $\langle
 \cdot, \cdot\rangle$ and by $\norm{\cdot}$ the induced norm.  We denote by
 $\norm{\cdot}_1$ the $1$-norm in $\R^N$.  A function $F:I \to \R_+$ is called
-\emph{logarithmically convex} if $f(x) = \ln(F(x))$ is convex. It follows that
+\emph{logarithmically convex} iff $f(x) = \ln(F(x))$ is convex. It follows that
 if $F(x)$ is logarithmically convex, then it is also convex (in the usual
 sense).  Let $f:V \to \R \cup \{\pm\infty\}$ be a function defined on a real
 vector space $V$. Fenchel conjugate of $f$ is $f^*:V^* \to \R \cup \{\pm
@@ -20,7 +20,7 @@ function then $f^*$ is also is proper lower semi-continuous convex and
 $f^{**}=f$.
 
 \textbf{Binary and Continuous Coin Betting.} We consider a gambler making
-repeated bets on outcomes of adversarial coin flips. The gambler starts with an
+repeated bets on the outcomes of adversarial coin flips. The gambler starts with an
 initial endowment $\epsilon > 0$. In each round $t$, he bets on an outcome of a
 coin flip $g_t \in \{-1,1\}$ where $+1$ denotes heads and $-1$ denotes tails.
 We do not make any assumption on how $g_t$ is generated, that is, it can be
