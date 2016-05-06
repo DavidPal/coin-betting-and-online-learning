@@ -21,13 +21,17 @@ where $\Gamma(x) = \int_0^\infty t^{-x} e^{-t} dt$ is Euler's gamma function.
 The potential was introduced by~\citet{Krichevsky-Trofimov-1981} who used it
 for proving regret bound for online prediction with log-loss; see also
 \cite[Section 9.7]{Cesa-Bianchi-Lugosi-2006}.
-Theorem~\ref{theorem:kt-potential} stated in
+
+It has the peculiar property to satisfy the inequality in point (3) of Definition~\ref{definition:potential}
+with equality when $g_t\in \{-1,1\}$, i.e. $F_t(x+1)=(1+\tfrac{x}{t}) \, F_{t-1}(x)$ and $F_t(x-1)=(1-\tfrac{x}{t}) \, F_{t-1}(x)$.
+In fact, Theorem~\ref{theorem:kt-potential} stated in
 Appendix~\ref{section:properties-kt-potential} shows that
 \eqref{equation:kt-estimator-potential} is a sequence of excellent coin-betting
 potentials for initial endowment $\epsilon$. Theorem~\ref{theorem:kt-potential}
 also shows that the KT betting strategy $\beta_t$ as defined by
 \eqref{equation:kt-estimator-betting-strategy}, is a potential-based strategy,
 i.e., it satisfies \eqref{equation:potential-based-strategy}.
+
 
 \subsection{OLO in Hilbert Space}
 \label{section:kt-olo}
@@ -66,8 +70,11 @@ w_t
 The algorithm is stated as Algorithm~\ref{algorithm:kt-hilbert-space-olo}.  We
 derive a regret bound for it as a very simple corollary of
 Theorem~\ref{theorem:hilbert-space-olo-regret-bound} to the KT potential
-\eqref{equation:kt-estimator-potential}.  \begin{corollary}[Regret Bound for
-Algorithm~\ref{algorithm:kt-hilbert-space-olo}]
+\eqref{equation:kt-estimator-potential}. The proof can be found in the Appendix~\ref{section:corollaries_reductions}. The only technical
+part of the proof is an upper bound on Fenchel conjugate $F_t^*$ since it cannot
+be expressed as an elementary function.
+%
+\begin{corollary}[Regret Bound for Algorithm~\ref{algorithm:kt-hilbert-space-olo}]
 \label{corollary:kt-hilbert-space-olo-regret} Let $\epsilon > 0$. Let
 $\{g_t\}_{t=1}^\infty$ be any sequence of reward vectors in a Hilbert space
 $\H$ such that $\norm{g_t} \le 1$.
@@ -78,9 +85,9 @@ Algorithm~\ref{algorithm:kt-hilbert-space-olo} satisfies
 \Regret_T(u) \le \norm{u} \sqrt{T \ln\left(1 + \tfrac{4T^2 \norm{u}^2}{\epsilon^2} \right)} + \epsilon \left(1 - \tfrac{1}{2\sqrt{T}} \right) \;.
 \]
 \end{corollary}
-The proof can be found in the Appendix~\ref{section:corollaries_reductions}. The only technical
-part of the proof is an upper bound on Fenchel conjugate $F_t^*$ since it cannot
-be expressed as an elementary function.
+%
+It is worth noting the simplicity of Algorithm~\ref{algorithm:kt-hilbert-space-olo} and the fact that the regret bound is optimal~\cite{Streeter-McMahan-2012,Orabona-2013}.
+
 
 \subsection{Learning with Expert Advice}
 \label{section:kt-lea}
@@ -148,8 +155,9 @@ Algorithm~\ref{algorithm:kt-experts} with input $N,T,\pi$ satisfies
 \forall u \in \Delta_N \qquad \qquad \Regret_T(u) \le \sqrt{3T (4 + \KL{u}{\pi})} \; .
 \]
 \end{corollary}
-As observed by \citet{Chernov-Vovk-2010}, bounds in terms of the KL
-divergence are superior to the $\epsilon$-quantile bounds.
+This bound matches the best known guarantees on worst-case regret and per-round time complexity, see Table~\ref{table:bounds}.
+%As observed by \citet{Chernov-Vovk-2010}, bounds in terms of the KL
+%divergence are superior to the $\epsilon$-quantile bounds.
 
 The proof of the corollary is in the
 Appendix~\ref{section:corollaries_reductions}.  The technical part of the proof
