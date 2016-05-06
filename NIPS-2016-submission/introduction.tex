@@ -7,10 +7,10 @@ setting. In each round $t$, an algorithm chooses a point $w_t$ from a convex
 goal is to keep its \emph{regret} small, defined as the difference between its
 cumulative reward and the cumulative reward of a fixed strategy $u \in K$, that
 is
+\vspace{-.1cm}
 \[
 \Regret_T(u) = \sum_{t=1}^T \langle g_t, u \rangle - \sum_{t=1}^T \langle g_t, w_t \rangle \; .
 \]
-
 We focus on two particular sets, the $N$-dimensional probability simplex
 $\Delta_N = \{ x \in \R^N ~:~ x \ge 0, \norm{x}_1 = 1\}$ and the Hilbert space
 $\H$.  \ac{OLO} over $\Delta_N$ is referred to as the problem of \ac{LEA}.  We
@@ -83,7 +83,7 @@ Hegde~\cite{Freund-Schapire-1997}, $\eta=\sqrt{\tfrac{\ln N - U}{T}}$ & $\scO\le
 This paper, Sec.~\ref{section:kt-lea} & $\scO\left(\sqrt{T \left(1+\KL{u}{\pi}\right)}\right)$, $\forall u \in \Delta_N$ & $\scO(N)$ & \checkmark & \checkmark\\
 \bottomrule
 \end{tabular}}
-\caption{Algorithms for \ac{OLO} over Hilbert space and \ac{LEA}. We apologize for the necessary amount of symbols used.
+\caption{Algorithms for \ac{OLO} over Hilbert space and \ac{LEA}. We apologize for the big, but necessary, number of symbols used,
 All of them are defined in Setion~\ref{sec:prel}, while $\eta$ is the learning rate.}
 \label{table:bounds}
 \end{center}
