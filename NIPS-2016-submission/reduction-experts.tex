@@ -9,7 +9,12 @@ on a coin-betting strategy---to construct an algorithm for \ac{LEA}.
 Let $N \ge 2$ be the number of experts and $\Delta_N$ be the $N$-dimensional
 probability simplex. Let $\pi = (\pi_1, \pi_2, \dots, \pi_N) \in \Delta_N$ be
 any \emph{prior} distribution. Let $A$ be an algorithm for OLO over
-one-dimensional Hilbert space $\R$. We instantiate $N$ copies of $A$.
+one-dimensional Hilbert space $\R$, based on coin-betting potential 
+$\{F_t\}_{t=0}^\infty$ initial endowment\footnote{Any initial endowment $\epsilon > 0$ can be
+rescaled to $1$. Instead of $F_t(x)$ we would use $F_t(x)/\epsilon$. The
+prediction $w_t$ would become $w_t/\epsilon$. The key observation is that $p_t$
+is invariant to scaling of $w_t$, hence the resulting LEA algorithm would be
+the same regardless of $\epsilon$.} $1$. We instantiate $N$ copies of $A$.
 
 Consider any round $t$. Let $w_{t,i} \in \R$ be the prediction of $i$-th copy of
 $A$. The LEA algorithm computes $\widehat p_t = (\widehat p_{t,1}, \widehat
@@ -36,35 +41,24 @@ g_{t,i} - \langle g_t, p_t \rangle & \text{if } w_{t,i} > 0 \; , \\
 \end{cases}
 \end{align}
 
-Suppose that the algorithm $A$, for any sequence
-$\{\widetilde g_t\}_{t=1}^\infty$ such that $\widetilde g_t \in [-1,1]$, satisfies
-\begin{equation}
-\label{equation:experts-one-dimensional-assumption}
-\Wealth_t = 1 + \sum_{i=1}^t \widetilde g_i w_i \ge F_t\left(\sum_{i=1}^t \widetilde g_i\right) \; .
-\end{equation}
-where $\{F_t\}_{t=0}^\infty$ is a sequence of coin-betting potentials for
-initial endowment $1$.\footnote{Any initial endowment $\epsilon > 0$ can be
-rescaled to $1$. Instead of $F_t(x)$ we would use $F_t(x)/\epsilon$. The
-prediction $w_t$ would become $w_t/\epsilon$. The key observation is that $p_t$
-is invariant to scaling of $w_t$, hence the resulting LEA algorithm would be
-the same regardless of $\epsilon$.}
-
-We show how to convert \eqref{equation:experts-one-dimensional-assumption} into
-a regret bound for the LEA algorithm, the proof is in
-Appendix~\ref{section:appendix-expert-reduction}.
-
+The construction above defines a \ac{LEA} algorithm defined by the predictions $p_t$, based on the algorithm $A$.
+We can prove the following regret bound for it.
+%
 \begin{theorem}[Regret Bound for Experts]
 \label{theorem:regret-bound-experts}
-Let $\{F_t\}_{t=0}^\infty$ be a sequence of coin-betting potentials for initial
+Let $A$ be an algorithm for \ac{OLO} over
+one-dimensional Hilbert space $\R$, based on coin-betting potential 
+$\{F_t\}_{t=0}^\infty$ for initial
 endowment $1$. Let $f_t^{-1}$ be in the inverse of $f_t(x) = \ln(F_t(x))$
-restricted to $[0,\infty)$.  Let $A$ be an algorithm for OLO over
-one-dimensional Hilbert space $\R$. Suppose that $A$ satisfies
-\eqref{equation:experts-one-dimensional-assumption} for any sequence
-$\{g_t\}_{t=1}^\infty$ such that $g_t \in [-1,1]$. Then, the regret of the LEA
-algorithm with prior $\pi \in \Delta_N$, based on $A$, satisfies
+restricted to $[0,\infty)$.  Then, the regret of the \ac{LEA}
+algorithm with prior $\pi \in \Delta_N$ that predicts at each round with $p_t$ satisfies
 \[
 \forall T \ge 0 \quad \forall u \in \Delta_N \qquad \qquad
 \Regret_T(u) \le f_T^{-1}\left( \KL{u}{\pi} \right) \; .
 \]
 \end{theorem}
+The proof is in
+Appendix~\ref{section:appendix-expert-reduction}.
+It is based on the fact that \eqref{eq:gradients_experts_reduction} guarantees that $\sum_{i=1}^N \pi_i \widetilde g_{t,i} w_{t,i} \le 0$ and on a simple modification of the change
+of measure lemma used in the PAC-Bayes literature, e.g.~\cite{McAllester-2013}.
 

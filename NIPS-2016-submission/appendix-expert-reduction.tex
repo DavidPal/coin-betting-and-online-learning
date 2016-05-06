@@ -19,8 +19,13 @@ and $\sum_{i \, : \, \pi_i w_{t,i} > 0} \pi_i [w_{t,i}]_+
 0$ then $\pi_i [w_{t,i}]_+ = \widehat p_{t,i} = \norm{\widehat p_t}_1 p_{t,i}$
 for all $i$.
 
-Inequality $\sum_{i=1}^N \pi_i \widetilde g_{t,i} w_{t,i} \le 0$ and the assumption
-\eqref{equation:experts-one-dimensional-assumption} imply
+From the assumption on $A$, we have, for any sequence
+$\{\widetilde g_t\}_{t=1}^\infty$ such that $\widetilde g_t \in [-1,1]$, satisfies
+\begin{equation}
+\label{equation:experts-one-dimensional-assumption}
+\Wealth_t = 1 + \sum_{i=1}^t \widetilde g_i w_i \ge F_t\left(\sum_{i=1}^t \widetilde g_i\right) \; .
+\end{equation}
+Inequality $\sum_{i=1}^N \pi_i \widetilde g_{t,i} w_{t,i} \le 0$ and \eqref{equation:experts-one-dimensional-assumption} imply
 \begin{equation}
 \label{equation:bounded-potential}
 \sum_{i=1}^N  \pi_i F_t \left(\sum_{t=1}^T \widetilde g_{t,i} \right)
@@ -45,7 +50,4 @@ Now, let $\widetilde G_{t,i} =
 & \le f_T^{-1}\left(\KL{u}{\pi}\right) \qquad \text{(by \eqref{equation:bounded-potential})}.
 \end{align*}
 \endgroup
-The chain of inequalities above is based on a simple modification of the change
-of measure lemma used in the PAC-Bayes literature; see for
-example~\citet{McAllester-2013}.
 \end{proof}
