@@ -6,8 +6,8 @@ reported here with our notation for completeness.
 
 \begin{lemma}[Extremes]
 \label{lemma:extremes}
-Let $h:(-a,a) \to \R$ be a twice-differentiable function that
-satisfies $x \cdot h''(x) \ge h'(x)$ for all $x \in [0,a)$. Let $c:[0,\infty) \to \R$
+Let $h:(-a,a) \to \R$ be an even twice-differentiable function that
+satisfies $x \cdot h''(x) \ge h'(x)$ for all $x \in [0,a)$. Let $c:[0,\infty) \times [0, \infty) \to \R$
 be an arbitrary function. Then, if vectors $u,v \in \H$ satisfy $\|u\| + \|v\| < a$, then
 \begin{multline}
 \label{equation:lemma-extremes-1}
@@ -84,25 +84,23 @@ property 3 of a coin-betting potential.
 
 
 \begin{proof}[Proof of Theorem~\ref{theorem:hilbert-space-olo-regret-bound}]
-Compared to the one dimensional case, the only hard part is to show an analogue of \eqref{equation:wealth-lower-bound-generic},
+First, by induction on $t$ we show that
 \begin{equation}
 \label{equation:wealth-lower-bound-hilbert-space}
 \Wealth_t \ge F_t\left(\norm{\sum_{t=1}^T g_t} \right) \; .
 \end{equation}
-To prove \eqref{equation:wealth-lower-bound-hilbert-space}, we imitate the induction
-proof from Section~\ref{section:coin-betting-potentials}. The base case
-$t=0$ is trivial, since both sides of the inequality are equal to $\epsilon$.
-For $t \ge 1$, if we let $x = \sum_{i=1}^{t-1} g_i$, we have
+The base case $t=0$ is trivial, since both sides of the inequality are equal to
+$\epsilon$.  For $t \ge 1$, if we let $x = \sum_{i=1}^{t-1} g_i$, we have
 \begin{align*}
 \Wealth_t
 &= \langle g_t, w_t \rangle + \Wealth_{t-1}
 = \left(1 + \beta_t \frac{\langle g_t, x \rangle}{\norm{x}} \right) \Wealth_{t-1} \\
 &\ge \left(1 + \beta_t \frac{\langle g_t, x \rangle}{\norm{x}} \right) F_{t-1}(\norm{x})
-\stackrel{\text{\textbf{(?)}}}{\ge} F_t(\norm{x + g_t})
+\stackrel{\text{\textbf{(*)}}}{\ge} F_t(\norm{x + g_t})
 = F_t\left(\norm{\sum_{i=1}^t g_i} \right) \; .
 \end{align*}
-The only non-trivial inequality is marked with a question mark. The inequality
-is the content of the Lemma~\ref{lemma:recursion_hilbert}.
+The inequality marked with $(*)$ follows from
+Lemma~\ref{lemma:recursion_hilbert}.
 
 This establishes \eqref{equation:wealth-lower-bound-hilbert-space},
 from which we immediately have a reward lower bound
