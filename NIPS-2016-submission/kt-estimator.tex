@@ -99,7 +99,7 @@ be expressed as an elementary function.
 \widehat{p}_t/\norm{\widehat{p_t}}_1 & \text{if $\norm{\widehat p_t}_1 > 0$} \\
 \pi & \text{if $\norm{\widehat p_t}_1 = 0$}
 \end{cases}$}
-\STATE{Receive loss vector $\ell_t \in [0,1]^N$}
+\STATE{Receive reward vector $g_t \in [0,1]^N$}
 \STATE{For each $i \in [N]$, set $\widetilde g_{t,i} \leftarrow \begin{cases}
 g_{t,i} - \langle g_t, p_t \rangle & \text{if $w_{t,i} > 0$} \\
 [g_{t,i} - \langle g_t, p_t \rangle]_+ & \text{if $w_{t,i} \le 0$}
@@ -142,7 +142,7 @@ applying Theorem~\ref{theorem:regret-bound-experts} to the shifted KT
 potential.  \begin{corollary}[Regret Bound for
 Algorithm~\ref{algorithm:kt-experts}] \label{corollary:kt-experts-regret} Let
 $N \ge 2$ and $T \ge 0$ be integers. Let $\pi \in \Delta_N$ be a prior.  For
-any sequence $\ell_1, \ell_2, \dots, \ell_T \in [0,1]^N$ of loss vectors,
+any sequence $g_1, g_2, \dots, g_T \in [0,1]^N$ of reward vectors,
 Algorithm~\ref{algorithm:kt-experts} with input $N,T,\pi$ satisfies
 \[
 \forall u \in \Delta_N \qquad \qquad \Regret_T(u) \le \sqrt{3T (4 + \KL{u}{\pi})} \; .
