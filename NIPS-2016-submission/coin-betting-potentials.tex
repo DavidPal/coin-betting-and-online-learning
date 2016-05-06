@@ -14,7 +14,7 @@ who proposed that after seeing coin flips $g_1, g_2, \dots, g_{t-1}$ an
 empirical estimate $k_t = \frac{1/2 + \sum_{i=1}^{t-1} \indicator[g_i = +1]}{t}$
 should be used instead of $p$. Their estimate is commonly called \emph{KT
 estimator}.\footnote{Compared to the maximum likelihood estimate
-$\frac{\sum_{i=1}^{t-1} \indicator[g_i = +1]}{t-1}$, KT estimator ``shrinks''
+$\frac{\sum_{i=1}^{t-1} \indicator[g_i = +1]}{t-1}$, KT estimator shrinks
 slightly towards $\nicefrac{1}{2}$.} KT estimator results in the betting strategy
 \begin{equation}
 \label{equation:kt-estimator-betting-strategy}
@@ -37,24 +37,25 @@ possible to prove that, for $g_1, g_2, \dots, g_t \in [-1,1]$,
 \Wealth_t \ge F_t \left( \sum_{i=1}^t g_i \right) \; ,
 \end{equation}
 where $F_t(x)$ is a certain function. We call such functions \emph{potentials}.
-We consider potential-based strategy that in round $t$ chooses fraction
-\begin{equation}
-\label{equation:potential-based-strategy}
-\beta_t = \tfrac{F_t(\sum_{i=1}^{t-1} g_i + 1) - F_t(\sum_{i=1}^{t-1} g_i - 1)}{F_t(\sum_{i=1}^{t-1} g_i + 1) + F_t(\sum_{i=1}^{t-1} g_i - 1)} \; .
-\end{equation}
-If $F_t(x)$ is positive, $\beta_t \in (-1,1)$ and hence it is a valid
-strategy. However, without further conditions on the sequence of potentials
-$\{F_t\}_{t=0}^\infty$ is is not clear if the strategy
-\eqref{equation:potential-based-strategy} implies the lower bound
-\eqref{equation:wealth-lower-bound-generic} on its wealth. We restrict our
+% We consider potential-based strategy that in round $t$ chooses fraction
+% \begin{equation}
+% \label{equation:potential-based-strategy}
+% \beta_t = \tfrac{F_t(\sum_{i=1}^{t-1} g_i + 1) - F_t(\sum_{i=1}^{t-1} g_i - 1)}{F_t(\sum_{i=1}^{t-1} g_i + 1) + F_t(\sum_{i=1}^{t-1} g_i - 1)} \; .
+% \end{equation}
+% If $F_t(x)$ is positive, $\beta_t \in (-1,1)$ and hence it is a valid
+% strategy.
+% However, without further conditions on the sequence of potentials
+% $\{F_t\}_{t=0}^\infty$, it is not clear if the strategy
+% \eqref{equation:potential-based-strategy} implies the lower bound
+% \eqref{equation:wealth-lower-bound-generic} on its wealth.
+We will associate a betting strategy (see point 3 in the Definition~\ref{definition:potential}) to each potential,
+and we restrict our
 attention to potentials for which \eqref{equation:wealth-lower-bound-generic}
-holds; these are specified in the definition below.
-
+holds. All these constraints are specified in the definition below.
 \begin{definition}[Coin-Betting Potential]
 \label{definition:potential}
 Let $\epsilon > 0$. Let $\{F_t\}_{t=0}^\infty$ be a sequence of functions
-$F_t:I_t  \to \R_+$ where $I_t = (-a_t, a_t)$ is an open symmetric
-interval\footnote{We allow $a_t = +\infty$.} containing $[-t,t]$.  The sequence
+$F_t:(-a_t, a_t)  \to \R_+$, where $a_t > t$.  The sequence
 $\{F_t\}_{t=0}^\infty$ is called a \textbf{sequence of coin-betting potentials
 for initial endowment $\epsilon$}, if it satisfies the following three
 conditions:
@@ -67,11 +68,12 @@ increasing on $[0,a_t)$, and
 \label{equation:potential-limit-assumption}
 \lim_{x \nearrow a_t} F_t(x) = \lim_{x \searrow -a_t} F_t(x) = +\infty \; .
 \end{equation}
-
-\item For every $t \ge 1$, every $x \in [-(t-1), (t-1)]$ and every $g \in [-1,1]$,
-\[
-\left(1 + g \tfrac{F_t(x + 1) - F_t(x - 1)}{F_t(x + 1) + F_t(x - 1)} \right) F_{t-1}(x) \ge F_t(x+g) \; .
-\]
+\item Set 
+\begin{equation}
+\label{equation:potential-based-strategy}
+\beta_t=\tfrac{F_t(x + 1) - F_t(x - 1)}{F_t(x + 1) + F_t(x - 1)} \;.
+\end{equation}
+For every $t \ge 1$, every $x \in [-(t-1), (t-1)]$ and every $g \in [-1,1]$, $\left(1 + g \beta_t \right) F_{t-1}(x) \ge F_t(x+g)$.
 \end{enumerate}
 The sequence $\{F_t\}_{t=0}^\infty$ is called a
 \textbf{sequence of excellent coin-betting potentials for initial
@@ -80,7 +82,7 @@ below.
 \begin{enumerate}[(1)]
 \setcounter{enumi}{3}
 \item For every $t \ge 0$, $F_t$ is twice-differentiable and
-satisfies $x \cdot F_t''(x) \ge F_t'(x)$ for every $x \in I_t$.
+satisfies $x \cdot F_t''(x) \ge F_t'(x)$ for every $x \in [0,a_t)$.
 \end{enumerate}
 \end{definition}
 
