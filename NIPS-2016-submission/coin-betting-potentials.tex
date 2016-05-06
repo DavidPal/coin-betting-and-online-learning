@@ -86,7 +86,8 @@ satisfies $x \cdot F_t''(x) \ge F_t'(x)$ for every $x \in [0,a_t)$.
 \end{enumerate}
 \end{definition}
 
-It is a routine exercise to show by induction on $t$ that conditions 2 and 3 of
+Let's give some intuition on this definition.
+First, it is a routine exercise to show by induction on $t$ that conditions 2 and 3 of
 the definition together with recurrence \eqref{equation:wealth-recurrence} imply
 that the \emph{potential based strategy}
 \eqref{equation:potential-based-strategy} satisfies
@@ -101,14 +102,16 @@ $\epsilon$. For $t \ge 1$, if we let $x = \sum_{i=1}^{t-1} g_i$, then
 = F_t \left( \sum_{i=1}^t g_i \right) \; .
 \]
 
-The formula for the potential-based
+Also, with perfect knowledge of the future, a bettor could always bet everything on the right outcome. Hence, after $T$ rounds and with initial endowment $\epsilon$, the maximum wealth we could get is $\epsilon 2^T$. In this sense, \emph{good} betting strategies should guarantee an exponential growth of the wealth, when the outcomes of the coin are predictable.
+
+As last point, the formula for the potential-based
 strategy~\eqref{equation:potential-based-strategy} might seem strange. However,
-it is derived by minimizing worst-case value the right-hand side of the
-inequality used w.r.t. to $g_t$ in the induction proof above
+it is derived by minimizing the worst-case value of the right-hand side of the
+inequality used w.r.t. to $g_t$ in the induction proof above:
 \[
 F_{t-1}(x) \ge \tfrac{F_{t}(x + g_t)}{1+g_t\beta_t} \; .
 \]
-For a proof see Theorem~\ref{theorem:optimal-betting-fraction} in
+For a proof, see Theorem~\ref{theorem:optimal-betting-fraction} in
 Appendix~\ref{section:optimal-betting-fraction}.
 
 We will show concrete examples of sequences of coin-betting potentials in
