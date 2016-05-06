@@ -77,7 +77,7 @@ Hegde~\cite{Freund-Schapire-1997}, $\eta=\sqrt{\tfrac{\ln N - U}{T}}$ & $\scO\le
 \cite{Chaudhuri-Freund-Hsu-2009}  & $\scO\left(\sqrt{T \KL{u}{\tfrac{1}{N}\boldsymbol{1}}}+\ln^2 N\right)$, $\forall u \in \Delta_N$ & $\scO(N\,K)$\footnotemark[1]& \checkmark \\
 \cite{Chernov-Vovk-2010} & $\scO\left(\sqrt{T \left(1+\KL{u}{\tfrac{1}{N}\boldsymbol{1}}\right)}\right)$, $\forall u \in \Delta_N$ & $\scO(N\,K)$\footnotemark[1] & \checkmark \\
 \cite{Chernov-Vovk-2010, Luo-Schapire-2015,Koolen-van-Erven-2015} & $\scO\left(\sqrt{T \left(\ln \ln T+\KL{u}{\tfrac{1}{N}\boldsymbol{1}}\right)}\right)$, $\forall u \in \Delta_N$ & $\scO(N)$ & \checkmark \\
-\cite{Foster-Rakhlin-Sridharan-2015} & $\scO\left(\sqrt{T \left(1+\KL{u}{\tfrac{1}{N}\boldsymbol{1}}\right)}\right)$, $\forall u \in \Delta_N$ & $\scO(N \max_{u \in \Delta_N} \ln \KL{u}{\pi})$ & \checkmark & \checkmark \\
+\cite{Foster-Rakhlin-Sridharan-2015} & $\scO\left(\sqrt{T \left(1+\KL{u}{\tfrac{1}{N}\boldsymbol{1}}\right)}\right)$, $\forall u \in \Delta_N$ & $\scO(N \max_{u \in \Delta_N} \ln \KL{u}{\pi})$\footnotemark[2] & \checkmark & \checkmark \\
 This paper, Sec.~\ref{section:kt-lea} & $\scO\left(\sqrt{T \left(1+\KL{u}{\tfrac{1}{N}\boldsymbol{1}}\right)}\right)$, $\forall u \in \Delta_N$ & $\scO(N)$ & \checkmark & \checkmark\\
 \bottomrule
 \end{tabular}}
@@ -86,3 +86,4 @@ This paper, Sec.~\ref{section:kt-lea} & $\scO\left(\sqrt{T \left(1+\KL{u}{\tfrac
 \end{center}
 \end{table}
 \footnotetext[1]{These algorithms require to solve a 1-d numberical problem at each step. Hence, $K$ is the number of steps needed to reach the required precision. Yet, in these papers $K$ is not calculated.}
+\footnotetext[2]{The algorithm in \cite{Foster-Rakhlin-Sridharan-2015} does not have a per-round time complexity independent of $T$, but it can be modified to achieve the stated complexity~\cite{Daniely:private}.}
