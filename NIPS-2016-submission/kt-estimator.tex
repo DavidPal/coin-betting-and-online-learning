@@ -83,7 +83,7 @@ part of the proof is an upper bound on Fenchel conjugate $F_t^*$ since it cannot
 be expressed as an elementary function.
 
 \subsection{Learning with Expert Advice}
-\label{sec:kt-lea}
+\label{section:kt-lea}
 
 \begin{algorithm}[t]
 \begin{algorithmic}[1]
@@ -92,79 +92,77 @@ be expressed as an elementary function.
 {
 \REQUIRE{Number of experts $N$, number of rounds $T$, prior distribution $\pi \in \Delta_N$}
 \FOR{$t=1,2,\dots,T$}
-\STATE{For each $i \in [N]$, set $w_{t,i} \leftarrow \tfrac{\sum_{j=1}^{t-1} g_{j,i}}{t+T/2} \left(1 + \sum_{j=1}^{t-1} g_{j,i} w_{j,i} \right)$}
+\STATE{For each $i \in [N]$, set $w_{t,i} \leftarrow \tfrac{\sum_{j=1}^{t-1} \widetilde g_{j,i}}{t+T/2} \left(1 + \sum_{j=1}^{t-1} \widetilde g_{j,i} w_{j,i} \right)$}
 \STATE{For each $i \in [N]$, set $\widehat{p}_{t,i} \leftarrow \pi_i [w_{t,i}]_+$}
 \STATE{Predict with $p_t \leftarrow
 \begin{cases}
 \widehat{p}_t/\norm{\widehat{p_t}}_1 & \text{if $\norm{\widehat p_t}_1 > 0$} \\
 \pi & \text{if $\norm{\widehat p_t}_1 = 0$}
 \end{cases}$}
-%\STATE{Predict $p_t$}
 \STATE{Receive loss vector $\ell_t \in [0,1]^N$}
-\STATE{For each $i \in [N]$, set $g_{t,i} \leftarrow \begin{cases}
-\langle \ell_t, p_t \rangle - \ell_{t,i} & \text{if $w_{t,i} > 0$} \\
-[\langle \ell_t, p_t \rangle - \ell_{t,i}]_+ & \text{if $w_{t,i} \le 0$}
+\STATE{For each $i \in [N]$, set $\widetilde g_{t,i} \leftarrow \begin{cases}
+g_{t,i} - \langle g_t, p_t \rangle & \text{if $w_{t,i} > 0$} \\
+[g_{t,i} - \langle g_t, p_t \rangle]_+ & \text{if $w_{t,i} \le 0$}
 \end{cases}$}
 \ENDFOR
 }
 \end{algorithmic}
 \end{algorithm}
 
-We will now construct an algorithm for \ac{LEA} based on
-\emph{shifted KT potential}. The shifted potential and the resulting algorithm
-requires to know the number of rounds $T$ in advance. The shifted KT
-potential is defined as
+We will now construct an algorithm for \ac{LEA} based on \emph{shifted KT
+potential}. The shifted potential and the resulting algorithm requires to know
+the number of rounds $T$ in advance. The shifted KT potential is defined as
 \[
 F_t(x) = \tfrac{2^t \cdot \Gamma\left(T/2 + 1 \right) \cdot \Gamma\left(\tfrac{t+T/2+1}{2} + \frac{x}{2} \right) \cdot \Gamma\left(\tfrac{t+T/2+1}{2} - \frac{x}{2} \right)}{\Gamma\left(\tfrac{T/2+1}{2} \right)^2 \cdot \Gamma \left(t+T/2+1\right)} \; .
 \]
-The reason for its name is that, up to a multiplicative constant, $F_t$ is equal
-to the KT potential shifted in time by $T/2$, i.e., $t$ is replaced by $T/2+t$.
-According to Theorem~\ref{theorem:kt-potential} in Appendix
-\ref{section:properties-kt-potential}, the shifted KT potentials also form
-a sequence of coin-betting potentials for initial endowment $1$. Furthermore, the
+The reason for its name is that, up to a multiplicative constant, $F_t$ is
+equal to the KT potential shifted in time by $T/2$, i.e., $t$ is replaced by
+$T/2+t$.  According to Theorem~\ref{theorem:kt-potential} in Appendix
+\ref{section:properties-kt-potential}, the shifted KT potentials also form a
+sequence of coin-betting potentials for initial endowment $1$. Furthermore, the
 corresponding betting fraction is
 \[
-\beta_t = \tfrac{\sum_{j=1}^{t-1} g_j}{T/2+t} \; .
+\beta_t = \tfrac{\sum_{j=1}^{t-1} \widetilde g_j}{T/2+t} \; .
 \]
-Recall that for construction of the final algorithm, we need, as an intermediate
-step, an OLO algorithm for one-dimensional Hilbert space $\R$. This algorithm
-predicts for any sequence $\{g_t\}_{t=1}^\infty$ of reward vectors,
+Recall that for construction of the final algorithm, we need, as an
+intermediate step, an OLO algorithm for one-dimensional Hilbert space $\R$.
+This algorithm predicts for any sequence $\{\widetilde g_t\}_{t=1}^\infty$ of reward
+vectors,
 \[
 w_t
 = \beta_t \Wealth_{t-1}
-= \beta_t \left(1 + \sum_{j=1}^{t-1} g_j w_j \right)
-= \frac{\sum_{i=1}^{t-1} g_i}{T/2+t} \left(1 + \sum_{j=1}^{t-1} g_j w_j \right) \; .
+= \beta_t \left(1 + \sum_{j=1}^{t-1} \widetilde g_j w_j \right)
+= \frac{\sum_{i=1}^{t-1} \widetilde g_i}{T/2+t} \left(1 + \sum_{j=1}^{t-1} \widetilde g_j w_j \right) \; .
 \]
-Following the construction in Section~\ref{section:reduction-experts}, we arrive
-at the final algorithm, Algorithm~\ref{algorithm:kt-experts}.
+Following the construction in Section~\ref{section:reduction-experts}, we
+arrive at the final algorithm, Algorithm~\ref{algorithm:kt-experts}.
 
 We can derive a regret bound for Algorithm~\ref{algorithm:kt-experts} by
-applying Theorem~\ref{theorem:regret-bound-experts} to the shifted KT potential.
-\begin{corollary}[Regret Bound for Algorithm~\ref{algorithm:kt-experts}]
-\label{corollary:kt-experts-regret}
-Let $N \ge 2$ and $T \ge 0$ be integers. Let $\pi \in \Delta_N$ be a prior.
-For any sequence $\ell_1, \ell_2, \dots, \ell_T \in
-[0,1]^N$ of loss vectors, Algorithm~\ref{algorithm:kt-experts}
-with input $N,T,\pi$ satisfies
+applying Theorem~\ref{theorem:regret-bound-experts} to the shifted KT
+potential.  \begin{corollary}[Regret Bound for
+Algorithm~\ref{algorithm:kt-experts}] \label{corollary:kt-experts-regret} Let
+$N \ge 2$ and $T \ge 0$ be integers. Let $\pi \in \Delta_N$ be a prior.  For
+any sequence $\ell_1, \ell_2, \dots, \ell_T \in [0,1]^N$ of loss vectors,
+Algorithm~\ref{algorithm:kt-experts} with input $N,T,\pi$ satisfies
 \[
 \forall u \in \Delta_N \qquad \qquad \Regret_T(u) \le \sqrt{3T (4 + \KL{u}{\pi})} \; .
 \]
 \end{corollary}
-The proof of the corollary is in the Appendix~\ref{section:corollaries_reductions}.
-The technical part of the proof is an upper bound on $f_t^{-1}(x)$, which we
-conveniently do by lower bounding $F_t(x)$.
+The proof of the corollary is in the
+Appendix~\ref{section:corollaries_reductions}.  The technical part of the proof
+is an upper bound on $f_t^{-1}(x)$, which we conveniently do by lower bounding
+$F_t(x)$.
 
-The reason for using the shifted
-potential comes from the analysis of $f_t^{-1}(x)$. The unshifted algorithm would
-have a $O(\sqrt{T (\log T + \KL{u}{\pi}})$ regret bound; the shifting improves the
-bound to $O(\sqrt{T (1 + \KL{u}{\pi}})$.
-By changing $T/2$ in Algorithm~\ref{algorithm:kt-experts} to another constant
-fraction of $T$, it is possible to trade-off between the two constants $3$ and
-$4$ present in the square root.
+The reason for using the shifted potential comes from the analysis of
+$f_t^{-1}(x)$. The unshifted algorithm would have a $O(\sqrt{T (\log T +
+\KL{u}{\pi}})$ regret bound; the shifting improves the bound to $O(\sqrt{T (1 +
+\KL{u}{\pi}})$.  By changing $T/2$ in Algorithm~\ref{algorithm:kt-experts} to
+another constant fraction of $T$, it is possible to trade-off between the two
+constants $3$ and $4$ present in the square root.
 
 The requirement of knowing the number of rounds $T$ in advance can be lifted by
-the standard doubling trick~\citep[Section 2.3.1]{Shalev-Shwartz-2011}. We obtain
-an anytime algorithm at the expense of slightly worse regret bound,
+the standard doubling trick~\citep[Section 2.3.1]{Shalev-Shwartz-2011}. We
+obtain an anytime algorithm at the expense of slightly worse regret bound,
 \[
 \forall \, T \ge 0 \quad \forall u \in \Delta_N \qquad \qquad
 \Regret_T(u) \le \tfrac{\sqrt{2}}{\sqrt{2} - 1} \sqrt{3T (4 + \KL{u}{\pi})} \; .

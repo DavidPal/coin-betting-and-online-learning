@@ -57,12 +57,12 @@ The series converges for $x \in (-a,a)$, since
 for even $n \ge 2$, $\psi^{(n-1)}(a)$ is positive and can be upper bounded as
 \begin{align*}
 \psi^{(n-1)}(a)
-& = \int_0^\infty \frac{t^n e^{-at}}{1 - e^{-t}} dt \\
-& = \int_0^1 \frac{t^n e^{-at}}{1 - e^{-t}} dt + \int_1^\infty \frac{t^n e^{-zt}}{1 - e^{-t}} dt \\
-& \le \int_0^1 \frac{t^n e^{-at}}{t(1 - 1/e)} dt + \int_1^\infty t^n e^{-at} dt \\
-& \le \frac{1}{1 - 1/e} \int_0^\infty t^{n-1} e^{-at} dt + \int_0^\infty t^n e^{-at} dt \\
-& = \frac{1}{1 - 1/e} a^{-n} \Gamma(n) + a^{-n-1} \Gamma(n+1) \\
-& \le \frac{1}{1 - 1/e} a^{-n} n! (1 + 1/a) \; .
+& = \int_0^\infty \frac{t^{n-1} e^{-at}}{1 - e^{-t}} dt \\
+& = \int_0^1 \frac{t^{n-1} e^{-at}}{1 - e^{-t}} dt + \int_1^\infty \frac{t^{n-1} e^{-zt}}{1 - e^{-t}} dt \\
+& \le \int_0^1 \frac{t^{n-1} e^{-at}}{t(1 - 1/e)} dt + \int_1^\infty t^{n-1} e^{-at} dt \\
+& \le \frac{1}{1 - 1/e} \int_0^\infty t^{n-2} e^{-at} dt + \int_0^\infty t^{n-1} e^{-at} dt \\
+& = \frac{1}{1 - 1/e} a^{1-n} \Gamma(n-1) + a^{-n} \Gamma(n) \\
+& \le \frac{1}{1 - 1/e} a^{-n}(a+1) (n-1)!\; .
 \end{align*}
 From the Mclaurin expansion we see that $f(x)$ is increasing on $[0,a)$
 since all coefficients are positive (except for zero order term).

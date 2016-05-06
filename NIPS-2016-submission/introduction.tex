@@ -48,7 +48,7 @@ design parameter-free batch machine learning algorithms through straightforward
 reductions~\cite{Orabona-2014, Luo-Schapire-2015}.  Yet, all of existing
 algorithms for LEA either have sub-optimal regret bound (e.g. extra $O(\log
 \log T)$ factor) or sub-optimal running time (e.g. requiring solving a
-numerical problem in every round, or extra $O(\log \log N)$); see
+numerical problem in every round, or extra $O(\log \log N)$ factor); see
 Table~\ref{table:bounds}.
 
 \textbf{Contributions.} We show that a more fundamental notion subsumes both
@@ -78,7 +78,7 @@ Hegde, $\eta=\sqrt{\tfrac{\ln N - U}{T}}$ & $\scO\left(\sqrt{T (\ln N -U)}\right
 \cite{Chernov-Vovk-2010} & $\scO\left(\sqrt{T}\left(\sqrt{\KL{u}{\tfrac{1}{N}\boldsymbol{1}}}+1\right)\right)$, $\forall u \in \Delta_N$ & Numerical & \checkmark \\
 \cite{Chernov-Vovk-2010, Luo-Schapire-2015,Koolen-van-Erven-2015} & $\scO\left(\sqrt{T \left(\ln \ln T+\KL{u}{\tfrac{1}{N}\boldsymbol{1}}\right)}\right)$, $\forall u \in \Delta_N$ & $\scO(N)$ & \checkmark \\
 \cite{Foster-Rakhlin-Sridharan-2015} & $\scO\left(\sqrt{T\max(\KL{u}{\tfrac{1}{N}\boldsymbol{1}},1)} \right)$, $\forall u \in \Delta_N$ & $\scO(N \max_{u \in \Delta_N} \ln \KL{u}{\pi})$ & \checkmark & \checkmark \\
-This paper, Sec.~\ref{sec:kt-lea} & $\scO\left(\sqrt{T \left(1+\KL{u}{\tfrac{1}{N}\boldsymbol{1}}\right)}\right)$, $\forall u \in \Delta_N$ & $\scO(N)$ & \checkmark & \checkmark\\
+This paper, Sec.~\ref{section:kt-lea} & $\scO\left(\sqrt{T \left(1+\KL{u}{\tfrac{1}{N}\boldsymbol{1}}\right)}\right)$, $\forall u \in \Delta_N$ & $\scO(N)$ & \checkmark & \checkmark\\
 \bottomrule
 \end{tabular}}
 \caption{Algorithms for Learning with Expert Advice and OLO over Hilbert space}

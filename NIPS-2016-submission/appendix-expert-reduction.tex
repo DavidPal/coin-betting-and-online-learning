@@ -1,43 +1,47 @@
 \section{Proof of Theorem~\ref{theorem:regret-bound-experts}}
-\label{sec:appendix-erpert-reduction}
+\label{section:appendix-expert-reduction}
 
 \begin{proof}
-We first prove that $\sum_{i=1}^N \pi_i g_{t,i} w_{t,i} \le 0$. Indeed,
+We first prove that $\sum_{i=1}^N \pi_i \widetilde g_{t,i} w_{t,i} \le 0$. Indeed,
 \begin{align*}
-\sum_{i=1}^N \pi_i g_{t,i} w_{t,i}
-& = \sum_{i \, : \, \pi_i w_{t,i} > 0} \pi_i [w_{t,i}]_+ (\langle \ell_t, p_t \rangle - \ell_{t,i})  \ + \ \sum_{i \, : \, \pi_i w_{t,i} \le 0} \pi_i w_{t,i} [\langle p_t, \ell_t\rangle - \ell_{t,i}]_+ \\
-& = \norm{\widehat p_t}_1 \sum_{i=1}^N p_{t,i} (\langle \ell_t, p_t \rangle - \ell_{t,i})  \ + \ \sum_{i \, : \, \pi_i w_{t,i} \le 0} \pi_i w_{t,i} [\langle p_t, \ell_t\rangle - \ell_{t,i}]_+ \\
-& = 0 \ + \ \sum_{i \, : \, \pi_i w_{t,i} \le 0} \pi_i w_{t,i} [\langle p_t, \ell_t\rangle - \ell_{t,i}]_+
+\sum_{i=1}^N \pi_i \widetilde g_{t,i} w_{t,i}
+& = \sum_{i \, : \, \pi_i w_{t,i} > 0} \pi_i [w_{t,i}]_+ (g_{t,i} - \langle g_t, p_t \rangle)  \ + \ \sum_{i \, : \, \pi_i w_{t,i} \le 0} \pi_i w_{t,i} [g_{t,i} - \langle g_t, p_t \rangle ]_+ \\
+& = \norm{\widehat p_t}_1 \sum_{i=1}^N p_{t,i} (g_{t,i} - \langle g_t, p_t \rangle)  \ + \ \sum_{i \, : \, \pi_i w_{t,i} \le 0} \pi_i w_{t,i} [g_{t,i} - \langle g_t, p_t\rangle]_+ \\
+& = 0 \ + \ \sum_{i \, : \, \pi_i w_{t,i} \le 0} \pi_i w_{t,i} [g_{t,i} - \langle g_t, p_t\rangle]_+
 \ \le 0 \; .
 \end{align*}
-The first equality follows from definition of $g_{t,i}$. To see the second equality,
-consider two cases: If $\pi_i w_{t,i} \le 0$ for all $i$ then $\norm{\widehat p_t}_1 = 0$ and $p_t$ is the uniform distribution;
-therefore $\norm{\widehat p_t}_1 \sum_{i=1}^N p_{t,i} (\langle \ell_t, p_t \rangle - \ell_{t,i}) = 0$ and
-$\sum_{i \, : \, \pi_i w_{t,i} > 0} \pi_i [w_{t,i}]_+ (\langle \ell_t, p_t \rangle - \ell_{t,i}) = 0$.
-If $\norm{\widehat p_t}_1 > 0$ then $\pi_i [w_{t,i}]_+ = \widehat p_{t,i} = \norm{\widehat p_t}_1 p_{t,i}$ for all $i$.
+The first equality follows from definition of $g_{t,i}$. To see the second
+equality, consider two cases: If $\pi_i w_{t,i} \le 0$ for all $i$ then
+$\norm{\widehat p_t}_1 = 0$ and therefore both
+$\norm{\widehat p_t}_1 \sum_{i=1}^N p_{t,i} (g_{t,i} - \langle g_t, p_t \rangle)$
+and $\sum_{i \, : \, \pi_i w_{t,i} > 0} \pi_i [w_{t,i}]_+
+(g_{t,i} - \langle g_t, p_t \rangle)$ are trivially zero.  If $\norm{\widehat p_t}_1 >
+0$ then $\pi_i [w_{t,i}]_+ = \widehat p_{t,i} = \norm{\widehat p_t}_1 p_{t,i}$
+for all $i$.
 
-Inequality $\sum_{i=1}^N \pi_i g_{t,i} w_{t,i} \le 0$ and the assumption
+Inequality $\sum_{i=1}^N \pi_i \widetilde g_{t,i} w_{t,i} \le 0$ and the assumption
 \eqref{equation:experts-one-dimensional-assumption} imply
 \begin{equation}
 \label{equation:bounded-potential}
-\sum_{i=1}^N  \pi_i F_t \left(\sum_{t=1}^T g_{t,i} \right) \le 1 + \sum_{i=1}^N \pi_i \sum_{t=1}^T  g_{t,i} w_{t,i} \le 1 \; .
+\sum_{i=1}^N  \pi_i F_t \left(\sum_{t=1}^T \widetilde g_{t,i} \right)
+\le 1 + \sum_{i=1}^N \pi_i \sum_{t=1}^T  \widetilde g_{t,i} w_{t,i} \le 1 \; .
 \end{equation}
-Now, let $G_{t,i} =
-\sum_{t=1}^T g_{t,i}$. For any competitor $u \in \Delta_N$,
+Now, let $\widetilde G_{t,i} =
+\sum_{t=1}^T \widetilde g_{t,i}$. For any competitor $u \in \Delta_N$,
 \begingroup
 \allowdisplaybreaks
 \begin{align*}
 \allowdisplaybreaks
 &\Regret_T(u)
-= \sum_{t=1}^T \langle \ell_t, p_t - u \rangle
-= \sum_{t=1}^T \sum_{i=1}^N u_i \left( \langle \ell_t, p_t \rangle - \ell_{t,i} \right) \\
-& \le \sum_{t=1}^T \sum_{i=1}^N u_i g_{t,i} \qquad \text{(by definition of $g_{t,i}$)} \\
-& \le \sum_{i=1}^N u_i |G_{T,i}| \qquad \text{(since $u \ge 0$)}  \\
-& = \sum_{i=1}^N u_i f_T^{-1}\left(\ln [F_T(G_{T,i})] \right)  \qquad \text{(since $F_T(x) = \exp(f_T(x))$ is even)} \\
-& \le f_T^{-1}\left(\sum_{i=1}^N u_i \ln \left[ F_T(G_{T,i}) \right]\right) \qquad \text{(by concavity of $f_T^{-1}$)} \\
-& = f_T^{-1}\left(\sum_{i=1}^N u_i \left\{\ln \left[\frac{u_i}{\pi_i}\right] +\ln \left[ \frac{\pi_i}{u_i} F_T(G_{T,i}) \right] \right\} \right)
-= f_T^{-1}\left(\KL{u}{\pi}+\sum_{i=1}^N u_i\ln \left[\frac{\pi_i}{u_i} F_T(G_{T,i}) \right]\right) \\
-& \le f_T^{-1}\left(\KL{u}{\pi}+\ln \left(\sum_{i=1}^N \pi_i F_T(G_{T,i}) \right)\right) \qquad \text{(by concavity of $\ln(\cdot)$)} \\
+= \sum_{t=1}^T \langle g_t, u - p_t \rangle
+= \sum_{t=1}^T \sum_{i=1}^N u_i \left(g_{t,i} - \langle g_t, p_t \rangle \right) \\
+& \le \sum_{t=1}^T \sum_{i=1}^N u_i \widetilde g_{t,i} \qquad \text{(by definition of $\widetilde g_{t,i}$)} \\
+& \le \sum_{i=1}^N u_i \left|\widetilde G_{T,i}\right| \qquad \text{(since $u \ge 0$)}  \\
+& = \sum_{i=1}^N u_i f_T^{-1}\left(\ln [F_T(\widetilde G_{T,i})] \right)  \qquad \text{(since $F_T(x) = \exp(f_T(x))$ is even)} \\
+& \le f_T^{-1}\left(\sum_{i=1}^N u_i \ln \left[ F_T(\widetilde G_{T,i}) \right]\right) \qquad \text{(by concavity of $f_T^{-1}$)} \\
+& = f_T^{-1}\left(\sum_{i=1}^N u_i \left\{\ln \left[\frac{u_i}{\pi_i}\right] +\ln \left[ \frac{\pi_i}{u_i} F_T(\widetilde G_{T,i}) \right] \right\} \right)
+= f_T^{-1}\left(\KL{u}{\pi}+\sum_{i=1}^N u_i\ln \left[\frac{\pi_i}{u_i} F_T(\widetilde G_{T,i}) \right]\right) \\
+& \le f_T^{-1}\left(\KL{u}{\pi}+\ln \left(\sum_{i=1}^N \pi_i F_T(\widetilde G_{T,i}) \right)\right) \qquad \text{(by concavity of $\ln(\cdot)$)} \\
 & \le f_T^{-1}\left(\KL{u}{\pi}\right) \qquad \text{(by \eqref{equation:bounded-potential})}.
 \end{align*}
 \endgroup
