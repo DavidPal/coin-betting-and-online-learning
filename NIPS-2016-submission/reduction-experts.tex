@@ -51,27 +51,20 @@ the same regardless of $\epsilon$.}
 
 We show how to convert \eqref{equation:experts-one-dimensional-assumption} into
 a regret bound for the LEA algorithm, the proof is in
-Appendix~\ref{section:appendix-expert-reduction}. The regret bound is expressed
-in terms of the inverse of $f_t(x) = \ln(F_t(x))$. We define it as follows. We
-restrict the function $f_t$ to the domain $I_t \cap [0, \infty)$. By the
-definition of coin-betting potential, $f_t$ is convex, strictly increasing. The
-image of $f_t$ contains $[0,\infty)$, because $F_t(0) \le 1$ and because $F_t$
-satisfies \eqref{equation:potential-limit-assumption}. We define $f_t^{-1}$ as
-the inverse of $f_t$. Note that $f_t^{-1}$ is strictly increasing, concave, and
-its domain contains $[0, \infty)$.
+Appendix~\ref{section:appendix-expert-reduction}.
 
 \begin{theorem}[Regret Bound for Experts]
 \label{theorem:regret-bound-experts}
 Let $\{F_t\}_{t=0}^\infty$ be a sequence of coin-betting potentials for initial
-endowment $1$. Let $f_t^{-1}$ be in the inverse of $f_t(x) = \ln(F_t(x))$.
-Let $A$ be an algorithm for OLO over one-dimensional Hilbert space
-$\R$. Suppose that $A$ satisfies
+endowment $1$. Let $f_t^{-1}$ be in the inverse of $f_t(x) = \ln(F_t(x))$
+restricted to $[0,\infty)$.  Let $A$ be an algorithm for OLO over
+one-dimensional Hilbert space $\R$. Suppose that $A$ satisfies
 \eqref{equation:experts-one-dimensional-assumption} for any sequence
-$\{g_t\}_{t=1}^\infty$ such that $g_t \in [-1,1]$. Then, the regret of the
-LEA algorithm with prior $\pi \in \Delta_N$, based on $A$, satisfies
+$\{g_t\}_{t=1}^\infty$ such that $g_t \in [-1,1]$. Then, the regret of the LEA
+algorithm with prior $\pi \in \Delta_N$, based on $A$, satisfies
 \[
-\forall u \in \Delta_N \qquad \qquad
-\Regret_t(u) \le f_t^{-1}\left( \KL{u}{\pi} \right) \; .
+\forall T \ge 0 \quad \forall u \in \Delta_N \qquad \qquad
+\Regret_T(u) \le f_T^{-1}\left( \KL{u}{\pi} \right) \; .
 \]
 \end{theorem}
 
