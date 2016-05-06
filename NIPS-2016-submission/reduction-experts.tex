@@ -24,9 +24,10 @@ p_{t,2}, \dots, \widehat p_{t,N}) \in \R_{0,+}^N$,
 \]
 where $[x]_+ = \max\{0,x\}$ is the positive part of $x$. Then, the LEA
 algorithm predicts $p_t = (p_{t,1}, p_{t,2}, \dots, p_{t,N}) \in \Delta^N$,
-\[
+\begin{equation}
+\label{eq:preds_experts}
 p_t = \frac{\widehat p_t}{\norm{\widehat p_t}_1} \; .
-\]
+\end{equation}
 If $\norm{\widehat p_t}_1 = 0$, the algorithm predicts the prior $\pi$.
 Then, the algorithm receives the reward vector
 $g_t = (g_{t,1}, g_{t,2}, \dots, g_{t,N}) \in [0,1]^N$. Finally, it
@@ -51,7 +52,7 @@ one-dimensional Hilbert space $\R$, based on coin-betting potential
 $\{F_t\}_{t=0}^\infty$ for initial
 endowment $1$. Let $f_t^{-1}$ be in the inverse of $f_t(x) = \ln(F_t(x))$
 restricted to $[0,\infty)$.  Then, the regret of the \ac{LEA}
-algorithm with prior $\pi \in \Delta_N$ that predicts at each round with $p_t$ satisfies
+algorithm with prior $\pi \in \Delta_N$ that predicts at each round with $p_t$ in \eqref{eq:preds_experts} satisfies
 \[
 \forall T \ge 0 \quad \forall u \in \Delta_N \qquad \qquad
 \Regret_T(u) \le f_T^{-1}\left( \KL{u}{\pi} \right) \; .
