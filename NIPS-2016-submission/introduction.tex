@@ -46,7 +46,7 @@ framework of~\cite{Foster-Rakhlin-Sridharan-2015}.  Given the connections
 between \ac{OLO}/\ac{LEA} and machine learning, these algorithms allow to
 design parameter-free batch machine learning algorithms through straightforward
 reductions~\cite{Orabona-2014, Luo-Schapire-2015}.  Yet, all of existing
-algorithms for LEA either have sub-optimal regret bound (e.g. extra $O(\log
+algorithms for LEA either have sub-optimal regret bound (e.g. extra $\scO(\log
 \log T)$ factor) or sub-optimal running time (e.g. requiring solving a
 numerical problem in every round, or extra factors); see
 Table~\ref{table:bounds}.
@@ -57,8 +57,8 @@ maximize the wealth in bets on the outcomes of coin flips \emph{implies}
 \ac{OLO} and \ac{LEA} parameter-free algorithms.  Hence, we present a novel
 framework to characterize betting algorithms through potential functions and we
 instantiate it with the Krichevsky-Trofimov estimator.  The resulting
-algorithms are new, simple, and natural. They also have optimal guarantees on time and regret, see
-Table~\ref{table:bounds}.
+algorithms are new, simple, and natural. They also have optimal guarantees on
+time and regret, see Table~\ref{table:bounds}.
 
 \begin{table}
 \begin{center}
@@ -85,5 +85,6 @@ This paper, Sec.~\ref{section:kt-lea} & $\scO\left(\sqrt{T \left(1+\KL{u}{\tfrac
 \label{table:bounds}
 \end{center}
 \end{table}
-\footnotetext[1]{These algorithms require to solve a 1-d numberical problem at each step. Hence, $K$ is the number of steps needed to reach the required precision. Yet, in these papers $K$ is not calculated.}
-\footnotetext[2]{The computational inefficient algorithm in \cite{Foster-Rakhlin-Sridharan-2015} can be modified to achieve the stated complexity~\cite{Daniely:private}.}
+\footnotetext[1]{These algorithms require to solve a numerical problem at each step. The number $K$ is the number of steps needed to reach the required precision. Neither the required precision
+nor the number of steps to reach it is calculated in these papers. In general, $K$ is a function of the number rounds $T$ and the number of experts $N$.}
+\footnotetext[2]{A slighly modified version of algorithm in \cite{Foster-Rakhlin-Sridharan-2015} can be implemented with the stated time complexity~\cite{Foster:private}.}
