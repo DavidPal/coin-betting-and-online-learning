@@ -8,13 +8,15 @@ Kullback-Leibler divergence between two Bernoulli distributions with parameters
 $p$ and $q$.  We denote by $\H$ a Hilbert space with inner product $\langle
 \cdot, \cdot\rangle$ and by $\norm{\cdot}$ the induced norm.  We denote by
 $\norm{\cdot}_1$ the $1$-norm in $\R^N$.  A function $F:I \to \R_+$ is called
-\emph{logarithmically convex} iff $f(x) = \ln(F(x))$ is convex. It follows that
-if $F(x)$ is logarithmically convex, then it is also convex (in the usual
-sense).  Let $f:V \to \R \cup \{\pm\infty\}$ be a function defined on a real
+\emph{logarithmically convex} iff $f(x) = \ln(F(x))$ is convex.
+%It follows that
+%if $F(x)$ is logarithmically convex, then it is also convex (in the usual
+%sense).
+Let $f:V \to \R \cup \{\pm\infty\}$ be a function defined on a real
 vector space $V$. Fenchel conjugate of $f$ is $f^*:V^* \to \R \cup \{\pm
 \infty\}$ defined on the dual vector space $V^*$ by $f^*(\theta) = \sup_{x \in
-V} \ \langle \theta, x \rangle - f(x)$.  A function $f:V \to \R \cup \{\pm
-\infty\}$ is said to be proper if it never attains $-\infty$ and attains finite
+V} \ \langle \theta, x \rangle - f(x)$.  A function $f:V \to \R \cup \{+
+\infty\}$ is said to be proper if  it attains finite
 value at at least one point. If $f$ is a proper lower semi-continuous convex
 function then $f^*$ is also is proper lower semi-continuous convex and
 $f^{**}=f$.
