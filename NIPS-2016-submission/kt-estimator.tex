@@ -1,15 +1,16 @@
 \section{Applications of Krichevsky-Trofimov Estimator}
 \label{section:kt-estimator}
 
-In the previous two sections we have shown that a coin-betting potential with a
+In the previous section we have shown that a coin-betting potential with a
 guaranteed rapid growth of the wealth will give good regret guarantees for
 \ac{OLO} and \ac{LEA}. In this section, we show that the optimal
-Krichevsky-Trofimov (KT) estimator has associated a sequence of excellent
+KT estimator has associated a sequence of excellent
 coin-betting potentials, which we call \emph{KT potentials}. We then prove
 corollaries of the regret bounds for \ac{OLO} over Hilbert space and \ac{LEA}
 from Sections~\ref{section:reduction_hilbert} and~\ref{section:reduction-experts}, obtaining optimal regret bounds.
 
-The potential corresponding to adaptive Kelly betting strategy
+The excellent coin-betting potential for initial endowment $\epsilon$
+corresponding to the adaptive Kelly betting strategy
 $\beta_t$ defined by \eqref{equation:kt-estimator-betting-strategy}
 based on the KT estimator is
 \begin{equation}
@@ -17,19 +18,29 @@ based on the KT estimator is
 F_t(x) = \epsilon \tfrac{2^t \cdot \Gamma \left( \tfrac{t+1}{2} + \frac{x}{2} \right) \cdot \Gamma \left( \tfrac{t+1}{2} - \frac{x}{2} \right)}{\pi \cdot t!}
 \qquad \qquad \text{$t \ge 0$, \quad $x \in \left(-t-1, t+1\right)$,}
 \end{equation}
-where $\Gamma(x) = \int_0^\infty t^{-x} e^{-t} dt$ is Euler's gamma function.
-The potential was introduced by~\citet{Krichevsky-Trofimov-1981} who used it
-for proving regret bound for online prediction with log-loss; see also
-\cite[Section 9.7]{Cesa-Bianchi-Lugosi-2006}.
-
-This potential has also the peculiar property to satisfy the inequality in (c) of Definition~\ref{definition:potential}
-with equality when $g_t\in \{-1,1\}$, i.e. $F_t(x+g_t)=(1+g_t \beta_t) \, F_{t-1}(x)$.
-In fact, Theorem~\ref{theorem:kt-potential} in
-Appendix~\ref{section:properties-kt-potential} shows that
-\eqref{equation:kt-estimator-potential} is a sequence of excellent coin-betting
-potentials for initial endowment $\epsilon$. Theorem~\ref{theorem:kt-potential}
+where $\Gamma(x) = \int_0^\infty t^{-x} e^{-t} dt$ is Euler's gamma function---see Theorem~\ref{theorem:kt-potential} in
+Appendix~\ref{section:properties-kt-potential}.
+This potential was used to prove regret bounds for online prediction with the logarithmic loss~\cite{Krichevsky-Trofimov-1981}\cite[Section 9.7]{Cesa-Bianchi-Lugosi-2006}.
+Theorem~\ref{theorem:kt-potential}
 also shows that the KT betting strategy $\beta_t$ as defined by
 \eqref{equation:kt-estimator-betting-strategy} satisfies \eqref{equation:potential-based-strategy}.
+
+This potential has the peculiar property to satisfy the inequality in (c) of Definition~\ref{definition:potential}
+with equality when $g_t\in \{-1,1\}$, i.e. $F_t(x+g_t)=(1+g_t \beta_t) \, F_{t-1}(x)$.
+
+
+We also generalize the KT potential to a \emph{$\delta$-shifted KT
+potential}, where $\delta\geq0$, defined as
+\[
+F_t(x) = \tfrac{2^t \cdot \Gamma\left(\delta + 1 \right) \cdot \Gamma\left(\tfrac{t+\delta+1}{2} + \frac{x}{2} \right) \cdot \Gamma\left(\tfrac{t+\delta+1}{2} - \frac{x}{2} \right)}{\Gamma\left(\tfrac{\delta+1}{2} \right)^2 \cdot \Gamma \left(t+\delta+1\right)} \; .
+\]
+The reason for its name is that, up to a multiplicative constant, $F_t$ is
+equal to the KT potential shifted in time by $\delta$, i.e., $t$ is replaced by
+$\delta+t$. Theorem~\ref{theorem:kt-potential} also proves that the $\delta$-shifted KT potentials are excellent coin-betting potentials for initial endowment $1$, and the
+corresponding betting fraction is
+\[
+\beta_t = \tfrac{\sum_{j=1}^{t-1} \widetilde g_j}{\delta+t} \; .
+\]
 
 
 \subsection{OLO in Hilbert Space}
@@ -63,8 +74,8 @@ $\beta_t = \frac{\norm{\sum_{i=1}^{t-1} g_i}}{t}$. Hence, the prediction can be
 simply written as
 \[
 w_t
-= \tfrac{1}{t} \Wealth_{t-1} \sum_{i=1}^{t-1} g_i
-= \tfrac{1}{t} \left(\epsilon + \sum_{i=1}^{t-1} \langle g_i, w_i \rangle \right) \sum_{i=1}^{t-1} g_i \; .
+= \frac{1}{t} \Wealth_{t-1} \sum_{i=1}^{t-1} g_i
+= \frac{1}{t} \left(\epsilon + \sum_{i=1}^{t-1} \langle g_i, w_i \rangle \right) \sum_{i=1}^{t-1} g_i \; .
 \]
 The algorithm is stated as Algorithm~\ref{algorithm:kt-hilbert-space-olo}.  We
 derive a regret bound for it as a very simple corollary of
@@ -91,6 +102,11 @@ It is worth noting the simplicity of Algorithm~\ref{algorithm:kt-hilbert-space-o
 \subsection{Learning with Expert Advice}
 \label{section:kt-lea}
 
+
+We will now construct an algorithm for \ac{LEA} based on the $\delta$-shifted KT
+potential. We set $\delta$ to $T/2$, requiring to know
+the number of rounds $T$ in advance.
+
 \begin{algorithm}[t]
 \begin{algorithmic}[1]
 \caption{Algorithm for Learning with Expert Advice based on shifted KT potential
@@ -115,23 +131,7 @@ g_{t,i} - \langle g_t, p_t \rangle & \text{if $w_{t,i} > 0$} \\
 \end{algorithmic}
 \end{algorithm}
 
-We will now construct an algorithm for \ac{LEA} based on \emph{shifted KT
-potential}. The shifted potential and the resulting algorithm requires to know
-the number of rounds $T$ in advance. The shifted KT potential is defined as
-\[
-F_t(x) = \tfrac{2^t \cdot \Gamma\left(T/2 + 1 \right) \cdot \Gamma\left(\tfrac{t+T/2+1}{2} + \frac{x}{2} \right) \cdot \Gamma\left(\tfrac{t+T/2+1}{2} - \frac{x}{2} \right)}{\Gamma\left(\tfrac{T/2+1}{2} \right)^2 \cdot \Gamma \left(t+T/2+1\right)} \; .
-\]
-The reason for its name is that, up to a multiplicative constant, $F_t$ is
-equal to the KT potential shifted in time by $T/2$, i.e., $t$ is replaced by
-$T/2+t$.  According to Theorem~\ref{theorem:kt-potential} in Appendix
-\ref{section:properties-kt-potential}, the shifted KT potentials also form a
-sequence of coin-betting potentials for initial endowment $1$. Furthermore, the
-corresponding betting fraction is
-\[
-\beta_t = \tfrac{\sum_{j=1}^{t-1} \widetilde g_j}{T/2+t} \; .
-\]
-Recall that for construction of the final algorithm, we need, as an
-intermediate step, an OLO algorithm for one-dimensional Hilbert space $\R$.
+To use the construction in Section~\ref{section:reduction-experts}, we need an OLO algorithm for the one-dimensional Hilbert space $\R$.
 This algorithm predicts for any sequence $\{\widetilde g_t\}_{t=1}^\infty$ of reward
 vectors,
 \[

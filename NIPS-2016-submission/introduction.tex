@@ -34,7 +34,7 @@ can be solved through a reduction to \ac{OLO}~\cite{Shalev-Shwartz-2011}.
 However, to achieve small regret, most of the online algorithms still require to set
 hyperparameters, usually learning rates, in order to
 achieve the best possible theoretical and empirical performance. 
-For example, to obtain the optimal bound, in \ac{OGD} the learning rate has be to set with the knowledge of the norm of the competitor $u$, first line Table~\ref{table:bounds}. In the same way, in Hedge the optimal learning rate depends on the KL divergence bewteen the prior weighting $\pi$ and the unknown competitor $u$, forth line Table~\ref{table:bounds}.
+For example, to obtain the optimal bound, in \ac{OGD} the learning rate has to be set with the knowledge of the norm of the competitor $u$, first entry in Table~\ref{table:bounds}. In the same way, in Hedge the optimal learning rate depends on the KL divergence bewteen the prior weighting $\pi$ and the unknown competitor $u$, forth entry in Table~\ref{table:bounds}.
 Recently, a new family of parameter-free algorithms that has been proposed, both for
 \ac{LEA}~\cite{Chaudhuri-Freund-Hsu-2009, Chernov-Vovk-2010, Luo-Schapire-2014,
 Luo-Schapire-2015, Koolen-van-Erven-2015} and for \ac{OLO}/\ac{OCO} over
@@ -90,5 +90,5 @@ All of them are defined in Setion~\ref{sec:prel}, while $\eta$ is the learning r
 \end{table}
 \footnotetext[1]{These algorithms require to solve a numerical problem at each step. The number $K$ is the number of steps needed to reach the required precision. Neither the required precision
 nor the number of steps to reach it is calculated in these papers. In general, $K$ is a function of the number rounds $T$ and the number of experts $N$.}
-\footnotetext[2]{The proof in \cite{Koolen-van-Erven-2015} can be modified to prove a KL divergence bound, as the author points out in \url{http://blog.wouterkoolen.info/Squint_PAC/post.html}.}
+\footnotetext[2]{The proof in \cite{Koolen-van-Erven-2015} can be modified to prove a KL divergence bound, as the author himself points out in his blog \url{http://blog.wouterkoolen.info/Squint_PAC/post.html}.}
 \footnotetext[3]{A slighly modified version of algorithm in \cite{Foster-Rakhlin-Sridharan-2015} can be implemented with the stated time complexity~\cite{Foster:private}.}
