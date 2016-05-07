@@ -3,11 +3,10 @@
 
 In the previous section we have shown that a coin-betting potential with a
 guaranteed rapid growth of the wealth will give good regret guarantees for
-\ac{OLO} and \ac{LEA}. In this section, we show that the optimal
-KT estimator has associated a sequence of excellent
-coin-betting potentials, which we call \emph{KT potentials}. We then prove
-corollaries of the regret bounds for \ac{OLO} over Hilbert space and \ac{LEA}
-from Sections~\ref{section:reduction_hilbert} and~\ref{section:reduction-experts}, obtaining optimal regret bounds.
+\ac{OLO} and \ac{LEA}. Here, we show that the
+KT estimator has associated an excellent
+coin-betting potential, which we call \emph{KT potential}. 
+Then, the optimal wealth guarantee of the KT potentials will translate to optimal parameter-free regret bounds.
 
 The excellent coin-betting potential for initial endowment $\epsilon$
 corresponding to the adaptive Kelly betting strategy
@@ -70,18 +69,12 @@ where $\beta_t$ is defined by
 \eqref{equation:potential-based-strategy-hilbert-space}. According to
 Theorem~\ref{theorem:kt-potential} in Appendix
 \ref{section:properties-kt-potential}, the formula for $\beta_t$ simplifies to
-$\beta_t = \frac{\norm{\sum_{i=1}^{t-1} g_i}}{t}$. Hence, the prediction can be
-simply written as
-\[
-w_t
-= \frac{1}{t} \Wealth_{t-1} \sum_{i=1}^{t-1} g_i
-= \frac{1}{t} \left(\epsilon + \sum_{i=1}^{t-1} \langle g_i, w_i \rangle \right) \sum_{i=1}^{t-1} g_i \; .
-\]
-The algorithm is stated as Algorithm~\ref{algorithm:kt-hilbert-space-olo}.  We
+$\beta_t = \frac{\norm{\sum_{i=1}^{t-1} g_i}}{t}$.
+The resulting algorithm is stated as Algorithm~\ref{algorithm:kt-hilbert-space-olo}.  We
 derive a regret bound for it as a very simple corollary of
 Theorem~\ref{theorem:hilbert-space-olo-regret-bound} to the KT potential
 \eqref{equation:kt-estimator-potential}. The only technical
-part of the proof, in Appendix~\ref{section:corollaries_reductions}, is an upper bound on Fenchel conjugate $F_t^*$ since it cannot
+part of the proof, in Appendix~\ref{section:corollaries_reductions}, is an upper bound on $F_t^*$ since it cannot
 be expressed as an elementary function.
 %
 \begin{corollary}[Regret Bound for Algorithm~\ref{algorithm:kt-hilbert-space-olo}]
@@ -96,12 +89,12 @@ Algorithm~\ref{algorithm:kt-hilbert-space-olo} satisfies
 \]
 \end{corollary}
 %
-It is worth noting the simplicity of Algorithm~\ref{algorithm:kt-hilbert-space-olo} and the fact that the regret bound is optimal~\cite{Streeter-McMahan-2012,Orabona-2013}. Also, $\epsilon$ can be safely set to any constant, affecting the bound only in constant terms: Its role is equivalent to the initial number of rounds used in doubling tricks.
+It is worth noting the extreme simplicity of Algorithm~\ref{algorithm:kt-hilbert-space-olo} and contrast it with the algorithms in \cite{Streeter-McMahan-2012,McMahan-Orabona-2014,Orabona-2013,Orabona-2014}.
+Also, the regret bound is optimal~\cite{Streeter-McMahan-2012,Orabona-2013}. The parameter $\epsilon$ can be safely set to any constant,e.g. 1. Its role is equivalent to the initial number of rounds used in doubling tricks.
 
 
 \subsection{Learning with Expert Advice}
 \label{section:kt-lea}
-
 
 We will now construct an algorithm for \ac{LEA} based on the $\delta$-shifted KT
 potential. We set $\delta$ to $T/2$, requiring to know
@@ -140,10 +133,10 @@ w_t
 = \beta_t \left(1 + \sum_{j=1}^{t-1} \widetilde g_j w_j \right)
 = \frac{\sum_{i=1}^{t-1} \widetilde g_i}{T/2+t} \left(1 + \sum_{j=1}^{t-1} \widetilde g_j w_j \right) \; .
 \]
-Following the construction in Section~\ref{section:reduction-experts}, we
+Then, following the construction in Section~\ref{section:reduction-experts}, we
 arrive at the final algorithm, Algorithm~\ref{algorithm:kt-experts}.
 We can derive a regret bound for Algorithm~\ref{algorithm:kt-experts} by
-applying Theorem~\ref{theorem:regret-bound-experts} to the shifted KT
+applying Theorem~\ref{theorem:regret-bound-experts} to the $\delta$-shifted KT
 potential.
 %
 \begin{corollary}[Regret Bound for
@@ -155,6 +148,7 @@ Algorithm~\ref{algorithm:kt-experts} with input $N,T,\pi$ satisfies
 \forall u \in \Delta_N \qquad \qquad \Regret_T(u) \le \sqrt{3T (4 + \KL{u}{\pi})} \; .
 \]
 \end{corollary}
+%
 Hence, the Algorithm~\ref{algorithm:kt-experts} has \emph{both} the best known guarantee on worst-case regret and per-round time complexity, see Table~\ref{table:bounds}. Also, it has the advantage to be very simple.
 %As observed by \citet{Chernov-Vovk-2010}, bounds in terms of the KL
 %divergence are superior to the $\epsilon$-quantile bounds.
