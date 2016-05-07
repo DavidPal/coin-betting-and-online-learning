@@ -30,9 +30,7 @@ We do not make any assumption on how $g_t$ is generated, that is, it can be
 chosen by an adversary.
 
 The gambler can bet any amount on either heads or tails. However, he is not
-allowed to borrow any additional money. If he loses (i.e. he bets on the
-incorrect outcome), he loses the betted amount. If he wins (i.e. he bets on the
-correct outcome), he gets the betted amount back and, in addition to that, he
+allowed to borrow any additional money. If he loses, he loses the betted amount; if he wins, he gets the betted amount back and, in addition to that, he
 gets the same amount as a reward.  We encode gambler's bet in round $t$ by a
 single number $\beta_t \in [-1,1]$. The sign of $\beta_t$ encodes whether he is
 betting on heads or tails. The absolute value encodes the betted amount as the

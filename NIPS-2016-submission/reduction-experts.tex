@@ -10,7 +10,7 @@ Let $N \ge 2$ be the number of experts and $\Delta_N$ be the $N$-dimensional
 probability simplex. Let $\pi = (\pi_1, \pi_2, \dots, \pi_N) \in \Delta_N$ be
 any \emph{prior} distribution. Let $A$ be an algorithm for OLO over
 one-dimensional Hilbert space $\R$, based on coin-betting potential 
-$\{F_t\}_{t=0}^\infty$ initial endowment\footnote{Any initial endowment $\epsilon > 0$ can be
+$\{F_t\}_{t=0}^\infty$ with initial endowment\footnote{Any initial endowment $\epsilon > 0$ can be
 rescaled to $1$. Instead of $F_t(x)$ we would use $F_t(x)/\epsilon$. The
 prediction $w_t$ would become $w_t/\epsilon$. The key observation is that $p_t$
 is invariant to scaling of $w_t$, hence the resulting LEA algorithm would be
@@ -19,9 +19,10 @@ the same regardless of $\epsilon$.} $1$. We instantiate $N$ copies of $A$.
 Consider any round $t$. Let $w_{t,i} \in \R$ be the prediction of $i$-th copy of
 $A$. The LEA algorithm computes $\widehat p_t = (\widehat p_{t,1}, \widehat
 p_{t,2}, \dots, \widehat p_{t,N}) \in \R_{0,+}^N$,
-\[
+\begin{equation}
+\label{eq:phat}
 \widehat p_{t,i} = \pi_i \cdot [w_{t,i}]_+
-\]
+\end{equation}
 where $[x]_+ = \max\{0,x\}$ is the positive part of $x$. Then, the LEA
 algorithm predicts $p_t = (p_{t,1}, p_{t,2}, \dots, p_{t,N}) \in \Delta^N$,
 \begin{equation}
@@ -58,8 +59,7 @@ algorithm with prior $\pi \in \Delta_N$ that predicts at each round with $p_t$ i
 \Regret_T(u) \le f_T^{-1}\left( \KL{u}{\pi} \right) \; .
 \]
 \end{theorem}
-The proof is in
-Appendix~\ref{section:appendix-expert-reduction}.
-It is based on the fact that \eqref{eq:gradients_experts_reduction} guarantees that $\sum_{i=1}^N \pi_i \widetilde g_{t,i} w_{t,i} \le 0$ and on a simple modification of the change
+The proof, in Appendix~\ref{section:appendix-expert-reduction}, 
+is based on the fact that \eqref{eq:phat}--\eqref{eq:gradients_experts_reduction} guarantee that $\sum_{i=1}^N \pi_i \widetilde g_{t,i} w_{t,i} \le 0$ and on a modification of the change
 of measure lemma used in the PAC-Bayes literature, e.g.~\cite{McAllester-2013}.
 

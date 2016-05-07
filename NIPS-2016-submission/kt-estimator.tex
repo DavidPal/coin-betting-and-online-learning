@@ -22,15 +22,14 @@ The potential was introduced by~\citet{Krichevsky-Trofimov-1981} who used it
 for proving regret bound for online prediction with log-loss; see also
 \cite[Section 9.7]{Cesa-Bianchi-Lugosi-2006}.
 
-It has the peculiar property to satisfy the inequality in point (3) of Definition~\ref{definition:potential}
-with equality when $g_t\in \{-1,1\}$, i.e. $F_t(x+1)=(1+\tfrac{x}{t}) \, F_{t-1}(x)$ and $F_t(x-1)=(1-\tfrac{x}{t}) \, F_{t-1}(x)$.
-In fact, Theorem~\ref{theorem:kt-potential} stated in
+This potential has also the peculiar property to satisfy the inequality in (c) of Definition~\ref{definition:potential}
+with equality when $g_t\in \{-1,1\}$, i.e. $F_t(x+g_t)=(1+g_t \beta_t) \, F_{t-1}(x)$.
+In fact, Theorem~\ref{theorem:kt-potential} in
 Appendix~\ref{section:properties-kt-potential} shows that
 \eqref{equation:kt-estimator-potential} is a sequence of excellent coin-betting
 potentials for initial endowment $\epsilon$. Theorem~\ref{theorem:kt-potential}
 also shows that the KT betting strategy $\beta_t$ as defined by
-\eqref{equation:kt-estimator-betting-strategy}, is a potential-based strategy,
-i.e., it satisfies \eqref{equation:potential-based-strategy}.
+\eqref{equation:kt-estimator-betting-strategy} satisfies \eqref{equation:potential-based-strategy}.
 
 
 \subsection{OLO in Hilbert Space}
@@ -70,8 +69,8 @@ w_t
 The algorithm is stated as Algorithm~\ref{algorithm:kt-hilbert-space-olo}.  We
 derive a regret bound for it as a very simple corollary of
 Theorem~\ref{theorem:hilbert-space-olo-regret-bound} to the KT potential
-\eqref{equation:kt-estimator-potential}. The proof can be found in the Appendix~\ref{section:corollaries_reductions}. The only technical
-part of the proof is an upper bound on Fenchel conjugate $F_t^*$ since it cannot
+\eqref{equation:kt-estimator-potential}. The only technical
+part of the proof, in Appendix~\ref{section:corollaries_reductions}, is an upper bound on Fenchel conjugate $F_t^*$ since it cannot
 be expressed as an elementary function.
 %
 \begin{corollary}[Regret Bound for Algorithm~\ref{algorithm:kt-hilbert-space-olo}]

@@ -23,7 +23,7 @@ slightly towards $\nicefrac{1}{2}$.} KT estimator results in the betting strateg
 which we call \emph{adaptive Kelly betting based on KT estimator}.
 \citeauthor{Krichevsky-Trofimov-1981} showed that
 \[
-\forall \beta \in [-1,1] \qquad \qquad \ln(\Wealth_t) \ge \ln(\Wealth_t(\beta)) \ - \ \tfrac{1}{2} \ln t \ - \ \ln(2) \; ,
+\ln(\Wealth_t) \ge \max_{\beta \in [-1,1]} \  \ln(\Wealth_t(\beta)) \ - \ \tfrac{1}{2} \ln t \ - \ \ln(2) \; ,
 \]
 where $\Wealth_t(\beta)$ is the wealth of a strategy that bets the same
 fraction $\beta$ in every round. This guarantee is optimal up to constant
@@ -59,7 +59,7 @@ $F_t:(-a_t, a_t)  \to \R_+$, where $a_t > t$.  The sequence
 $\{F_t\}_{t=0}^\infty$ is called a \textbf{sequence of coin-betting potentials
 for initial endowment $\epsilon$}, if it satisfies the following three
 conditions:
-\begin{enumerate}[(1)]
+\begin{enumerate}[(a)]
 \item $F_0(0) = \epsilon$.
 
 \item For every $t \ge 0$, $F_t(x)$ is even, logarithmically convex, strictly
@@ -79,7 +79,7 @@ The sequence $\{F_t\}_{t=0}^\infty$ is called a
 \textbf{sequence of excellent coin-betting potentials for initial
 endowment $\epsilon$} if it satisfies conditions (1)--(3) and the condition (4)
 below.
-\begin{enumerate}[(1)]
+\begin{enumerate}[(a)]
 \setcounter{enumi}{3}
 \item For every $t \ge 0$, $F_t$ is twice-differentiable and
 satisfies $x \cdot F_t''(x) \ge F_t'(x)$ for every $x \in [0,a_t)$.
@@ -87,13 +87,12 @@ satisfies $x \cdot F_t''(x) \ge F_t'(x)$ for every $x \in [0,a_t)$.
 \end{definition}
 
 Let's give some intuition on this definition.
-First, it is a routine exercise to show by induction on $t$ that conditions 2 and 3 of
-the definition together with recurrence \eqref{equation:wealth-recurrence} imply
-that the \emph{potential based strategy}
-\eqref{equation:potential-based-strategy} satisfies
-\eqref{equation:wealth-lower-bound-generic}. The base case $t=0$ is trivial,
+First, it is a routine exercise to show by induction on $t$ that (b) and (c) of
+the definition together with recurrence \eqref{equation:wealth-recurrence} gives a betting strategy that 
+satisfies \eqref{equation:wealth-lower-bound-generic}. The base case $t=0$ is trivial,
 since both sides of \eqref{equation:wealth-lower-bound-generic} are equal to
-$\epsilon$. For $t \ge 1$, if we let $x = \sum_{i=1}^{t-1} g_i$, then
+$\epsilon$. At time $t \ge 1$, let $x = \sum_{i=1}^{t-1} g_i$ and bet $\beta_t \Wealth_{t-1}$ where $\beta_t$ is defined in \eqref{equation:potential-based-strategy}, then
+\vspace{-.2cm}
 \[
 \Wealth_t
 = (1+g_t \beta_t) \Wealth_{t-1}
@@ -102,20 +101,21 @@ $\epsilon$. For $t \ge 1$, if we let $x = \sum_{i=1}^{t-1} g_i$, then
 = F_t \left( \sum_{i=1}^t g_i \right) \; .
 \]
 
-Also, with perfect knowledge of the future, a bettor could always bet everything on the right outcome. Hence, after $T$ rounds and with initial endowment $\epsilon$, the maximum wealth we could get is $\epsilon 2^T$. In this sense, \emph{good} betting strategies should guarantee an exponential growth of the wealth, when the outcomes of the coin are predictable.
+Also, with perfect knowledge of the future, a bettor could always bet everything on the right outcome. Hence, after $T$ rounds and with initial endowment $\epsilon$, the maximum wealth we could get is $\epsilon 2^T$. 
+Instead, assuming to know the value of $\sum_{t=1}^T g_t$ beforehand and betting the fixed fraction $(\sum_{t=1}^T g_t)/T$ at each round, gives the wealth 
+$\epsilon \exp\left(T \KL{\tfrac{1}{2}+\tfrac{\sum_{t=1}^T g_t}{2 T}}{\tfrac{1}{2}}\right) \geq \epsilon \exp\left(\tfrac{(\sum_{t=1}^T g_t)^2}{2 T}\right)$, as observed in \cite{McMahan-Abernethy-2013}.
+In this sense, \emph{good} betting strategies should guarantee an exponential growth of the wealth, when the outcomes of the coin are predictable.
 
 As last point, the formula for the potential-based
 strategy~\eqref{equation:potential-based-strategy} might seem strange. However,
-it is derived by minimizing the worst-case value of the right-hand side of the
+it is derived---see Theorem~\ref{theorem:optimal-betting-fraction} in
+Appendix~\ref{section:optimal-betting-fraction}---by minimizing the worst-case value of the right-hand side of the
 inequality used w.r.t. to $g_t$ in the induction proof above:
 \[
 F_{t-1}(x) \ge \tfrac{F_{t}(x + g_t)}{1+g_t\beta_t} \; .
 \]
-For a proof, see Theorem~\ref{theorem:optimal-betting-fraction} in
-Appendix~\ref{section:optimal-betting-fraction}.
-
-As an example, it is easy to see that the potential of form $F_t(x)=\epsilon \exp
-\left(x^2/t\right)$ used in the parameter-free algorithm in \cite{McMahan-Orabona-2014} is an excellent coin betting potential.
+As an example, it possible to show that the potentials of form $F_t(x)=\epsilon \exp
+\left(\tfrac{x^2}{2t}-\tfrac{1}{2} \ln t\right)$, similar to the one used in the parameter-free algorithm in \cite{McMahan-Orabona-2014}, is an excellent coin betting potential.
 We will show new examples of sequences of coin-betting potentials in
 Section~\ref{section:kt-estimator}. In the next two sections we show how to use
 this framework to solve \ac{OLO} and \ac{LEA}.
