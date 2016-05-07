@@ -41,14 +41,13 @@ Luo-Schapire-2015, Koolen-van-Erven-2015} and for \ac{OLO}/\ac{OCO} over
 Hilbert spaces~\cite{Streeter-McMahan-2012, Orabona-2013,
 McMahan-Abernethy-2013, McMahan-Orabona-2014, Orabona-2014}.  These algorithms
 adapt to the number of experts and to the norm of the optimal predictor,
-respectively, without the need to tune parameters.  Surprisingly, these two
-families of algorithms are very similar, as shown in the non-constructive
-framework of~\cite{Foster-Rakhlin-Sridharan-2015}.
+respectively, without the need to tune parameters.  Even if we now know how to analyze these two
+families of algorithms~\cite{Foster-Rakhlin-Sridharan-2015}, their \emph{design} and underlying intuition is still a challenge
 %Given the connections
 %between \ac{OLO}/\ac{LEA} and machine learning, these algorithms allow to
 %design parameter-free batch machine learning algorithms through straightforward
 %reductions~\cite{Orabona-2014, Luo-Schapire-2015}.
-Yet, all of existing
+Also, all of existing
 algorithms for LEA either have sub-optimal regret bound (e.g. extra $\scO(\log
 \log T)$ factor) or sub-optimal running time (e.g. requiring solving a
 numerical problem in every round, or with extra factors); see

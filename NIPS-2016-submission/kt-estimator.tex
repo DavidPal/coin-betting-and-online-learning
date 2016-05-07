@@ -142,13 +142,14 @@ w_t
 \]
 Following the construction in Section~\ref{section:reduction-experts}, we
 arrive at the final algorithm, Algorithm~\ref{algorithm:kt-experts}.
-
 We can derive a regret bound for Algorithm~\ref{algorithm:kt-experts} by
 applying Theorem~\ref{theorem:regret-bound-experts} to the shifted KT
-potential.  \begin{corollary}[Regret Bound for
+potential.
+%
+\begin{corollary}[Regret Bound for
 Algorithm~\ref{algorithm:kt-experts}] \label{corollary:kt-experts-regret} Let
 $N \ge 2$ and $T \ge 0$ be integers. Let $\pi \in \Delta_N$ be a prior.  For
-any sequence $g_1, g_2, \dots, g_T \in [0,1]^N$ of reward vectors,
+any $g_1, g_2, \dots, g_T \in [0,1]^N$ of reward vectors,
 Algorithm~\ref{algorithm:kt-experts} with input $N,T,\pi$ satisfies
 \[
 \forall u \in \Delta_N \qquad \qquad \Regret_T(u) \le \sqrt{3T (4 + \KL{u}{\pi})} \; .
