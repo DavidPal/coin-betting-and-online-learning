@@ -115,7 +115,7 @@ The following lemma provides bounds on $W(x)$.
 \label{lemma:lambert}
 The Lambert function satisfies $0.6321 \log(x+1) \leq W(x) \leq \log(x+1)$ for $x \ge 0$.
 \end{lemma}
-
+%
 \begin{proof}
 The inequalities are satisfied for $x=0$, hence we in the following we assume $x>0$.
 We first prove the lower bound. From \eqref{eq:lambert} we have
@@ -179,6 +179,7 @@ Moreover
 f^*(y) \leq y \sqrt{\alpha \log \left(\frac{\alpha y^2}{\beta^2} +1 \right)} - \beta.
 \]
 \end{lemma}
+%
 \begin{proof}
 From the definition of Fenchel dual, we have
 \begin{align*}
@@ -227,5 +228,5 @@ Theorem~\ref{theorem:regret-bound-experts} implies that
 \forall u \in \Delta_t \qquad \qquad
 \Regret_t(u) \le f_t^{-1}(\KL{u}{\pi}) \le g_t^{-1}(\KL{u}{\pi}) \; .
 \]
-Setting $t=T$ and $\delta = T/2$, and overapproximating $g_t^{-1}(\KL{u}{\pi})$ we get the stated bound.
+Setting $t=T$ and overapproximating $g_t^{-1}(\KL{u}{\pi})$ we get the stated bound that holds for any $\delta>0$.
 \end{proof}

@@ -28,7 +28,7 @@ $\{\widetilde g_t\}_{t=1}^\infty$ such that $\widetilde g_t \in [-1,1]$, satisfi
 Inequality $\sum_{i=1}^N \pi_i \widetilde g_{t,i} w_{t,i} \le 0$ and \eqref{equation:experts-one-dimensional-assumption} imply
 \begin{equation}
 \label{equation:bounded-potential}
-\sum_{i=1}^N  \pi_i F_t \left(\sum_{t=1}^T \widetilde g_{t,i} \right)
+\sum_{i=1}^N  \pi_i F_T \left(\sum_{t=1}^T \widetilde g_{t,i} \right)
 \le 1 + \sum_{i=1}^N \pi_i \sum_{t=1}^T  \widetilde g_{t,i} w_{t,i} \le 1 \; .
 \end{equation}
 Now, let $\widetilde G_{t,i} =
@@ -41,7 +41,7 @@ Now, let $\widetilde G_{t,i} =
 = \sum_{t=1}^T \langle g_t, u - p_t \rangle
 = \sum_{t=1}^T \sum_{i=1}^N u_i \left(g_{t,i} - \langle g_t, p_t \rangle \right) \\
 & \le \sum_{t=1}^T \sum_{i=1}^N u_i \widetilde g_{t,i} \qquad \text{(by definition of $\widetilde g_{t,i}$)} \\
-& \le \sum_{i=1}^N u_i \left|\widetilde G_{T,i}\right| \qquad \text{(since $u \ge 0$)}  \\
+& \le \sum_{i=1}^N u_i \left|\widetilde G_{T,i}\right| \qquad \text{(since $u_i \ge 0, i=1,\ldots,N$)}  \\
 & = \sum_{i=1}^N u_i f_T^{-1}\left(\ln [F_T(\widetilde G_{T,i})] \right)  \qquad \text{(since $F_T(x) = \exp(f_T(x))$ is even)} \\
 & \le f_T^{-1}\left(\sum_{i=1}^N u_i \ln \left[ F_T(\widetilde G_{T,i}) \right]\right) \qquad \text{(by concavity of $f_T^{-1}$)} \\
 & = f_T^{-1}\left(\sum_{i=1}^N u_i \left\{\ln \left[\frac{u_i}{\pi_i}\right] +\ln \left[ \frac{\pi_i}{u_i} F_T(\widetilde G_{T,i}) \right] \right\} \right)

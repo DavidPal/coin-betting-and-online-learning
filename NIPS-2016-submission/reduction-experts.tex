@@ -30,6 +30,8 @@ algorithm predicts $p_t = (p_{t,1}, p_{t,2}, \dots, p_{t,N}) \in \Delta^N$,
 p_t = \tfrac{\widehat p_t}{\norm{\widehat p_t}_1} \; .
 \end{equation}
 If $\norm{\widehat p_t}_1 = 0$, the algorithm predicts the prior $\pi$.
+We note explicitely that multiplying in round $t$ all the $w_{t,i}$ by a positive number does not change the prediction $p_t$. We will make use of this observation in Section~\ref{section:kt-lea}.
+
 Then, the algorithm receives the reward vector
 $g_t = (g_{t,1}, g_{t,2}, \dots, g_{t,N}) \in [0,1]^N$. Finally, it
 feeds the reward to each copy of $A$. The reward for $i$-th copy is $\widetilde g_{t,i} \in

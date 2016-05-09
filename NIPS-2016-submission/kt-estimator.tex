@@ -97,8 +97,7 @@ Also, the regret bound is optimal~\cite{Streeter-McMahan-2012,Orabona-2013}. The
 \label{section:kt-lea}
 
 We will now construct an algorithm for \ac{LEA} based on the $\delta$-shifted KT
-potential. We set $\delta$ to $T/2$, requiring to know
-the number of rounds $T$ in advance.
+potential.
 
 \begin{algorithm}[t]
 \begin{algorithmic}[1]
@@ -107,7 +106,7 @@ the number of rounds $T$ in advance.
 {
 \REQUIRE{Number of experts $N$, number of rounds $T$, prior distribution $\pi \in \Delta_N$}
 \FOR{$t=1,2,\dots,T$}
-\STATE{For each $i \in [N]$, set $w_{t,i} \leftarrow \tfrac{\sum_{j=1}^{t-1} \widetilde g_{j,i}}{t+T/2} \left(1 + \sum_{j=1}^{t-1} \widetilde g_{j,i} w_{j,i} \right)$}
+\STATE{For each $i \in [N]$, set $w_{t,i} \leftarrow \left(1 + \sum_{j=1}^{t-1} \widetilde g_{j,i} w_{j,i} \right) \sum_{j=1}^{t-1} \widetilde g_{j,i}$}
 \STATE{For each $i \in [N]$, set $\widehat{p}_{t,i} \leftarrow \pi_i [w_{t,i}]_+$}
 \STATE{Predict with $p_t \leftarrow
 \begin{cases}
@@ -125,16 +124,17 @@ g_{t,i} - \langle g_t, p_t \rangle & \text{if $w_{t,i} > 0$} \\
 \end{algorithm}
 
 To use the construction in Section~\ref{section:reduction-experts}, we need an OLO algorithm for the one-dimensional Hilbert space $\R$.
-This algorithm predicts for any sequence $\{\widetilde g_t\}_{t=1}^\infty$ of reward
+Using the $\delta$-shited KT potentials, the algorithm predicts for any sequence $\{\widetilde g_t\}_{t=1}^\infty$ of reward
 vectors,
 \[
 w_t
 = \beta_t \Wealth_{t-1}
 = \beta_t \left(1 + \sum_{j=1}^{t-1} \widetilde g_j w_j \right)
-= \frac{\sum_{i=1}^{t-1} \widetilde g_i}{T/2+t} \left(1 + \sum_{j=1}^{t-1} \widetilde g_j w_j \right) \; .
+= \frac{\sum_{i=1}^{t-1} \widetilde g_i}{\delta+t} \left(1 + \sum_{j=1}^{t-1} \widetilde g_j w_j \right) \; .
 \]
 Then, following the construction in Section~\ref{section:reduction-experts}, we
-arrive at the final algorithm, Algorithm~\ref{algorithm:kt-experts}.
+arrive at the final algorithm, Algorithm~\ref{algorithm:kt-experts}. Note that, as observed in Section~\ref{section:reduction-experts}, $p_t$ does not change if we multiply $w_{t,i}$ by $t+\delta$, hence we can remove it from the algorithm, making the algorithm independent of $\delta$.
+
 We can derive a regret bound for Algorithm~\ref{algorithm:kt-experts} by
 applying Theorem~\ref{theorem:regret-bound-experts} to the $\delta$-shifted KT
 potential.
@@ -145,11 +145,12 @@ $N \ge 2$ and $T \ge 0$ be integers. Let $\pi \in \Delta_N$ be a prior.  For
 any $g_1, g_2, \dots, g_T \in [0,1]^N$ of reward vectors,
 Algorithm~\ref{algorithm:kt-experts} with input $N,T,\pi$ satisfies
 \[
-\forall u \in \Delta_N \qquad \qquad \Regret_T(u) \le \sqrt{3T (4 + \KL{u}{\pi})} \; .
+\forall u \in \Delta_N \qquad \qquad \Regret_T(u) \le \min_{\alpha>0} \sqrt{2 (1+\alpha) T \left(\KL{u}{\pi} + 3 + \tfrac{1}{2} \ln \left(1+\tfrac{1}{\alpha}\right)\right)} \; .
 \]
 \end{corollary}
 %
 Hence, the Algorithm~\ref{algorithm:kt-experts} has \emph{both} the best known guarantee on worst-case regret and per-round time complexity, see Table~\ref{table:bounds}. Also, it has the advantage to be very simple.
+We want to stress that $\alpha$ is not a parameter: The regret bounds trade-off automatically between the multiplicative and additive constants.
 %As observed by \citet{Chernov-Vovk-2010}, bounds in terms of the KL
 %divergence are superior to the $\epsilon$-quantile bounds.
 
@@ -161,14 +162,4 @@ $F_t(x)$.
 The reason for using the shifted potential comes from the analysis of
 $f_t^{-1}(x)$. The unshifted algorithm would have a $O(\sqrt{T (\log T +
 \KL{u}{\pi}})$ regret bound; the shifting improves the bound to $O(\sqrt{T (1 +
-\KL{u}{\pi}})$.  By changing $T/2$ in Algorithm~\ref{algorithm:kt-experts} to
-another constant fraction of $T$, it is possible to trade-off between the two
-constants $3$ and $4$ present in the square root.
-
-The requirement of knowing the number of rounds $T$ in advance can be lifted by
-the standard doubling trick~\citep[Section 2.3.1]{Shalev-Shwartz-2011}. We
-obtain an anytime algorithm at the expense of slightly bigger leading constant,
-\[
-\forall \, T \ge 0 \quad \forall u \in \Delta_N \qquad \qquad
-\Regret_T(u) \le \tfrac{\sqrt{2}}{\sqrt{2} - 1} \sqrt{3T (4 + \KL{u}{\pi})} \; .
-\]
+\KL{u}{\pi}})$.
