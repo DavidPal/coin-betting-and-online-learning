@@ -104,7 +104,7 @@ potential.
 \caption{Algorithm for Learning with Expert Advice based on shifted KT potential
 \label{algorithm:kt-experts}}
 {
-\REQUIRE{Number of experts $N$, number of rounds $T$, prior distribution $\pi \in \Delta_N$}
+\REQUIRE{Number of experts $N$, prior distribution $\pi \in \Delta_N$}
 \FOR{$t=1,2,\dots,T$}
 \STATE{For each $i \in [N]$, set $w_{t,i} \leftarrow \left(1 + \sum_{j=1}^{t-1} \widetilde g_{j,i} w_{j,i} \right) \sum_{j=1}^{t-1} \widetilde g_{j,i}$}
 \STATE{For each $i \in [N]$, set $\widehat{p}_{t,i} \leftarrow \pi_i [w_{t,i}]_+$}
