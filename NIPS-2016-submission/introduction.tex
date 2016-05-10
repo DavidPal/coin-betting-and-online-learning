@@ -21,12 +21,12 @@ assume that $\norm{g_t} \le 1$, and for \ac{LEA} we assume that $g_t \in
 \ac{OLO} is a basic building block of many machine learning problems. For
 example, \ac{OCO}, the problem analogous to \ac{OLO} where $\langle g_t, u
 \rangle$ is generalized to $\ell_t(u)$ where $\ell_t$ is an arbitrary convex
-function, is solved through a reduction to an
+function, is solved through a reduction to 
 \ac{OLO}~\cite{Shalev-Shwartz-2011}.  \ac{LEA}~\cite{Littlestone-Warmuth-1994,
 Vovk-1998, Cesa-Bianchi-Freund-Haussler-Helmbold-Schapire-Warmuth-1997}
 provides a way of combining classifiers and it is at the heart of
 boosting~\cite{Freund-Schapire-1997}. Batch and stochastic convex optimization
-can be solved through a reduction to \ac{OLO}~\cite{Shalev-Shwartz-2011}.
+can also be solved through a reduction to \ac{OLO}~\cite{Shalev-Shwartz-2011}.
 %Statistical learning with convex losses can also seen as stochastic convex
 %optimization and solved through \ac{OCO}~\cite{Munro-1951}, that in turns can
 %be reduced to \ac{OLO}.
@@ -34,7 +34,7 @@ can be solved through a reduction to \ac{OLO}~\cite{Shalev-Shwartz-2011}.
 However, to achieve small regret, most of the online algorithms still require to set
 hyperparameters, usually learning rates, in order to
 achieve the best possible theoretical and empirical performance. 
-For example, to obtain the optimal bound, in \ac{OGD} the learning rate has to be set with the knowledge of the norm of the competitor $u$, first entry in Table~\ref{table:bounds}. In the same way, in Hedge the optimal learning rate depends on the KL divergence bewteen the prior weighting $\pi$ and the unknown competitor $u$, forth entry in Table~\ref{table:bounds}.
+For example, to obtain the optimal bound in \ac{OGD}, the learning rate has to be set with the knowledge of the norm of the competitor $u$, first entry in Table~\ref{table:bounds}. In the same way, in Hedge the optimal learning rate depends on the KL divergence bewteen the prior weighting $\pi$ and the unknown competitor $u$, forth entry in Table~\ref{table:bounds}.
 Recently, a new family of parameter-free algorithms that has been proposed, both for
 \ac{LEA}~\cite{Chaudhuri-Freund-Hsu-2009, Chernov-Vovk-2010, Luo-Schapire-2014,
 Luo-Schapire-2015, Koolen-van-Erven-2015} and for \ac{OLO}/\ac{OCO} over
@@ -42,12 +42,12 @@ Hilbert spaces~\cite{Streeter-McMahan-2012, Orabona-2013,
 McMahan-Abernethy-2013, McMahan-Orabona-2014, Orabona-2014}.  These algorithms
 adapt to the number of experts and to the norm of the optimal predictor,
 respectively, without the need to tune parameters.  Even if we now know how to analyze these two
-families of algorithms~\cite{Foster-Rakhlin-Sridharan-2015}, their \emph{design} and underlying intuition is still a challenge
+families of algorithms~\cite{Foster-Rakhlin-Sridharan-2015}, their \emph{design} and underlying intuition is still a challenge.
 %Given the connections
 %between \ac{OLO}/\ac{LEA} and machine learning, these algorithms allow to
 %design parameter-free batch machine learning algorithms through straightforward
 %reductions~\cite{Orabona-2014, Luo-Schapire-2015}.
-Also, all of existing
+Also, all existing
 algorithms for LEA either have sub-optimal regret bound (e.g. extra $\scO(\log
 \log T)$ factor) or sub-optimal running time (e.g. requiring solving a
 numerical problem in every round, or with extra factors); see
@@ -59,7 +59,7 @@ maximize the wealth in bets on the outcomes of coin flips \emph{implies}
 \ac{OLO} and \ac{LEA} parameter-free algorithms.  Hence, we present a novel
 framework to characterize betting algorithms through potential functions and we
 instantiate it with the Krichevsky-Trofimov estimator.  The resulting
-algorithms are new, simple, and natural. They also have optimal guarantees on
+algorithms for \ac{OLO} and \ac{LEA} are new, simple, and natural. They also have optimal guarantees on
 time and regret, see Table~\ref{table:bounds}.
 
 \begin{table}

@@ -90,7 +90,7 @@ Algorithm~\ref{algorithm:kt-hilbert-space-olo} satisfies
 \end{corollary}
 %
 It is worth noting the extreme simplicity of Algorithm~\ref{algorithm:kt-hilbert-space-olo} and contrast it with the algorithms in \cite{Streeter-McMahan-2012,McMahan-Orabona-2014,Orabona-2013,Orabona-2014}.
-Also, the regret bound is optimal~\cite{Streeter-McMahan-2012,Orabona-2013}. The parameter $\epsilon$ can be safely set to any constant,e.g. 1. Its role is equivalent to the initial number of rounds used in doubling tricks.
+Also, the regret bound is optimal~\cite{Streeter-McMahan-2012,Orabona-2013}. The parameter $\epsilon$ can be safely set to any constant,e.g. 1. Its role is equivalent to the initial guess used in doubling tricks.
 
 
 \subsection{Learning with Expert Advice}
@@ -102,7 +102,7 @@ the number of rounds $T$ in advance.
 
 \begin{algorithm}[t]
 \begin{algorithmic}[1]
-\caption{Algorithm for Learning with Expert Advice based on shifted KT potential
+\caption{Algorithm for Learning with Expert Advice based on $\delta$-shifted KT potential
 \label{algorithm:kt-experts}}
 {
 \REQUIRE{Number of experts $N$, prior distribution $\pi \in \Delta_N$}
