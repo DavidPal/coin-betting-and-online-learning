@@ -165,8 +165,7 @@ another constant fraction of $T$, it is possible to trade-off between the two
 constants $3$ and $4$ present in the square root.
 
 The requirement of knowing the number of rounds $T$ in advance can be lifted by
-the standard doubling trick~\citep[Section 2.3.1]{Shalev-Shwartz-2011}. We
-obtain an anytime algorithm at the expense of slightly bigger leading constant,
+the standard doubling trick~\cite[Section 2.3.1]{Shalev-Shwartz-2011}, obtaining an anytime guarantee with a bigger leading constant,
 \[
 \forall \, T \ge 0 \quad \forall u \in \Delta_N \qquad \qquad
 \Regret_T(u) \le \tfrac{\sqrt{2}}{\sqrt{2} - 1} \sqrt{3T (4 + \KL{u}{\pi})} \; .
