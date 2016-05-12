@@ -1,6 +1,8 @@
 \section{Introduction}
 \label{section:introduction}
 
+\vspace{-0.2cm}
+
 We consider the \ac{OLO}~\cite{Cesa-Bianchi-Lugosi-2006, Shalev-Shwartz-2011}
 setting. In each round $t$, an algorithm chooses a point $w_t$ from a convex
 \emph{decision set} $K$ and then receives a reward vector $g_t$. Algorithm's
@@ -31,9 +33,8 @@ can also be solved through a reduction to \ac{OLO}~\cite{Shalev-Shwartz-2011}.
 %optimization and solved through \ac{OCO}~\cite{Munro-1951}, that in turns can
 %be reduced to \ac{OLO}.
 
-However, to achieve small regret, most of the online algorithms still require to set
-hyperparameters, usually learning rates, in order to
-achieve the best possible theoretical and empirical performance. 
+However, to achieve optimal regret, most of the online algorithms still require to set
+hyperparameters, usually learning rates. 
 For example, to obtain the optimal bound in \ac{OGD}, the learning rate has to be set with the knowledge of the norm of the competitor $u$, first entry in Table~\ref{table:bounds}. In the same way, in Hedge the optimal learning rate depends on the KL divergence bewteen the prior weighting $\pi$ and the unknown competitor $u$, forth entry in Table~\ref{table:bounds}.
 Recently, a new family of parameter-free algorithms that has been proposed, both for
 \ac{LEA}~\cite{Chaudhuri-Freund-Hsu-2009, Chernov-Vovk-2010, Luo-Schapire-2014,
@@ -53,15 +54,6 @@ algorithms for LEA either have sub-optimal regret bound (e.g. extra $\scO(\log
 numerical problem in every round, or with extra factors); see
 Table~\ref{table:bounds}.
 
-\textbf{Contributions.} We show that a more fundamental notion subsumes \emph{both}
-\ac{OLO} and \ac{LEA} parameter-free algorithms. We show that the ability to
-maximize the wealth in bets on the outcomes of coin flips \emph{implies}
-\ac{OLO} and \ac{LEA} parameter-free algorithms.  Hence, we present a novel
-framework to characterize betting algorithms through potential functions and we
-instantiate it with the Krichevsky-Trofimov estimator.  The resulting
-algorithms for \ac{OLO} and \ac{LEA} are new, simple, and natural. They also have optimal guarantees on
-time and regret, see Table~\ref{table:bounds}.
-
 \begin{table}
 \begin{center}
 \resizebox{\linewidth}{!}{%
@@ -75,7 +67,7 @@ OGD, $\eta=\tfrac{1}{\sqrt{T}}$ \cite{Shalev-Shwartz-2011} & $\scO((1 + \norm{u}
 \cite{McMahan-Orabona-2014} & $\scO(\norm{u}\sqrt{T \ln(1+\norm{u}T)})$, $\forall u \in \H$ & $\scO(1)$ & \checkmark \\
 This paper, Sec.~\ref{section:kt-olo} & $\scO(\norm{u}\sqrt{T \ln(1+\norm{u}T)})$, $\forall u \in \H$ & $\scO(1)$ & \checkmark & \checkmark\\
 \midrule
-Hegde~\cite{Freund-Schapire-1997}, $\eta=\sqrt{\tfrac{\ln N - U}{T}}$ & $\scO\left(\sqrt{T (\ln N -U)}\right)$ for any $u \in \Delta_N$ s.t. $H(u) \geq U$ & $\scO(N)$ &  \\
+Hedge~\cite{Freund-Schapire-1997}, $\eta=\sqrt{\tfrac{\ln N - U}{T}}$ & $\scO\left(\sqrt{T (\ln N -U)}\right)$ for any $u \in \Delta_N$ s.t. $H(u) \geq U$ & $\scO(N)$ &  \\
 \cite{Chaudhuri-Freund-Hsu-2009}  & $\scO\left(\sqrt{T \KL{u}{\pi}}+\ln^2 N\right)$, $\forall u \in \Delta_N$ & $\scO(N\,K)$\footnotemark[1]& \checkmark \\
 \cite{Chernov-Vovk-2010} & $\scO\left(\sqrt{T \left(1+\KL{u}{\pi}\right)}\right)$, $\forall u \in \Delta_N$ & $\scO(N\,K)$\footnotemark[1] & \checkmark \\
 \cite{Chernov-Vovk-2010, Luo-Schapire-2015,Koolen-van-Erven-2015}\footnotemark[2] & $\scO\left(\sqrt{T \left(\ln \ln T+\KL{u}{\pi}\right)}\right)$, $\forall u \in \Delta_N$ & $\scO(N)$ & \checkmark \\
@@ -83,12 +75,24 @@ Hegde~\cite{Freund-Schapire-1997}, $\eta=\sqrt{\tfrac{\ln N - U}{T}}$ & $\scO\le
 This paper, Sec.~\ref{section:kt-lea} & $\scO\left(\sqrt{T \left(1+\KL{u}{\pi}\right)}\right)$, $\forall u \in \Delta_N$ & $\scO(N)$ & \checkmark & \checkmark\\
 \bottomrule
 \end{tabular}}
-\caption{Algorithms for \ac{OLO} over Hilbert space and \ac{LEA}. We apologize for the big, but necessary, number of symbols used.
-All of them are defined in Setion~\ref{sec:prel}, while $\eta$ is the learning rate.}
+\caption{\footnotesize{Algorithms for \ac{OLO} over Hilbert space and \ac{LEA}. We apologize for the big, but necessary, number of symbols used.
+All of them are defined in Setion~\ref{sec:prel}, while $\eta$ is the learning rate.}}
 \label{table:bounds}
 \end{center}
 \end{table}
-\footnotetext[1]{These algorithms require to solve a numerical problem at each step. The number $K$ is the number of steps needed to reach the required precision. Neither the required precision
-nor the number of steps to reach it is calculated in these papers. In general, $K$ is a function of the number rounds $T$ and the number of experts $N$.}
+\footnotetext[1]{These algorithms require to solve a numerical problem at each step. The number $K$ is the number of steps needed to reach the required precision. Neither the precision nor $K$ are calculated in these papers.
+%In general, $K$ is a function of the number rounds $T$ and the number of experts $N$.
+}
 \footnotetext[2]{The proof in \cite{Koolen-van-Erven-2015} can be modified to prove a KL divergence bound, as the author himself points out in his blog \url{http://blog.wouterkoolen.info/Squint_PAC/post.html}.}
 \footnotetext[3]{A slighly modified version of algorithm in \cite{Foster-Rakhlin-Sridharan-2015} can be implemented with the stated time complexity~\cite{Foster:private}.}
+
+
+\textbf{Contributions.} We show that a more fundamental notion subsumes \emph{both}
+\ac{OLO} and \ac{LEA} parameter-free algorithms. We show that the ability to
+maximize the wealth in bets on the outcomes of coin flips \emph{implies}
+\ac{OLO} and \ac{LEA} parameter-free algorithms.  Hence, we present a novel
+framework to characterize betting algorithms through potential functions and we
+instantiate it with the Krichevsky-Trofimov estimator.  The resulting
+algorithms for \ac{OLO} and \ac{LEA} are new, simple, and natural. They also have optimal worst-case guarantees on
+time and regret, see Table~\ref{table:bounds}.
+
