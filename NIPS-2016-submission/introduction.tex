@@ -55,7 +55,7 @@ numerical problem in every round, or with extra factors); see
 Table~\ref{table:bounds}.
 
 \begin{table}
-\begin{center}
+\centering
 \resizebox{\linewidth}{!}{%
 \begin{tabular}{l c c c c}
 \toprule
@@ -78,12 +78,11 @@ This paper, Sec.~\ref{section:kt-lea} & $\scO\left(\sqrt{T \left(1+\KL{u}{\pi}\r
 \caption{\footnotesize{Algorithms for \ac{OLO} over Hilbert space and \ac{LEA}. We apologize for the big, but necessary, number of symbols used.
 All of them are defined in Setion~\ref{sec:prel}, while $\eta$ is the learning rate.}}
 \label{table:bounds}
-\end{center}
 \end{table}
 \footnotetext[1]{These algorithms require to solve a numerical problem at each step. The number $K$ is the number of steps needed to reach the required precision. Neither the precision nor $K$ are calculated in these papers.
 %In general, $K$ is a function of the number rounds $T$ and the number of experts $N$.
 }
-\footnotetext[2]{The proof in \cite{Koolen-van-Erven-2015} can be modified to prove a KL divergence bound, as the author himself points out in his blog \url{http://blog.wouterkoolen.info/Squint_PAC/post.html}.}
+\footnotetext[2]{The proof in \cite{Koolen-van-Erven-2015} can be modified to prove a KL bound, see \url{http://blog.wouterkoolen.info}.}
 \footnotetext[3]{A slighly modified version of algorithm in \cite{Foster-Rakhlin-Sridharan-2015} can be implemented with the stated time complexity~\cite{Foster:private}.}
 
 

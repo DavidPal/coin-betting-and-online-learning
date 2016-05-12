@@ -29,8 +29,8 @@ where $\Wealth_t(\beta)$ is the wealth of a strategy that bets the same
 fraction $\beta$ in every round. This guarantee is optimal up to constant
 additive factors~\citep{Cesa-Bianchi-Lugosi-2006} and mirrors the guarantee of the Kelly bet.
 
-Here, we consider betting strategies that can be viewed as abstractions of
-adaptive Kelly betting based on KT estimator. For these strategies it is
+Here, we propose a new set of definitions that allows to generalize the
+strategy of adaptive Kelly betting based on KT estimator. For these strategies it will be
 possible to prove that, for $g_1, g_2, \dots, g_t \in [-1,1]$,
 \begin{equation}
 \label{equation:wealth-lower-bound-generic}
@@ -48,7 +48,7 @@ where $F_t(x)$ is a certain function. We call such functions \emph{potentials}.
 % $\{F_t\}_{t=0}^\infty$, it is not clear if the strategy
 % \eqref{equation:potential-based-strategy} implies the lower bound
 % \eqref{equation:wealth-lower-bound-generic} on its wealth.
-We will associate a betting strategy (see point (c) in the Definition~\ref{definition:potential}) to each potential,
+The betting strategy will be determined uniquely by the potential (see (c) in the Definition~\ref{definition:potential}),
 and we restrict our
 attention to potentials for which \eqref{equation:wealth-lower-bound-generic}
 holds. These constraints are specified in the definition below.
@@ -100,6 +100,8 @@ Also, with perfect knowledge of the future, a bettor could always bet everything
 Instead, assuming to know the value of $\sum_{t=1}^T g_t$ beforehand and betting the fixed fraction $(\sum_{t=1}^T g_t)/T$ at each round, gives the wealth 
 $\epsilon \exp\left(T \KL{\tfrac{1}{2}+\tfrac{\sum_{t=1}^T g_t}{2 T}}{\tfrac{1}{2}}\right) \geq \epsilon \exp\left(\tfrac{(\sum_{t=1}^T g_t)^2}{2 T}\right)$, as observed in \cite{McMahan-Abernethy-2013}.
 In this sense, \emph{good} betting strategies should guarantee an exponential growth of the wealth, when the outcomes of the coin are predictable.
+
+The last condition, (d), is a technical condition that will allow us to seamless reduce the infinite dimensional case to the one dimensional one.
 
 As last point, the formula for the potential-based
 strategy~\eqref{equation:potential-based-strategy} might seem strange. However,
