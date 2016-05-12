@@ -110,7 +110,8 @@ Appendix~\ref{section:optimal-betting-fraction}---by minimizing the worst-case v
 inequality used w.r.t. to $g_t$ in the induction proof above: $F_{t-1}(x) \ge \tfrac{F_{t}(x + g_t)}{1+g_t\beta_t}$.
 
 As an example, it possible to show that the potentials of form $F_t(x)=\epsilon \exp
-\left(\tfrac{x^2}{2t}\right)/\sqrt{t}$, similar to the one used in the parameter-free algorithm in \cite{McMahan-Orabona-2014}, is an excellent coin betting potential.
+\left(x^2/(2t)\right)/\sqrt{t}$, essentialy the ones used in the parameter-free algorithms in \cite{McMahan-Orabona-2014, Orabona-2014} for \ac{OLO} and in \cite{Chaudhuri-Freund-Hsu-2009, Luo-Schapire-2014,
+Luo-Schapire-2015} for \ac{LEA}, is an excellent coin betting potential.
 We will show new examples of sequences of coin-betting potentials in
-Section~\ref{section:kt-estimator}. In the next two sections we show how to use
-this framework to solve \ac{OLO} and \ac{LEA}.
+Section~\ref{section:kt-estimator}.
+In the next two sections, we reduce \ac{OLO} and \ac{LEA} to coin-betting.

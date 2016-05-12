@@ -34,16 +34,19 @@ potential}, where $\delta\geq0$, defined as
 F_t(x) = \tfrac{2^t \cdot \Gamma\left(\delta + 1 \right) \cdot \Gamma\left(\tfrac{t+\delta+1}{2} + \frac{x}{2} \right) \cdot \Gamma\left(\tfrac{t+\delta+1}{2} - \frac{x}{2} \right)}{\Gamma\left(\tfrac{\delta+1}{2} \right)^2 \cdot \Gamma \left(t+\delta+1\right)} \; .
 \]
 The reason for its name is that, up to a multiplicative constant, $F_t$ is
-equal to the KT potential shifted in time by $\delta$, i.e., $t$ is replaced by
-$\delta+t$. Theorem~\ref{theorem:kt-potential} also proves that the $\delta$-shifted KT potentials are excellent coin-betting potentials for initial endowment $1$, and the
-corresponding betting fraction is
-\[
-\beta_t = \tfrac{\sum_{j=1}^{t-1} \widetilde g_j}{\delta+t} \; .
-\]
+equal to the KT potential shifted in time by $\delta$. Theorem~\ref{theorem:kt-potential} also proves that the $\delta$-shifted KT potentials are excellent coin-betting potentials for initial endowment $1$, and the
+corresponding betting fraction is $\beta_t = \tfrac{\sum_{j=1}^{t-1} \widetilde g_j}{\delta+t}$.
 
+\vspace{-0.1cm}
 
 \subsection{OLO in Hilbert Space}
 \label{section:kt-olo}
+
+We apply the KT potential for the construction of an OLO algorithm over a Hilbert
+space $\H$. We will use \eqref{equation:hilbert-space-olo}, and we just need to calculate
+$\beta_t$. According to Theorem~\ref{theorem:kt-potential} in Appendix
+\ref{section:properties-kt-potential}, the formula for $\beta_t$ simplifies to
+$\beta_t = \frac{\norm{\sum_{i=1}^{t-1} g_i}}{t}$ so that $w_t = \tfrac{1}{t} \left(\epsilon + \sum_{i=1}^{t-1} \langle g_i, w_i \rangle \right) \sum_{i=1}^{t-1} g_i$.
 
 \begin{algorithm}[t]
 \caption{Algorithm for OLO over Hilbert space $\H$ based on KT potential
@@ -59,17 +62,6 @@ corresponding betting fraction is
 \end{algorithmic}
 \end{algorithm}
 
-We apply the KT potential for the construction of an OLO algorithm over a Hilbert
-space $\H$. According to \eqref{equation:hilbert-space-olo}, the resulting algorithm predicts
-in round $t$,
-\[
-w_t = \beta_t \Wealth_{t-1} \tfrac{\sum_{i=1}^{t-1} g_i}{\norm{\sum_{i=1}^{t-1} g_i}}
-\]
-where $\beta_t$ is defined by
-\eqref{equation:potential-based-strategy-hilbert-space}. According to
-Theorem~\ref{theorem:kt-potential} in Appendix
-\ref{section:properties-kt-potential}, the formula for $\beta_t$ simplifies to
-$\beta_t = \frac{\norm{\sum_{i=1}^{t-1} g_i}}{t}$.
 The resulting algorithm is stated as Algorithm~\ref{algorithm:kt-hilbert-space-olo}.  We
 derive a regret bound for it as a very simple corollary of
 Theorem~\ref{theorem:hilbert-space-olo-regret-bound} to the KT potential
