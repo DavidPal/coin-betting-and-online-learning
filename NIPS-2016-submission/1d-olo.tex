@@ -4,9 +4,10 @@
 There are many frameworks for the design and analysis of online learning
 algorithms, e.g. the potential function view~\cite{Cesa-Bianchi-Lugosi-2006},
 the regularizer view~\cite{Shalev-Shwartz-2011}, relax and
-randomize~\cite{Rakhlin-Shamir-Sridharan-2012}. However, they do not
-provide much help on how to craft the potential, regularizer, or relaxation.
-Here, we show how the betting view gives a very natural intuition and it also provides a clear path to the tools needed.
+randomize~\cite{Rakhlin-Shamir-Sridharan-2012}. However, they do not provide
+much help on how to craft the potential, regularizer, or relaxation.  Here, we
+show how the betting view gives a very natural intuition and it also provides a
+clear path to the tools needed.
 
 As a warm-up, let us consider an algorithm for OLO over one-dimensional Hilbert
 space $\R$.  Let $\{w_t\}_{t=1}^\infty$ be its sequence of predictions on a
@@ -41,8 +42,7 @@ least $F(\sum_{t=1}^T g_t)$ starting from an endowment $\epsilon$, then
 = \sum_{t=1}^T g_t w_t
 = \Wealth_T \ - \ \epsilon \ge F\left(\sum_{t=1}^T g_t \right) \ - \ \epsilon \; .
 \end{equation}
-
-We are almost done, we just need to convert a lower bound on the reward to an
+We convert the lower bound on the reward to an
 upper bound on the regret. This can be done using the following lemma
 from~\cite{McMahan-Orabona-2014}.
 \begin{lemma}[Reward-Regret relationship~\cite{McMahan-Orabona-2014}]
@@ -68,7 +68,13 @@ Applying the lemma, we get a regret upper bound
 Hence, we have showed that if we have a betting algorithm that guarantees a
 minimum wealth of $F(\sum_{t=1}^T g_t)$, it can be used to design and analyze
 the one-dimensional \ac{OLO} case. The faster is the growth of the wealth, the
-smaller the regret will be.  Moreover, the lemma also shows that trying to design an algorithm that is adaptive to $u$ is \emph{equivalent} to design an algorithm that is adaptive to $\sum_{t=1}^T g_t$.
-Also, most importantly, \emph{methods that guarantee optimal wealth for the betting sccenario are already known}, see, e.g., \cite[Section 9]{Cesa-Bianchi-Lugosi-2006}. We can just re-use them to get optimal online algorithms!
+smaller the regret will be.  Moreover, the lemma also shows that trying to
+design an algorithm that is adaptive to $u$ is \emph{equivalent} to design an
+algorithm that is adaptive to $\sum_{t=1}^T g_t$.  Also, most importantly,
+\emph{methods that guarantee optimal wealth for the betting scenario are
+already known}, see, e.g., \cite[Section 9]{Cesa-Bianchi-Lugosi-2006}. We can
+just re-use them to get optimal online algorithms!
 
-In the next sections, we will provide a framework to analyze the betting case and the reductions to effortlessly extend the one dimensional case to the generic \ac{OLO} case and to \ac{LEA} as well.
+In the next sections, we will provide a framework to analyze the betting case
+and the reductions to effortlessly extend the one dimensional case to the
+generic \ac{OLO} case and to \ac{LEA} as well.

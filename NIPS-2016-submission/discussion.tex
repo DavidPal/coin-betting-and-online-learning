@@ -1,5 +1,5 @@
 \section{Discussion of the Results}
-\label{sec:discussion}
+\label{section:discussion}
 
 \begin{figure}[t]
 \begin{center}
@@ -21,40 +21,60 @@
 \end{center}
 \end{figure}
 
+We have also run an empirical evaluation mainly to show the difference between
+classic online learning algorithms and the parameter-free ones. In
+Figure~\ref{fig:exp_olo}, we have used three regression
+datasets\footnote{Available at
+\url{https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/}.}, and solved
+the \ac{OCO} problem through \ac{OLO}. In all the three cases, we have used the
+absolute loss and normalized the input vectors to have L2 norm equal to 1. The
+results clearly show that parameter-free algorithms have performance very close
+to the \emph{unknown} optimal tuning of the learning rate.
 
-We have also run an empirical evaluation mainly to show the difference between classic online learning algorithms and the parameter-free ones. In Figure~\ref{fig:exp_olo}, we have used three regression datasets\footnote{Available at \url{https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/}.}, and solved the \ac{OCO} problem through \ac{OLO}. In all the three cases, we have used the absolute loss and normalized the input vectors to have L2 norm equal to 1. The results clearly show that parameter-free algorithms have performance very close to the (unknown) optimal tuning of the learning rate.
-
-For the setting of \ac{LEA}, we have used the synthetic setting in~\cite{Chaudhuri-Freund-Hsu-2009}. The dataset is composed by Hadamard matrices of size 64, where the row with constant values is removed, $k$ rows are decreasing by $0.025$ and the matrix is replicated in order to generate $T=32768$ samples. For more details, see~\cite{Chaudhuri-Freund-Hsu-2009}. Here, the KT-based algorithm is the one in Algorithm~\ref{algorithm:kt-experts}, where the term $T/2$ is removed, so that the final regret bound has an additional $\ln T$ term.
-Again, we see that the parameter-free algorithms have a performance close or even better of Hedge with an oracle tuning of the learning rate.
-
+For the setting of \ac{LEA}, we have used the synthetic setting
+in~\cite{Chaudhuri-Freund-Hsu-2009}. The dataset is composed by Hadamard
+matrices of size 64, where the row with constant values is removed, $k$ rows
+are decreasing by $0.025$ and the matrix is replicated in order to generate
+$T=32768$ samples. For more details, see~\cite{Chaudhuri-Freund-Hsu-2009}.
+Here, the KT-based algorithm is the one in
+Algorithm~\ref{algorithm:kt-experts}, where the term $T/2$ is removed, so that
+the final regret bound has an additional $\ln T$ term.  Again, we see that the
+parameter-free algorithms have a performance close or even better than Hedge
+with an oracle tuning of the learning rate.
 
 The interpretation of parameter-free algorithms as coin-betting algorithms is
 new. This interpretation, far from being just a mathematical gimmick, reveals
 the common hidden structure of previous parameter-free algorithms. For example,
-we show that the characteristic of parameter-freeness is just a
-consequence of having an algorithm that guarantees the maximum reward possible.
-In this sense, most of the online learning algorithms requiring parameter tuning
-are just guaranteeing a suboptimal wealth growth. The concept of
-``learning rate'' becomes questionable in the light of the presented results.
-At the same time, the previous ad-hoc choices of the potentials were just
-approximations of the optimal obtainable wealth.
+we show that the characteristic of parameter-freeness is just a consequence of
+having an algorithm that guarantees the maximum reward possible.  In this
+sense, most of the online learning algorithms requiring parameter tuning are
+just guaranteeing a suboptimal wealth growth. The concept of ``learning rate''
+becomes questionable in the light of the presented results.  At the same time,
+the previous ad-hoc choices of the potentials were just approximations of the
+optimal obtainable wealth.
 
 In particular, in previous \ac{LEA} papers the potential used for an expert at
-time $t$ is $\exp \left(\tfrac{([x]_+)^2}{t} \right)$; see \citep{Chaudhuri-Freund-Hsu-2009,
-Luo-Schapire-2014, Luo-Schapire-2015}. In view of the presented results, this potential 
-is an approximation of the optimal wealth achievable. Moreover, that potential and the ones by~\citet{Chernov-Vovk-2010}
-and \cite{Koolen-van-Erven-2015} are not even, which introduces a lot of
-technical difficulties in the analysis. Instead, our reduction moves the
-truncation outside of the potential, see \eqref{eq:gradients_experts_reduction}, making the analysis straightforward.
+time $t$ is $\exp \left(\tfrac{([x]_+)^2}{t} \right)$; see
+\citep{Chaudhuri-Freund-Hsu-2009, Luo-Schapire-2014, Luo-Schapire-2015}. In
+view of the presented results, this potential is an approximation of the
+optimal wealth achievable. Moreover, that potential and the ones
+by~\citet{Chernov-Vovk-2010} and \cite{Koolen-van-Erven-2015} are not even,
+which introduces a lot of technical difficulties in the analysis. Instead, our
+reduction moves the truncation outside of the potential, see
+\eqref{eq:gradients_experts_reduction}, making the analysis straightforward.
 
 In the \ac{OLO} setting, \citet{Streeter-McMahan-2012} used a one-dimensional
 potential of the form $\exp \left(\tfrac{|x|}{\sqrt{t}}\right)$, the same base
-potential as in \ac{EG}~\citep{Kivinen-Warmuth-1997} and Hedge~\cite{Freund-Schapire-1997}, obtaining a suboptimal
-regret bound. Notice that the same suboptimality is present in \ac{EG} and Hedge: the learning rate has to be tuned with the
-knowledge of the number of experts.
-\citet{Orabona-2013} extended the potential to the infinite dimensional case, unveiling the connection of the work of \citet{Streeter-McMahan-2012} with \ac{EG}, but still obtaining a suboptimal bound. The optimal bound has been obtained in
-\citet{McMahan-Orabona-2014} with potential of the right form $\exp
-\left(\frac{x^2}{t}\right)$ that, as said before, is an excellent coin betting potential.
+potential as in \ac{EG}~\citep{Kivinen-Warmuth-1997} and
+Hedge~\cite{Freund-Schapire-1997}, obtaining a suboptimal regret bound. Notice
+that the same suboptimality is present in \ac{EG} and Hedge: the learning rate
+has to be tuned with the knowledge of the number of experts.
+\citet{Orabona-2013} extended the potential to the infinite dimensional case,
+unveiling the connection of the work of \citet{Streeter-McMahan-2012} with
+\ac{EG}, but still obtaining a suboptimal bound. The optimal bound has been
+obtained in \citet{McMahan-Orabona-2014} with potential of the right form $\exp
+\left(\frac{x^2}{t}\right)$ that, as said before, is an excellent coin betting
+potential.
 
 % The obtained bounds, in Corollaries~\ref{corollary:kt-hilbert-space-olo-regret}
 % and~\ref{corollary:kt-experts-regret}, improve the previous ones and/or
