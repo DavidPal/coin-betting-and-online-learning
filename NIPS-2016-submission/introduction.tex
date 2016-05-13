@@ -22,7 +22,7 @@ assume that $\norm{g_t} \le 1$, and for \ac{LEA} we assume that $g_t \in
 
 \ac{OLO} is a basic building block of many machine learning problems. For
 example, \ac{OCO}, the problem analogous to \ac{OLO} where $\langle g_t, u
-\rangle$ is generalized to $\ell_t(u)$ where $\ell_t$ is an arbitrary convex
+\rangle$ is generalized to $\ell_t(u)$ with $\ell_t$ an arbitrary convex
 function, is solved through a reduction to 
 \ac{OLO}~\cite{Shalev-Shwartz-2011}.  \ac{LEA}~\cite{Littlestone-Warmuth-1994,
 Vovk-1998, Cesa-Bianchi-Freund-Haussler-Helmbold-Schapire-Warmuth-1997}
@@ -35,15 +35,14 @@ can also be solved through a reduction to \ac{OLO}~\cite{Shalev-Shwartz-2011}.
 
 However, to achieve optimal regret, most of the online algorithms still require to set
 hyperparameters, usually learning rates. 
-For example, to obtain the optimal bound in \ac{OGD}, the learning rate has to be set with the knowledge of the norm of the competitor $u$, first entry in Table~\ref{table:bounds}. In the same way, in Hedge the optimal learning rate depends on the KL divergence bewteen the prior weighting $\pi$ and the unknown competitor $u$, forth entry in Table~\ref{table:bounds}.
+For example, to obtain the optimal bound in \ac{OGD}, the learning rate has to be set with the knowledge of the norm of the competitor $u$, first entry in Table~\ref{table:bounds}. In the exact same way, in Hedge the optimal learning rate depends on the KL divergence bewteen the prior weighting $\pi$ and the unknown competitor $u$, forth entry in Table~\ref{table:bounds}.
 Recently, a new family of parameter-free algorithms that has been proposed, both for
 \ac{LEA}~\cite{Chaudhuri-Freund-Hsu-2009, Chernov-Vovk-2010, Luo-Schapire-2014,
-Luo-Schapire-2015, Koolen-van-Erven-2015} and for \ac{OLO}/\ac{OCO} over
+Luo-Schapire-2015, Koolen-van-Erven-2015, Foster-Rakhlin-Sridharan-2015} and for \ac{OLO}/\ac{OCO} over
 Hilbert spaces~\cite{Streeter-McMahan-2012, Orabona-2013,
 McMahan-Abernethy-2013, McMahan-Orabona-2014, Orabona-2014}.  These algorithms
 adapt to the number of experts and to the norm of the optimal predictor,
-respectively, without the need to tune parameters.  Even if we now know how to analyze these two
-families of algorithms~\cite{Foster-Rakhlin-Sridharan-2015}, their \emph{design} and underlying intuition is still a challenge.
+respectively, without the need to tune parameters. However, their \emph{design and underlying intuition} is still a challenge.
 %Given the connections
 %between \ac{OLO}/\ac{LEA} and machine learning, these algorithms allow to
 %design parameter-free batch machine learning algorithms through straightforward
