@@ -34,11 +34,11 @@
 
 \newcommand{\R}{\mathbb{R}}     % real numbers
 \renewcommand{\H}{\mathcal{H}}  % Hilbert space
-\DeclareMathOperator*{\D}{D}    % KL divergence
-\newcommand{\KL}[2]{\D\left({#1}\middle\|{#2}\right)}  % KL divergence
+\newcommand{\KL}[2]{\operatorname{D}\left({#1}\middle\|{#2}\right)}  % KL divergence
 \newcommand{\norm}[1]{\left\|{#1}\right\|}
 \newcommand{\indicator}{\mathbf{1}}
-\newcommand{\scO}{\mathcal{O}}
+\newcommand{\scO}{\mathcal{O}}  % big-Oh
+\DeclareMathOperator*{\dom}{dom}    % KL divergence
 
 \begin{acronym}
 \acro{EG}{Exponentiated Gradient}
@@ -84,11 +84,12 @@ developed. These algorithms achieve optimal regret bounds that depend on the
 unknown competitors, without having to tune the learning rates with oracle
 choices.
 
-We present a new intuitive framework to design parameter-free algorithms based on a reduction to betting on outcomes
-of an adversarial coin. We instantiate it using a betting algorithm
-based on the Krichevsky-Trofimov estimator.  The resulting algorithms are 
-simple, with no parameters to be tuned, and they match or improve
-previous results in terms of regret guarantee and per-round complexity.
+We present a new intuitive framework to design parameter-free algorithms based
+on a reduction to betting on outcomes of an adversarial coin. We instantiate it
+using a betting algorithm based on the Krichevsky-Trofimov estimator.  The
+resulting algorithms are simple, with no parameters to be tuned, and they match
+or improve previous results in terms of regret guarantee and per-round
+complexity.
 \end{abstract}
 
 \vspace{-0.2cm}

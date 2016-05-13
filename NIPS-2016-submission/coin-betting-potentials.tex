@@ -6,7 +6,8 @@ betting, the strategy assumes that the coin flips $\{g_t\}_{t=1}^\infty$, $g_t
 \in \{+1,-1\}$, are generated i.i.d. with known probability of heads. If $p \in
 [0,1]$ is the probability of heads, the Kelly bet is
 $\beta_t = 2p - 1$.
-He showed that, in the long run, this strategy will provide more wealth than betting any other fixed fraction~\cite{Kelly-1956}.
+He showed that, in the long run, this strategy will provide more wealth than
+betting any other fixed fraction~\cite{Kelly-1956}.
 
 For adversarial coins, Kelly betting does not make sense. However, we can
 replace $p$ with an estimate. This problem was studied by \citet{Krichevsky-Trofimov-1981},
@@ -37,17 +38,6 @@ possible to prove that, for $g_1, g_2, \dots, g_t \in [-1,1]$,
 \Wealth_t \ge F_t \left( \sum_{i=1}^t g_i \right) \; ,
 \end{equation}
 where $F_t(x)$ is a certain function. We call such functions \emph{potentials}.
-% We consider potential-based strategy that in round $t$ chooses fraction
-% \begin{equation}
-% \label{equation:potential-based-strategy}
-% \beta_t = \tfrac{F_t(\sum_{i=1}^{t-1} g_i + 1) - F_t(\sum_{i=1}^{t-1} g_i - 1)}{F_t(\sum_{i=1}^{t-1} g_i + 1) + F_t(\sum_{i=1}^{t-1} g_i - 1)} \; .
-% \end{equation}
-% If $F_t(x)$ is positive, $\beta_t \in (-1,1)$ and hence it is a valid
-% strategy.
-% However, without further conditions on the sequence of potentials
-% $\{F_t\}_{t=0}^\infty$, it is not clear if the strategy
-% \eqref{equation:potential-based-strategy} implies the lower bound
-% \eqref{equation:wealth-lower-bound-generic} on its wealth.
 The betting strategy will be determined uniquely by the potential (see (c) in the Definition~\ref{definition:potential}),
 and we restrict our
 attention to potentials for which \eqref{equation:wealth-lower-bound-generic}
@@ -55,7 +45,7 @@ holds. These constraints are specified in the definition below.
 \begin{definition}[Coin-Betting Potential]
 \label{definition:potential}
 Let $\epsilon > 0$. Let $\{F_t\}_{t=0}^\infty$ be a sequence of functions
-$F_t:(-a_t, a_t)  \to \R_+$, where $a_t \in [t, +\infty]$.  The sequence
+$F_t:(-a_t, a_t)  \to \R_+$, where $a_t > t$.  The sequence
 $\{F_t\}_{t=0}^\infty$ is called a \textbf{sequence of coin-betting potentials
 for initial endowment $\epsilon$}, if it satisfies the following three
 conditions:
@@ -64,8 +54,8 @@ conditions:
 
 \item For every $t \ge 0$, $F_t(x)$ is even, logarithmically convex, strictly
 increasing on $[0,a_t)$, and
-$\lim_{x \nearrow a_t} F_t(x) = \lim_{x \searrow -a_t} F_t(x) = +\infty$.
-\item Set 
+$\lim_{x \to a_t} F_t(x) = +\infty$.
+\item Given $t \ge 1$ and $x \in [-(t-1), (t-1)]$, let 
 \begin{equation}
 \label{equation:potential-based-strategy}
 \beta_t=\tfrac{F_t(x + 1) - F_t(x - 1)}{F_t(x + 1) + F_t(x - 1)} \;.
@@ -83,10 +73,12 @@ satisfies $x \cdot F_t''(x) \ge F_t'(x)$ for every $x \in [0,a_t)$.
 \end{enumerate}
 \end{definition}
 
-Let's give some intuition on this definition.
-First, let's show by induction on $t$ that (b) and (c) of
-the definition together with \eqref{equation:wealth-recurrence} gives a betting strategy that 
-satisfies \eqref{equation:wealth-lower-bound-generic}. The base case $t=0$ is trivial. At time $t \ge 1$, let $x = \sum_{i=1}^{t-1} g_i$ and bet $\beta_t \Wealth_{t-1}$ where $\beta_t$ is defined in \eqref{equation:potential-based-strategy}, then
+Let's give some intuition on this definition.  First, let's show by induction
+on $t$ that (b) and (c) of the definition together with
+\eqref{equation:wealth-recurrence} give a betting strategy that satisfies
+\eqref{equation:wealth-lower-bound-generic}. The base case $t=0$ is trivial. At
+time $t \ge 1$, let $x = \sum_{i=1}^{t-1} g_i$ and bet $\beta_t \Wealth_{t-1}$
+where $\beta_t$ is defined in \eqref{equation:potential-based-strategy}, then
 \vspace{-.2cm}
 \[
 \Wealth_t
@@ -96,22 +88,32 @@ satisfies \eqref{equation:wealth-lower-bound-generic}. The base case $t=0$ is tr
 = F_t \left( \sum_{i=1}^t g_i \right) \; .
 \]
 
-Also, with perfect knowledge of the future, a bettor could always bet everything on the right outcome. Hence, after $T$ rounds and with initial endowment $\epsilon$, the maximum wealth we could get is $\epsilon 2^T$. 
-Instead, assuming to know the value of $\sum_{t=1}^T g_t$ beforehand and betting the fixed fraction $(\sum_{t=1}^T g_t)/T$ at each round, gives the wealth 
-$\epsilon \exp\left(T \KL{\tfrac{1}{2}+\tfrac{\sum_{t=1}^T g_t}{2 T}}{\tfrac{1}{2}}\right) \geq \epsilon \exp\left(\tfrac{(\sum_{t=1}^T g_t)^2}{2 T}\right)$, as observed in \cite{McMahan-Abernethy-2013}.
-In this sense, \emph{good} betting strategies should guarantee an exponential growth of the wealth, when the outcomes of the coin are predictable.
+With perfect knowledge of the future, the gambler could always bet everything
+on the right outcome. Hence, after $T$ rounds and with initial endowment
+$\epsilon$, the maximum wealth he could get is $\epsilon 2^T$.  Instead,
+assuming the knowledge of the value of $\sum_{t=1}^T g_t$ beforehand and betting the
+fixed fraction $(\sum_{t=1}^T g_t)/T$ at each round, gives the wealth $\epsilon
+\exp\left(T \KL{\tfrac{1}{2}+\tfrac{\sum_{t=1}^T g_t}{2
+T}}{\tfrac{1}{2}}\right) \geq \epsilon \exp\left(\tfrac{(\sum_{t=1}^T g_t)^2}{2
+T}\right)$, as observed in \cite{McMahan-Abernethy-2013}.  In this sense,
+\emph{good} betting strategies should guarantee an exponential growth of the
+wealth, when the outcomes of the coin are predictable.
 
-The last condition, (d), is a technical condition that will allow us to seamless reduce the infinite dimensional case to the one dimensional one.
+The condition (d) is a technical condition that will allow us to
+seamlessly reduce the infinite dimensional case to the one dimensional one.
 
-As last point, the formula for the potential-based
+As the last point, the formula for the potential-based
 strategy~\eqref{equation:potential-based-strategy} might seem strange. However,
 it is derived---see Theorem~\ref{theorem:optimal-betting-fraction} in
-Appendix~\ref{section:optimal-betting-fraction}---by minimizing the worst-case value of the right-hand side of the
-inequality used w.r.t. to $g_t$ in the induction proof above: $F_{t-1}(x) \ge \tfrac{F_{t}(x + g_t)}{1+g_t\beta_t}$.
+Appendix~\ref{section:optimal-betting-fraction}---by minimizing the worst-case
+value of the right-hand side of the inequality used w.r.t. to $g_t$ in the
+induction proof above: $F_{t-1}(x) \ge \tfrac{F_{t}(x + g_t)}{1+g_t\beta_t}$.
 
-As an example, it possible to show that the potentials of form $F_t(x)=\epsilon \exp
-\left(x^2/(2t)\right)/\sqrt{t}$, essentialy the ones used in the parameter-free algorithms in \cite{McMahan-Orabona-2014, Orabona-2014} for \ac{OLO} and in \cite{Chaudhuri-Freund-Hsu-2009, Luo-Schapire-2014,
-Luo-Schapire-2015} for \ac{LEA}, is an excellent coin betting potential.
-We will show new examples of sequences of coin-betting potentials in
-Section~\ref{section:kt-estimator}.
-In the next two sections, we reduce \ac{OLO} and \ac{LEA} to coin-betting.
+As an example, it possible to show that the potentials of form $F_t(x)=\epsilon
+\exp \left(x^2/(2t)\right)/\sqrt{t}$, essentially the ones used in the
+parameter-free algorithms in \cite{McMahan-Orabona-2014, Orabona-2014} for
+\ac{OLO} and in \cite{Chaudhuri-Freund-Hsu-2009, Luo-Schapire-2014,
+Luo-Schapire-2015} for \ac{LEA}, is an excellent coin betting potential.  We
+will show new examples of sequences of coin-betting potentials in
+Section~\ref{section:kt-estimator}.  In the next two sections, we reduce
+\ac{OLO} and \ac{LEA} to coin-betting.

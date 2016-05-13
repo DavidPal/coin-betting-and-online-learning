@@ -3,10 +3,10 @@
 
 In the previous section we have shown that a coin-betting potential with a
 guaranteed rapid growth of the wealth will give good regret guarantees for
-\ac{OLO} and \ac{LEA}. Here, we show that the
-KT estimator has associated an excellent
-coin-betting potential, which we call \emph{KT potential}. 
-Then, the optimal wealth guarantee of the KT potentials will translate to optimal parameter-free regret bounds.
+\ac{OLO} and \ac{LEA}. Here, we show that the KT estimator has associated an
+excellent coin-betting potential, which we call \emph{KT potential}.  Then, the
+optimal wealth guarantee of the KT potentials will translate to optimal
+parameter-free regret bounds.
 
 The excellent coin-betting potential for initial endowment $\epsilon$
 corresponding to the adaptive Kelly betting strategy
@@ -17,16 +17,19 @@ based on the KT estimator is
 F_t(x) = \epsilon \tfrac{2^t \cdot \Gamma \left( \tfrac{t+1}{2} + \frac{x}{2} \right) \cdot \Gamma \left( \tfrac{t+1}{2} - \frac{x}{2} \right)}{\pi \cdot t!}
 \qquad \qquad \text{$t \ge 0$, \quad $x \in \left(-t-1, t+1\right)$,}
 \end{equation}
-where $\Gamma(x) = \int_0^\infty t^{-x} e^{-t} dt$ is Euler's gamma function---see Theorem~\ref{theorem:kt-potential} in
-Appendix~\ref{section:properties-kt-potential}.
-This potential was used to prove regret bounds for online prediction with the logarithmic loss~\cite{Krichevsky-Trofimov-1981}\cite[Section 9.7]{Cesa-Bianchi-Lugosi-2006}.
-Theorem~\ref{theorem:kt-potential}
-also shows that the KT betting strategy $\beta_t$ as defined by
-\eqref{equation:kt-estimator-betting-strategy} satisfies \eqref{equation:potential-based-strategy}.
+where $\Gamma(x) = \int_0^\infty t^{-x} e^{-t} dt$ is Euler's gamma
+function---see Theorem~\ref{theorem:kt-potential} in
+Appendix~\ref{section:properties-kt-potential}.  This potential was used to
+prove regret bounds for online prediction with the logarithmic
+loss~\cite{Krichevsky-Trofimov-1981}\cite[Section
+9.7]{Cesa-Bianchi-Lugosi-2006}.  Theorem~\ref{theorem:kt-potential} also shows
+that the KT betting strategy $\beta_t$ as defined by
+\eqref{equation:kt-estimator-betting-strategy} satisfies
+\eqref{equation:potential-based-strategy}.
 
-This potential has the peculiar property to satisfy the inequality in (c) of Definition~\ref{definition:potential}
-with equality when $g_t\in \{-1,1\}$, i.e. $F_t(x+g_t)=(1+g_t \beta_t) \, F_{t-1}(x)$.
-
+This potential has the peculiar property to satisfy the inequality in (c) of
+Definition~\ref{definition:potential} with equality when $g_t\in \{-1,1\}$,
+i.e. $F_t(x+g_t)=(1+g_t \beta_t) \, F_{t-1}(x)$.
 
 We also generalize the KT potential to a \emph{$\delta$-shifted KT
 potential}, where $\delta\geq0$, defined as
@@ -34,19 +37,24 @@ potential}, where $\delta\geq0$, defined as
 F_t(x) = \tfrac{2^t \cdot \Gamma\left(\delta + 1 \right) \cdot \Gamma\left(\tfrac{t+\delta+1}{2} + \frac{x}{2} \right) \cdot \Gamma\left(\tfrac{t+\delta+1}{2} - \frac{x}{2} \right)}{\Gamma\left(\tfrac{\delta+1}{2} \right)^2 \cdot \Gamma \left(t+\delta+1\right)} \; .
 \]
 The reason for its name is that, up to a multiplicative constant, $F_t$ is
-equal to the KT potential shifted in time by $\delta$. Theorem~\ref{theorem:kt-potential} also proves that the $\delta$-shifted KT potentials are excellent coin-betting potentials for initial endowment $1$, and the
-corresponding betting fraction is $\beta_t = \tfrac{\sum_{j=1}^{t-1} \widetilde g_j}{\delta+t}$.
+equal to the KT potential shifted in time by $\delta$.
+Theorem~\ref{theorem:kt-potential} also proves that the $\delta$-shifted KT
+potentials are excellent coin-betting potentials for initial endowment $1$, and
+the corresponding betting fraction is $\beta_t = \tfrac{\sum_{j=1}^{t-1}
+g_j}{\delta+t}$.
 
 \vspace{-0.1cm}
 
 \subsection{OLO in Hilbert Space}
 \label{section:kt-olo}
 
-We apply the KT potential for the construction of an OLO algorithm over a Hilbert
-space $\H$. We will use \eqref{equation:hilbert-space-olo}, and we just need to calculate
-$\beta_t$. According to Theorem~\ref{theorem:kt-potential} in Appendix
-\ref{section:properties-kt-potential}, the formula for $\beta_t$ simplifies to
-$\beta_t = \frac{\norm{\sum_{i=1}^{t-1} g_i}}{t}$ so that $w_t = \tfrac{1}{t} \left(\epsilon + \sum_{i=1}^{t-1} \langle g_i, w_i \rangle \right) \sum_{i=1}^{t-1} g_i$.
+We apply the KT potential for the construction of an OLO algorithm over a
+Hilbert space $\H$. We will use \eqref{equation:hilbert-space-olo}, and we just
+need to calculate $\beta_t$. According to Theorem~\ref{theorem:kt-potential} in
+Appendix \ref{section:properties-kt-potential}, the formula for $\beta_t$
+simplifies to $\beta_t = \frac{\norm{\sum_{i=1}^{t-1} g_i}}{t}$ so that $w_t =
+\tfrac{1}{t} \left(\epsilon + \sum_{i=1}^{t-1} \langle g_i, w_i \rangle \right)
+\sum_{i=1}^{t-1} g_i$.
 
 \begin{algorithm}[t]
 \caption{Algorithm for OLO over Hilbert space $\H$ based on KT potential
@@ -62,12 +70,13 @@ $\beta_t = \frac{\norm{\sum_{i=1}^{t-1} g_i}}{t}$ so that $w_t = \tfrac{1}{t} \l
 \end{algorithmic}
 \end{algorithm}
 
-The resulting algorithm is stated as Algorithm~\ref{algorithm:kt-hilbert-space-olo}.  We
-derive a regret bound for it as a very simple corollary of
+The resulting algorithm is stated as
+Algorithm~\ref{algorithm:kt-hilbert-space-olo}.  We derive a regret bound for
+it as a very simple corollary of
 Theorem~\ref{theorem:hilbert-space-olo-regret-bound} to the KT potential
-\eqref{equation:kt-estimator-potential}. The only technical
-part of the proof, in Appendix~\ref{section:corollaries_reductions}, is an upper bound on $F_t^*$ since it cannot
-be expressed as an elementary function.
+\eqref{equation:kt-estimator-potential}. The only technical part of the proof,
+in Appendix~\ref{section:corollaries_reductions}, is an upper bound on $F_t^*$
+since it cannot be expressed as an elementary function.
 %
 \begin{corollary}[Regret Bound for Algorithm~\ref{algorithm:kt-hilbert-space-olo}]
 \label{corollary:kt-hilbert-space-olo-regret} Let $\epsilon > 0$. Let
@@ -81,9 +90,13 @@ Algorithm~\ref{algorithm:kt-hilbert-space-olo} satisfies
 \]
 \end{corollary}
 %
-It is worth noting the extreme simplicity of Algorithm~\ref{algorithm:kt-hilbert-space-olo} and contrast it with the algorithms in \cite{Streeter-McMahan-2012,McMahan-Orabona-2014,Orabona-2013,Orabona-2014}.
-Also, the regret bound is optimal~\cite{Streeter-McMahan-2012,Orabona-2013}. The parameter $\epsilon$ can be safely set to any constant,e.g. 1. Its role is equivalent to the initial guess used in doubling tricks.
-
+It is worth noting the extreme simplicity of
+Algorithm~\ref{algorithm:kt-hilbert-space-olo} and contrast it with the
+algorithms in \cite{Streeter-McMahan-2012, McMahan-Orabona-2014, Orabona-2013,
+Orabona-2014}.  Also, the regret bound is
+optimal~\cite{Streeter-McMahan-2012,Orabona-2013}.  The parameter $\epsilon$
+can be safely set to any constant, e.g. $1$. Its role is equivalent to the
+initial guess used in doubling tricks.
 
 \subsection{Learning with Expert Advice}
 \label{section:kt-lea}
@@ -97,7 +110,7 @@ the number of rounds $T$ in advance.
 \caption{Algorithm for Learning with Expert Advice based on $\delta$-shifted KT potential
 \label{algorithm:kt-experts}}
 {
-\REQUIRE{Number of experts $N$, prior distribution $\pi \in \Delta_N$}
+\REQUIRE{Number of experts $N$, prior distribution $\pi \in \Delta_N$, number of rounds $T$}
 \FOR{$t=1,2,\dots,T$}
 \STATE{For each $i \in [N]$, set $w_{t,i} \leftarrow \tfrac{\sum_{j=1}^{t-1} \widetilde g_{j,i}}{t+T/2} \left(1 + \sum_{j=1}^{t-1} \widetilde g_{j,i} w_{j,i} \right)$}
 \STATE{For each $i \in [N]$, set $\widehat{p}_{t,i} \leftarrow \pi_i [w_{t,i}]_+$}
@@ -116,8 +129,10 @@ g_{t,i} - \langle g_t, p_t \rangle & \text{if $w_{t,i} > 0$} \\
 \end{algorithmic}
 \end{algorithm}
 
-To use the construction in Section~\ref{section:reduction-experts}, we need an OLO algorithm for the 1-d Hilbert space $\R$.
-Using the $\delta$-shited KT potentials, the algorithm predicts for any sequence $\{\widetilde g_t\}_{t=1}^\infty$ of reward
+To use the construction in Section~\ref{section:reduction-experts}, we need an
+OLO algorithm for the 1-d Hilbert space $\R$.  Using the $\delta$-shited KT
+potentials, the algorithm predicts for any sequence $\{\widetilde
+g_t\}_{t=1}^\infty$ of reward
 \[
 w_t
 = \beta_t \Wealth_{t-1}
@@ -134,15 +149,17 @@ potential.
 Algorithm~\ref{algorithm:kt-experts}] \label{corollary:kt-experts-regret} Let
 $N \ge 2$ and $T \ge 0$ be integers. Let $\pi \in \Delta_N$ be a prior.  For
 any $g_1, g_2, \dots, g_T \in [0,1]^N$ of reward vectors,
-Algorithm~\ref{algorithm:kt-experts} with input $N,T,\pi$ satisfies
+Algorithm~\ref{algorithm:kt-experts} with input $N,\pi,T$ satisfies
 \[
 \forall u \in \Delta_N \qquad \qquad \Regret_T(u) \le \sqrt{3T (4 + \KL{u}{\pi})} \; .
 \]
 \end{corollary}
 %
-Hence, the Algorithm~\ref{algorithm:kt-experts} has \emph{both} the best known guarantee on worst-case regret and per-round time complexity, see Table~\ref{table:bounds}. Also, it has the advantage to be very simple.
-%As observed by \citet{Chernov-Vovk-2010}, bounds in terms of the KL
-%divergence are superior to the $\epsilon$-quantile bounds.
+Hence, the Algorithm~\ref{algorithm:kt-experts} has \emph{both} the best known
+guarantee on worst-case regret and per-round time complexity, see
+Table~\ref{table:bounds}. Also, it has the advantage of being very simple.
+%As observed by \citet{Chernov-Vovk-2010}, bounds in terms of the KL divergence
+%are superior to the $\epsilon$-quantile bounds.
 
 The proof of the corollary is in the
 Appendix~\ref{section:corollaries_reductions}.  The technical part of the proof
@@ -157,7 +174,8 @@ another constant fraction of $T$, it is possible to trade-off between the two
 constants $3$ and $4$ present in the square root.
 
 The requirement of knowing the number of rounds $T$ in advance can be lifted by
-the standard doubling trick~\cite[Section 2.3.1]{Shalev-Shwartz-2011}, obtaining an anytime guarantee with a bigger leading constant,
+the standard doubling trick~\cite[Section 2.3.1]{Shalev-Shwartz-2011},
+obtaining an anytime guarantee with a bigger leading constant,
 \[
 \forall \, T \ge 0 \quad \forall u \in \Delta_N \qquad \qquad
 \Regret_T(u) \le \tfrac{\sqrt{2}}{\sqrt{2} - 1} \sqrt{3T (4 + \KL{u}{\pi})} \; .
