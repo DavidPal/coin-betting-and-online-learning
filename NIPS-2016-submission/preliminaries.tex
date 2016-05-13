@@ -1,24 +1,21 @@
 \section{Preliminaries}
 \label{section:preliminaries}
 
-The \ac{KL} divergence between two discrete distributions $p$ and $q$
-is $\KL{p}{q} = \sum_{i} p_i \ln\left( p_i/q_i \right)$. Abusing
-notation, if $p,q$ are real numbers in $[0,1]$, we denote by $\KL{p}{q} = p \ln
-\left(p/q \right) + (1-p) \ln \left((1-p)/(1-q) \right)$ the
-\ac{KL} divergence between two Bernoulli distributions with parameters
-$p$ and $q$.  We denote by $\H$ a Hilbert space with inner product $\langle
-\cdot, \cdot\rangle$ and by $\norm{\cdot}$ the induced norm.  We denote by
-$\norm{\cdot}_1$ the $1$-norm in $\R^N$.  A function $F:I \to \R_+$ is called
-\emph{logarithmically convex} iff $f(x) = \ln(F(x))$ is convex.
-%It follows that
-%if $F(x)$ is logarithmically convex, then it is also convex (in the usual
-%sense).
-Let $f:V \to \R \cup \{\pm\infty\}$, the Fenchel conjugate of $f$ is $f^*:V^*
-\to \R \cup \{\pm \infty\}$ defined on the dual vector space $V^*$ by
-$f^*(\theta) = \sup_{x \in V} \ \langle \theta, x \rangle - f(x)$.  A function
-$f:V \to \R \cup \{+ \infty\}$ is said to be proper if $\dom f \neq \emptyset$.
-If $f$ is a proper lower semi-continuous convex function then $f^*$ is also is
-proper lower semi-continuous convex and $f^{**}=f$.
+The \ac{KL} divergence between two discrete distributions $p$ and $q$ is
+$\KL{p}{q} = \sum_{i} p_i \ln\left( p_i/q_i \right)$. If $p,q$ are real numbers
+in $[0,1]$, we denote by $\KL{p}{q} = p \ln \left(p/q \right) + (1-p) \ln
+\left((1-p)/(1-q) \right)$ the \ac{KL} divergence between two Bernoulli
+distributions with parameters $p$ and $q$.  We denote by $\H$ a Hilbert space
+with inner product $\langle \cdot, \cdot\rangle$ and by $\norm{\cdot}$ the
+induced norm.  We denote by $\norm{\cdot}_1$ the $1$-norm in $\R^N$.  A
+function $F:I \to \R_+$ is called \emph{logarithmically convex} iff $f(x) =
+\ln(F(x))$ is convex.  Let $f:V \to \R \cup \{\pm\infty\}$, the Fenchel
+conjugate of $f$ is $f^*:V^* \to \R \cup \{\pm \infty\}$ defined on the dual
+vector space $V^*$ by $f^*(\theta) = \sup_{x \in V} \ \langle \theta, x \rangle
+- f(x)$.  A function $f:V \to \R \cup \{+ \infty\}$ is said to be proper if
+$\dom f \neq \emptyset$.  If $f$ is a proper lower semi-continuous convex
+function then $f^*$ is also is proper lower semi-continuous convex and
+$f^{**}=f$.
 
 \textbf{Binary and Continuous Coin Betting.} We consider a gambler making
 repeated bets on the outcomes of adversarial coin flips. The gambler starts with an
@@ -28,7 +25,8 @@ We do not make any assumption on how $g_t$ is generated, that is, it can be
 chosen by an adversary.
 
 The gambler can bet any amount on either heads or tails. However, he is not
-allowed to borrow any additional money. If he loses, he loses the betted amount; if he wins, he gets the betted amount back and, in addition to that, he
+allowed to borrow any additional money. If he loses, he loses the betted
+amount; if he wins, he gets the betted amount back and, in addition to that, he
 gets the same amount as a reward.  We encode gambler's bet in round $t$ by a
 single number $\beta_t \in [-1,1]$. The sign of $\beta_t$ encodes whether he is
 betting on heads or tails. The absolute value encodes the betted amount as the
@@ -50,9 +48,6 @@ rounds is
 \Reward_t = \Wealth_t - \ \epsilon \; .
 \end{align}
 We generalize the problem slightly by allowing the outcome of the coin flip
-$g_t$ to be any real number in the interval $[-1,1]$.
-%In this case we talk
-%about \emph{betting on a continuous coin}.
-Equations
+$g_t$ to be any real number in the interval $[-1,1]$.  Equations
 \eqref{equation:wealth-recurrence} and \eqref{equation:reward-wealth} defining
 wealth and reward remain exactly the same.

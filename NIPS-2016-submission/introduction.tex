@@ -22,40 +22,33 @@ assume that $\norm{g_t} \le 1$, and for \ac{LEA} we assume that $g_t \in
 
 \ac{OLO} is a basic building block of many machine learning problems. For
 example, \ac{OCO}, the problem analogous to \ac{OLO} where $\langle g_t, u
-\rangle$ is generalized to $\ell_t(u)$ with $\ell_t$ an arbitrary convex
-function, is solved through a reduction to \ac{OLO}~\cite{Shalev-Shwartz-2011}.
+\rangle$ is generalized to an arbitrary convex function $\ell_t(u)$, is solved
+through a reduction to \ac{OLO}~\cite{Shalev-Shwartz-2011}.
 \ac{LEA}~\cite{Littlestone-Warmuth-1994, Vovk-1998,
 Cesa-Bianchi-Freund-Haussler-Helmbold-Schapire-Warmuth-1997} provides a way of
 combining classifiers and it is at the heart of
 boosting~\cite{Freund-Schapire-1997}. Batch and stochastic convex optimization
 can also be solved through a reduction to \ac{OLO}~\cite{Shalev-Shwartz-2011}.
-%Statistical learning with convex losses can also seen as stochastic convex
-%optimization and solved through \ac{OCO}~\cite{Munro-1951}, that in turns can
-%be reduced to \ac{OLO}.
 
-However, to achieve optimal regret, most of the online algorithms still require
-to set hyperparameters, usually learning rates.  For example, to obtain the
+To achieve optimal regret, most of the existing online algorithms require to
+set hyperparameters, usually learning rates.  For example, to obtain the
 optimal bound in \ac{OGD}, the learning rate has to be set with the knowledge
 of the norm of the competitor $u$; first entry in Table~\ref{table:bounds}.
 Likewise, in Hedge the optimal learning rate depends on the KL divergence
 between the prior weighting $\pi$ and the unknown competitor $u$, fourth entry
-in Table~\ref{table:bounds}.  Recently, a new family of parameter-free
-algorithms that has been proposed, both for
+in Table~\ref{table:bounds}.  Recently, new parameter-free
+algorithms have been proposed, both for
 \ac{LEA}~\cite{Chaudhuri-Freund-Hsu-2009, Chernov-Vovk-2010, Luo-Schapire-2014,
 Luo-Schapire-2015, Koolen-van-Erven-2015, Foster-Rakhlin-Sridharan-2015} and
 for \ac{OLO}/\ac{OCO} over Hilbert spaces~\cite{Streeter-McMahan-2012,
 Orabona-2013, McMahan-Abernethy-2013, McMahan-Orabona-2014, Orabona-2014}.
 These algorithms adapt to the number of experts and to the norm of the optimal
 predictor, respectively, without the need to tune parameters. However, their
-\emph{design and underlying intuition} is still a challenge.
-%Given the connections
-%between \ac{OLO}/\ac{LEA} and machine learning, these algorithms allow to
-%design parameter-free batch machine learning algorithms through straightforward
-%reductions~\cite{Orabona-2014, Luo-Schapire-2015}.
-Also, all existing algorithms for LEA either have sub-optimal regret bound
-(e.g. extra $\scO(\log \log T)$ factor) or sub-optimal running time (e.g.
-requiring solving a numerical problem in every round, or with extra factors);
-see Table~\ref{table:bounds}.
+\emph{design and underlying intuition} is still a challenge.  Also, all
+existing algorithms for LEA either have sub-optimal regret bound (e.g. extra
+$\scO(\log \log T)$ factor) or sub-optimal running time (e.g.  requiring
+solving a numerical problem in every round, or with extra factors); see
+Table~\ref{table:bounds}.
 
 \begin{table}
 \centering
@@ -69,11 +62,11 @@ OGD, $\eta=\tfrac{U}{\sqrt{T}}$ \cite{Shalev-Shwartz-2011} & $U \sqrt{T}$ for an
 \cite{McMahan-Orabona-2014,Orabona-2014} & $\scO(\norm{u}\sqrt{T \ln(1+\norm{u}T)})$, $\forall u \in \H$ & $\scO(1)$ & \checkmark \\
 This paper, Sec.~\ref{section:kt-olo} & $\scO(\norm{u}\sqrt{T \ln(1+\norm{u}T)})$, $\forall u \in \H$ & $\scO(1)$ & \checkmark & \checkmark\\
 \midrule
-Hedge~\cite{Freund-Schapire-1997}, $\eta=\tfrac{U}{\sqrt{T}}$ & $\scO(\sqrt{T U})$ for any $u \in \Delta_N$ s.t. $\sqrt{\KL{u}{\pi}} \le U$ & $\scO(N)$ &  \\
+Hedge~\cite{Freund-Schapire-1997}, $\eta=\tfrac{U}{\sqrt{T}}$ & $\scO(U\sqrt{T})$ for any $u \in \Delta_N$ s.t. $\sqrt{\KL{u}{\pi}} \le U$ & $\scO(N)$ &  \\
 \cite{Chaudhuri-Freund-Hsu-2009}  & $\scO(\sqrt{T \KL{u}{\pi}}+\ln^2 N)$, $\forall u \in \Delta_N$ & $\scO(N\,K)$\footnotemark[1]& \checkmark \\
 \cite{Chernov-Vovk-2010} & $\scO(\sqrt{T \left(1+\KL{u}{\pi}\right)})$, $\forall u \in \Delta_N$ & $\scO(N\,K)$\footnotemark[1] & \checkmark \\
 \cite{Chernov-Vovk-2010, Luo-Schapire-2015,Koolen-van-Erven-2015}\footnotemark[2] & $\scO(\sqrt{T \left(\ln \ln T+\KL{u}{\pi}\right)})$, $\forall u \in \Delta_N$ & $\scO(N)$ & \checkmark \\
-\cite{Foster-Rakhlin-Sridharan-2015} & $\scO(\sqrt{T \left(1+\KL{u}{\pi}\right)})$, $\forall u \in \Delta_N$ & $\scO(N \max_{i} \ln \ln \frac{1}{\pi_i})$\footnotemark[3] & \checkmark & \checkmark \\
+\cite{Foster-Rakhlin-Sridharan-2015} & $\scO(\sqrt{T \left(1+\KL{u}{\pi}\right)})$, $\forall u \in \Delta_N$ & $\scO(N \ln \max_{u \in \Delta_N} \KL{u}{\pi})$\footnotemark[3] & \checkmark & \checkmark \\
 This paper, Sec.~\ref{section:kt-lea} & $\scO(\sqrt{T \left(1+\KL{u}{\pi}\right)})$, $\forall u \in \Delta_N$ & $\scO(N)$ & \checkmark & \checkmark\\
 \bottomrule
 \end{tabular}}
@@ -86,7 +79,6 @@ All of them are defined in Setion~\ref{section:preliminaries}, while $\eta$ is t
 }
 \footnotetext[2]{The proof in \cite{Koolen-van-Erven-2015} can be modified to prove a KL bound, see \url{http://blog.wouterkoolen.info}.}
 \footnotetext[3]{A slightly modified version of algorithm in \cite{Foster-Rakhlin-Sridharan-2015} can be implemented with the stated time complexity~\cite{Foster:private}.}
-
 
 \textbf{Contributions.} We show that a more fundamental notion subsumes
 \emph{both} \ac{OLO} and \ac{LEA} parameter-free algorithms. We show that the

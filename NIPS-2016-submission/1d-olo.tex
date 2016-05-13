@@ -65,12 +65,12 @@ Applying the lemma, we get a regret upper bound
 \Regret_T(u) \le F^*(u) \ + \ \epsilon \; .
 \]
 
-Hence, we have showed that if we have a betting algorithm that guarantees a
-minimum wealth of $F(\sum_{t=1}^T g_t)$, it can be used to design and analyze
-the one-dimensional \ac{OLO} case. The faster is the growth of the wealth, the
+This shows that if we have a betting algorithm that guarantees a minimum wealth
+of $F(\sum_{t=1}^T g_t)$, it can be used to design and analyze the
+one-dimensional \ac{OLO} case. The faster is the growth of the wealth, the
 smaller the regret will be.  Moreover, the lemma also shows that trying to
-design an algorithm that is adaptive to $u$ is \emph{equivalent} to design an
-algorithm that is adaptive to $\sum_{t=1}^T g_t$.  Also, most importantly,
+design an algorithm that is adaptive to $u$ is \emph{equivalent} to designing
+an algorithm that is adaptive to $\sum_{t=1}^T g_t$.  Also, most importantly,
 \emph{methods that guarantee optimal wealth for the betting scenario are
 already known}, see, e.g., \cite[Section 9]{Cesa-Bianchi-Lugosi-2006}. We can
 just re-use them to get optimal online algorithms!

@@ -27,9 +27,9 @@ that the KT betting strategy $\beta_t$ as defined by
 \eqref{equation:kt-estimator-betting-strategy} satisfies
 \eqref{equation:potential-based-strategy}.
 
-This potential has the peculiar property to satisfy the inequality in (c) of
-Definition~\ref{definition:potential} with equality when $g_t\in \{-1,1\}$,
-i.e. $F_t(x+g_t)=(1+g_t \beta_t) \, F_{t-1}(x)$.
+This potential has the peculiar property that is satisfies the inequality in
+(c) of Definition~\ref{definition:potential} with equality when $g_t\in
+\{-1,1\}$, i.e. $F_t(x+g_t)=(1+g_t \beta_t) \, F_{t-1}(x)$.
 
 We also generalize the KT potential to a \emph{$\delta$-shifted KT
 potential}, where $\delta\geq0$, defined as
@@ -101,9 +101,10 @@ initial guess used in doubling tricks.
 \subsection{Learning with Expert Advice}
 \label{section:kt-lea}
 
-We will now construct an algorithm for \ac{LEA} based on the $\delta$-shifted KT
-potential. We set $\delta$ to $T/2$, requiring to know
-the number of rounds $T$ in advance.
+We will now construct an algorithm for \ac{LEA} based on the $\delta$-shifted
+KT potential. We set $\delta$ to $T/2$, requiring the algorithm to know the
+number of rounds $T$ in advance; we will fix this later with the standard
+doubling trick.
 
 \begin{algorithm}[t]
 \begin{algorithmic}[1]
@@ -147,9 +148,9 @@ potential.
 %
 \begin{corollary}[Regret Bound for
 Algorithm~\ref{algorithm:kt-experts}] \label{corollary:kt-experts-regret} Let
-$N \ge 2$ and $T \ge 0$ be integers. Let $\pi \in \Delta_N$ be a prior.  For
-any $g_1, g_2, \dots, g_T \in [0,1]^N$ of reward vectors,
-Algorithm~\ref{algorithm:kt-experts} with input $N,\pi,T$ satisfies
+$N \ge 2$ and $T \ge 0$ be integers. Let $\pi \in \Delta_N$ be a prior.
+Algorithm~\ref{algorithm:kt-experts} with input $N,\pi,T$
+for any rewards vectors $g_1, g_2, \dots, g_T \in [0,1]^N$ satisfies,
 \[
 \forall u \in \Delta_N \qquad \qquad \Regret_T(u) \le \sqrt{3T (4 + \KL{u}{\pi})} \; .
 \]

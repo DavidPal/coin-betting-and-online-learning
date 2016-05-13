@@ -9,12 +9,12 @@ on a coin-betting strategy---to construct an algorithm for \ac{LEA}.
 Let $N \ge 2$ be the number of experts and $\Delta_N$ be the $N$-dimensional
 probability simplex. Let $\pi = (\pi_1, \pi_2, \dots, \pi_N) \in \Delta_N$ be
 any \emph{prior} distribution. Let $A$ be an algorithm for OLO over
-one-dimensional Hilbert space $\R$, based on coin-betting potential 
-$\{F_t\}_{t=0}^\infty$ with initial endowment\footnote{Any initial endowment $\epsilon > 0$ can be
-rescaled to $1$. Instead of $F_t(x)$ we would use $F_t(x)/\epsilon$. The
-$w_t$ would become $w_t/\epsilon$, but $p_t$
-is invariant to scaling of $w_t$. Hence, the LEA algorithm is
-the same regardless of $\epsilon$.} $1$. We instantiate $N$ copies of $A$.
+one-dimensional Hilbert space $\R$, based on a sequence of coin-betting
+potentials $\{F_t\}_{t=0}^\infty$ with initial endowment\footnote{Any initial
+endowment $\epsilon > 0$ can be rescaled to $1$. Instead of $F_t(x)$ we would
+use $F_t(x)/\epsilon$. The $w_t$ would become $w_t/\epsilon$, but $p_t$ is
+invariant to scaling of $w_t$. Hence, the LEA algorithm is the same regardless
+of $\epsilon$.} $1$. We instantiate $N$ copies of $A$.
 
 Consider any round $t$. Let $w_{t,i} \in \R$ be the prediction of $i$-th copy of
 $A$. The LEA algorithm computes $\widehat p_t = (\widehat p_{t,1}, \widehat
@@ -43,13 +43,14 @@ g_{t,i} - \langle g_t, p_t \rangle & \text{if } w_{t,i} > 0 \; , \\
 \end{cases}
 \end{align}
 
-The construction above defines a \ac{LEA} algorithm defined by the predictions $p_t$, based on the algorithm $A$.
-We can prove the following regret bound for it.
+The construction above defines a \ac{LEA} algorithm defined by the predictions
+$p_t$, based on the algorithm $A$.  We can prove the following regret bound for
+it.
 %
 \begin{theorem}[Regret Bound for Experts]
 \label{theorem:regret-bound-experts}
 Let $A$ be an algorithm for \ac{OLO} over
-one-dimensional Hilbert space $\R$, based on coin-betting potential 
+one-dimensional Hilbert space $\R$, based on coin-betting potential
 $\{F_t\}_{t=0}^\infty$ for initial
 endowment $1$. Let $f_t^{-1}$ be in the inverse of $f_t(x) = \ln(F_t(x))$
 restricted to $[0,\infty)$.  Then, the regret of the \ac{LEA}
@@ -59,6 +60,8 @@ algorithm with prior $\pi \in \Delta_N$ that predicts at each round with $p_t$ i
 \Regret_T(u) \le f_T^{-1}\left( \KL{u}{\pi} \right) \; .
 \]
 \end{theorem}
-The proof, in Appendix~\ref{section:appendix-expert-reduction}, 
-is based on the fact that \eqref{eq:phat}--\eqref{eq:gradients_experts_reduction} guarantee that $\sum_{i=1}^N \pi_i \widetilde g_{t,i} w_{t,i} \le 0$ and on a variation of the change
-of measure lemma used in the PAC-Bayes literature, e.g.~\cite{McAllester-2013}.
+The proof, in Appendix~\ref{section:appendix-expert-reduction}, is based on the
+fact that \eqref{eq:phat}--\eqref{eq:gradients_experts_reduction} guarantee
+that $\sum_{i=1}^N \pi_i \widetilde g_{t,i} w_{t,i} \le 0$ and on a variation
+of the change of measure lemma used in the PAC-Bayes literature,
+e.g.~\cite{McAllester-2013}.
