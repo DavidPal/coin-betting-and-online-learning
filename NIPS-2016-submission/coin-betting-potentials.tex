@@ -9,8 +9,28 @@ $\beta_t = 2p - 1$.
 He showed that, in the long run, this strategy will provide more wealth than
 betting any other fixed fraction~\cite{Kelly-1956}.
 
-For adversarial coins, Kelly betting does not make sense. However, we can
-replace $p$ with an estimate. This problem was studied by \citet{Krichevsky-Trofimov-1981},
+For adversarial coins, Kelly betting does not make sense.
+With perfect knowledge of the future, the gambler could always bet everything
+on the right outcome. Hence, after $T$ rounds and with initial endowment
+$\epsilon$, the maximum wealth he could get is $\epsilon 2^T$.  Instead,
+assuming to bet a fixed fraction at each round, denote by $\Wealth_t(\beta)$ the wealth of a strategy that bets the same
+fraction $\beta$ in every round.
+As observed in \cite{McMahan-Abernethy-2013}, in this case the optimal strategy is to bet
+the fixed fraction $\beta_t=(\sum_{t=1}^T g_t)/T$, that gives the
+wealth 
+\begin{equation}
+\label{eq:opt_wealth}
+\max_{\beta \in [-1,1]} \Wealth_t(\beta) = \epsilon \exp\left(T \KL{\tfrac{1}{2}+\tfrac{\sum_{t=1}^T g_t}{2
+T}}{\tfrac{1}{2}}\right) 
+\geq \epsilon \exp\left(\tfrac{(\sum_{t=1}^T g_t)^2}{2
+T}\right),
+\end{equation}
+%In this sense,
+%\emph{good} betting strategies should guarantee an exponential growth of the
+%wealth, when the outcomes of the coin are predictable.
+
+However, even without knowledge of the future, it is possible to go very close to the wealth in \eqref{eq:opt_wealth}.
+This problem was studied by \citet{Krichevsky-Trofimov-1981},
 who proposed that after seeing coin flips $g_1, g_2, \dots, g_{t-1}$ the
 empirical estimate $k_t = \frac{1/2 + \sum_{i=1}^{t-1} \indicator[g_i = +1]}{t}$
 should be used instead of $p$. Their estimate is commonly called \emph{KT
@@ -24,23 +44,12 @@ slightly towards $\nicefrac{1}{2}$.} The KT estimator results in the betting str
 which we call \emph{adaptive Kelly betting based on KT estimator}.
 \citeauthor{Krichevsky-Trofimov-1981} showed that
 \[
-\Wealth_t \ge \frac{\max_{\beta \in [-1,1]} \Wealth_t(\beta)}{2\sqrt{t}} \; ,
+\Wealth_t \ge \frac{\max_{\beta \in [-1,1]} \Wealth_t(\beta)}{2\sqrt{t}} = \tfrac{\epsilon}{2\sqrt{t}} \exp\left(T \KL{\tfrac{1}{2}+\tfrac{\sum_{t=1}^T g_t}{2
+T}}{\tfrac{1}{2}}\right)\; ,
 \]
-where $\Wealth_t(\beta)$ is the wealth of a strategy that bets the same
-fraction $\beta$ in every round. This guarantee is optimal up to constant
-factors~\citep{Cesa-Bianchi-Lugosi-2006} and mirrors the guarantee of
+This guarantee is optimal up to constant factors~\citep{Cesa-Bianchi-Lugosi-2006} and mirrors the guarantee of
 the Kelly bet.
 
-With perfect knowledge of the future, the gambler could always bet everything
-on the right outcome. Hence, after $T$ rounds and with initial endowment
-$\epsilon$, the maximum wealth he could get is $\epsilon 2^T$.  Instead,
-assuming the knowledge of the value of $\sum_{t=1}^T g_t$ beforehand and
-betting the fixed fraction $(\sum_{t=1}^T g_t)/T$ at each round, gives the
-wealth $\epsilon \exp\left(T \KL{\tfrac{1}{2}+\tfrac{\sum_{t=1}^T g_t}{2
-T}}{\tfrac{1}{2}}\right) \geq \epsilon \exp\left(\tfrac{(\sum_{t=1}^T g_t)^2}{2
-T}\right)$, as observed in \cite{McMahan-Abernethy-2013}.  In this sense,
-\emph{good} betting strategies should guarantee an exponential growth of the
-wealth, when the outcomes of the coin are predictable.
 
 Here, we propose a new set of definitions that allows to generalize the
 strategy of adaptive Kelly betting based on KT estimator. For these strategies
@@ -100,19 +109,19 @@ where $\beta_t$ is defined in \eqref{equation:potential-based-strategy}, then
 = F_t \left( \sum_{i=1}^t g_i \right) \; .
 \]
 
-The condition (d) is a technical condition that will allow us to
-seamlessly reduce the infinite dimensional case to the one dimensional one.
-
-As the last point, the formula for the potential-based
+The formula for the potential-based
 strategy~\eqref{equation:potential-based-strategy} might seem strange. However,
 it is derived---see Theorem~\ref{theorem:optimal-betting-fraction} in
 Appendix~\ref{section:optimal-betting-fraction}---by minimizing the worst-case
 value of the right-hand side of the inequality used w.r.t. to $g_t$ in the
 induction proof above: $F_{t-1}(x) \ge \tfrac{F_{t}(x + g_t)}{1+g_t\beta_t}$.
 
+The last point, (d), is a technical condition that will allow us to
+seamlessly reduce the infinite dimensional case to the one dimensional one.
+
 As an example, it possible to show that the potential $F_t(x)=\epsilon
 \exp \left(x^2/(2t)\right)/\sqrt{t}$, essentially the same as in
-parameter-free algorithms in \cite{McMahan-Orabona-2014, Orabona-2014} for
+the parameter-free algorithms in \cite{McMahan-Orabona-2014, Orabona-2014} for
 \ac{OLO} and in \cite{Chaudhuri-Freund-Hsu-2009, Luo-Schapire-2014,
 Luo-Schapire-2015} for \ac{LEA}, is an excellent coin betting potential.  We
 will show new examples of sequences of coin-betting potentials in
