@@ -4,26 +4,25 @@
 \citet{Kelly-1956} proposed a general strategy for sequential bets. For coin
 betting, the strategy assumes that the coin flips $\{g_t\}_{t=1}^\infty$, $g_t
 \in \{+1,-1\}$, are generated i.i.d. with known probability of heads. If $p \in
-[0,1]$ is the probability of heads, the Kelly bet is
-$\beta_t = 2p - 1$.
-He showed that, in the long run, this strategy will provide more wealth than
+[0,1]$ is the probability of heads, the Kelly bet is $\beta_t = 2p - 1$. He
+showed that, in the long run, this strategy will provide more wealth than
 betting any other fixed fraction~\cite{Kelly-1956}.
 
-For adversarial coins, Kelly betting does not make sense.
-With perfect knowledge of the future, the gambler could always bet everything
-on the right outcome. Hence, after $T$ rounds and with initial endowment
-$\epsilon$, the maximum wealth he could get is $\epsilon 2^T$.  Instead,
-assuming to bet a fixed fraction at each round, denote by $\Wealth_t(\beta)$ the wealth of a strategy that bets the same
-fraction $\beta$ in every round.
-As observed in \cite{McMahan-Abernethy-2013}, in this case the optimal strategy is to bet
-the fixed fraction $\beta_t=(\sum_{t=1}^T g_t)/T$, that gives the
-wealth 
+For adversarial coins, Kelly betting does not make sense. With perfect knowledge
+of the future, the gambler could always bet everything on the right outcome.
+Hence, after $T$ rounds from an initial endowment $\epsilon$, the maximum
+wealth he could get is $\epsilon 2^T$.  Instead, assume he bets the same
+fraction $\beta$ at each round and let $\Wealth_t(\beta)$ the wealth of such strategy
+after $t$ rounds. As observed in
+\cite{McMahan-Abernethy-2013}, the optimal fixed fraction to bet is
+$\beta^*=(\sum_{t=1}^T g_t)/T$ and it gives the wealth
 \begin{equation}
 \label{eq:opt_wealth}
-\max_{\beta \in [-1,1]} \Wealth_t(\beta) = \epsilon \exp\left(T \KL{\tfrac{1}{2}+\tfrac{\sum_{t=1}^T g_t}{2
-T}}{\tfrac{1}{2}}\right) 
-\geq \epsilon \exp\left(\tfrac{(\sum_{t=1}^T g_t)^2}{2
-T}\right),
+% \max_{\beta \in [-1,1]} \Wealth_t(\beta)
+%=
+\Wealth_t(\beta^*)
+= \epsilon \exp\left(T \KL{\tfrac{1}{2}+\tfrac{\sum_{t=1}^T g_t}{2T}}{\tfrac{1}{2}}\right)
+\geq \epsilon \exp\left(\tfrac{(\sum_{t=1}^T g_t)^2}{2 T}\right) \; .
 \end{equation}
 %In this sense,
 %\emph{good} betting strategies should guarantee an exponential growth of the
@@ -42,10 +41,10 @@ slightly towards $\nicefrac{1}{2}$.} The KT estimator results in the betting str
 \beta_t = 2k_t - 1 = \tfrac{\sum_{i=1}^{t-1} g_i}{t}
 \end{equation}
 which we call \emph{adaptive Kelly betting based on KT estimator}.
-\citeauthor{Krichevsky-Trofimov-1981} showed that
+\citeauthor{Krichevsky-Trofimov-1981} showed that this strategy guarantees
 \[
-\Wealth_t \ge \frac{\max_{\beta \in [-1,1]} \Wealth_t(\beta)}{2\sqrt{t}} = \tfrac{\epsilon}{2\sqrt{t}} \exp\left(T \KL{\tfrac{1}{2}+\tfrac{\sum_{t=1}^T g_t}{2
-T}}{\tfrac{1}{2}}\right)\; ,
+\Wealth_t \ge \frac{\Wealth_t(\beta^*)}{2\sqrt{t}}
+= \tfrac{\epsilon}{2\sqrt{t}} \exp\left(T \KL{\tfrac{1}{2}+\tfrac{\sum_{t=1}^T g_t}{2T}}{\tfrac{1}{2}}\right)\; .
 \]
 This guarantee is optimal up to constant factors~\citep{Cesa-Bianchi-Lugosi-2006} and mirrors the guarantee of
 the Kelly bet.
@@ -53,7 +52,7 @@ the Kelly bet.
 
 Here, we propose a new set of definitions that allows to generalize the
 strategy of adaptive Kelly betting based on KT estimator. For these strategies
-it will be possible to prove that, for $g_1, g_2, \dots, g_t \in [-1,1]$,
+it will be possible to prove that, for any $g_1, g_2, \dots, g_t \in [-1,1]$,
 \begin{equation}
 \label{equation:wealth-lower-bound-generic}
 \Wealth_t \ge F_t \left( \sum_{i=1}^t g_i \right) \; ,

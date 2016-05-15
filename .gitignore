@@ -13,3 +13,5 @@ main.pdf
 *.swp
 *.swo
 
+# Mac files
+.DS_Store
