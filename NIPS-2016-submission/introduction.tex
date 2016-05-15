@@ -31,10 +31,10 @@ boosting~\cite{Freund-Schapire-1997}. Batch and stochastic convex optimization
 can also be solved through a reduction to \ac{OLO}~\cite{Shalev-Shwartz-2011}.
 
 To achieve optimal regret, most of the existing online algorithms require to
-set hyperparameters, usually learning rates.  For example, to obtain the
-optimal bound in \ac{OGD}, the learning rate has to be set with the knowledge
+set learning rate to an unknown/oracle value.  For example, to obtain the
+optimal bound for \ac{OGD}, the learning rate has to be set with the knowledge
 of the norm of the competitor $u$; first entry in Table~\ref{table:bounds}.
-Likewise, in Hedge the optimal learning rate depends on the KL divergence
+Likewise, the optimal learning rate for Hedge depends on the KL divergence
 between the prior weighting $\pi$ and the unknown competitor $u$, fourth entry
 in Table~\ref{table:bounds}.  Recently, new parameter-free
 algorithms have been proposed, both for
@@ -44,7 +44,7 @@ for \ac{OLO}/\ac{OCO} over Hilbert spaces~\cite{Streeter-McMahan-2012,
 Orabona-2013, McMahan-Abernethy-2013, McMahan-Orabona-2014, Orabona-2014}.
 These algorithms adapt to the number of experts and to the norm of the optimal
 predictor, respectively, without the need to tune parameters. However, their
-\emph{design and underlying intuition} is still a challenge.  Also, all
+\emph{design and underlying intuition} is still a challenge.  Furthermore, all
 existing algorithms for LEA either have sub-optimal regret bound (e.g. extra
 $\scO(\log \log T)$ factor) or sub-optimal running time (e.g.  requiring
 solving a numerical problem in every round, or with extra factors); see

@@ -38,24 +38,29 @@ Algorithms~\ref{algorithm:kt-hilbert-space-olo} and~\ref{algorithm:kt-experts}
 achieves the optimal worst case upper bound on regret, see \cite{Streeter-McMahan-2012,Orabona-2013}
 and \cite{Cesa-Bianchi-Lugosi-2006} respectively.
 
-We have also run an empirical evaluation to show that the theoretical difference between
-classic online learning algorithms and parameter-free ones is real. In
+We have also run an empirical evaluation to show that the theoretical difference
+between classic online learning algorithms and parameter-free ones is real. In
 Figure~\ref{fig:exp_olo}, we have used three regression
 datasets\footnote{Available at
-\url{https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/}.}, and solved
-the \ac{OCO} problem through \ac{OLO}. In all the three cases, we have used the
-absolute loss and normalized the input vectors to have L2 norm equal to 1. From the empirical results, it is clear that the optimal learning rate is completely data-dependent, yet \emph{parameter-free algorithms have performance very close
-to the unknown optimal tuning of the learning rate}. Moreover, the KT-based Algorithm~\ref{algorithm:kt-hilbert-space-olo} seems to dominate all the other similar algorithms.
+\url{https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/}.}, and solved the
+\ac{OCO} problem through \ac{OLO}. In all the three cases, we have used the
+absolute loss and normalized the input vectors to have L2 norm equal to 1. From
+the empirical results, it is clear that the optimal learning rate is completely
+data-dependent, yet \emph{parameter-free algorithms have performance very close
+to the unknown optimal tuning of the learning rate}. Moreover, the KT-based
+Algorithm~\ref{algorithm:kt-hilbert-space-olo} seems to dominate all the other
+similar algorithms.
 
 For the setting of \ac{LEA}, we have used the synthetic setting
-in~\cite{Chaudhuri-Freund-Hsu-2009}. The dataset is composed by Hadamard
-matrices of size 64, where the row with constant values is removed, $0.025$ is subtracted to $k$ rows, and the matrix is replicated in order to generate
-$T=32768$ samples. For more details, see~\cite{Chaudhuri-Freund-Hsu-2009}.
-Here, the KT-based algorithm is the one in
-Algorithm~\ref{algorithm:kt-experts}, where the term $T/2$ is removed, so that
-the final regret bound has an additional $\ln T$ term.  Again, we see that the
-parameter-free algorithms have a performance close or even better than Hedge
-with an oracle tuning of the learning rate, with no clear winners among the parameter-free algorithms.
+in~\cite{Chaudhuri-Freund-Hsu-2009}. The dataset is composed of Hadamard
+matrices of size 64, where the row with constant values is removed, $0.025$ is
+subtracted to $k$ rows, and the matrix is replicated in order to generate
+$T=32768$ samples. For more details, see~\cite{Chaudhuri-Freund-Hsu-2009}. Here,
+the KT-based algorithm is the one in Algorithm~\ref{algorithm:kt-experts}, where
+the term $T/2$ is removed, so that the final regret bound has an additional $\ln
+T$ term.  Again, we see that the parameter-free algorithms have a performance
+close or even better than Hedge with an oracle tuning of the learning rate, with
+no clear winners among the parameter-free algorithms.
 
 Notice that since the adaptive Kelly strategy based on
 KT estimator is very close to optimal, the only possible improvement is to
@@ -84,7 +89,7 @@ and reductions to the data-dependent case.
 % which introduces a lot of technical difficulties in the analysis. Instead, our
 % reduction moves the truncation outside of the potential, see
 % \eqref{eq:gradients_experts_reduction}, making the analysis straightforward.
-% 
+%
 % In the \ac{OLO} setting, \citet{Streeter-McMahan-2012} used a one-dimensional
 % potential of the form $\exp \left(\tfrac{|x|}{\sqrt{t}}\right)$, the same base
 % potential as in \ac{EG}~\citep{Kivinen-Warmuth-1997} and
@@ -138,4 +143,3 @@ and reductions to the data-dependent case.
 % $\Omega(\norm{u} \sqrt{T\log(1+\norm{u})})$ lower bound for \ac{OLO} over
 % 1-d Hilbert space from the well known $\Omega(\sqrt{T \log N})$
 % lower bound for \ac{LEA}.
-
