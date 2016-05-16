@@ -35,11 +35,11 @@ having an algorithm that guarantees the maximum reward possible.
 The reductions in Sections~\ref{section:reduction_hilbert} and~\ref{section:reduction-experts} are also novel and it is easy to see that they are in a
 certain sense optimal. In fact, the obtained
 Algorithms~\ref{algorithm:kt-hilbert-space-olo} and~\ref{algorithm:kt-experts}
-achieves the optimal worst case upper bound on regret, see \cite{Streeter-McMahan-2012,Orabona-2013}
+achieve the optimal worst case upper bounds on the regret, see \cite{Streeter-McMahan-2012,Orabona-2013}
 and \cite{Cesa-Bianchi-Lugosi-2006} respectively.
 
 We have also run an empirical evaluation to show that the theoretical difference
-between classic online learning algorithms and parameter-free ones is real. In
+between classic online learning algorithms and parameter-free ones is real and not just theoretical. In
 Figure~\ref{fig:exp_olo}, we have used three regression
 datasets\footnote{Available at
 \url{https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/}.}, and solved the
@@ -51,21 +51,21 @@ to the unknown optimal tuning of the learning rate}. Moreover, the KT-based
 Algorithm~\ref{algorithm:kt-hilbert-space-olo} seems to dominate all the other
 similar algorithms.
 
-For the setting of \ac{LEA}, we have used the synthetic setting
+For \ac{LEA}, we have used the synthetic setting
 in~\cite{Chaudhuri-Freund-Hsu-2009}. The dataset is composed of Hadamard
-matrices of size 64, where the row with constant values is removed, $0.025$ is
+matrices of size 64, where the row with constant values is removed, the rows are duplicated to 126 inverting their signs, and $0.025$ is
 subtracted to $k$ rows, and the matrix is replicated in order to generate
 $T=32768$ samples. For more details, see~\cite{Chaudhuri-Freund-Hsu-2009}. Here,
 the KT-based algorithm is the one in Algorithm~\ref{algorithm:kt-experts}, where
 the term $T/2$ is removed, so that the final regret bound has an additional $\ln
 T$ term.  Again, we see that the parameter-free algorithms have a performance
-close or even better than Hedge with an oracle tuning of the learning rate, with
+close or \emph{even better} than Hedge with an oracle tuning of the learning rate, with
 no clear winners among the parameter-free algorithms.
 
 Notice that since the adaptive Kelly strategy based on
 KT estimator is very close to optimal, the only possible improvement is to
 have a data-dependent bound, for example like the ones
-in~\cite{Koolen-van-Erven-2015}.  In future work we will extend our definitions
+in~\cite{Orabona-2014, Koolen-van-Erven-2015, Luo-Schapire-2015}.  In future work we will extend our definitions
 and reductions to the data-dependent case.
 % For example, it
 % is an easy exercise to show that a potential of the form $\exp
