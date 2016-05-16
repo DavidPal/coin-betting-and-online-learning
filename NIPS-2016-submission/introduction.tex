@@ -63,7 +63,7 @@ OGD, $\eta=\tfrac{U}{\sqrt{T}}$ \cite{Shalev-Shwartz-2011} & $U \sqrt{T}$ for an
 This paper, Sec.~\ref{section:kt-olo} & $\scO(\norm{u}\sqrt{T \ln(1+\norm{u}T)})$, $\forall u \in \H$ & $\scO(1)$ & \checkmark & \checkmark\\
 \midrule
 Hedge~\cite{Freund-Schapire-1997}, $\eta=\tfrac{U}{\sqrt{T}}$ & $\scO(U\sqrt{T})$ for any $u \in \Delta_N$ s.t. $\sqrt{\KL{u}{\pi}} \le U$ & $\scO(N)$ &  \\
-\cite{Chaudhuri-Freund-Hsu-2009}  & $\scO(\sqrt{T \KL{u}{\pi}}+\ln^2 N)$, $\forall u \in \Delta_N$ & $\scO(N\,K)$\footnotemark[1]& \checkmark \\
+\cite{Chaudhuri-Freund-Hsu-2009}  & $\scO(\sqrt{T (1+\KL{u}{\pi})}+\ln^2 N)$, $\forall u \in \Delta_N$ & $\scO(N\,K)$\footnotemark[1]& \checkmark \\
 \cite{Chernov-Vovk-2010} & $\scO(\sqrt{T \left(1+\KL{u}{\pi}\right)})$, $\forall u \in \Delta_N$ & $\scO(N\,K)$\footnotemark[1] & \checkmark \\
 \cite{Chernov-Vovk-2010, Luo-Schapire-2015,Koolen-van-Erven-2015}\footnotemark[2] & $\scO(\sqrt{T \left(\ln \ln T+\KL{u}{\pi}\right)})$, $\forall u \in \Delta_N$ & $\scO(N)$ & \checkmark \\
 \cite{Foster-Rakhlin-Sridharan-2015} & $\scO(\sqrt{T \left(1+\KL{u}{\pi}\right)})$, $\forall u \in \Delta_N$ & $\scO(N \ln \max_{u \in \Delta_N} \KL{u}{\pi})$\footnotemark[3] & \checkmark & \checkmark \\
