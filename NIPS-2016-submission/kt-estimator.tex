@@ -86,7 +86,7 @@ Algorithm~\ref{algorithm:kt-hilbert-space-olo} satisfies
 \[
 \forall \, T \ge 0 \quad
 \forall u \in \H \qquad \qquad
-\Regret_T(u) \le \norm{u} \sqrt{T \ln\left(1 + \tfrac{4T^2 \norm{u}^2}{\epsilon^2} \right)} + \epsilon \left(1 - \tfrac{1}{2\sqrt{T}} \right) \;.
+\Regret_T(u) \le \norm{u} \sqrt{T \ln\left(1 + \tfrac{24 T^2 \norm{u}^2}{\epsilon^2} \right)} + \epsilon \left(1 - \tfrac{1}{e\sqrt{ \pi T}} \right) \;.
 \]
 \end{corollary}
 %
@@ -152,7 +152,7 @@ $N \ge 2$ and $T \ge 0$ be integers. Let $\pi \in \Delta_N$ be a prior.
 Algorithm~\ref{algorithm:kt-experts} with input $N,\pi,T$
 for any rewards vectors $g_1, g_2, \dots, g_T \in [0,1]^N$ satisfies,
 \[
-\forall u \in \Delta_N \qquad \qquad \Regret_T(u) \le \sqrt{3T (4 + \KL{u}{\pi})} \; .
+\forall u \in \Delta_N \qquad \qquad \Regret_T(u) \le \sqrt{3T (3 + \KL{u}{\pi})} \; .
 \]
 \end{corollary}
 %
@@ -172,12 +172,12 @@ $f_t^{-1}(x)$. The unshifted algorithm would have a $O(\sqrt{T (\log T +
 \KL{u}{\pi}})$ regret bound; the shifting improves the bound to $O(\sqrt{T (1 +
 \KL{u}{\pi}})$.  By changing $T/2$ in Algorithm~\ref{algorithm:kt-experts} to
 another constant fraction of $T$, it is possible to trade-off between the two
-constants $3$ and $4$ present in the square root.
+constants $3$ present in the square root.
 
 The requirement of knowing the number of rounds $T$ in advance can be lifted by
 the standard doubling trick~\cite[Section 2.3.1]{Shalev-Shwartz-2011},
 obtaining an anytime guarantee with a bigger leading constant,
 \[
 \forall \, T \ge 0 \quad \forall u \in \Delta_N \qquad \qquad
-\Regret_T(u) \le \tfrac{\sqrt{2}}{\sqrt{2} - 1} \sqrt{3T (4 + \KL{u}{\pi})} \; .
+\Regret_T(u) \le \tfrac{\sqrt{2}}{\sqrt{2} - 1} \sqrt{3T (3 + \KL{u}{\pi})} \; .
 \]

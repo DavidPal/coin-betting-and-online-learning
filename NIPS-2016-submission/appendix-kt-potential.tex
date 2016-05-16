@@ -34,7 +34,7 @@ It is well known that $\lim_{z \searrow 0} \Gamma(z) = +\infty$. Thus,
 = \Gamma(2a) \lim_{z \searrow 0} \Gamma(z)
 = + \infty \; ,
 \]
-since $\Gamma$ is continuous at $2a$. Because $F(x)$ is even, we also have
+since $\Gamma$ is continuous and not zero at $2a$. Because $F(x)$ is even, we also have
 $\lim_{x \searrow -a} F(x) = +\infty$.
 
 To show that $F(x)$ is increasing and that it satisfies
@@ -49,7 +49,7 @@ Polygamma functions have the well-known integral representation
 \psi^{(n)}(z) = (-1)^{n+1} \int_0^\infty \frac{t^n e^{-zt}}{1 - e^{-t}} dt
 \qquad \qquad \text{for $z > 0$ and $n=1,2,\dots$.}
 \]
-Using polygama functions, we can write the Mclaurin series for $f(x) = \ln(F(x))$ as
+Using polygamma functions, we can write the Mclaurin series for $f(x) = \ln(F(x))$ as
 \[
 f(x) = \ln(F(x)) = \ln(\Gamma(a+x)) + \ln(\Gamma(a-x)) = 2 \ln(\Gamma(a)) + 2 \sum_{\substack{n \ge 2 \\ \text{$n$ even}}} \frac{\psi^{(n-1)}(a) x^n}{n!} \; .
 \]
