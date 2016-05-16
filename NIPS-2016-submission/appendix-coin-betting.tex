@@ -18,14 +18,14 @@ h(g, \beta) & = \frac{F(x+g)}{1 + \beta g} &
 f(g, \beta) & = \ln (h(g,\beta)) = \ln(F(x+g)) - \ln(1 + \beta g) \; .
 \end{align*}
 Clearly, $\argmin_{\beta \in (-1,1)} \max_{g \in [-1,1]} h(g,\beta) = \argmin_{\beta \in (-1,1)} \max_{g \in [-1,1]} f(g,\beta)$
-and we can work with $f$ instead of $h$. Function $h$ is logarithmically convex
+and we can work with $f$ instead of $h$. The function $h$ is logarithmically convex
 in $g$ and thus $f$ is convex in $g$. Therefore,
 \[
 \forall \beta \in (-1,1) \qquad \qquad
 \max_{g \in [-1,1]} f(g,\beta) = \max \left\{ f(+1,\beta), f(-1,\beta) \right\} \; .
 \]
 Let $\phi(\beta) = \max \left\{ f(+1,\beta), f(-1,\beta) \right\}$. We seek to
-find $\argmin_{\beta \in (-1,1)} \phi(\beta)$. Since $f(+1,\beta)$ is decreasing
+find the $\argmin_{\beta \in (-1,1)} \phi(\beta)$. Since $f(+1,\beta)$ is decreasing
 in $\beta$ and $f(-1,\beta)$ is increasing in $\beta$, the minimum of
 $\phi(\beta)$ is at a point $\beta^*$ such that $f(+1,\beta^*) = f(-1,\beta^*)$.
 In other words, $\beta^*$ satisfies

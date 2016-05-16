@@ -17,12 +17,12 @@ and
 \forall x \in (-a,a) \qquad x \cdot F''(x) \ge F'(x) \; .
 \end{equation}
 \end{lemma}
-
+%
 \begin{proof}
 $F(x)$ is obviously even. $\Gamma(z) = \int_0^\infty t^{z-1} e^{-t} dt$ is
-defined for any real number $z > 0$. Hence $F$ is defined on the interval
+defined for any real number $z > 0$. Hence, $F$ is defined on the interval
 $(-a,a)$. According to Bohr-Mollerup theorem \cite[Theorem 2.1]{Artin-1964},
-$\Gamma(x)$ is logarithmically convex on $(0,\infty)$. Hence $F(x)$ is also
+$\Gamma(x)$ is logarithmically convex on $(0,\infty)$. Hence, $F(x)$ is also
 logarithimically convex, since $\ln (F(x)) = \ln(\Gamma(a+x)) +
 \ln(\Gamma(a-x))$ is a sum of convex functions.
 
@@ -39,12 +39,12 @@ $\lim_{x \searrow -a} F(x) = +\infty$.
 
 To show that $F(x)$ is increasing and that it satisfies
 \eqref{equation:gamma-property-4}, we write $f(x) = \ln(F(x))$ as a Mclaurin series.
-The derivatives of $\ln(\Gamma(z))$ are so called polygamma functions
+The derivatives of $\ln(\Gamma(z))$ are the so called polygamma functions
 \[
 \psi^{(n)}(z) = \frac{d^{n+1}}{dz^{n+1}} \ln(\Gamma(z))
 \qquad \qquad \text{for $z > 0$ and $n=0,1,2,\dots$.}
 \]
-Polygamma functions have well-known integral representation
+Polygamma functions have the well-known integral representation
 \[
 \psi^{(n)}(z) = (-1)^{n+1} \int_0^\infty \frac{t^n e^{-zt}}{1 - e^{-t}} dt
 \qquad \qquad \text{for $z > 0$ and $n=1,2,\dots$.}
@@ -65,7 +65,7 @@ for even $n \ge 2$, $\psi^{(n-1)}(a)$ is positive and can be upper bounded as
 & \le \frac{1}{1 - 1/e} a^{-n}(a+1) (n-1)!\; .
 \end{align*}
 From the Mclaurin expansion we see that $f(x)$ is increasing on $[0,a)$
-since all coefficients are positive (except for zero order term).
+since all the coefficients are positive (except for zero order term).
 
 Finally, to prove \eqref{equation:gamma-property-4}, note that
 for any $x \in (-a,a)$,
@@ -110,11 +110,11 @@ Furthermore, for any $x \in (-t-\delta-1, t+\delta+1)$,
 \end{theorem}
 
 \begin{proof}
-Property (2) and (4) of the definition follow from
+Property (b) and (d) of the definition follow from
 Lemma~\ref{lemma:kt-potential-analytic-properties}.
-Property (1) follows by simple substitution for $t=0$ and $x=0$.
+Property (a) follows by simple substitution for $t=0$ and $x=0$.
 
-Before verifying property (3), we prove \eqref{equation:kt-potential-beta}. We
+Before verifying property (c), we prove \eqref{equation:kt-potential-beta}. We
 use an algebraic property of the gamma function that states that $\Gamma(1+z) =
 z \Gamma(z)$ for any positive $z$. Equation \eqref{equation:kt-potential-beta}
 follows from
@@ -126,7 +126,7 @@ follows from
 & = \frac{x}{t+\delta} \; .
 \end{align*}
 
-Let $\phi(g) = \frac{F_t(x+g)}{F_{t-1}(x)}$. To verify property (3) of the definition,
+Let $\phi(g) = \frac{F_t(x+g)}{F_{t-1}(x)}$. To verify property (c) of the definition,
 we need to show that $\phi(g) \le 1 + g \frac{x}{t+\delta}$
 for any $x \in [-t+1, t-1]$ and any $g \in [-1,1]$. We can write $\phi(g)$ as
 \begin{align*}
