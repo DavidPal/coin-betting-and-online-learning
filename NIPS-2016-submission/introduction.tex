@@ -39,7 +39,7 @@ set the learning rate $\eta$ to an unknown/oracle value.  For example, to obtain
 optimal bound for \ac{OGD}, the learning rate has to be set with the knowledge
 of the norm of the competitor $u$; first entry in Table~\ref{table:bounds}.
 Likewise, the optimal learning rate for Hedge depends on the KL divergence
-between the prior weighting $\pi$ and the unknown competitor $u$, sixth entry
+between the prior weighting $\pi$ and the unknown competitor $u$, $\KL{u}{\pi}$, sixth entry
 in Table~\ref{table:bounds}.  Recently, new parameter-free
 algorithms have been proposed, both for
 \ac{LEA}~\cite{Chaudhuri-Freund-Hsu-2009, Chernov-Vovk-2010, Luo-Schapire-2014,
@@ -77,8 +77,10 @@ Hedge~\cite{Freund-Schapire-1997}, $\eta=\tfrac{U}{\sqrt{T}}$ & $\scO(U\sqrt{T})
 This paper, Sec.~\ref{section:kt-lea} & $\scO(\sqrt{T \left(1+\KL{u}{\pi}\right)})$, $\forall u \in \Delta_N$ & $\scO(N)$ & \checkmark & \checkmark\\
 \bottomrule
 \end{tabular}}
-\caption{\footnotesize{Algorithms for \ac{OLO} over Hilbert space and \ac{LEA}. We apologize for the big, but necessary, number of symbols used.
-All of them are defined in Section~\ref{section:preliminaries}, while $\eta$ is the learning rate.}}
+\caption{\footnotesize{Algorithms for \ac{OLO} over Hilbert space and \ac{LEA}.
+%We apologize for the big, but necessary, number of symbols used.
+%All of them are defined in Section~\ref{section:preliminaries}, while $\eta$ is the learning rate.
+}}
 \label{table:bounds}
 \end{table}
 \footnotetext[1]{These algorithms require to solve a numerical problem at each step. The number $K$ is the number of steps needed to reach the required precision. Neither the precision nor $K$ are calculated in these papers.
