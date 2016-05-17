@@ -26,8 +26,8 @@ w_t = \beta_t \Wealth_{t-1}
 = \beta_t \left(\epsilon+ \sum_{i=1}^{t-1} g_i w_i \right),
 \end{equation}
 where $\beta_t \in [-1,1]$. In this way the recurrence
-\eqref{equation:wealth-recurrence} holds. We will see that this restriction
-does not prevent us to obtain parameter-free algorithms with optimal bounds.
+\eqref{equation:wealth-recurrence} holds. We will see that the restriction in \eqref{equation:one-dimensional-olo}
+does not prevent us from obtaining parameter-free algorithms with optimal bounds.
 If we have a coin-betting algorithm that, on a sequence of coin flips
 $\{g_t\}_{t=1}^\infty$, $g_t \in [-1,1]$, bets fractions $\beta_t \in [-1,1]$,
 we can use it to construct an OLO algorithm in a one-dimensional Hilbert space
@@ -42,7 +42,7 @@ least $F(\sum_{t=1}^T g_t)$ starting from an endowment $\epsilon$, then
 = \sum_{t=1}^T g_t w_t
 = \Wealth_T \ - \ \epsilon \ge F\left(\sum_{t=1}^T g_t \right) \ - \ \epsilon \; .
 \end{equation}
-We are almost done, we just need to convert the lower bound on the reward to an
+We are almost done, since we just need to convert the lower bound on the reward to an
 upper bound on the regret. This can be done using the following lemma
 from~\cite{McMahan-Orabona-2014}.
 \begin{lemma}[Reward-Regret relationship~\cite{McMahan-Orabona-2014}]
@@ -67,14 +67,11 @@ Applying the lemma, we get a regret upper bound
 
 This shows that if we have a betting algorithm that guarantees a minimum wealth
 of $F(\sum_{t=1}^T g_t)$, it can be used to design and analyze the
-one-dimensional \ac{OLO} case. The faster is the growth of the wealth, the
+one-dimensional \ac{OLO} case. The faster the growth of the wealth, the
 smaller the regret will be.  Moreover, the lemma also shows that trying to
 design an algorithm that is adaptive to $u$ is \emph{equivalent} to designing
 an algorithm that is adaptive to $\sum_{t=1}^T g_t$.  Also, most importantly,
 \emph{methods that guarantee optimal wealth for the betting scenario are
-already known}, see, e.g., \cite[Section 9]{Cesa-Bianchi-Lugosi-2006}. We can
+already known}, see, e.g., \cite[Chapter 9]{Cesa-Bianchi-Lugosi-2006}. We can
 just re-use them to get optimal online algorithms!
 
-In the next sections, we will provide a framework to analyze the betting case
-and the reductions to effortlessly extend the one dimensional case to the
-generic \ac{OLO} case and to \ac{LEA} as well.

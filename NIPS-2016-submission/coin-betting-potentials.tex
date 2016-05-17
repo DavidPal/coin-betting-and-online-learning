@@ -1,8 +1,12 @@
 \section{Coin-Betting Potentials}
 \label{section:coin-betting-potentials}
 
-\citet{Kelly-1956} proposed a general strategy for sequential bets. For coin
-betting, the strategy assumes that the coin flips $\{g_t\}_{t=1}^\infty$, $g_t
+In this section, we will provide a framework to analyze the betting case
+and the reductions to effortlessly extend the one dimensional case to the
+generic \ac{OLO} case and to \ac{LEA} as well.
+
+For sequential betting on i.i.d. coin flips, the optimal strategy has been proposed by \citet{Kelly-1956}.
+The strategy assumes that the coin flips $\{g_t\}_{t=1}^\infty$, $g_t
 \in \{+1,-1\}$, are generated i.i.d. with known probability of heads. If $p \in
 [0,1]$ is the probability of heads, the Kelly bet is $\beta_t = 2p - 1$. He
 showed that, in the long run, this strategy will provide more wealth than

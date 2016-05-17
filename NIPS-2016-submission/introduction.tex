@@ -5,7 +5,7 @@
 
 We consider the \ac{OLO}~\cite{Cesa-Bianchi-Lugosi-2006, Shalev-Shwartz-2011}
 setting. In each round $t$, an algorithm chooses a point $w_t$ from a convex
-\emph{decision set} $K$ and then receives a reward vector $g_t$. Algorithm's
+\emph{decision set} $K$ and then receives a reward vector $g_t$. The algorithm's
 goal is to keep its \emph{regret} small, defined as the difference between its
 cumulative reward and the cumulative reward of a fixed strategy $u \in K$, that
 is
@@ -13,7 +13,7 @@ is
 \[
 \Regret_T(u) = \sum_{t=1}^T \langle g_t, u \rangle - \sum_{t=1}^T \langle g_t, w_t \rangle \; .
 \]
-We focus on two particular sets, the $N$-dimensional probability simplex
+We focus on two particular decision sets, the $N$-dimensional probability simplex
 $\Delta_N = \{ x \in \R^N ~:~ x \ge 0, \norm{x}_1 = 1\}$ and the Hilbert space
 $\H$.  \ac{OLO} over $\Delta_N$ is referred to as the problem of \ac{LEA}.  We
 assume bounds on the norms of the reward vectors: For \ac{OLO} over $\H$, we
@@ -34,12 +34,12 @@ can also be solved through a reduction to \ac{OLO}~\cite{Shalev-Shwartz-2011}.
 
 \vspace{-0.1cm}
 
-To achieve optimal regret, most of the existing online algorithms require to
+To achieve optimal regret, most of the existing online algorithms require the user to
 set the learning rate $\eta$ to an unknown/oracle value.  For example, to obtain the
 optimal bound for \ac{OGD}, the learning rate has to be set with the knowledge
 of the norm of the competitor $u$; first entry in Table~\ref{table:bounds}.
 Likewise, the optimal learning rate for Hedge depends on the KL divergence
-between the prior weighting $\pi$ and the unknown competitor $u$, fourth entry
+between the prior weighting $\pi$ and the unknown competitor $u$, sixth entry
 in Table~\ref{table:bounds}.  Recently, new parameter-free
 algorithms have been proposed, both for
 \ac{LEA}~\cite{Chaudhuri-Freund-Hsu-2009, Chernov-Vovk-2010, Luo-Schapire-2014,
