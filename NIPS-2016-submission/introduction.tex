@@ -37,9 +37,9 @@ can also be solved through a reduction to \ac{OLO}~\cite{Shalev-Shwartz-2011}.
 To achieve optimal regret, most of the existing online algorithms require the user to
 set the learning rate $\eta$ to an unknown/oracle value.  For example, to obtain the
 optimal bound for \ac{OGD}, the learning rate has to be set with the knowledge
-of the norm of the competitor $u$, $\norm{u}$; first entry in Table~\ref{table:bounds}.
+of the norm of the competitor $u$, $\norm{u}$; second entry in Table~\ref{table:bounds}.
 Likewise, the optimal learning rate for Hedge depends on the KL divergence
-between the prior weighting $\pi$ and the unknown competitor $u$, $\KL{u}{\pi}$; sixth entry
+between the prior weighting $\pi$ and the unknown competitor $u$, $\KL{u}{\pi}$; seventh entry
 in Table~\ref{table:bounds}.  Recently, new parameter-free
 algorithms have been proposed, both for
 \ac{LEA}~\cite{Chaudhuri-Freund-Hsu-2009, Chernov-Vovk-2010, Luo-Schapire-2014,
@@ -69,7 +69,8 @@ OGD, $\eta=\tfrac{U}{\sqrt{T}}$ \cite{Shalev-Shwartz-2011} & $U \sqrt{T}$ for an
 \cite{McMahan-Orabona-2014,Orabona-2014} & $\scO(\norm{u}\sqrt{T \ln(1+\norm{u}T)})$, $\forall u \in \H$ & $\scO(1)$ & \checkmark \\
 This paper, Sec.~\ref{section:kt-olo} & $\scO(\norm{u}\sqrt{T \ln(1+\norm{u}T)})$, $\forall u \in \H$ & $\scO(1)$ & \checkmark & \checkmark\\
 \midrule
-Hedge~\cite{Freund-Schapire-1997}, $\eta=\tfrac{U}{\sqrt{T}}$ & $\scO(U\sqrt{T})$ for any $u \in \Delta_N$ s.t. $\sqrt{\KL{u}{\pi}} \le U$ & $\scO(N)$ &  \\
+Hedge, $\eta=\sqrt{\tfrac{\ln N}{T}}$~\cite{Freund-Schapire-1997} & $\scO(\sqrt{T \ln N})$ for any $u \in \Delta_N$ & $\scO(N)$ &  \\
+Hedge, $\eta=\tfrac{U}{\sqrt{T}}$~\cite{Freund-Schapire-1997} & $\scO(U\sqrt{T})$ for any $u \in \Delta_N$ s.t. $\sqrt{\KL{u}{\pi}} \le U$ & $\scO(N)$ &  \\
 \cite{Chaudhuri-Freund-Hsu-2009}  & $\scO(\sqrt{T (1+\KL{u}{\pi})}+\ln^2 N)$, $\forall u \in \Delta_N$ & $\scO(N\,K)$\footnotemark[1]& \checkmark \\
 \cite{Chernov-Vovk-2010} & $\scO(\sqrt{T \left(1+\KL{u}{\pi}\right)})$, $\forall u \in \Delta_N$ & $\scO(N\,K)$\footnotemark[1] & \checkmark \\
 \cite{Chernov-Vovk-2010, Luo-Schapire-2015,Koolen-van-Erven-2015}\footnotemark[2] & $\scO(\sqrt{T \left(\ln \ln T+\KL{u}{\pi}\right)})$, $\forall u \in \Delta_N$ & $\scO(N)$ & \checkmark \\
