@@ -8,10 +8,10 @@ excellent coin-betting potential, which we call \emph{KT potential}.  Then, the
 optimal wealth guarantee of the KT potentials will translate to optimal
 parameter-free regret bounds.
 
-The excellent coin-betting potential for initial endowment $\epsilon$
+The sequence of excellent coin-betting potentials for an initial endowment $\epsilon$
 corresponding to the adaptive Kelly betting strategy
 $\beta_t$ defined by \eqref{equation:kt-estimator-betting-strategy}
-based on the KT estimator is
+based on the KT estimator are
 \begin{equation}
 \label{equation:kt-estimator-potential}
 F_t(x) = \epsilon \tfrac{2^t \cdot \Gamma \left( \tfrac{t+1}{2} + \frac{x}{2} \right) \cdot \Gamma \left( \tfrac{t+1}{2} - \frac{x}{2} \right)}{\pi \cdot t!}
@@ -31,15 +31,15 @@ This potential has the peculiar property that is satisfies the inequality in
 (c) of Definition~\ref{definition:potential} with equality when $g_t\in
 \{-1,1\}$, i.e. $F_t(x+g_t)=(1+g_t \beta_t) \, F_{t-1}(x)$.
 
-We also generalize the KT potential to a \emph{$\delta$-shifted KT
-potential}, where $\delta\geq0$, defined as
+We also generalize the KT potentials to \emph{$\delta$-shifted KT
+potentials}, where $\delta\geq0$, defined as
 \[
 F_t(x) = \tfrac{2^t \cdot \Gamma\left(\delta + 1 \right) \cdot \Gamma\left(\tfrac{t+\delta+1}{2} + \frac{x}{2} \right) \cdot \Gamma\left(\tfrac{t+\delta+1}{2} - \frac{x}{2} \right)}{\Gamma\left(\tfrac{\delta+1}{2} \right)^2 \cdot \Gamma \left(t+\delta+1\right)} \; .
 \]
 The reason for its name is that, up to a multiplicative constant, $F_t$ is
 equal to the KT potential shifted in time by $\delta$.
 Theorem~\ref{theorem:kt-potential} also proves that the $\delta$-shifted KT
-potentials are excellent coin-betting potentials for initial endowment $1$, and
+potentials are excellent coin-betting potentials with initial endowment $1$, and
 the corresponding betting fraction is $\beta_t = \tfrac{\sum_{j=1}^{t-1}
 g_j}{\delta+t}$.
 
@@ -82,7 +82,7 @@ since it cannot be expressed as an elementary function.
 \label{corollary:kt-hilbert-space-olo-regret} Let $\epsilon > 0$. Let
 $\{g_t\}_{t=1}^\infty$ be any sequence of reward vectors in a Hilbert space
 $\H$ such that $\norm{g_t} \le 1$.
-Algorithm~\ref{algorithm:kt-hilbert-space-olo} satisfies
+Then Algorithm~\ref{algorithm:kt-hilbert-space-olo} satisfies
 \[
 \forall \, T \ge 0 \quad
 \forall u \in \H \qquad \qquad
@@ -96,7 +96,7 @@ algorithms in \cite{Streeter-McMahan-2012, McMahan-Orabona-2014, Orabona-2013,
 Orabona-2014}.  Also, the regret bound is
 optimal~\cite{Streeter-McMahan-2012,Orabona-2013}.  The parameter $\epsilon$
 can be safely set to any constant, e.g. $1$. Its role is equivalent to the
-initial guess used in doubling tricks.
+initial guess used in doubling tricks~\cite{Shalev-Shwartz-2011}.
 
 \subsection{Learning with Expert Advice}
 \label{section:kt-lea}
@@ -149,8 +149,8 @@ potential.
 \begin{corollary}[Regret Bound for
 Algorithm~\ref{algorithm:kt-experts}] \label{corollary:kt-experts-regret} Let
 $N \ge 2$ and $T \ge 0$ be integers. Let $\pi \in \Delta_N$ be a prior.
-Algorithm~\ref{algorithm:kt-experts} with input $N,\pi,T$
-for any rewards vectors $g_1, g_2, \dots, g_T \in [0,1]^N$ satisfies,
+Then Algorithm~\ref{algorithm:kt-experts} with input $N,\pi,T$
+for any rewards vectors $g_1, g_2, \dots, g_T \in [0,1]^N$ satisfies
 \[
 \forall u \in \Delta_N \qquad \qquad \Regret_T(u) \le \sqrt{3T (3 + \KL{u}{\pi})} \; .
 \]
