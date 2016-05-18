@@ -200,13 +200,13 @@ F_t(x) = \epsilon \cdot \frac{2^t \cdot \Gamma(1) \Gamma \left(\frac{t+1}{2} + \
 \]
 Using Lemma~\ref{lemma:lower_bound_gamma} with $\delta = 0$ we can lower bound $F_t(x)$ with
 \[
-G_t(x) = \epsilon \cdot \exp\left(\frac{x^2}{2t} + \frac{1}{2} \ln \left(\frac{1}{t} \right) - \ln (e \sqrt{\pi}) \right) \; .
+H_t(x) = \epsilon \cdot \exp\left(\frac{x^2}{2t} + \frac{1}{2} \ln \left(\frac{1}{t} \right) - \ln (e \sqrt{\pi}) \right) \; .
 \]
-Since $G_t(x) \le F_t(x)$, we have $F^*_t(x) \le G_t^*(x)$. Using Lemma~\ref{lemma:dual_exp_square}, we have
+Since $H_t(x) \le F_t(x)$, we have $F^*_t(x) \le H_t^*(x)$. Using Lemma~\ref{lemma:dual_exp_square}, we have
 \[
 \forall u \in \H \qquad \qquad
 F^*_T\left(\norm{u}\right)
-\le G^*_T\left(\norm{u}\right)
+\le H^*_T\left(\norm{u}\right)
 \le \sqrt{T \log \left(\frac{24 T^2 \norm{u}^2}{\epsilon^2} +1 \right)}+\epsilon\left(1-\frac{1}{e \sqrt{ \pi T}}\right).
 \]
 An application of Theorem~\ref{theorem:hilbert-space-olo-regret-bound} completes the proof.
