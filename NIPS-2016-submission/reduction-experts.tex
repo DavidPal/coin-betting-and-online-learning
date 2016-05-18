@@ -11,7 +11,7 @@ on a coin-betting strategy---to construct an algorithm for \ac{LEA}.
 Let $N \ge 2$ be the number of experts and $\Delta_N$ be the $N$-dimensional
 probability simplex. Let $\pi = (\pi_1, \pi_2, \dots, \pi_N) \in \Delta_N$ be
 any \emph{prior} distribution. Let $A$ be an algorithm for OLO over
-one-dimensional Hilbert space $\R$, based on a sequence of coin-betting
+the one-dimensional Hilbert space $\R$, based on a sequence of the coin-betting
 potentials $\{F_t\}_{t=0}^\infty$ with initial endowment\footnote{Any initial
 endowment $\epsilon > 0$ can be rescaled to $1$. Instead of $F_t(x)$ we would
 use $F_t(x)/\epsilon$. The $w_t$ would become $w_t/\epsilon$, but $p_t$ is
@@ -20,7 +20,7 @@ of $\epsilon$.} $1$. We instantiate $N$ copies of $A$.
 
 \vspace{-0.05cm}
 
-Consider any round $t$. Let $w_{t,i} \in \R$ be the prediction of $i$-th copy of
+Consider any round $t$. Let $w_{t,i} \in \R$ be the prediction of the $i$-th copy of
 $A$. The LEA algorithm computes $\widehat p_t = (\widehat p_{t,1}, \widehat
 p_{t,2}, \dots, \widehat p_{t,N}) \in \R_{0,+}^N$ as
 \begin{equation}
@@ -36,7 +36,7 @@ p_t = \tfrac{\widehat p_t}{\norm{\widehat p_t}_1} \; .
 If $\norm{\widehat p_t}_1 = 0$, the algorithm predicts the prior $\pi$.
 Then, the algorithm receives the reward vector
 $g_t = (g_{t,1}, g_{t,2}, \dots, g_{t,N}) \in [0,1]^N$. Finally, it
-feeds the reward to each copy of $A$. The reward for $i$-th copy is $\widetilde g_{t,i} \in
+feeds the reward to each copy of $A$. The reward for the $i$-th copy of $A$ is $\widetilde g_{t,i} \in
 [-1,1]$ defined as
 \begin{align}
 \label{eq:gradients_experts_reduction}
@@ -54,9 +54,9 @@ it.
 \begin{theorem}[Regret Bound for Experts]
 \label{theorem:regret-bound-experts}
 Let $A$ be an algorithm for \ac{OLO} over
-one-dimensional Hilbert space $\R$, based on coin-betting potential
-$\{F_t\}_{t=0}^\infty$ for initial
-endowment $1$. Let $f_t^{-1}$ be in the inverse of $f_t(x) = \ln(F_t(x))$
+the one-dimensional Hilbert space $\R$, based on the coin-betting potentials
+$\{F_t\}_{t=0}^\infty$ for an initial
+endowment of $1$. Let $f_t^{-1}$ be the inverse of $f_t(x) = \ln(F_t(x))$
 restricted to $[0,\infty)$.  Then, the regret of the \ac{LEA}
 algorithm with prior $\pi \in \Delta_N$ that predicts at each round with $p_t$ in \eqref{eq:preds_experts} satisfies
 \[
