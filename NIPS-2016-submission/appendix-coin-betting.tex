@@ -8,6 +8,10 @@ Let $x \in \R$. Let $F:[x-1,x+1] \to \R$ be a logarithmically convex function. T
 \argmin_{\beta \in (-1,1)} \max_{g \in [-1,1]} \ \frac{F(x+g)}{1 + \beta g}
 = \frac{F(x+1) - F(x-1)}{F(x+1) + F(x-1)} \; .
 \]
+Moreover, $\beta^*=\frac{F(x+1) - F(x-1)}{F(x+1) + F(x-1)}$ satisfies
+\[
+\ln(F(x+1)) - \ln(1 + \beta^*) =  \ln(F(x-1)) - \ln(1 - \beta^*) \; .
+\]
 \end{theorem}
 
 \begin{proof}
@@ -36,4 +40,31 @@ The only solution of this equation is
 \[
 \beta^* = \frac{F(x+1) - F(x-1)}{F(x+1) + F(x-1)} \; .
 \]
+\end{proof}
+
+
+\begin{theorem}
+\label{thm:exp_x2}
+The functions $F_t(x)=\epsilon\exp(\tfrac{x^2}{2t}- \frac{1}{2}\sum_{i=1}^t \tfrac{1}{i})$ are excellent coin betting potentials.
+\end{theorem}
+%
+\begin{proof}
+The first and second properties of Definition~\ref{definition:potential} are trivially true.
+For the third property, we first use Theorem~\ref{theorem:optimal-betting-fraction} to have
+\[
+\ln(1+\beta_t g) - \ln F_t(x+g) \geq \ln(1+\beta_t) - \ln F_t(x+1) = \ln \frac{2}{F_t(x+1)+F_t(x-1)},
+\]
+where the definition of $\beta_t$ is from \eqref{equation:potential-based-strategy}.
+Hence, we have
+\begin{align*}
+\ln(1+\beta_t g) - \ln F_t(x+g)  +\ln F_{t-1}(x) 
+&\geq \ln \frac{2}{F_t(x+1)+F_t(x-1)} +\ln F_{t-1}(x) \\
+&= -\frac{x^2+1}{2t} +\frac{1}{2}\sum_{i=1}^t \frac{1}{i} -\ln \cosh \frac{x}{t} + \frac{x^2}{2(t-1)} - \frac{1}{2}\sum_{i=1}^{t-1} \frac{1}{i}\\
+&= -\frac{x^2}{2t} -\ln \cosh \frac{x}{t} + \frac{x^2}{2(t-1)}\\
+&\geq -\frac{x^2}{2t}  -\frac{x^2}{2 t^2} + \frac{x^2}{2(t-1)} \\
+&\geq -\frac{x^2}{2t}  -\frac{x^2}{2 t (t-1)} + \frac{x^2}{2(t-1)} =0,
+\end{align*}
+where in the second inequality we have used the elementary inequality $\ln \cosh x \leq \tfrac{x^2}{2}$.
+
+The fourth property of Definition~\ref{definition:potential} is also true because $F_t(x)$ is of the form $h(x^2)$ with $h(\cdot)$ convex~\cite{McMahan-Orabona-2014}.
 \end{proof}
