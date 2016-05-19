@@ -122,11 +122,10 @@ induction proof above: $F_{t-1}(x) \ge \tfrac{F_{t}(x + g_t)}{1+g_t\beta_t}$.
 The last point, (d), is a technical condition that allows us to
 seamlessly reduce the infinite dimensional case to the one dimensional one, characterizing the worst case direction for the reward vectors.
 
-As an example, the potential $F_t(x)=\epsilon
-\exp \left(x^2/(2t)\right)/\sqrt{t}$, essentially the same as in
+Regarding the design of coin betting potentials, we expect any potential that approximates the best possible wealth in \eqref{eq:opt_wealth} to be a good candidate.
+In fact, $F_t(x)=\epsilon
+\exp \left(x^2/(2t)\right)/\sqrt{t}$, essentially the potential used in
 the parameter-free algorithms in \cite{McMahan-Orabona-2014, Orabona-2014} for
 \ac{OLO} and in \cite{Chaudhuri-Freund-Hsu-2009, Luo-Schapire-2014,
-Luo-Schapire-2015} for \ac{LEA}, is an excellent coin betting potential---see Theorem~\ref{thm:exp_x2} in Appendix~\ref{section:optimal-betting-fraction}.  Also, from \eqref{eq:opt_wealth}, we see that this potential is an approximation of the best possible wealth.
-We will show new examples of sequences of coin-betting potentials in
-Section~\ref{section:kt-estimator}.  In the next two sections, we reduce
-\ac{OLO} and \ac{LEA} to coin-betting.
+Luo-Schapire-2015} for \ac{LEA}, approximates \eqref{eq:opt_wealth} and it is an excellent coin betting potential---see Theorem~\ref{thm:exp_x2} in Appendix~\ref{section:optimal-betting-fraction}. Hence, our framework provides intuition to previous constructions.
+In Section~\ref{section:kt-estimator} we will show new examples of coin-betting potentials, while in the next two sections, we reduce \ac{OLO} and \ac{LEA} to coin-betting.
