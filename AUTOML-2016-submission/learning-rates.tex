@@ -1,38 +1,44 @@
 \section{How to Tune the Learning Rates?}
 \label{section:learning-rates}
 
-Consider \ac{OLO} over a Hilbert Space $\H$. \ac{GD} with regularizer
+Consider \ac{OLO} over a Hilbert Space $\H$. \ac{OGD} with regularizer
 $\tfrac{1}{2}\norm{u}^2$ and learning rate $\eta$ satisfies~\citep{Shalev-Shwartz-2011}
+%
 \begin{equation}
 \label{equation:ftrl-vanila}
 \forall u \in \H \qquad \Regret_T(u) \le \tfrac{\norm{u}^2}{2\eta} + \tfrac{\eta T}{2} \; .
 \end{equation}
+%
 It is obvious that the optimal tuning of the learning rate depends on the
 unknown norm of $u$.
 
 The simple choice $\eta = 1/\sqrt{T}$ leads to an algorithm that satisfies
+%
 \begin{equation}
 \label{equation:ftrl-vanila-2}
 \Regret_T(u) \le \tfrac{1}{2}\left(1+\norm{u}^2\right)\sqrt{T} \; .
 \end{equation}
-However, in this bound the dependency on $\norm{u}$ is suboptimal. As we will
-see shortly, the quadratic dependency can be replaced by an (almost) linear
+%
+However, in this bound the dependency on $\norm{u}$ is suboptimal: The quadratic dependency can be replaced by an (almost) linear
 dependency.
-
 Starting from \eqref{equation:ftrl-vanila}, if we choose the learning rate $\eta =
 D/\sqrt{T}$, we get a family of algorithms parametrized by $D \in [0,\infty)$
 that satisfy
+%
 \begin{equation}
 \label{equation:ftrl-vanila-3}
 \forall u \in \H : \norm{u} \le D \quad  \Longrightarrow \quad \Regret_T(u) \le D \sqrt{T} \; .
 \end{equation}
+%
 Instead of a family of algorithms parametrized by $D \in [0,\infty)$ satisfying
 the bound \eqref{equation:ftrl-vanila-3}, one \emph{would like
 to have} a single algorithm (without any tuning parameters) satisfying
+%
 \begin{equation}
 \label{equation:olo-parameter-free}
 \forall u \in \H \qquad \Regret_T(u) \le \norm{u} \sqrt{T} \; .
 \end{equation}
+%
 Notice that \eqref{equation:olo-parameter-free} is stronger than
 \eqref{equation:ftrl-vanila-3} in the following sense: A single algorithm
 satisfying \eqref{equation:olo-parameter-free} implies
@@ -47,66 +53,79 @@ There have been a lot of work on algorithms
 \citep{Streeter-McMahan-2012, Orabona-2013, McMahan-Abernethy-2013,
 McMahan-Orabona-2014,Orabona-Pal-2016-parameter-free} that satisfy a slightly weaker version of
 \eqref{equation:olo-parameter-free}
+%
 \begin{equation}
 \label{equation:olo-parameter-free-2}
 \forall u \in \H \qquad \Regret_T(u) \le \big(O(1)+\polylog(1 + \norm{u})\norm{u} \big) \sqrt{T} \; ,
 \end{equation}
+%
 It can be shown
 that for \ac{OLO} over Hilbert space the extra poly-logarithmic factor is
 necessary~\citep{McMahan-Abernethy-2013,Orabona-2013}. Algorithms satisfying
 \eqref{equation:olo-parameter-free-2} are called \emph{parameter-free}, since
 they do not need to know $D$, yet they have an optimal dependency on $\norm{u}$.
 
-The \emph{same} problem is present for \ac{LEA}.
-%Hedge algorithm~\citep{Freund-Schapire-1997}
-%is identical to \ac{OMD} with regularizer $R(u) = -H(u)$.
-It is easy to show that Hedge with learning rate $\eta$ satisfies
-\begin{equation}
-\label{equation:hedge-bound-2}
-\Regret_T(u) \le \tfrac{\ln N - H(u)}{\eta} + \tfrac{\eta T}{2} \; .
-\end{equation}
-Dropping the term $-H(u)$ , we can set $\eta = \sqrt{\ln(N)/T}$ and recover the usual
-Hedge bound~\citep{Freund-Schapire-1997}
-\begin{equation}
-\label{equation:hedge-bound}
-\forall u \in \Delta_N \qquad \Regret_T(u) \le \sqrt{2 T \ln N}
-\end{equation}
-This bound is known to be optimal in the worst-case sense~\cite[Section
-3.7]{Cesa-Bianchi-Lugosi-2006}. However, the right-hand side of
-\eqref{equation:hedge-bound} is independent of $u$, that is, the algorithm does
-not adapt to $u$.  Let $p \in [0, \ln N)$. If we choose $\eta = \sqrt{(\ln(N) -
-p)/T}$, we get that
-\begin{equation}
-\label{equation:hedge-bound-3}
-\forall u \in \Delta_N: H(u) \ge p \quad \Longrightarrow \quad \Regret_T(u) \le \sqrt{2 T (\ln(N) - p)} \; .
-\end{equation}
-Instead of the family of algorithms parametrized by $p \in [0,\ln N)$ that
-satisfy bound~\eqref{equation:hedge-bound-3}, one \emph{would like to have} a single
-algorithm (without any tuning parameters) satisfying
-\begin{equation}
-\label{equation:parameter-free-bound-experts}
-\forall u \in \Delta_N \qquad \Regret_T(u) \le \sqrt{2 T (\ln N - H(u))} = \sqrt{2T \cdot \KL{u}{\tfrac{1}{N} \indicator}} \; .
-\end{equation}
-In the same sense of the OLO case, \eqref{equation:parameter-free-bound-experts} is stronger than
-\eqref{equation:hedge-bound-3}.
-Bounds of the form~\eqref{equation:parameter-free-bound-experts} were not
-considered until 2009. Since then, however, there have been a lot of work
-\citep{Chaudhuri-Freund-Hsu-2009, Chernov-Vovk-2010, Koolen-van-Erven-2015,
-Luo-Schapire-2014, Luo-Schapire-2015, Foster-Rakhlin-Sridharan-2015,
-Orabona-Pal-2016-parameter-free} on algorithms that satisfy slightly
-looser\footnote{Earlier papers have extra logarithmic factors.
-\citet{Foster-Rakhlin-Sridharan-2015, Orabona-Pal-2016-parameter-free} have
-a fixed multiplicative constant hidden in $\widetilde
-O(\cdot)$} versions of~\eqref{equation:parameter-free-bound-experts}
-$$
-\forall u \in \Delta_N \qquad \Regret_T(u) \le \widetilde O(\sqrt{T (1 + \ln N - H(u))}) = \widetilde O\left(\sqrt{T \left(1 + \KL{u}{\tfrac{1}{N}\indicator} \right)} \right) \; .
-$$
-Algorithms of this type are called \emph{parameter-free} since, in contrast to
-Hedge, they do not need to know $p$. The regret in
-\eqref{equation:parameter-free-bound-experts} is also called a \emph{quantile
-bound} because one can bound the regret with respect to $(\epsilon N)$-th best
-expert for any $\epsilon \in (0,1)$ as the regret with respect to a competitor
-$u$ that, up to permutation of coordinates, has the form $u = \left(
-1/(\epsilon N), \dots, 1/(\epsilon N), 0, \dots, 0 \right)$.  Such competitor
-satisfies $H(u) = \ln (\epsilon N)$ and the regret with respect to any such $u$
-is $\widetilde O(\sqrt{T (1 + \ln(1/\epsilon)})$.
+% The exact same problem is present for \ac{LEA}.
+% %Hedge algorithm~\citep{Freund-Schapire-1997}
+% %is identical to \ac{OMD} with regularizer $R(u) = -H(u)$.
+% It is easy to show that Hedge with learning rate $\eta$ satisfies
+% %
+% \begin{equation}
+% \label{equation:hedge-bound-2}
+% \Regret_T(u) \le \tfrac{\ln N - H(u)}{\eta} + \tfrac{\eta T}{2} \; .
+% \end{equation}
+% %
+% Dropping the term $-H(u)$ , we can set $\eta = \sqrt{\ln(N)/T}$ and recover the usual
+% Hedge bound~\citep{Freund-Schapire-1997}
+% %
+% \begin{equation}
+% \label{equation:hedge-bound}
+% \forall u \in \Delta_N \qquad \Regret_T(u) \le \sqrt{2 T \ln N}
+% \end{equation}
+% %
+% This bound is known to be optimal in the worst-case sense~\cite[Section
+% 3.7]{Cesa-Bianchi-Lugosi-2006}. However, the right-hand side of
+% \eqref{equation:hedge-bound} is independent of $u$, that is, the algorithm does
+% not adapt to $u$.  Let $p \in [0, \ln N)$. If we choose $\eta = \sqrt{(\ln(N) -
+% p)/T}$, we get that
+% %
+% \begin{equation}
+% \label{equation:hedge-bound-3}
+% \forall u \in \Delta_N: H(u) \ge p \quad \Longrightarrow \quad \Regret_T(u) \le \sqrt{2 T (\ln(N) - p)} \; .
+% \end{equation}
+% %
+% As before, one \emph{would like to have} a single
+% algorithm (without any tuning parameters) satisfying
+% %
+% \begin{equation}
+% \label{equation:parameter-free-bound-experts}
+% \forall u \in \Delta_N \qquad \Regret_T(u) \le \sqrt{2 T (\ln N - H(u))} = \sqrt{2T \cdot \KL{u}{\tfrac{1}{N} \indicator}} \; .
+% \end{equation}
+% %
+% In the same sense of the OLO case, \eqref{equation:parameter-free-bound-experts} is stronger than
+% \eqref{equation:hedge-bound-3}.
+% Bounds of the form~\eqref{equation:parameter-free-bound-experts} were not
+% considered until 2009. Since then, however, there have been a lot of work
+% \citep{Chaudhuri-Freund-Hsu-2009, Chernov-Vovk-2010, Koolen-van-Erven-2015,
+% Luo-Schapire-2014, Luo-Schapire-2015, Foster-Rakhlin-Sridharan-2015,
+% Orabona-Pal-2016-parameter-free} on algorithms that satisfy slightly
+% looser\footnote{Earlier papers have extra logarithmic factors.
+% \citet{Foster-Rakhlin-Sridharan-2015, Orabona-Pal-2016-parameter-free} have
+% a fixed multiplicative constant hidden in $\widetilde
+% O(\cdot)$} versions of~\eqref{equation:parameter-free-bound-experts}
+% %
+% \[
+% \forall u \in \Delta_N \qquad \Regret_T(u) \le \widetilde O(\sqrt{T (1 + \ln N - H(u))}) = \widetilde O\left(\sqrt{T \left(1 + \KL{u}{\tfrac{1}{N}\indicator} \right)} \right) \; .
+% \]
+% %
+% Again, algorithms of this type are called \emph{parameter-free}.
+%since, in contrast to Hedge, they do not need to know $p$.
+
+% The regret in
+% \eqref{equation:parameter-free-bound-experts} is also called a \emph{quantile
+% bound} because one can bound the regret with respect to $(\epsilon N)$-th best
+% expert for any $\epsilon \in (0,1)$ as the regret with respect to a competitor
+% $u$ that, up to permutation of coordinates, has the form $u = \left(
+% 1/(\epsilon N), \dots, 1/(\epsilon N), 0, \dots, 0 \right)$.  Such competitor
+% satisfies $H(u) = \ln (\epsilon N)$ and the regret with respect to any such $u$
+% is $\widetilde O(\sqrt{T (1 + \ln(1/\epsilon)})$.

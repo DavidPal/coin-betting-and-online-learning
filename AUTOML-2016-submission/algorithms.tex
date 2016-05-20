@@ -1,5 +1,5 @@
 \section{Parameter-Free Algorithms}
-
+\label{sec:algos}
 
 \begin{algorithm}[t]
 \caption{Algorithm for OLO over Hilbert space $\H$
@@ -7,38 +7,40 @@
 \begin{algorithmic}[1]
 {
 \FOR{$t=1,2,\dots$}
-\STATE{Predict with $x_t \leftarrow - \frac{1}{t} \left(1 - \sum_{i=1}^{t-1} \langle \ell_i, x_i \rangle \right) \sum_{i=1}^{t-1} \ell_i$}
-\STATE{Receive loss vector $\ell_t \in \H$ such that $\norm{\ell_t} \le 1$}
+\STATE{Predict with $w_t \leftarrow \tfrac{1}{t} \left(1 + \sum_{i=1}^{t-1} \langle g_i, w_i \rangle \right) \sum_{i=1}^{t-1} g_i$}
+\STATE{Receive reward vector $g_t \in \H$ such that $\norm{g_t} \le 1$}
 \ENDFOR
 }
 \end{algorithmic}
 \end{algorithm}
-\begin{algorithm}[t]
-\begin{algorithmic}[1]
-\caption{Algorithm for Learning with Expert Advice \label{algorithm:experts}}
-{
-\REQUIRE{Number of experts $N$, number of rounds $T$, prior distribution $\pi \in \Delta_N$}
-\FOR{$t=1,2,\dots,T$}
-\STATE{For each $i \in [N]$, set $w_{t,i} \leftarrow \tfrac{\sum_{j=1}^{t-1} g_{j,i}}{t+T/2} \left(1 + \sum_{j=1}^{t-1} g_{j,i} w_{j,i} \right)$ and $\widehat{p}_{t,i} \leftarrow \pi_i [w_{t,i}]_+$}
-\STATE{Predict with $p_t \leftarrow
-\begin{cases}
-\widehat{p}_t/\norm{\widehat{p_t}}_1 & \text{if $\norm{\widehat p_t}_1 > 0$} \\
-\pi & \text{if $\norm{\widehat p_t}_1 = 0$}
-\end{cases}$}
-\STATE{Receive loss vector $\ell_t \in [0,1]^N$}
-\STATE{For each $i \in [N]$, set $g_{t,i} \leftarrow \begin{cases}
-\langle \ell_t, p_t \rangle - \ell_{t,i} & \text{if $w_{t,i} > 0$} \\
-[\langle \ell_t, p_t \rangle - \ell_{t,i}]_+ & \text{if $w_{t,i} \le 0$}
-\end{cases}$}
-\ENDFOR
-}
-\end{algorithmic}
-\end{algorithm}
+%
+%
+% \begin{algorithm}[t]
+% \begin{algorithmic}[1]
+% \caption{Algorithm for Learning with Expert Advice \label{algorithm:experts}}
+% {
+% \REQUIRE{Number of experts $N$, prior distribution $\pi \in \Delta_N$, number of rounds $T$}
+% \FOR{$t=1,2,\dots,T$}
+% \STATE{For each $i \in [N]$, set $w_{t,i} \leftarrow \tfrac{\sum_{j=1}^{t-1} \widetilde g_{j,i}}{t+T/2} \left(1 + \sum_{j=1}^{t-1} \widetilde g_{j,i} w_{j,i} \right)$ and $\widehat{p}_{t,i} \leftarrow \pi_i [w_{t,i}]_+$}
+% \STATE{Predict with $p_t \leftarrow
+% \begin{cases}
+% \widehat{p}_t/\norm{\widehat{p_t}}_1 & \text{if $\norm{\widehat p_t}_1 > 0$} \\
+% \pi & \text{if $\norm{\widehat p_t}_1 = 0$}
+% \end{cases}$}
+% \STATE{Receive reward vector $g_t \in [0,1]^N$}
+% \STATE{For each $i \in [N]$, set $\widetilde g_{t,i} \leftarrow \begin{cases}
+% g_{t,i} - \langle g_t, p_t \rangle & \text{if $w_{t,i} > 0$} \\
+% [g_{t,i} - \langle g_t, p_t \rangle]_+ & \text{if $w_{t,i} \le 0$}
+% \end{cases}$}
+% \ENDFOR
+% }
+% \end{algorithmic}
+% \end{algorithm}
 
-We present algorithms for \ac{OLO} over real Hilbert space $\H$
-(Algorithm~\ref{algorithm:hilbert-space-olo}) and
-\ac{LEA}~(Algorithm~\ref{algorithm:experts}).  The theorems below upper bound
-their regret, the proofs can be found in~\cite{Orabona-Pal-2016-parameter-free}.
+We present algorithms for \ac{OLO} over a Hilbert space $\H$
+(Algorithm~\ref{algorithm:hilbert-space-olo}).
+%and \ac{LEA}~(Algorithm~\ref{algorithm:experts}).
+The theorem below upper bound its regret, the proof can be found in~\cite{Orabona-Pal-2016-parameter-free}.
 
 \begin{theorem}[Regret Bound for Algorithm~\ref{algorithm:hilbert-space-olo}]
 \label{theorem:hilbert-space-olo-regret}
@@ -52,19 +54,19 @@ $$
 $$
 \end{theorem}
 
-\begin{theorem}[Regret Bound for Algorithm~\ref{algorithm:experts}]
-\label{theorem:experts-regret}
-Let $N \ge 2$ and $T \ge 0$ be integers. Let $\pi \in \Delta_N$ be a prior.
-For any sequence $\ell_1, \ell_2, \dots, \ell_T \in
-[0,1]^N$ of loss vectors, Algorithm~\ref{algorithm:experts}
-satisfies
-$$
-\forall u \in \Delta_N \qquad \qquad \Regret_T(u) \le \sqrt{3T (4 + \KL{u}{\pi})} \; .
-$$
-\end{theorem}
-
-Note that, the requirement of knowing the number of rounds $T$ in Algorithm~\ref{algorithm:experts} can be lifted by
-the standard doubling trick, again in a parameter-free way; for details
-see~\cite{Orabona-Pal-2016-parameter-free}.
+% \begin{theorem}[Regret Bound for Algorithm~\ref{algorithm:experts}]
+% \label{theorem:experts-regret}
+% Let $N \ge 2$ and $T \ge 0$ be integers. Let $\pi \in \Delta_N$ be a prior.
+% For any sequence $\ell_1, \ell_2, \dots, \ell_T \in
+% [0,1]^N$ of loss vectors, Algorithm~\ref{algorithm:experts}
+% satisfies
+% $$
+% \forall u \in \Delta_N \qquad \qquad \Regret_T(u) \le \sqrt{3T (3 + \KL{u}{\pi})} \; .
+% $$
+% \end{theorem}
+% 
+% Note that, the requirement of knowing the number of rounds $T$ in Algorithm~\ref{algorithm:experts} can be lifted by
+% the standard doubling trick, again in a parameter-free way; for details
+% see~\cite{Orabona-Pal-2016-parameter-free}.
 
 

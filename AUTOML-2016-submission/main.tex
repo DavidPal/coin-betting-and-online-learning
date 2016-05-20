@@ -20,13 +20,14 @@
 \DeclareMathOperator*{\argmin}{arg\,min}
 \DeclareMathOperator*{\argmax}{arg\,max}
 \newcommand{\indicator}{\mathbf{1}}
+\newcommand{\scO}{\mathcal{O}}  % big-Oh
 
 \begin{acronym}
 \acro{EG}{Exponentiated Gradient}
 \acro{DFEG}{Dimension-Free Exponentiated Gradient}
 \acro{OMD}{Online Mirror Descent}
 \acro{ASGD}{Averaged Stochastic Gradient Descent}
-\acro{GD}{Gradient Descent}
+\acro{OGD}{Online Gradient Descent}
 \acro{SGD}{Stochastic Gradient Descent}
 \acro{PiSTOL}{Parameter-free STOchastic Learning}
 \acro{OCO}{Online Convex Optimization}
@@ -55,15 +56,14 @@
 \Email{dpal@yahoo-inc.com}\\
 \addr Yahoo Research, New York}
 
-\title{From Coin Betting to Parameter-Free Online Learning}
+\title{Parameter-Free Convex Learning through Coin Betting}
 
 \begin{document}
 
 \maketitle
 
 \begin{abstract}
-We present two new parameter-free algorithms, one for online linear optimization over a Hilbert space and one for learning with expert advice. They are both theoretically optimal, with regret guarantees as good as with the best possible learning rate. Also, both algorithms are simple and easy to implement. A unified analysis of both algorithms can be
-given via the adversarial coin-betting game, Kelly betting and the Krichevsky-Trofimov
+We present a new parameter-free algorithm for online linear optimization over a Hilbert space. It is theoretically optimal, with regret guarantees as good as with the best possible learning rate. The algorithm is simple and easy to implement. The analysis is given via the adversarial coin-betting game, Kelly betting and the Krichevsky-Trofimov
 estimator. Applications to obtain parameter-free convex optimization and machine learning algorithms are shown.
 \end{abstract}
 
@@ -72,6 +72,8 @@ estimator. Applications to obtain parameter-free convex optimization and machine
 \input{algorithms}
 \input{design-and-analysis}
 \input{applications}
+
+\newpage
 
 % Acknowledgments---Will not appear in anonymized version
 \acks{The authors thank Jacob Abernethy, Nicol\`{o} Cesa-Bianchi, Satyen Kale, Chansoo Lee, and Giuseppe Molteni for useful discussions on this work.}
