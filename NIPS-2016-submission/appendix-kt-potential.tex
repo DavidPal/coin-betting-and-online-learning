@@ -14,7 +14,7 @@ is even, logarithmically convex, strictly increasing on $[0,a)$, satisfies
 and
 \begin{equation}
 \label{equation:gamma-property-4}
-\forall x \in (-a,a) \qquad x \cdot F''(x) \ge F'(x) \; .
+\forall x \in [0,a) \qquad x \cdot F''(x) \ge F'(x) \; .
 \end{equation}
 \end{lemma}
 %
@@ -108,7 +108,7 @@ Furthermore, for any $x \in (-t-\delta-1, t+\delta+1)$,
 \frac{F_t(x+1) - F_{t}(x-1)}{F_t(x+1) + F_{t}(x-1)} = \frac{x}{t+\delta} \; .
 \end{equation}
 \end{theorem}
-
+%
 \begin{proof}
 Property (b) and (d) of the definition follow from
 Lemma~\ref{lemma:kt-potential-analytic-properties}.
@@ -157,6 +157,6 @@ Since $\phi(g)$ is (logarithmically) convex,
 & = \phi(\lambda \cdot (-1) + (1-\lambda) \cdot (+1)) \\
 & \le \lambda \phi(-1) + (1-\lambda) \phi(+1) \\
 & = \lambda \left(1 + \frac{x}{t+\delta}\right) + (1-\lambda) \left(1 - \frac{x}{t+\delta}\right) \\
-& = 1 + g \frac{x}{t+\delta} \; .
+& = 1 + g \frac{x}{t+\delta} \; . \qedhere
 \end{align*}
 \end{proof}
