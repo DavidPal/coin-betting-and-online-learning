@@ -10,14 +10,15 @@ that is
 \[
 \Regret_T(u) = \sum_{t=1}^T \langle g_t, u \rangle - \sum_{t=1}^T \langle g_t, w_t \rangle \; .
 \]
-We assume that $\norm{g_t} \le 1$.
+We focus on one particular decision set, the Hilbert space $\H$.  We assume
+that $\norm{g_t} \le 1$.
 
 \ac{OLO} is a basic building block of many machine learning problems. For
-example, \ac{OCO}, the problem analogous to \ac{OLO} where $\langle g_t, u
-\rangle$ is generalized to an arbitrary convex function $\ell_t(u)$, is solved
-through a reduction to \ac{OLO}~\citep{Shalev-Shwartz-2011}.  Batch and
-stochastic convex optimization can also be solved through a reduction to
-\ac{OLO}~\citep{Shalev-Shwartz-2011}.
+example, \ac{OCO}, the problem analogous to \ac{OLO} where $\langle \ell_t, u
+\rangle$ is generalized to an arbitrary convex function $f_t(u)$, is solved
+through a reduction to \ac{OLO}~\citep{Shalev-Shwartz-2011}.
+Batch and stochastic convex optimization
+can also be solved through a reduction to \ac{OLO}~\citep{Shalev-Shwartz-2011}.
 
 To achieve optimal regret, most of the existing online algorithms (e.g.  Online
 Gradient Descent) require the user to set the learning rate to an
@@ -27,8 +28,6 @@ spaces~\citep{Streeter-McMahan-2012, Orabona-2013, McMahan-Abernethy-2013,
 McMahan-Orabona-2014, Orabona-2014}.  These algorithms adapt to the norm of the
 optimal predictor, without the need to tune parameters. However, their
 \emph{design and underlying intuition} is still a challenge.
-\citet{Foster-Rakhlin-Sridharan-2015} proposed a unified framework, but it is
-not constructive.
 
 Our contributions are as follows. We connect algorithms for \ac{OLO} with coin
 betting. Namely, we show an algorithm for \ac{OLO} can be viewed as an
