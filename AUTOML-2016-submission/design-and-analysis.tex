@@ -1,7 +1,7 @@
 \section{Design and Analysis of Algorithms}
 
-The algorithms~\ref{algorithm:hilbert-space-olo}~and~\ref{algorithm:experts}
-are based on the adversarial coin-betting problem.
+The algorithms~\ref{algorithm:hilbert-space-olo}
+is based on the adversarial coin-betting problem.
 
 \textbf{Adversarial Coin Betting.}
 Consider a gambler making
@@ -16,14 +16,14 @@ gets the same amount as a reward.  We encode the gambler's bet in round $t$ by a
 single number $\beta_t \in [-1,1]$. The sign of $\beta_t$ encodes whether he is
 betting on heads or tails. The absolute value encodes the betted amount as the
 fraction of his current wealth.
-Let $\Wealth_t$ be gambler's wealth at the end of round $t$, it satisfies
+Let $\Wealth_t$ be gambler's wealth at the end of round $t$. It satisfies
 \begin{align}
 \label{equation:wealth-recurrence}
 \Wealth_0 & = 1 &
 & \text{and} &
 \Wealth_t & = (1 + g_t \beta_t) \Wealth_{t-1} \qquad \text{for $t \ge 1$} \; .
 \end{align}
-Note that since $\beta_t \in (-1,1)$, gambler's wealth stays always non-negative.
+Note that since $\beta_t \in [-1,1]$, gambler's wealth stays always non-negative.
 
 \textbf{Kelly Betting and Krichevsky-Trofimov Estimator.}
 For sequential betting on i.i.d. coin flips, the optimal strategy has been proposed by \citet{Kelly-1956}.
@@ -40,23 +40,19 @@ $g_1, g_2, \dots, g_{t-1}$ we use the empirical estimate $k_t = \frac{1/2 +
 \sum_{i=1}^{t-1} \indicator[g_i = +1]}{t}$. Their
 estimate is commonly called \emph{KT estimator}~\footnote{Compared to the
 standard maximum likelihood estimate $\frac{\sum_{i=1}^{t-1} \indicator[g_i =
-+1]}{t-1}$, KT estimator ``shrinks'' slightly towards $\frac{1}{2}$.}
-and it results in the betting strategy $\beta_t = 2k_t - 1 = \tfrac{\sum_{i=1}^{t-1} g_i}{t}$.
-\citeauthor{Krichevsky-Trofimov-1981} showed that this strategy guarantees almost the same wealth that one would obtain knowing in advance the number of heads. Moreover, this guarantee is optimal up to constant
++1]}{t-1}$, KT estimator ``shrinks'' slightly towards $\frac{1}{2}$.} and it
+results in the betting strategy $\beta_t = 2k_t - 1 = \tfrac{\sum_{i=1}^{t-1}
+g_i}{t}$.  \citeauthor{Krichevsky-Trofimov-1981} showed that this strategy
+guarantees almost the same wealth that one would obtain knowing in advance the
+fraction of heads. Moreover, this guarantee is optimal up to constant
 factors~\citep{Cesa-Bianchi-Lugosi-2006}.
 
-\textbf{From betting to \ac{OLO} and \ac{LEA}.}
-In Algorithm~\ref{algorithm:hilbert-space-olo}, the ``coin outcome'' is
-$g_t = -\ell_t$ and algorithm's wealth is
-$
-\Wealth_t = 1 - \sum_{i=1}^t \langle \ell_i, x_i \rangle
-$.
-The algorithm explicitly keeps track of its wealth. Betting the ``vectorial fraction''
-$\beta_t = - \tfrac{\sum_{i=1}^{t-1} \ell_i}{t}$, it maximizes a worst case guarantee on the wealth.
-
-In Algorithm~\ref{algorithm:experts}, there are $N$ independent coordinates.
-With each coordinate $i$ there is an associated coin outcome $g_{t,i}$, wealth
-$\Wealth_{t,i} = 1 + \sum_{j=1}^t g_{j,i} w_{j,i}$, and a betting fraction
-$\beta_{t,i} = \tfrac{\sum_{j=1}^t g_{j,i}}{t + T/2}$.
-The regret bounds for both algorithms are a consequence of the wealth lower
-bound~\eqref{equation:wealth-lower-bound} and the duality between regret and wealth.  For more details, see~\cite{Orabona-Pal-2016-parameter-free}.
+\textbf{From betting to \ac{OLO}.}
+In Algorithm~\ref{algorithm:hilbert-space-olo}, the ``coin outcome'' is the
+vector $g_t \in \H$ and algorithm's wealth is $\Wealth_t = 1 + \sum_{i=1}^t
+\langle g_i, x_i \rangle$.  The algorithm explicitly keeps track of its wealth.
+Betting the ``vectorial fraction'' $\beta_t = \tfrac{\sum_{i=1}^{t-1} g_i}{t}$,
+it maximizes a worst case guarantee on the wealth. The regret bound
+(Theorem~\ref{theorem:hilbert-space-olo-regret}) is a consequence of
+Krichevsky-Trofimov lower bound on the wealth and the duality between regret
+and wealth.  For more details, see~\cite{Orabona-Pal-2016-parameter-free}.

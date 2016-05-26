@@ -2,54 +2,43 @@
 \label{section:introduction}
 
 We consider the \ac{OLO}~\citep{Cesa-Bianchi-Lugosi-2006, Shalev-Shwartz-2011}
-setting. In each round $t$, an algorithm chooses a point $w_t$ from a convex
-\emph{decision set} $K$ and then receives a reward vector $g_t$. The algorithm's
-goal is to keep its \emph{regret} small, defined as the difference between its
-cumulative reward and the cumulative reward of a fixed strategy $u \in K$, that
-is
+over a Hilbert space $\H$. In each round $t$, an algorithm chooses a point $w_t
+\in \H$ and then receives a reward vector $g_t \in \H$. The algorithm's goal is
+to keep its \emph{regret} small, defined as the difference between its
+cumulative reward and the cumulative reward of a fixed strategy $u \in \H$,
+that is
 \[
 \Regret_T(u) = \sum_{t=1}^T \langle g_t, u \rangle - \sum_{t=1}^T \langle g_t, w_t \rangle \; .
 \]
-We focus on one particular decision set, the Hilbert space
-$\H$. 
-%\ac{OLO} over $\Delta_N$ is referred to as the problem of \ac{LEA}.
-We assume bounds on the norms of the reward vectors: we
-assume that $\norm{g_t} \le 1$.
-%, and for \ac{LEA} we assume that $g_t \in [0,1]^N$.
+We assume that $\norm{g_t} \le 1$.
 
 \ac{OLO} is a basic building block of many machine learning problems. For
 example, \ac{OCO}, the problem analogous to \ac{OLO} where $\langle g_t, u
 \rangle$ is generalized to an arbitrary convex function $\ell_t(u)$, is solved
-through a reduction to \ac{OLO}~\citep{Shalev-Shwartz-2011}.
-%\ac{LEA}~\citep{Littlestone-Warmuth-1994, Vovk-1998, Cesa-Bianchi-Freund-Haussler-Helmbold-Schapire-Warmuth-1997} provides a way of combining classifiers and it is at the heart of boosting~\citep{Freund-Schapire-1997}.
-Batch and stochastic convex optimization
-can also be solved through a reduction to \ac{OLO}~\citep{Shalev-Shwartz-2011}.
+through a reduction to \ac{OLO}~\citep{Shalev-Shwartz-2011}.  Batch and
+stochastic convex optimization can also be solved through a reduction to
+\ac{OLO}~\citep{Shalev-Shwartz-2011}.
 
-To achieve optimal regret, most of the existing online algorithms require the user to
-set the learning rate $\eta$ to an unknown/oracle value. Recently, new parameter-free
-algorithms have been proposed
-%, both for
-%\ac{LEA}~\citep{Chaudhuri-Freund-Hsu-2009, Chernov-Vovk-2010, Luo-Schapire-2014,
-%Luo-Schapire-2015, Koolen-van-Erven-2015, Foster-Rakhlin-Sridharan-2015} and
-for \ac{OLO}/\ac{OCO} over Hilbert spaces~\citep{Streeter-McMahan-2012,
-Orabona-2013, McMahan-Abernethy-2013, McMahan-Orabona-2014, Orabona-2014}.
-These algorithms adapt to the norm of the optimal
-predictor, without the need to tune parameters. However, their
+To achieve optimal regret, most of the existing online algorithms (e.g.  Online
+Gradient Descent) require the user to set the learning rate to an
+unknown/oracle value. Recently, new parameter-free algorithms have been
+proposed for \ac{OLO}/\ac{OCO} over Hilbert
+spaces~\citep{Streeter-McMahan-2012, Orabona-2013, McMahan-Abernethy-2013,
+McMahan-Orabona-2014, Orabona-2014}.  These algorithms adapt to the norm of the
+optimal predictor, without the need to tune parameters. However, their
 \emph{design and underlying intuition} is still a challenge.
-\citet{Foster-Rakhlin-Sridharan-2015} proposed a unified framework, but it is not constructive.
-%Furthermore, all
-%existing algorithms for LEA either have sub-optimal regret bound (e.g. extra
-%$\scO(\log \log T)$ factor) or sub-optimal running time (e.g.  requiring
-%solving a numerical problem in every round, or with extra factors).
+\citet{Foster-Rakhlin-Sridharan-2015} proposed a unified framework, but it is
+not constructive.
 
-Our contributions are as follows. We claim that a more fundamental notion
-subsumes both \ac{OLO} parameter-free algorithms. This notion is
-linked to the ability to repeatedly bet on an outcome of a coin
-flip. This new notion allows us to design novel parameter-free algorithms. In particular, the algorithms are simple and somehow ``natural''. We also show some applications of our results to convex optimization and machine learning.
+Our contributions are as follows. We connect algorithms for \ac{OLO} with coin
+betting. Namely, we show an algorithm for \ac{OLO} can be viewed as an
+algorithm for betting on outcomes of adversarial coin flips. The wealth the
+algorithm can generate for the betting problem is connected to the regret in
+\ac{OLO} setting. This insight allows us to design novel parameter-free
+algorithms, which are extremely simple and natural. We also show some
+applications of our results to convex optimization and machine learning.
 
 \noindent\textbf{Notation and Definitions.}
-We will use the following notation in the rest of this note.
-%We denote by $\indicator$ the vector $(1,1,\dots,1) \in \R^N$.
-%Shannon entropy $H(u) = -\sum_{i=1}^N u_i \ln u_i$ is defined for any $u \in \Delta_N$.
-%The Kullback-Leibler divergence $\KL{u}{v} = \sum_{i=1}^N u_i \ln(u_i/v_i)$ is defined for any $u,v \in \Delta_N$.
-If $\H$ is a real Hilbert space, $\langle \cdot, \cdot \rangle$ is its inner product and $\norm{\cdot}$ its induced norm.
+We will use the following notation in the rest of this note.  If $\H$ is a real
+Hilbert space, $\langle \cdot, \cdot \rangle$ is its inner product and
+$\norm{\cdot}$ its induced norm.
