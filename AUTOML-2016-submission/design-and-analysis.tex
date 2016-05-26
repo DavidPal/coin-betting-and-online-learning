@@ -1,43 +1,42 @@
 \section{Design and Analysis of Algorithms}
 
-The algorithms~\ref{algorithm:hilbert-space-olo}
+Algorithm~\ref{algorithm:hilbert-space-olo}
 is based on the adversarial coin-betting problem.
 
 \textbf{Adversarial Coin Betting.}
-Consider a gambler making
-repeated bets on the outcomes of adversarial coin flips. The gambler starts with an
-initial endowment of $1$ dollar. In each round $t$, he bets on the outcome of a
-coin flip $g_t \in \{-1,1\}$, where $+1$ denotes heads and $-1$ denotes tails.
-The outcome $g_t$ is chosen by an adversary.
-The gambler can bet any amount on either heads or tails. However, he cannot borrow
-any additional money. If he loses, he loses the betted
-amount; if he wins, he gets the betted amount back and, in addition to that, he
-gets the same amount as a reward.  We encode the gambler's bet in round $t$ by a
+Consider a gambler making repeated bets on the outcomes of adversarial coin
+flips. The gambler starts with an initial endowment of $1$ dollar. In each
+round $t$, he bets on the outcome of a coin flip $g_t \in \{-1,1\}$, where $+1$
+denotes heads and $-1$ denotes tails.  The outcome $g_t$ is chosen by an
+adversary.  The gambler can bet any amount on either heads or tails. However,
+he cannot borrow any additional money. If he loses, he loses the betted amount;
+if he wins, he gets the betted amount back and, in addition to that, he gets
+the same amount as a reward.  We encode the gambler's bet in round $t$ by a
 single number $\beta_t \in [-1,1]$. The sign of $\beta_t$ encodes whether he is
 betting on heads or tails. The absolute value encodes the betted amount as the
-fraction of his current wealth.
-Let $\Wealth_t$ be gambler's wealth at the end of round $t$. It satisfies
+fraction of his current wealth.  Let $\Wealth_t$ be gambler's wealth at the end
+of round $t$. It satisfies
 \begin{align}
 \label{equation:wealth-recurrence}
 \Wealth_0 & = 1 &
 & \text{and} &
 \Wealth_t & = (1 + g_t \beta_t) \Wealth_{t-1} \qquad \text{for $t \ge 1$} \; .
 \end{align}
-Note that since $\beta_t \in [-1,1]$, gambler's wealth stays always non-negative.
+Note that since $\beta_t \in [-1,1]$, gambler's wealth stays always
+non-negative.
 
 \textbf{Kelly Betting and Krichevsky-Trofimov Estimator.}
-For sequential betting on i.i.d. coin flips, the optimal strategy has been proposed by \citet{Kelly-1956}.
-The strategy assumes that the coin flips $\{g_t\}_{t=1}^\infty$, $g_t
-\in \{+1,-1\}$, are generated i.i.d. with known probability of heads. If $p \in
-[0,1]$ is the probability of heads, the Kelly bet is $\beta_t = 2p - 1$. He
-showed that, in the long run, this strategy will provide more wealth than
-betting any other fixed fraction~\cite{Kelly-1956}.
+For sequential betting on i.i.d. coin flips, the optimal strategy has been
+proposed by \citet{Kelly-1956}.  The strategy assumes that the coin flips
+$\{g_t\}_{t=1}^\infty$, $g_t \in \{+1,-1\}$, are generated i.i.d. with known
+probability of heads. If $p \in [0,1]$ is the probability of heads, the Kelly
+bet is $\beta_t = 2p - 1$. He showed that, in the long run, this strategy will
+provide more wealth than betting any other fixed fraction~\cite{Kelly-1956}.
 
 For adversarial coins, Kelly betting does not make sense.
 \citet{Krichevsky-Trofimov-1981} proposed to replace $p$ with an estimate:
-After seeing coin flips
-$g_1, g_2, \dots, g_{t-1}$ we use the empirical estimate $k_t = \frac{1/2 +
-\sum_{i=1}^{t-1} \indicator[g_i = +1]}{t}$. Their
+After seeing coin flips $g_1, g_2, \dots, g_{t-1}$ we use the empirical
+estimate $k_t = \frac{1/2 + \sum_{i=1}^{t-1} \indicator[g_i = +1]}{t}$. Their
 estimate is commonly called \emph{KT estimator}~\footnote{Compared to the
 standard maximum likelihood estimate $\frac{\sum_{i=1}^{t-1} \indicator[g_i =
 +1]}{t-1}$, KT estimator ``shrinks'' slightly towards $\frac{1}{2}$.} and it
