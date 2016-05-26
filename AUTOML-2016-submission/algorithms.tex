@@ -7,7 +7,7 @@
 \begin{algorithmic}[1]
 {
 \FOR{$t=1,2,\dots$}
-\STATE{Predict with $x_t \leftarrow \tfrac{1}{t} \left(1 + \sum_{i=1}^{t-1} \langle g_i, x_i \rangle \right) \sum_{i=1}^{t-1} g_i$}
+\STATE{Predict with $w_t \leftarrow \tfrac{1}{t} \left(1 + \sum_{i=1}^{t-1} \langle g_i, w_i \rangle \right) \sum_{i=1}^{t-1} g_i$}
 \STATE{Receive reward vector $g_t \in \H$ such that $\norm{g_t} \le 1$}
 \ENDFOR
 }

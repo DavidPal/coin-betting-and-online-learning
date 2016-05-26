@@ -2,13 +2,13 @@
 \label{section:introduction}
 
 We consider the \ac{OLO}~\citep{Cesa-Bianchi-Lugosi-2006, Shalev-Shwartz-2011}
-over a Hilbert space $\H$. In each round $t$, an algorithm chooses a point $x_t
+over a Hilbert space $\H$. In each round $t$, an algorithm chooses a point $w_t
 \in \H$ and then receives a reward vector $g_t \in \H$. The algorithm's goal is
 to keep its \emph{regret} small, defined as the difference between its
 cumulative reward and the cumulative reward of a fixed strategy $u \in \H$,
 that is
 \[
-\Regret_T(u) = \sum_{t=1}^T \langle g_t, u \rangle - \sum_{t=1}^T \langle g_t, x_t \rangle \; .
+\Regret_T(u) = \sum_{t=1}^T \langle g_t, u \rangle - \sum_{t=1}^T \langle g_t, w_t \rangle \; .
 \]
 We assume that $\norm{g_t} \le 1$.
 
