@@ -8,18 +8,18 @@ goal is to keep its \emph{regret} small, defined as the difference between its
 cumulative reward and the cumulative reward of a fixed strategy $u \in K$, that
 is
 \[
-\Regret_T(u) = \sum_{t=1}^T \langle g_t, u \rangle - \sum_{t=1}^T \langle g_t, w_t \rangle \; .
+\Regret_T(u) = \sum_{t=1}^T \langle \ell_t, w_t \rangle - \sum_{t=1}^T \langle \ell_t, u \rangle \; .
 \]
 We focus on one particular decision set, the Hilbert space
 $\H$. 
 %\ac{OLO} over $\Delta_N$ is referred to as the problem of \ac{LEA}.
 We assume bounds on the norms of the reward vectors: we
-assume that $\norm{g_t} \le 1$.
+assume that $\norm{\ell_t} \le 1$.
 %, and for \ac{LEA} we assume that $g_t \in [0,1]^N$.
 
 \ac{OLO} is a basic building block of many machine learning problems. For
-example, \ac{OCO}, the problem analogous to \ac{OLO} where $\langle g_t, u
-\rangle$ is generalized to an arbitrary convex function $\ell_t(u)$, is solved
+example, \ac{OCO}, the problem analogous to \ac{OLO} where $\langle \ell_t, u
+\rangle$ is generalized to an arbitrary convex function $f_t(u)$, is solved
 through a reduction to \ac{OLO}~\citep{Shalev-Shwartz-2011}.
 %\ac{LEA}~\citep{Littlestone-Warmuth-1994, Vovk-1998, Cesa-Bianchi-Freund-Haussler-Helmbold-Schapire-Warmuth-1997} provides a way of combining classifiers and it is at the heart of boosting~\citep{Freund-Schapire-1997}.
 Batch and stochastic convex optimization
@@ -36,7 +36,7 @@ Orabona-2013, McMahan-Abernethy-2013, McMahan-Orabona-2014, Orabona-2014}.
 These algorithms adapt to the norm of the optimal
 predictor, without the need to tune parameters. However, their
 \emph{design and underlying intuition} is still a challenge.
-\citet{Foster-Rakhlin-Sridharan-2015} proposed a unified framework, but it is not constructive.
+%\citet{Foster-Rakhlin-Sridharan-2015} proposed a unified framework, but it is not constructive.
 %Furthermore, all
 %existing algorithms for LEA either have sub-optimal regret bound (e.g. extra
 %$\scO(\log \log T)$ factor) or sub-optimal running time (e.g.  requiring

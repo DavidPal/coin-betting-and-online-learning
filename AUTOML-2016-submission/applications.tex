@@ -17,7 +17,7 @@
 \end{algorithm}
 
 The results in Section~\ref{sec:algos} immediately implies new algorithms and
-results in convex optimization and machine learning. See \cite{Orabona-2014} and \cite{Luo-Schapire-2015} for more results.
+results in convex optimization and machine learning. See \cite{Orabona-2014} for more results.
 
 \textbf{Convex Optimization.} It is immediate to transform
 Algorithm~\ref{algorithm:hilbert-space-olo} into a \ac{SGD} algorithm.  For
@@ -103,11 +103,3 @@ that, just paying a sub-logarithmic price, we obtain the optimal convergence
 rate and we remove all the parameters.
 
 
-\begin{figure}[t]
-\centering
-\subfigure{\includegraphics[width=0.32\textwidth]{../NIPS-2016-submission/figs/yearpredictionmsd_kt-crop.pdf}}
-\subfigure{\includegraphics[width=0.32\textwidth]{../NIPS-2016-submission/figs/cpusmall_kt-crop.pdf}}
-\subfigure{\includegraphics[width=0.32\textwidth]{../NIPS-2016-submission/figs/cadata_kt-crop.pdf}}
-\caption{\footnotesize{Total loss versus learning rate parameter of \ac{OGD} (in log scale), compared with parameter-free algorithms DFEG~\cite{Orabona-2013}, Adaptive Normal~\cite{McMahan-Orabona-2014}, PiSTOL~\cite{Orabona-2014} and Algorithm~\ref{algorithm:kt-sgd}.}}
-\label{fig:exp_olo}
-\end{figure}
