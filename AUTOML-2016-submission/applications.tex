@@ -6,7 +6,7 @@ algorithms and results in convex optimization and machine learning. See
 \cite{Orabona-2014} and \cite{Luo-Schapire-2015} for more results.
 
 \begin{algorithm}[t]
-\caption{SGD algorithm based on KT potential \label{algorithm:kt-sgd}}
+\caption{SGD algorithm based on KT estimator \label{algorithm:kt-sgd}}
 \begin{algorithmic}[1]
 {
 \REQUIRE{Convex functions $f_1, f_2, \dots, f_N$ and desired number of iterations $T$}
@@ -103,14 +103,14 @@ Yet, it has almost the same guarantee \eqref{equation:optimal-rate}
 $\lambda$ or learning rate, or any other tuning parameter}.
 
 \begin{algorithm}[t]
-\caption{Averaging algorithm based on KT potential \label{algorithm:averaged-olo}}
+\caption{Averaging algorithm based on KT estimator \label{algorithm:averaged-olo}}
 \begin{algorithmic}[1]
 {
 \REQUIRE{Sample $(X_1, Y_2), (X_2, Y_2), \dots, (X_N, Y_N)$}
 \STATE{Initialize $\Wealth_0 \leftarrow 1$ and $\theta_0 \leftarrow 0$}
 \FOR{$i=1,2,\dots,N$}
 \STATE{Set $w_i \leftarrow \Wealth_{i-1} \tfrac{\theta_{i-1}}{i} $}
-\STATE{Compute $\ell_i = \frac{\partial f(w, X_i, Y_i)}{\partial w}|_{w=w_{i-1}}$}
+\STATE{Compute $\ell_i = \frac{\partial f(w, X_i, Y_i)}{\partial w}|_{w=w_i}$}
 \STATE{Update $\theta_i \leftarrow \theta_{i-1} - \ell_t$ and $\Wealth_i \leftarrow \Wealth_{i-1} - \langle \ell_i, w_i \rangle$}
 \ENDFOR
 \STATE{Output $\overline{w}_N = \tfrac{1}{N} \sum_{i=1}^N w_i$}

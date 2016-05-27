@@ -14,8 +14,9 @@ We focus on one particular decision set, the Hilbert space $\H$.  We assume
 that $\norm{\ell_t} \le 1$.
 
 \ac{OLO} is a basic building block of many machine learning problems. For
-example, \ac{OCO}, the problem analogous to \ac{OLO} where $\langle \ell_t, u
-\rangle$ is generalized to an arbitrary convex function $f_t(u)$, is solved
+example, \ac{OCO} is a problem analogous to \ac{OLO} where
+the linear function $u \mapsto \langle \ell_t, u \rangle$
+is generalized to an arbitrary convex function $f_t(u)$. \ac{OCO} is solved
 through a reduction to \ac{OLO} by feeding the algorithm $\ell_t = \grad
 f_t(w_t)$~\citep{Shalev-Shwartz-2011}.  Batch and stochastic convex
 optimization can also be solved through a reduction to \ac{OLO} by
@@ -39,6 +40,6 @@ algorithms, which are extremely simple and natural. We also show some
 applications of our results to convex optimization and machine learning.
 
 \noindent\textbf{Notation and Definitions.}
-We will use the following notation in the rest of this note.  If $\H$ is a real
-Hilbert space, $\langle \cdot, \cdot \rangle$ is its inner product and
-$\norm{\cdot}$ its induced norm.
+We will use the following notation in the rest of this note.  $\H$ denotes
+a real Hilbert space, $\langle \cdot, \cdot \rangle$ is its inner product and
+$\norm{\cdot} = \sqrt{\langle \cdot, \cdot \rangle}$ is its induced norm.

@@ -2,7 +2,7 @@
 \label{section:algorithms}
 
 \begin{algorithm}[t]
-\caption{Algorithm for OLO over Hilbert space $\H$
+\caption{Algorithm for OLO over Hilbert space $\H$ based on Krichevsky-Trofimov estimator
 \label{algorithm:hilbert-space-olo}}
 \begin{algorithmic}[1]
 {
@@ -30,9 +30,8 @@ $$
 $$
 \end{theorem}
 
-We describe intuition about the algorithm and proof of the theorem.
-Algorithm~\ref{algorithm:hilbert-space-olo}
-is based on the adversarial coin-betting problem.
+Algorithm~\ref{algorithm:hilbert-space-olo} is derived from the
+Krichevsky-Trofimov solution to the adversarial coin-betting problem.
 
 \textbf{Adversarial Coin Betting.}
 Consider a gambler making repeated bets on the outcomes of adversarial coin
@@ -78,18 +77,20 @@ fraction of heads. Namely,
 if we denote by $\Wealth_t(\beta)$ the wealth of the strategy that bets fraction
 $\beta$ in every round, then the wealth of Krichevsky-Trofimov betting strategy
 satisfies
-$$
+\begin{equation}
+\label{equation:kt-wealth-lower-bound}
 \forall \beta \in [-1,1] \qquad \Wealth_t \ge \frac{\Wealth_t(\beta)}{2\sqrt{t}} \; .
-$$
+\end{equation}
 Moreover, this guarantee is optimal up to constant factors~\citep{Cesa-Bianchi-Lugosi-2006}.
 
 \textbf{From betting to \ac{OLO}.}
 In Algorithm~\ref{algorithm:hilbert-space-olo}, the ``coin outcome'' is the
-vector $c_t \in \H$ where $c_t = -\ell_t$ and algorithm's wealth is $\Wealth_t = 1 + \sum_{i=1}^t
-\langle c_i, w_i \rangle = 1 - \sum_{i=1}^t \langle \ell_i, w_i \rangle$.  The algorithm explicitly keeps track of its wealth.
-and it bets ``vectorial fraction'' $\beta_t = \tfrac{\sum_{i=1}^{t-1} c_i}{t} =
-- \tfrac{\sum_{i=1}^{t-1}\ell_i}{t}$
-of its current wealth. The regret bound
+vector $c_t \in \H$ where $c_t = -\ell_t$ and algorithm's wealth is $\Wealth_t
+= 1 + \sum_{i=1}^t \langle c_i, w_i \rangle = 1 - \sum_{i=1}^t \langle \ell_i,
+w_i \rangle$.  The algorithm explicitly keeps track of its wealth and it bets
+``vectorial fraction'' $\beta_t = \tfrac{\sum_{i=1}^{t-1} c_i}{t} = -
+\tfrac{\sum_{i=1}^{t-1}\ell_i}{t}$ of its current wealth. The regret bound
 (Theorem~\ref{theorem:hilbert-space-olo-regret}) is a consequence of
-Krichevsky-Trofimov lower bound on the wealth and the duality between regret
-and wealth.  For more details, see~\cite{Orabona-Pal-2016-parameter-free}.
+Krichevsky-Trofimov lower bound~\eqref{equation:kt-wealth-lower-bound} on the
+wealth and the duality between regret and wealth.  For more details,
+see~\cite{Orabona-Pal-2016-parameter-free}.
