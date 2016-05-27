@@ -9,11 +9,12 @@ algorithms and results in convex optimization and machine learning. See
 \caption{SGD algorithm based on KT potential \label{algorithm:kt-sgd}}
 \begin{algorithmic}[1]
 {
+\REQUIRE{Convex functions $f_1, f_2, \dots, f_N$ and desired number of iterations $T$}
 \STATE{Initialize $\Wealth_0 \leftarrow 1$ and $\theta_0 \leftarrow 0$}
 \FOR{$t=1,2,\dots,T$}
 \STATE{Set $w_t \leftarrow \Wealth_{t-1} \tfrac{\theta_{t-1}}{t} $}
-\STATE{Select an index $j$ at random from $\{1,2,\dots,N\}$ and compute $h_t \in \partial \ell_j(w_{t-1})$}
-\STATE{Update $\theta_t \leftarrow \theta_{t-1} - h_t$ and $\Wealth_t \leftarrow \Wealth_{t-1} - \langle h_t, w_t \rangle$}
+\STATE{Select an index $j$ at random from $\{1,2,\dots,N\}$ and compute $\ell_t = \grad f_j(w_{t-1})$}
+\STATE{Update $\theta_t \leftarrow \theta_{t-1} - \ell_t$ and $\Wealth_t \leftarrow \Wealth_{t-1} - \langle \ell_t, w_t \rangle$}
 \ENDFOR
 \STATE{Output $\overline{w}_T = \tfrac{1}{T}\sum_{t=1}^T w_t$}
 }
@@ -25,15 +26,15 @@ Consider an emprical risk minimization problem of the form
 %
 \begin{equation}
 \label{equation:objective-function}
-F(w) = \frac{1}{N} \sum_{i=1}^N \ell_i(w),
+F(w) = \frac{1}{N} \sum_{i=1}^N f_i(w),
 \end{equation}
 %
-where $\ell_i:\R^d \to \R$ is convex.\footnote{The algorithm can also be
+where $f_i:\R^d \to \R$ is convex.\footnote{The algorithm can also be
 implemented and analyzed with kernels~\citep{Orabona-2014}.} It is immediate to
 transform Algorithm~\ref{algorithm:hilbert-space-olo} into a \ac{SGD} algorithm
-for this problem. In Algorithm~\ref{algorithm:kt-sgd}, $\partial\ell_j(w)$
-denotes the set of subgradients of $\ell_j$ at a point $w$.  We assume that the
-norm of the subgradient of $\ell_j$ is bounded by $1$.
+for this problem. In Algorithm~\ref{algorithm:kt-sgd}, $\grad f_j(w)$
+denotes a subgradient of $f_j$ at a point $w$.  We assume that the
+norm of the subgradient of $f_j$ is bounded by $1$.
 
 Beside the simplicity of the Algorithm~\ref{algorithm:kt-sgd}, it has the
 important property is that it \emph{does not have a learning rate to be tuned},
@@ -54,15 +55,16 @@ than $N$.
 
 \textbf{Machine Learning.} In machine learning, the minimization of a function
 \eqref{equation:objective-function} is just a proxy to minimize the \emph{true
-risk} over an unknown distribution. For example, $\ell_i(w)$ can be a
-regression loss, e.g. the logistic loss, over i.i.d. samples $\{(X_i,
-Y_i)\}_{i=1}^N$. That is, $\ell_i(w)=\ell(w,X_i,Y_i)$. A common approach to
+risk} over an unknown distribution. For example, $f_i(w)$ can be a
+regression loss, e.g. the logistic loss, over samples $\{(X_i,
+Y_i)\}_{i=1}^N$ generated i.i.d. from some \emph{unknown} distribution.
+That is, $f_i(w)=f(w,X_i,Y_i)$. A common approach to
 have a small risk on the test set is to minimize a regularized objective
 function:
 %
 \begin{equation}
-\label{eq:reg_logloss}
-F_\lambda^{\text{Reg}}(w) = \lambda \norm{w}^2 + \frac{1}{N} \sum_{i=1}^N \ell(w, X_i, Y_i) \; .
+\label{equation:reg_logloss}
+F_\lambda^{\text{Reg}}(w) = \lambda \norm{w}^2 + \frac{1}{N} \sum_{i=1}^N f(w, X_i, Y_i) \; .
 \end{equation}
 %
 This problem is strongly convex, so there are very efficient methods to
@@ -70,15 +72,15 @@ minimize it, hence we can assume to be able to get the minimizer of
 $F_\lambda^{\text{Reg}}$ with arbitrary high precision. Yet, this is not
 enough. In fact, we are rarely interested in the value of the objective
 function $F_\lambda^{\text{Reg}}$ or its mimizer, rather we are interested in
-the \emph{true risk} of a solution $w$, that is $\Exp[\ell(w,X,Y)]$ where $X,Y$
-comes from the same \emph{unknown distribution} from which the training set
-$\{(X_i,Y_i)\}_{i=1}^N$ and future test points come from. Hence, in order to
-get a good performance we have to select a good regularization parameter. In
-particular, from \cite{Sridharan-Shalev-Shwartz-Srebro-2009} we get
+the \emph{true risk} of a solution $w$, that is $\Exp[f(w,X,Y)]$ where $(X,Y)$
+is an indepedent ``test'' sample from the same distribution from which the
+training set $\{(X_i,Y_i)\}_{i=1}^N$ came from. Hence, in order to get a good
+performance we have to select a good regularization parameter. In particular,
+from \cite{Sridharan-Shalev-Shwartz-Srebro-2009} we get
 \[
-\Exp[\ell(\widehat{w},X,Y)] - \Exp[\ell(w^*,X,Y)] \le O(\lambda \norm{w^*}^2 + \tfrac{1}{\lambda N}),
+\Exp[f(\widehat{w},X,Y)] - \Exp[f(w^*,X,Y)] \le O(\lambda \norm{w^*}^2 + \tfrac{1}{\lambda N}) \; ,
 \]
-where $w^*=\argmin_w \Exp[\ell(w,X,Y)]$ and $\widehat{w} = \argmin_w
+where $w^*=\argmin_w \Exp[f(w,X,Y)]$ and $\widehat{w} = \argmin_w
 F_\lambda^{\text{Reg}}(w)$.  From the above bound, it is clear that the optimal value
 of $\lambda$ depends on the $\norm{w^*}$ that is unknown. We would like to
 stress that this is not just a theoretical problem: Any practictioner knows how
@@ -88,22 +90,39 @@ Assuming we would know $\norm{w^*}$, we could set $\lambda = O(1/(\norm{w^*}
 %
 \begin{equation}
 \label{equation:optimal-rate}
-\Exp[\ell(\widehat{w},X,Y)] - \Exp[\ell(w^*,X,Y)] \le O\left(\tfrac{\norm{w^*}}{\sqrt{N}}\right) \; .
+\Exp[f(\widehat{w},X,Y)] - \Exp[f(w^*,X,Y)] \le O\left(\tfrac{\norm{w^*}}{\sqrt{N}}\right) \; .
 \end{equation}
+We can get the same guarantee without knowing $\norm{w}^*$ or optimal $\lambda$
+by doing a single pass over the data set. More precisely, we derive
+Algorithm~\ref{algorithm:averaged-olo} from
+Algorithm~\ref{algorithm:hilbert-space-olo} by applying the standard
+online-to-batch reduction~\citep{Shalev-Shwartz-2011}.  The algorithm makes
+only single pass over the dataset and it doesn't have any tuning parameters.
+Yet, it has almost the same guarantee \eqref{equation:optimal-rate}
+\emph{without knowing $\norm{w^*}$ or optimal regularization parameter
+$\lambda$ or learning rate, or any other tuning parameter}.
 
-Using Algorithm~\ref{algorithm:hilbert-space-olo} with only single pass over
-the dataset, we get almost the same guarantee \eqref{equation:optimal-rate}
-\emph{without knowing $\norm{w^*}$, and without tuning any parameters, learning
-rates, regularization parameters, etc.}
+\begin{algorithm}[t]
+\caption{Averaging algorithm based on KT potential \label{algorithm:averaged-olo}}
+\begin{algorithmic}[1]
+{
+\REQUIRE{Sample $(X_1, Y_2), (X_2, Y_2), \dots, (X_N, Y_N)$}
+\STATE{Initialize $\Wealth_0 \leftarrow 1$ and $\theta_0 \leftarrow 0$}
+\FOR{$i=1,2,\dots,N$}
+\STATE{Set $w_i \leftarrow \Wealth_{i-1} \tfrac{\theta_{i-1}}{i} $}
+\STATE{Compute $\ell_i = \frac{\partial f(w, X_i, Y_i)}{\partial w}|_{w=w_{i-1}}$}
+\STATE{Update $\theta_i \leftarrow \theta_{i-1} - \ell_t$ and $\Wealth_i \leftarrow \Wealth_{i-1} - \langle \ell_i, w_i \rangle$}
+\ENDFOR
+\STATE{Output $\overline{w}_N = \tfrac{1}{N} \sum_{i=1}^N w_i$}
+}
+\end{algorithmic}
+\end{algorithm}
 %
 \begin{theorem}
-Assume that $(X, Y), (X_1, Y_1), (X_2, Y_2), \dots, (X_N,Y_N)$ are i.i.d.  and
-let $\ell_t(w) = \ell(w,X_t,Y_t)$. Feed
-Algorithm~\ref{algorithm:hilbert-space-olo} with $g_t = - \partial
-\ell_t(w_t)$. Then the average $\overline{w}_N = \frac{1}{N} \sum_{i=1}^N w_i$
-of algorithm's predictions satisfies
+Assume that $(X, Y), (X_1, Y_1), (X_2, Y_2), \dots, (X_N,Y_N)$ are i.i.d.  The
+output $\overline{w}_N$ of Algorithm~\ref{algorithm:averaged-olo} satisfies
 $$
-\Exp[\ell(\overline{w}_N,X,Y)] - \Exp[\ell(w^*,X,Y)] \le \frac{\norm{w^*}}{\sqrt{N}} \sqrt{\log(1+4 N^2 \norm{w^*}^2)} + \tfrac{1}{N} \; .
+\Exp[f(\overline{w}_N,X,Y)] - \Exp[f(w^*,X,Y)] \le \frac{\norm{w^*}}{\sqrt{N}} \sqrt{\log(1+4 N^2 \norm{w^*}^2)} + \tfrac{1}{N} \; .
 $$
 \end{theorem}
 %
