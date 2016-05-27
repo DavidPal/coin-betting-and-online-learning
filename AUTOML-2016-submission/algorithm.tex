@@ -1,0 +1,96 @@
+\section{Parameter-Free Algorithms}
+\label{section:algorithms}
+
+\begin{algorithm}[t]
+\caption{Algorithm for OLO over Hilbert space $\H$ based on Krichevsky-Trofimov estimator
+\label{algorithm:hilbert-space-olo}}
+\begin{algorithmic}[1]
+{
+\FOR{$t=1,2,\dots$}
+\STATE{Predict with $w_t \leftarrow - \tfrac{1}{t} \left(1 - \sum_{i=1}^{t-1} \langle \ell_i, w_i \rangle \right) \sum_{i=1}^{t-1} \ell_i$}
+\STATE{Receive loss vector $\ell_t \in \H$ such that $\norm{\ell_t} \le 1$}
+\ENDFOR
+}
+\end{algorithmic}
+\end{algorithm}
+
+Our new algorithm for \ac{OLO} over a Hilbert space $\H$ is stated as
+Algorithm~\ref{algorithm:hilbert-space-olo}.  The theorem below upper bound its
+regret, the proof can be found in~\cite{Orabona-Pal-2016-parameter-free}.
+
+\begin{theorem}[Regret Bound for Algorithm~\ref{algorithm:hilbert-space-olo}]
+\label{theorem:hilbert-space-olo-regret}
+Let $\{\ell_t\}_{t=1}^\infty$ be any sequence of loss vectors
+in a Hilbert space $\H$ such that $\norm{\ell_t} \le 1$.
+Algorithm~\ref{algorithm:hilbert-space-olo} satisfies
+$$
+\forall \, T \ge 0 \quad
+\forall u \in \H \qquad \qquad
+\Regret_T(u) \le \norm{u} \sqrt{T \ln\left(1 + 4T^2 \norm{u}^2 \right)} + 1 \;.
+$$
+\end{theorem}
+
+Algorithm~\ref{algorithm:hilbert-space-olo} is derived from the
+Krichevsky-Trofimov solution to the adversarial coin-betting problem.
+
+\textbf{Adversarial Coin Betting.}
+Consider a gambler making repeated bets on the outcomes of adversarial coin
+flips. The gambler starts with an initial endowment of $1$ dollar. In each
+round $t$, he bets on the outcome of a coin flip $c_t \in \{-1,1\}$, where $+1$
+denotes heads and $-1$ denotes tails.  The outcome $c_t$ is chosen by an
+adversary.  The gambler can bet any amount on either heads or tails. However,
+he cannot borrow any additional money. If he loses, he loses the betted amount;
+if he wins, he gets the betted amount back and, in addition to that, he gets
+the same amount as a reward.  We encode the gambler's bet in round $t$ by a
+single number $\beta_t \in [-1,1]$. The sign of $\beta_t$ encodes whether he is
+betting on heads or tails. The absolute value encodes the betted amount as the
+fraction of his current wealth.  Let $\Wealth_t$ be gambler's wealth at the end
+of round $t$. It satisfies
+\begin{align}
+\label{equation:wealth-recurrence}
+\Wealth_0 & = 1 &
+& \text{and} &
+\Wealth_t & = (1 + c_t \beta_t) \Wealth_{t-1} \qquad \text{for $t \ge 1$} \; .
+\end{align}
+Note that since $\beta_t \in [-1,1]$, gambler's wealth stays always
+non-negative.
+
+\textbf{Kelly Betting and Krichevsky-Trofimov Estimator.}
+For sequential betting on i.i.d. coin flips, the optimal strategy has been
+proposed by \citet{Kelly-1956}.  The strategy assumes that the coin flips
+$\{c_t\}_{t=1}^\infty$, $c_t \in \{+1,-1\}$, are generated i.i.d. with known
+probability of heads. If $p \in [0,1]$ is the probability of heads, the Kelly
+bet is $\beta_t = 2p - 1$. He showed that, in the long run, this strategy will
+provide more wealth than betting any other fixed fraction~\cite{Kelly-1956}.
+
+For adversarial coins, Kelly betting does not make sense.
+\citet{Krichevsky-Trofimov-1981} proposed to replace $p$ with an estimate:
+After seeing coin flips $c_1, c_2, \dots, c_{t-1}$, use the empirical
+estimate $k_t = \frac{1/2 + \sum_{i=1}^{t-1} \indicator[c_i = +1]}{t}$. Their
+estimate is commonly called \emph{KT estimator}\footnote{Compared to the
+standard maximum likelihood estimate $\frac{\sum_{i=1}^{t-1} \indicator[c_i =
++1]}{t-1}$, KT estimator ``shrinks'' slightly towards $\frac{1}{2}$.} and it
+results in the betting strategy $\beta_t = 2k_t - 1 = \tfrac{\sum_{i=1}^{t-1}
+c_i}{t}$.  \citeauthor{Krichevsky-Trofimov-1981} showed that this strategy
+guarantees almost the same wealth that one would obtain knowing in advance the
+fraction of heads. Namely, 
+if we denote by $\Wealth_t(\beta)$ the wealth of the strategy that bets fraction
+$\beta$ in every round, then the wealth of Krichevsky-Trofimov betting strategy
+satisfies
+\begin{equation}
+\label{equation:kt-wealth-lower-bound}
+\forall \beta \in [-1,1] \qquad \Wealth_t \ge \frac{\Wealth_t(\beta)}{2\sqrt{t}} \; .
+\end{equation}
+Moreover, this guarantee is optimal up to constant factors~\citep{Cesa-Bianchi-Lugosi-2006}.
+
+\textbf{From betting to \ac{OLO}.}
+In Algorithm~\ref{algorithm:hilbert-space-olo}, the ``coin outcome'' is the
+vector $c_t \in \H$ where $c_t = -\ell_t$ and algorithm's wealth is $\Wealth_t
+= 1 + \sum_{i=1}^t \langle c_i, w_i \rangle = 1 - \sum_{i=1}^t \langle \ell_i,
+w_i \rangle$.  The algorithm explicitly keeps track of its wealth and it bets
+``vectorial fraction'' $\beta_t = \tfrac{\sum_{i=1}^{t-1} c_i}{t} = -
+\tfrac{\sum_{i=1}^{t-1}\ell_i}{t}$ of its current wealth. The regret bound
+(Theorem~\ref{theorem:hilbert-space-olo-regret}) is a consequence of
+Krichevsky-Trofimov lower bound~\eqref{equation:kt-wealth-lower-bound} on the
+wealth and the duality between regret and wealth.  For more details,
+see~\cite{Orabona-Pal-2016-parameter-free}.

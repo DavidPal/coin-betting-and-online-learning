@@ -1,107 +1,131 @@
 \section{From Online Learning to Convex Optimization and Machine Learning}
 \label{section:applications}
 
+The results in Section~\ref{section:algorithms} immediately implies new
+algorithms and results in convex optimization and machine learning. See
+\cite{Orabona-2014} and \cite{Luo-Schapire-2015} for more results.
+
 \begin{algorithm}[t]
-\caption{SGD algorithm based on KT potential \label{algorithm:kt-sgd}}
+\caption{SGD algorithm based on KT estimator \label{algorithm:kt-sgd}}
 \begin{algorithmic}[1]
 {
+\REQUIRE{Convex functions $f_1, f_2, \dots, f_N$ and desired number of iterations $T$}
 \STATE{Initialize $\Wealth_0 \leftarrow 1$ and $\theta_0 \leftarrow 0$}
 \FOR{$t=1,2,\dots,T$}
-\STATE{Set $x_t \leftarrow \Wealth_{t-1} \tfrac{\theta_{t-1}}{t} $}
-\STATE{Select an index $j$ at random from $\{1,2,\dots,N\}$ and compute $g_t \in \partial \ell_j(x_{t-1})$}
-\STATE{Update $\theta_t \leftarrow \theta_{t-1}-g_t$ and $\Wealth_t \leftarrow \Wealth_{t-1} - \langle g_t, x_t \rangle$}
+\STATE{Set $w_t \leftarrow \Wealth_{t-1} \tfrac{\theta_{t-1}}{t} $}
+\STATE{Select an index $j$ at random from $\{1,2,\dots,N\}$ and compute $\ell_t = \grad f_j(w_{t-1})$}
+\STATE{Update $\theta_t \leftarrow \theta_{t-1} - \ell_t$ and $\Wealth_t \leftarrow \Wealth_{t-1} - \langle \ell_t, w_t \rangle$}
 \ENDFOR
-\STATE{Output $\overline{x}_T=\tfrac{1}{T}\sum_{t=1}^T x_t$}
+\STATE{Output $\overline{w}_T = \tfrac{1}{T}\sum_{t=1}^T w_t$}
 }
 \end{algorithmic}
 \end{algorithm}
 
-The results in Section~\ref{sec:algos} immediately implies new algorithms and
-results in convex optimization and machine learning. See \cite{Orabona-2014} for more results.
-
-\textbf{Convex Optimization.} 
+\textbf{Convex Optimization.}
 Consider an emprical risk minimization problem of the form
 %
 \begin{equation}
 \label{equation:objective-function}
-\widehat{F}(w) = \frac{1}{N} \sum_{i=1}^N \ell_t(w),
+F(w) = \frac{1}{N} \sum_{i=1}^N f_i(w),
 \end{equation}
 %
-where $\ell_t$ is convex and $w \in \R^d$.\footnote{The algorithm can also be
+where $f_i:\R^d \to \R$ is convex.\footnote{The algorithm can also be
 implemented and analyzed with kernels~\citep{Orabona-2014}.} It is immediate to
 transform Algorithm~\ref{algorithm:hilbert-space-olo} into a \ac{SGD} algorithm
-for this problem. In Algorithm~\ref{algorithm:kt-sgd}, $\partial\ell_t(x)$
-denotes the subgradient set of $\ell_t$ at a point $x$.  We assume that the
-norm of the subgradient of $\ell_t$ is bounded by $1$.
+for this problem. In Algorithm~\ref{algorithm:kt-sgd}, $\grad f_j(w)$
+denotes a subgradient of $f_j$ at a point $w$.  We assume that the
+norm of the subgradient of $f_j$ is bounded by $1$.
 
-Beside the simplicity of the algorithm, its important property is that it
-\emph{does not have a learning rate to be tuned}, yet it achieves the optimal
-convergence rate. If $\widehat{w} = \argmin_w \widehat{F}(w)$ is the optimal
-solution of~\eqref{equation:objective-function}, the following theorem states
-the rate of convergence.
+Beside the simplicity of the Algorithm~\ref{algorithm:kt-sgd}, it has the
+important property is that it \emph{does not have a learning rate to be tuned},
+yet it achieves the optimal convergence rate. If $\widehat{w} = \argmin_w F(w)$
+is the optimal solution of~\eqref{equation:objective-function}, the following
+theorem states the rate of convergence.
 %
 \begin{theorem}
-After $T$ iterations of Algorithm~\ref{algorithm:kt-sgd}, $\overline{w}_T$ is
-an approximate minimizer of the function \eqref{equation:objective-function}:
+The average $\overline{w}_T$ produced by Algorithm~\ref{algorithm:kt-sgd} is
+an approximate minimizer of the objective function \eqref{equation:objective-function}:
 \[
-\Exp\left[\widehat{F}(\overline{w}_T)\right] - \widehat{F}(\widehat{w}) \leq \tfrac{\norm{\widehat{w}}}{\sqrt{T}} \sqrt{\log(1+4 T^2 \norm{\widehat{w}}^2)} +\tfrac{1}{T} \; .
+\Exp\left[F(\overline{w}_T)\right] - F(\widehat{w}) \leq \tfrac{\norm{\widehat{w}}}{\sqrt{T}} \sqrt{\log(1+4 T^2 \norm{\widehat{w}}^2)} +\tfrac{1}{T} \; .
 \]
 \end{theorem}
 %
 Note that in the above theorem, $T$ can be larger (multiple epochs) or smaller
 than $N$.
 
-\textbf{Machine Learning.} In a machine learning view, the minimization of a
-function \eqref{equation:objective-function} is just a proxy to minimize the
-\emph{true risk} over an unknown distribution. For example, $\ell_t(w)$ can be
-a regression loss, e.g. the logistic loss, over samples $(x_t, y_t)$. That is,
-$\ell_t(w)=\ell(w,x_t,y_t)$. A common approach to have a small
-risk on the test set is to minimize a regularized objective function:
+\textbf{Machine Learning.} In machine learning, the minimization of a function
+\eqref{equation:objective-function} is just a proxy to minimize the \emph{true
+risk} over an unknown distribution. For example, $f_i(w)$ can be a
+regression loss, e.g. the logistic loss, over samples $\{(X_i,
+Y_i)\}_{i=1}^N$ generated i.i.d. from some \emph{unknown} distribution.
+That is, $f_i(w)=f(w,X_i,Y_i)$. A common approach to
+have a small risk on the test set is to minimize a regularized objective
+function:
 %
 \begin{equation}
-\label{eq:reg_logloss}
-\widehat{F}^{\text{Reg}}(w) = \lambda \norm{w}^2 + \frac{1}{N} \sum_{i=1}^N \ell(w,x_t,y_t) \; .
+\label{equation:reg_logloss}
+F_\lambda^{\text{Reg}}(w) = \lambda \norm{w}^2 + \frac{1}{N} \sum_{i=1}^N f(w, X_i, Y_i) \; .
 \end{equation}
 %
 This problem is strongly convex, so there are very efficient methods to
 minimize it, hence we can assume to be able to get the minimizer of
-$\widehat{F}^{\text{Reg}}$ with arbitrary high precision. Yet, this is not
+$F_\lambda^{\text{Reg}}$ with arbitrary high precision. Yet, this is not
 enough. In fact, we are rarely interested in the value of the objective
-function, rather we are interested in the \emph{true risk} of a solution $w$,
-that is $\Exp[\ell(w,X,Y)]$ where $X,Y$ comes from the unknown distribution
-from which we sample the training and test points.  Hence, in order to get a
-good performance we have to select a good regularization parameter. In
-particular, from \cite{Sridharan-Shalev-Shwartz-Srebro-2009} we get
+function $F_\lambda^{\text{Reg}}$ or its mimizer, rather we are interested in
+the \emph{true risk} of a solution $w$, that is $\Exp[f(w,X,Y)]$ where $(X,Y)$
+is an indepedent ``test'' sample from the same distribution from which the
+training set $\{(X_i,Y_i)\}_{i=1}^N$ came from. Hence, in order to get a good
+performance we have to select a good regularization parameter. In particular,
+from \cite{Sridharan-Shalev-Shwartz-Srebro-2009} we get
 \[
-\Exp[\ell(\widehat{w},X,Y)] - \Exp[\ell(w^*,X,Y)] \le O(\lambda \norm{w^*}^2 + \tfrac{1}{\lambda N}),
+\Exp[f(\widehat{w},X,Y)] - \Exp[f(w^*,X,Y)] \le O(\lambda \norm{w^*}^2 + \tfrac{1}{\lambda N}) \; ,
 \]
-where $w^*=\argmin_w \Exp[\ell(w,X,Y)]$.  From the above bound, it is clear
-that the optimal value of $\lambda$ depends on the $\norm{w^*}$ that is
-unknown. We would like to stress that this is not just a theoretical problem:
-Any practictioner knows how painfull it is to find the right regularization for
-the problem at hand.  Assuming to know $\norm{w^*}$, we could set $\lambda =
-O(1/(\norm{w^*} \sqrt{N}))$ to achieve
+where $w^*=\argmin_w \Exp[f(w,X,Y)]$ and $\widehat{w} = \argmin_w
+F_\lambda^{\text{Reg}}(w)$.  From the above bound, it is clear that the optimal value
+of $\lambda$ depends on the $\norm{w^*}$ that is unknown. We would like to
+stress that this is not just a theoretical problem: Any practictioner knows how
+painfull it is to find the right regularization for the problem at hand.
+Assuming we would know $\norm{w^*}$, we could set $\lambda = O(1/(\norm{w^*}
+\sqrt{N}))$ to achieve
 %
 \begin{equation}
 \label{equation:optimal-rate}
-\Exp[\ell(\widehat{w},X,Y)] - \Exp[\ell(w^*,X,Y)] \le O\left(\tfrac{\norm{w^*}}{\sqrt{N}}\right) \; .
+\Exp[f(\widehat{w},X,Y)] - \Exp[f(w^*,X,Y)] \le O\left(\tfrac{\norm{w^*}}{\sqrt{N}}\right) \; .
 \end{equation}
+We can get the same guarantee without knowing $\norm{w}^*$ or optimal $\lambda$
+by doing a single pass over the data set. More precisely, we derive
+Algorithm~\ref{algorithm:averaged-olo} from
+Algorithm~\ref{algorithm:hilbert-space-olo} by applying the standard
+online-to-batch reduction~\citep{Shalev-Shwartz-2011}.  The algorithm makes
+only single pass over the dataset and it doesn't have any tuning parameters.
+Yet, it has almost the same guarantee \eqref{equation:optimal-rate}
+\emph{without knowing $\norm{w^*}$ or optimal regularization parameter
+$\lambda$ or learning rate, or any other tuning parameter}.
 
-Using again Algorithm~\ref{algorithm:kt-sgd} with only one pass over the
-dataset, we get almost the same guarantee \eqref{equation:optimal-rate}
-\emph{without tuning any parameters, learning rates, regularization parameters,
-etc.}
+\begin{algorithm}[t]
+\caption{Averaging algorithm based on KT estimator \label{algorithm:averaged-olo}}
+\begin{algorithmic}[1]
+{
+\REQUIRE{Sample $(X_1, Y_2), (X_2, Y_2), \dots, (X_N, Y_N)$}
+\STATE{Initialize $\Wealth_0 \leftarrow 1$ and $\theta_0 \leftarrow 0$}
+\FOR{$i=1,2,\dots,N$}
+\STATE{Set $w_i \leftarrow \Wealth_{i-1} \tfrac{\theta_{i-1}}{i} $}
+\STATE{Compute $\ell_i = \frac{\partial f(w, X_i, Y_i)}{\partial w}|_{w=w_i}$}
+\STATE{Update $\theta_i \leftarrow \theta_{i-1} - \ell_t$ and $\Wealth_i \leftarrow \Wealth_{i-1} - \langle \ell_i, w_i \rangle$}
+\ENDFOR
+\STATE{Output $\overline{w}_N = \tfrac{1}{N} \sum_{i=1}^N w_i$}
+}
+\end{algorithmic}
+\end{algorithm}
 %
 \begin{theorem}
-Shuffle the dataset and do only one pass over the training set, using
-$\ell_t(w)=\ell(w,x_t,y_t)$.  Algorithm~\ref{algorithm:kt-sgd}
-satisfies
+Assume that $(X, Y), (X_1, Y_1), (X_2, Y_2), \dots, (X_N,Y_N)$ are i.i.d.  The
+output $\overline{w}_N$ of Algorithm~\ref{algorithm:averaged-olo} satisfies
 $$
-\Exp[\ell(\overline{w}_N,X,Y)] - \Exp[\ell(w^*,X,Y)] \le \frac{\norm{w^*}}{\sqrt{N}} \sqrt{\log(1+4 N^2 \norm{w^*}^2)} + \tfrac{1}{N} \; .
+\Exp[f(\overline{w}_N,X,Y)] - \Exp[f(w^*,X,Y)] \le \frac{\norm{w^*}}{\sqrt{N}} \sqrt{\log(1+4 N^2 \norm{w^*}^2)} + \tfrac{1}{N} \; .
 $$
 \end{theorem}
 %
 Comparing this guarantee to the one in \eqref{equation:optimal-rate}, we see
 that, just paying a sub-logarithmic price, we obtain the optimal convergence
 rate and we remove all the parameters.
-

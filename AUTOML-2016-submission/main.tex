@@ -21,6 +21,7 @@
 \DeclareMathOperator*{\argmax}{arg\,max}
 \newcommand{\indicator}{\mathbf{1}}
 \newcommand{\scO}{\mathcal{O}}  % big-Oh
+\newcommand{\grad}{\nabla}
 
 \begin{acronym}
 \acro{EG}{Exponentiated Gradient}
@@ -63,9 +64,9 @@
 \maketitle
 
 \begin{abstract}
-We present a new parameter-free algorithm for online linear optimization over a
-Hilbert space. It is theoretically optimal, with regret guarantees as good as
-with the best possible learning rate. The algorithm is simple and easy to
+We present a new parameter-free algorithm for online linear optimization over
+any Hilbert space. It is theoretically optimal, with regret guarantees as good
+as with the best possible learning rate. The algorithm is simple and easy to
 implement. The analysis is given via the adversarial coin-betting game, Kelly
 betting and the Krichevsky-Trofimov estimator. Applications to obtain
 parameter-free convex optimization and machine learning algorithms are shown.
@@ -73,12 +74,9 @@ parameter-free convex optimization and machine learning algorithms are shown.
 
 \input{introduction}
 \input{learning-rates}
-\input{algorithms}
-\input{design-and-analysis}
+\input{algorithm}
 \input{applications}
 \input{experiments}
-
-\newpage
 
 % Acknowledgments---Will not appear in anonymized version
 \acks{The authors thank Jacob Abernethy, Nicol\`{o} Cesa-Bianchi, Satyen Kale, Chansoo Lee, and Giuseppe Molteni for useful discussions on this work.}
