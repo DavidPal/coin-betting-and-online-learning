@@ -372,6 +372,94 @@ and the final bound
 \exp\left( \frac{x^2}{2 \alpha T} +(\beta-\frac{1}{2\alpha})\log T\right) - T^\beta
 \]
 
+
+\section{Data-dependent bound}
+
+\begin{lemma}
+Let $K$ such that $exp(-2K)-1+K=0$, that is $K=0.796812\cdots$. Then for $a\geq K$, we have
+\[
+\exp(a x -a x^2) -1\leq a x, \forall x\in [-1,1]~.
+\]
+\end{lemma}
+
+Let's use the potential $F_t(x)=\int_{-\tfrac{1}{K}}^{\tfrac{1}{K}} \exp(\beta a \sum_{i=1}^t g_i - a \beta^2 \sum_{i=1}^t g_i^2) d\beta$ and prediction equal to $\beta_{t}=a \int_{-\tfrac{1}{K}}^{\tfrac{1}{K}} \beta \exp(a \beta \sum_{i=1}^{t-1} g_i - a \beta^2 \sum_{i=1}^{t-1} g_i^2) d\beta$, where $|g_t|\leq G$.
+
+We want to prove that
+\[
+F_t(x+g_t) - F_{t-1} -\beta_t g_t \leq 0
+\]
+Hence we have
+\begin{align}
+F_t(x+g_t) - F_{t-1} -\beta_t g_t 
+&=\int_{-\tfrac{1}{K}}^{\tfrac{1}{K}} \left(\exp(a \beta \sum_{i=1}^{t-1} g_i - a \beta^2 \sum_{i=1}^{t-1} g_i^2)(\exp(a \beta g_t-a g_t^2 \beta^2) -1 - a \beta g_t\right) d\beta \leq 0,
+\end{align}
+where we used the fact that $\exp(a x-a x^2)\leq 1+ a x, \forall x\in[-1,1]$, and $\frac{|g|}{K}\leq 1$.
+
+Also, we have
+\[
+\int_{-\tfrac{1}{K}}^{\tfrac{1}{K}} \exp(a \beta \theta - a \beta^2 S) d\beta 
+= \frac{\exp(\frac{a \theta^2}{4 S}) \sqrt{\pi} (erf(\sqrt{a}\frac{\frac{2 S}{K}-\theta}{2 \sqrt{S}})+erf(\sqrt{a}\frac{\frac{2 S}{K}+\theta}{2 \sqrt{S}}))}{2 \sqrt{a} \sqrt{S}}
+\]
+where $S>0$.
+
+For simplicity, let $K=1$.
+
+\begin{theorem}
+\[
+\int_{-1}^{1} \exp(a \beta \theta - a \beta^2 S) d\beta 
+\geq \min\left(\frac{\exp(a(\frac{\theta^2}{4 S}-\frac{1}{2})) -1}{\sqrt{2S}},\frac{1}{2} \exp(a \theta/8)\right)
+\]
+\end{theorem}
+%
+\begin{proof}
+Denote  by $\beta^*$ the $\beta$ that maximizes $\exp(a \beta \theta - a \beta^2 S)$, that is $\beta^*=\tfrac{\theta}{2 S}$.
+Assume that $\theta\geq0$, the reasoning is analougous for $\theta<0$.
+
+\textbf{First case: $\beta^*\geq \tfrac{1}{\sqrt{2 S}}$}.
+
+Let $[u,v] \subseteq [-1,1]$, and $v \leq \beta^*$.
+Then, we have
+\[
+\int_{-1}^{1} \exp(a \beta \theta - a \beta^2 S) d\beta 
+\geq \int_{u}^{v} \exp(a \beta \theta - a \beta^2 S) d\beta
+\geq (v-u) \exp(a u \theta - a u^2 S)~.
+\]
+Assume first that $\beta^*\leq 1$. Then, taking  we have $u=\beta^*-\tfrac{1}{\sqrt{2S}}$ and $v=\beta^*$.
+\begin{align}
+\int_{-1}^{1} \exp(a \beta \theta - a \beta^2 S) d\beta 
+&\geq \frac{1}{\sqrt{2S}} \exp(a (\tfrac{\theta^2}{4 S}-\tfrac{1}{2})) \\
+\end{align}
+
+Now, assume that $\beta^*>1$, that is $\theta>2 S$. Then, choose $u=1-\epsilon$ and $v=1$
+\begin{align}
+\int_{-1}^{1} \exp(a \beta \theta - a \beta^2 S) d\beta 
+&\geq (v-u) \exp(a u \theta - a u^2 S) \\
+&\geq (v-u) \exp(a u(1 - u )\theta/2) \\
+&\geq \epsilon \exp(a \epsilon(1 - \epsilon )\theta/2)~.
+\end{align}
+Setting $\epsilon=1/2$, we get that the rhs is $\frac{1}{2} \exp(a \theta/8)$.
+
+\textbf{Second case: $\beta^*< \tfrac{1}{\sqrt{2 S}}$}.
+
+The assumption implies that $\theta \leq \sqrt{2 S}$.
+Hence, we have
+\[
+erf(\sqrt{a}\frac{\frac{2 S}{K}-\theta}{2 \sqrt{S}}) \geq erf(-\frac{a}{\sqrt{2}}) \geq -0.58~.
+\]
+Also, using the lower bound $erf(x)\geq 1-\exp(-x^2), \forall x\geq0$, we have
+\begin{align}
+\exp(\frac{a \theta^2}{4 S}) erf(\sqrt{a}\frac{\frac{2 S}{K}+\theta}{2 \sqrt{S}}) 
+&\geq \exp(\frac{a \theta^2}{4 S})-\exp(\frac{a \theta^2}{4 S})\exp(-a \frac{4S^2+\theta^2+4 \theta S }{4 S}) \\
+&\geq \exp(\frac{a \theta^2}{4 S})-\exp(-a (S+ \theta )) \\
+&\geq \exp(\frac{a \theta^2}{4 S})-1~.
+\end{align}
+So, overall we get
+\[
+\int_{-\tfrac{1}{K}}^{\tfrac{1}{K}} \exp(a \beta \theta - a \beta^2 S) d\beta 
+\geq  0.42 \sqrt{\pi} \frac{\exp(\frac{a \theta^2}{4 S}) -1}{2 \sqrt{a} \sqrt{S}}
+\]
+\end{proof}
+
 \bibliography{learning}
 
 
