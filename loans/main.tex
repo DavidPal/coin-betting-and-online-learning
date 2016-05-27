@@ -391,7 +391,7 @@ F_t(x+g_t) - F_{t-1} -\beta_t g_t \leq 0
 Hence we have
 \begin{align}
 F_t(x+g_t) - F_{t-1} -\beta_t g_t 
-&=\int_{-\tfrac{1}{K}}^{\tfrac{1}{K}} \left(\exp(a \beta \sum_{i=1}^{t-1} g_i - a \beta^2 \sum_{i=1}^{t-1} g_i^2)(\exp(a \beta g_t-a g_t^2 \beta^2) -1 - a \beta g_t\right) d\beta \leq 0,
+&=\int_{-\tfrac{1}{K}}^{\tfrac{1}{K}} \exp(a \beta \sum_{i=1}^{t-1} g_i - a \beta^2 \sum_{i=1}^{t-1} g_i^2)(\exp(a \beta g_t-a g_t^2 \beta^2) -1 - a \beta g_t) d\beta \leq 0,
 \end{align}
 where we used the fact that $\exp(a x-a x^2)\leq 1+ a x, \forall x\in[-1,1]$, and $\frac{|g|}{K}\leq 1$.
 
@@ -459,6 +459,19 @@ So, overall we get
 \geq  0.42 \sqrt{\pi} \frac{\exp(\frac{a \theta^2}{4 S}) -1}{2 \sqrt{a} \sqrt{S}}
 \]
 \end{proof}
+
+\begin{theorem}
+Let $f(x)=a \exp(b |x|)$. Then 
+\[
+f^*(\theta) = 
+\begin{cases}
+\frac{|\theta|}{b} \left(\ln \frac{|\theta|}{a b}-1\right),  \frac{|\theta|}{a b} > 1 \\
+-a,  \text{otherwise.}
+\end{cases}
+\]
+\end{theorem}
+
+Notice, that to obtain the regret bound, we can use $max(a,b)\leq |a|_+ + |b|_+$, so that we have an additional constant term on the bound.
 
 \bibliography{learning}
 
