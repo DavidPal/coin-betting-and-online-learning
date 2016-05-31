@@ -3,7 +3,7 @@
 
 The results in Section~\ref{section:algorithms} immediately implies new
 algorithms and results in convex optimization and machine learning. See
-\cite{Orabona-2014} and \cite{Luo-Schapire-2015} for more results.
+\cite{Orabona-2014} for more results.
 
 \begin{algorithm}[t]
 \caption{SGD algorithm based on KT estimator \label{algorithm:kt-sgd}}
@@ -97,10 +97,10 @@ by doing a single pass over the data set. More precisely, we derive
 Algorithm~\ref{algorithm:averaged-olo} from
 Algorithm~\ref{algorithm:hilbert-space-olo} by applying the standard
 online-to-batch reduction~\citep{Shalev-Shwartz-2011}.  The algorithm makes
-only single pass over the dataset and it doesn't have any tuning parameters.
+only a single pass over the dataset and it does not have any tuning parameters.
 Yet, it has almost the same guarantee \eqref{equation:optimal-rate}
-\emph{without knowing $\norm{w^*}$ or optimal regularization parameter
-$\lambda$ or learning rate, or any other tuning parameter}.
+\emph{without knowing $\norm{w^*}$ or the optimal regularization parameter
+$\lambda$ or the learning rate, or any other tuning parameter}.
 
 \begin{algorithm}[t]
 \caption{Averaging algorithm based on KT estimator \label{algorithm:averaged-olo}}
