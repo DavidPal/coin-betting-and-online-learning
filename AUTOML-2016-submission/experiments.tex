@@ -22,5 +22,5 @@ The dataset were split in two parts: 75\% training set and the remaining as test
 We have run \ac{SGD} with different learning rates and shown the performance of its last solution on the test set. For Algorithm~\ref{algorithm:averaged-olo}, we do not have any parameter to tune, we just plot its test set performance.
 
 From the empirical results, it is clear that the optimal learning rate is completely
-data-dependent, yet \emph{our parameter-free algorithm has a performance very close
+data-dependent. It is also interesting to note how the performance of \ac{SGD} becomes very unstable with large learning rates. Yet \emph{our parameter-free algorithm has a performance very close
 to the unknown optimal tuning of the learning rate of \ac{SGD}}.

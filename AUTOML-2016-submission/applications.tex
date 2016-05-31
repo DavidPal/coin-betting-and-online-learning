@@ -83,7 +83,10 @@ from \cite{Sridharan-Shalev-Shwartz-Srebro-2009} we get
 \]
 where $w^*=\argmin_w \Exp[f(w,X,Y)]$ and $\widehat{w}_\lambda = \argmin_w
 F_\lambda^{\text{Reg}}(w)$.  From the above bound, it is clear that the optimal value
-of $\lambda$ depends on the $\norm{w^*}$ that is unknown. We would like to
+of $\lambda$ depends on the $\norm{w^*}$ that is unknown.
+Yet another possibility is to select the optimal learning rate and/or the number of epochs of \ac{SGD} to directly minimize $\Exp[f(w^*,X,Y)]$. However, all these methods are equivalent~\citep{Lin-Camoriano-Rosasco-2016} and they still require to tune at least a parameter.
+
+We would like to
 stress that this is not just a theoretical problem: Any practitioner knows how
 painful it is to find the right regularization for the problem at hand.
 Assuming we would know $\norm{w^*}$, we could set $\lambda = O(1/(\norm{w^*}
