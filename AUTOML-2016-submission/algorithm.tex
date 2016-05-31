@@ -1,4 +1,4 @@
-\section{Parameter-Free Algorithms}
+\section{Parameter-Free Algorithm From Coin Betting}
 \label{section:algorithms}
 
 \begin{algorithm}[t]
@@ -14,7 +14,7 @@
 \end{algorithmic}
 \end{algorithm}
 
-Our new algorithm for \ac{OLO} over a Hilbert space $\H$ is stated as
+Our new parameter-free algorithm for \ac{OLO} over a Hilbert space $\H$ is stated as
 Algorithm~\ref{algorithm:hilbert-space-olo}.  The theorem below upper bound its
 regret, the proof can be found in~\cite{Orabona-Pal-2016-parameter-free}.
 
@@ -30,7 +30,7 @@ $$
 $$
 \end{theorem}
 
-Algorithm~\ref{algorithm:hilbert-space-olo} is derived from the
+We now explain how Algorithm~\ref{algorithm:hilbert-space-olo} is derived from the
 Krichevsky-Trofimov solution to the adversarial coin-betting problem.
 
 \textbf{Adversarial Coin Betting.}
@@ -61,7 +61,7 @@ proposed by \citet{Kelly-1956}.  The strategy assumes that the coin flips
 $\{c_t\}_{t=1}^\infty$, $c_t \in \{+1,-1\}$, are generated i.i.d. with known
 probability of heads. If $p \in [0,1]$ is the probability of heads, the Kelly
 bet is $\beta_t = 2p - 1$. He showed that, in the long run, this strategy will
-provide more wealth than betting any other fixed fraction~\cite{Kelly-1956}.
+provide more wealth than betting any other fixed fraction~\citep{Kelly-1956}.
 
 For adversarial coins, Kelly betting does not make sense.
 \citet{Krichevsky-Trofimov-1981} proposed to replace $p$ with an estimate:
@@ -75,13 +75,13 @@ c_i}{t}$.  \citeauthor{Krichevsky-Trofimov-1981} showed that this strategy
 guarantees almost the same wealth that one would obtain knowing in advance the
 fraction of heads. Namely, 
 if we denote by $\Wealth_t(\beta)$ the wealth of the strategy that bets fraction
-$\beta$ in every round, then the wealth of Krichevsky-Trofimov betting strategy
+$\beta$ in every round, then the wealth of the Krichevsky-Trofimov betting strategy
 satisfies
 \begin{equation}
 \label{equation:kt-wealth-lower-bound}
 \forall \beta \in [-1,1] \qquad \Wealth_t \ge \frac{\Wealth_t(\beta)}{2\sqrt{t}} \; .
 \end{equation}
-Moreover, this guarantee is optimal up to constant factors~\citep{Cesa-Bianchi-Lugosi-2006}.
+Moreover, this guarantee is optimal up to constant multiplicative factors~\citep{Cesa-Bianchi-Lugosi-2006}.
 
 \textbf{From betting to \ac{OLO}.}
 In Algorithm~\ref{algorithm:hilbert-space-olo}, the ``coin outcome'' is the

@@ -10,7 +10,7 @@ that is
 \[
 \Regret_T(u) = \sum_{t=1}^T \langle \ell_t, w_t \rangle - \sum_{t=1}^T \langle \ell_t, u \rangle  \; .
 \]
-We focus on one particular decision set, the Hilbert space $\H$.  We assume
+We focus on one particular decision set, the Hilbert space $\H$.  We also assume
 that $\norm{\ell_t} \le 1$.
 
 \ac{OLO} is a basic building block of many machine learning problems. For
@@ -25,9 +25,9 @@ taking the average of $w_1, w_2, \dots, w_T$~\citep{Shalev-Shwartz-2011}.
 To achieve optimal regret, most of the existing online algorithms (e.g.  Online
 Gradient Descent) require the user to set the learning rate to an
 unknown/oracle value. Recently, new parameter-free algorithms have been
-proposed for \ac{OLO}/\ac{OCO} over Hilbert
-spaces~\citep{Streeter-McMahan-2012, Orabona-2013, McMahan-Abernethy-2013,
-McMahan-Orabona-2014, Orabona-2014, Orabona-Pal-2016-parameter-free}.  These algorithms adapt to the norm of the
+proposed for \ac{OLO}/\ac{OCO}~\citep{Chaudhuri-Freund-Hsu-2009,
+Chernov-Vovk-2010, Streeter-McMahan-2012, Orabona-2013, McMahan-Abernethy-2013,
+McMahan-Orabona-2014, Luo-Schapire-2014, Orabona-2014, Luo-Schapire-2015, Koolen-van-Erven-2015, Orabona-Pal-2016-parameter-free}.  These algorithms adapt to the characteristics of the
 optimal predictor, without the need to tune parameters. However, their
 \emph{design and underlying intuition} is still a challenge.
 

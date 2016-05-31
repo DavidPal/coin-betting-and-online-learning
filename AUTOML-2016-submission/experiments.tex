@@ -9,7 +9,7 @@
 \label{figure:experiments-olo}
 \end{figure}
 
-We have run a small empirical evaluation to show that the theoretical
+We have also run a small empirical evaluation to show that the theoretical
 difference between classic learning algorithms and parameter-free ones is real
 and not just theoretical. In Figure~\ref{figure:experiments-olo}, we have used
 three regression datasets\footnote{Datasets available at
@@ -17,10 +17,10 @@ three regression datasets\footnote{Datasets available at
 the \ac{OCO} problem through \ac{OLO}. In all the three cases, we have used the
 absolute loss and normalized the input vectors to have L2 norm equal to 1. 
 
-The dataset were split in two parts: 75\% training set and the remaining as test set. The training is done over the training set and the final classifier is evaluated on the test set. We used 5 different split of training/test and we report average and standard deviations.
+The dataset were split in two parts: 75\% training set and the remaining as test set. The training is done through one pass over the training set and the final classifier is evaluated on the test set. We used 5 different splits of training/test and we report average and standard deviations. 
 
-We have run \ac{SGD} with different learning rates, only one pass over the dataset, and shown the performance of its last solution on the test set. For Algorithm~\ref{algorithm:averaged-olo}, we do not have any parameter to tune, we just plot its test set performance. Notice that doing multiple epochs would add another parameter, i.e. the number of epochs, making the comparison even more difficult.
+We have run \ac{SGD} with different learning rates and shown the performance of its last solution on the test set. For Algorithm~\ref{algorithm:averaged-olo}, we do not have any parameter to tune, we just plot its test set performance.
 
 From the empirical results, it is clear that the optimal learning rate is completely
 data-dependent, yet \emph{our parameter-free algorithm has a performance very close
-to the unknown optimal tuning of the learning rateof \ac{SGD}}.
+to the unknown optimal tuning of the learning rate of \ac{SGD}}.
