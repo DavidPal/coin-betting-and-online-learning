@@ -18,13 +18,13 @@ The simple choice $\eta = 1/\sqrt{T}$ leads to an algorithm that satisfies
 However, in this bound the dependency on $\norm{u}$ is suboptimal: The
 quadratic dependency can be replaced by an (almost) linear dependency.
 Starting from \eqref{equation:ftrl-vanila}, if we choose the learning rate
-$\eta = D/\sqrt{T}$, we get a family of algorithms parametrized by $D \in
+$\eta = D/\sqrt{T}$, we get a family of algorithms parameterized by $D \in
 [0,\infty)$ that satisfy
 \begin{equation}
 \label{equation:ftrl-vanila-3}
 \forall u \in \H : \norm{u} \le D \quad  \Longrightarrow \quad \Regret_T(u) \le D \sqrt{T} \; .
 \end{equation}
-Instead of a family of algorithms parametrized by $D \in [0,\infty)$ satisfying
+Instead of a family of algorithms parameterized by $D \in [0,\infty)$ satisfying
 the bound \eqref{equation:ftrl-vanila-3}, one \emph{would like
 to have} a single algorithm (without any tuning parameters) satisfying
 \begin{equation}
@@ -35,7 +35,7 @@ Notice that \eqref{equation:olo-parameter-free} is stronger than
 \eqref{equation:ftrl-vanila-3} in the following sense: A single algorithm
 satisfying \eqref{equation:olo-parameter-free} implies
 \eqref{equation:ftrl-vanila-3} for all values of $D \in [0,\infty)$. However,
-a family of algorithms $\{A_D : D \in [0,\infty)\}$ parametrized by $D$ where
+a family of algorithms $\{A_D : D \in [0,\infty)\}$ parameterized by $D$ where
 $A_D$ satisfies \eqref{equation:ftrl-vanila-3}, does not yield a single
 algorithm that satisfies \eqref{equation:olo-parameter-free}.  Finally, note
 that \eqref{equation:olo-parameter-free} has better dependency on $\norm{u}$
