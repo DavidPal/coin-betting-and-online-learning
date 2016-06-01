@@ -33,7 +33,7 @@ where $f_i:\R^d \to \R$ is convex.\footnote{The algorithm can also be
 implemented and analyzed with kernels~\citep{Orabona-2014}.} It is immediate to
 transform Algorithm~\ref{algorithm:hilbert-space-olo} into a \ac{SGD} algorithm
 for this problem, obtaining Algorithm~\ref{algorithm:kt-sgd}.
-In Algorithm~\ref{algorithm:kt-sgd} $\grad f_j(w)$
+In Algorithm~\ref{algorithm:kt-sgd}, $\grad f_j(w)$
 denotes a subgradient of $f_j$ at a point $w$.  We assume that the
 norm of the subgradient of $f_j$ is bounded by $1$.
 
@@ -56,12 +56,12 @@ than $N$.
 
 \textbf{Machine Learning.} In machine learning, the minimization of a function
 \eqref{equation:objective-function} is just a proxy to minimize the \emph{true
-risk} over an unknown distribution. For example, $f_i(w)$ can be a
-regression loss, e.g. the logistic loss, over samples $\{(X_i,
-Y_i)\}_{i=1}^N$ generated i.i.d. from some \emph{unknown} distribution.
-That is, $f_i(w)=f(w,X_i,Y_i)$. A common approach to
-have a small risk on the test set is to minimize a regularized objective
-function over the training set:
+risk} over an unknown distribution. For example, $f_i(w)$ can be of the form
+$f_i(w) = f(w, X_i, Y_i)$ where $\{(X_i, Y_i)\}_{i=1}^N$ is a sequences of
+labeled sampled generated i.i.d. from some \emph{unknown} distribution and
+$f(w, X_i, Y_i)$ is the logistic loss of a weight vector $w$ on a sample $(X_i,
+Y_i)$.  A common approach to have a small risk on the test set is to minimize a
+regularized objective function over the training set:
 %
 \begin{equation}
 \label{equation:reg_logloss}
@@ -70,11 +70,12 @@ F_\lambda^{\text{Reg}}(w) = \lambda \norm{w}^2 + \frac{1}{N} \sum_{i=1}^N f(w, X
 %
 This problem is strongly convex, so there are very efficient methods to
 minimize it, hence we can assume to be able to get the minimizer of
-$F_\lambda^{\text{Reg}}$ with arbitrary high precision and algorithms that do not require to tune learning rates. Yet, this is not
-enough. In fact, we are rarely interested in the value of the objective
-function $F_\lambda^{\text{Reg}}$ or its minimizer, rather we are interested in
-the \emph{true risk} of a solution $w$, that is $\Exp[f(w,X,Y)]$, where $(X,Y)$
-is an independent ``test'' sample from the same distribution from which the
+$F_\lambda^{\text{Reg}}$ with arbitrary high precision and algorithms that do
+not require to tune learning rates. Yet, this is not enough. In fact, we are
+rarely interested in the value of the objective function
+$F_\lambda^{\text{Reg}}$ or its minimizer, rather we are interested in the
+\emph{true risk} of a solution $w$, that is $\Exp[f(w,X,Y)]$, where $(X,Y)$ is
+an independent ``test'' sample from the same distribution from which the
 training set $\{(X_i,Y_i)\}_{i=1}^N$ came from. Hence, in order to get a good
 performance we have to select a good regularization parameter. In particular,
 from \cite{Sridharan-Shalev-Shwartz-Srebro-2009} we get
@@ -82,23 +83,25 @@ from \cite{Sridharan-Shalev-Shwartz-Srebro-2009} we get
 \Exp[f(\widehat{w}_\lambda,X,Y)] - \Exp[f(w^*,X,Y)] \le O(\lambda \norm{w^*}^2 + \tfrac{1}{\lambda N}) \; ,
 \]
 where $w^*=\argmin_w \Exp[f(w,X,Y)]$ and $\widehat{w}_\lambda = \argmin_w
-F_\lambda^{\text{Reg}}(w)$.  From the above bound, it is clear that the optimal value
-of $\lambda$ depends on the $\norm{w^*}$ that is unknown.
-Yet another possibility is to select the optimal learning rate and/or the number of epochs of \ac{SGD} to directly minimize $\Exp[f(w^*,X,Y)]$. However, all these methods are equivalent~\citep{Lin-Camoriano-Rosasco-2016} and they still require to tune at least a parameter.
+F_\lambda^{\text{Reg}}(w)$.  From the above bound, it is clear that the optimal
+value of $\lambda$ depends on the $\norm{w^*}$ that is unknown.  Yet another
+possibility is to select the optimal learning rate and/or the number of epochs
+of \ac{SGD} to directly minimize $\Exp[f(w^*,X,Y)]$. However, all these methods
+are equivalent~\citep{Lin-Camoriano-Rosasco-2016} and they still require to
+tune at least one parameter.
 
-We would like to
-stress that this is not just a theoretical problem: Any practitioner knows how
-painful it is to find the right regularization for the problem at hand.
-Assuming we would know $\norm{w^*}$, we could set $\lambda = O(1/(\norm{w^*}
-\sqrt{N}))$ to achieve the worst-case optimal bound
+We would like to stress that this is not just a theoretical problem: Any
+practitioner knows how painful it is to find the right regularization for the
+problem at hand.  Assuming we would know $\norm{w^*}$, we could set $\lambda =
+O(1/(\norm{w^*} \sqrt{N}))$ to achieve the worst-case optimal bound
 %
 \begin{equation}
 \label{equation:optimal-rate}
 \Exp[f(\widehat{w}_\lambda,X,Y)] - \Exp[f(w^*,X,Y)] \le O\left(\tfrac{\norm{w^*}}{\sqrt{N}}\right) \; .
 \end{equation}
-However, we can get the same guarantee without knowing $\norm{w^*}$ or the optimal $\lambda$,
-by doing a single pass over the data set. More precisely, we derive
-Algorithm~\ref{algorithm:averaged-olo} from
+However, we can get the same guarantee without knowing $\norm{w^*}$ or the
+optimal $\lambda$, by doing a single pass over the data set. More precisely, we
+derive Algorithm~\ref{algorithm:averaged-olo} from
 Algorithm~\ref{algorithm:hilbert-space-olo} by applying the standard
 online-to-batch reduction~\citep{Shalev-Shwartz-2011}.  The algorithm makes
 only a single pass over the dataset and it does not have any tuning parameters.
