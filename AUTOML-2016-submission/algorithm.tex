@@ -14,9 +14,10 @@
 \end{algorithmic}
 \end{algorithm}
 
-Our new parameter-free algorithm for \ac{OLO} over a Hilbert space $\H$ is
-stated as Algorithm~\ref{algorithm:hilbert-space-olo}.  The theorem below upper
-bounds its regret, the proof can be found
+Here we present our new parameter-free algorithm for \ac{OLO} over a Hilbert space $\H$, 
+stated as Algorithm~\ref{algorithm:hilbert-space-olo}.  We would like to stress the extreme simplicity of the algorithm.
+The theorem below upper
+bounds its regret in the form of \eqref{equation:olo-parameter-free-2}, the proof can be found
 in~\cite{Orabona-Pal-2016-parameter-free}.
 
 \begin{theorem}[Regret Bound for Algorithm~\ref{algorithm:hilbert-space-olo}]
@@ -75,7 +76,7 @@ results in the betting strategy $\beta_t = 2k_t - 1 = \tfrac{\sum_{i=1}^{t-1}
 c_i}{t}$.  \citeauthor{Krichevsky-Trofimov-1981} showed that this strategy
 guarantees almost the same wealth that one would obtain knowing in advance the
 fraction of heads. Namely, 
-if we denote by $\Wealth_t(\beta)$ the wealth of the strategy that bets fraction
+if we denote by $\Wealth_t(\beta)$ the wealth of the strategy that bets the fraction
 $\beta$ in every round, then the wealth of the Krichevsky-Trofimov betting strategy
 satisfies
 \begin{equation}

@@ -23,21 +23,21 @@ optimization can also be solved through a reduction to \ac{OLO} by
 taking the average of $w_1, w_2, \dots, w_T$~\citep{Shalev-Shwartz-2011}.
 
 To achieve optimal regret, most of the existing online algorithms (e.g.  Online
-Gradient Descent) require the user to set the learning rate to an
+Gradient Descent, Hedge) require the user to set the learning rate to an
 unknown/oracle value. Recently, new parameter-free algorithms have been
 proposed for \ac{OLO}/\ac{OCO}~\citep{Chaudhuri-Freund-Hsu-2009,
 Chernov-Vovk-2010, Streeter-McMahan-2012, Orabona-2013, McMahan-Abernethy-2013,
-McMahan-Orabona-2014, Luo-Schapire-2014, Orabona-2014, Luo-Schapire-2015, Koolen-van-Erven-2015, Orabona-Pal-2016-parameter-free}.  These algorithms adapt to the characteristics of the
+McMahan-Orabona-2014, Luo-Schapire-2014, Orabona-2014, Luo-Schapire-2015, Koolen-van-Erven-2015}.  These algorithms adapt to the characteristics of the
 optimal predictor, without the need to tune parameters. However, their
 \emph{design and underlying intuition} is still a challenge.
 
 Our contributions are as follows. We connect algorithms for \ac{OLO} with coin
-betting. Namely, we show an algorithm for \ac{OLO} can be viewed as an
+betting. Namely, we show that an algorithm for \ac{OLO} can be viewed as an
 algorithm for betting on outcomes of adversarial coin flips. The wealth the
 algorithm can generate for the betting problem is connected to the regret in
 \ac{OLO} setting. This insight allows us to design novel parameter-free
 algorithms, which are extremely simple and natural. We also show some
-applications of our results to convex optimization and machine learning.
+applications of our results to convex optimization and machine learning, as well as some empirical results.
 
 \noindent\textbf{Notation and Definitions.}
 We will use the following notation in the rest of this note.  $\H$ denotes

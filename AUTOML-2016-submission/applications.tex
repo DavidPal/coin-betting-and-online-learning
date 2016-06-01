@@ -39,9 +39,9 @@ norm of the subgradient of $f_j$ is bounded by $1$.
 
 Beside the simplicity of the Algorithm~\ref{algorithm:kt-sgd}, it has the
 important property is that it \emph{does not have a learning rate to be tuned},
-yet it achieves the optimal convergence rate. If $\widehat{w} = \argmin_w F(w)$
-is the optimal solution of~\eqref{equation:objective-function}, the following
-theorem states the rate of convergence.
+yet it achieves the optimal convergence rate. In fact, denoting by $\widehat{w} = \argmin_w F(w)$
+the optimal solution of~\eqref{equation:objective-function}, the following
+theorem states the rate of convergence of Algorithm~\ref{algorithm:kt-sgd}.
 %
 \begin{theorem}
 The average $\overline{w}_T$ produced by Algorithm~\ref{algorithm:kt-sgd} is
@@ -89,10 +89,11 @@ possibility is to select the optimal learning rate and/or the number of epochs
 of \ac{SGD} to directly minimize $\Exp[f(w^*,X,Y)]$. However, all these methods
 are equivalent~\citep{Lin-Camoriano-Rosasco-2016} and they still require to
 tune at least one parameter.
-
 We would like to stress that this is not just a theoretical problem: Any
 practitioner knows how painful it is to find the right regularization for the
-problem at hand.  Assuming we would know $\norm{w^*}$, we could set $\lambda =
+problem at hand.
+
+Assuming we would know $\norm{w^*}$, we could set $\lambda =
 O(1/(\norm{w^*} \sqrt{N}))$ to achieve the worst-case optimal bound
 %
 \begin{equation}
