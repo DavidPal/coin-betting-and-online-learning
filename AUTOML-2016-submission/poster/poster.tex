@@ -1,0 +1,397 @@
+\documentclass[final,t,serif,mathserif]{beamer}
+\mode<presentation>
+{
+  \usetheme{I6pd}
+  \usefonttheme{professionalfonts}
+}
+% additional settings
+\setbeamerfont{itemize}{size=\normalsize}
+\setbeamerfont{itemize/enumerate body}{size=\normalsize}
+\setbeamerfont{itemize/enumerate subbody}{size=\normalsize}
+
+%\setbeamertemplate{bibliography item}[text]
+
+% additional packages
+\usepackage{times}
+\usepackage{amsfonts}
+\usepackage{amsmath, amssymb}
+\usepackage{amsthm}
+\usepackage{exscale}
+\usepackage{algorithmic}
+\usepackage{multicol}
+%\boldmath
+\usepackage{booktabs, array}
+%\usepackage{rotating} %sideways environment
+\usepackage[english]{babel}
+\usepackage[latin1]{inputenc}
+%\usepackage[orientation=landscape,size=a0,scale=1.3]{beamerposter}
+\usepackage[orientation=landscape,size=custom,width=121,height=91,scale=1.5]{beamerposter}
+%\usepackage[orientation=portrait,size=a4,scale=1.3]{beamerposter}
+\listfiles
+\usepackage{multicol}
+
+
+
+% Display a grid to help align images
+%\beamertemplategridbackground[1cm]
+
+
+\input{symbol_poster.tex}
+
+\DeclareMathOperator{\Wealth}{Wealth}
+\newcommand{\grad}{\nabla}
+\renewcommand{\H}{\mathcal{H}}  % Hilbert space
+\DeclareMathOperator{\Regret}{Regret}
+\DeclareMathOperator{\polylog}{polylog}
+\DeclareMathOperator{\Reward}{Reward}
+
+\title{\huge Parameter-Free Convex Learning through Coin Betting}
+\author{Francesco Orabona \and David Pal}
+\institute[] % (optional, but mostly needed)
+{
+  Yahoo Research, New York
+}
+\date[June 24 2016]{June 24 2016}
+
+% abbreviations
+\usepackage{xspace}
+\makeatletter
+\DeclareRobustCommand\onedot{\futurelet\@let@token\@onedot}
+\def\@onedot{\ifx\@let@token.\else.\null\fi\xspace}
+\def\eg{{e.g}\onedot} \def\Eg{{E.g}\onedot}
+\def\ie{{i.e}\onedot} \def\Ie{{I.e}\onedot}
+\def\cf{{c.f}\onedot} \def\Cf{{C.f}\onedot}
+\def\etc{{etc}\onedot}
+\def\vs{{vs}\onedot}
+\def\wrt{w.r.t\onedot}
+\def\dof{d.o.f\onedot}
+\def\etal{{et al}\onedot}
+\makeatother
+
+\def\spazioBlocchi{\vspace{0cm}}
+\def\spazio{\vspace{-0.325cm}}
+\def\spazioo{\vspace{-0.3cm}}
+\def\spaziooo{\vspace{-0.cm}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\begin{frame}{} 
+
+\begin{columns}[t]
+  \begin{column}{.33\linewidth}
+
+    \begin{block}{ARE YOU STILL TUNING HYPERPARAMETERS?}
+      \spazio
+      \centering
+      \begin{itemize}
+      \item Consider minimizing a regularized empirical risk objective
+      \[
+         \argmin_{w} \ \frac{\lambda}{2} \norm{w}^2 + \sum_{t=1}^N \ell(w, x_t, y_t),
+      \]
+      where $\ell$ is convex in the first argument.
+      \item How do you choose $\lambda$? Have you ever wondered why you have to tune it manually?
+      \item Why the algorithm is not able to select it automatically?
+      \item Also, how do you optimize this objective function? SGD? What learning rate?
+      \item Do you have a student that tunes all these hyperparameters for you?
+      \end{itemize}
+      \spazio
+    \end{block}
+    
+
+    \begin{block}{FROM COIN-BETTING TO MACHINE LEARNING}
+    \spazio
+    \begin{itemize}
+      \item The above optimization problem can be solved with an Online Linear Learning algorithm.
+      \item In turn, we prove that Online Linear Learning can be solved with online algorithms to bet on a coin.
+      \item Denote by $c_t=1$ if head, $c_t=-1$ if tails.
+      \item You bet $|w_t|$ on the side $\sign(w_t)$, winning or losing $ w_t c_t$.
+      \item Krichevsky-Trofimov bets: at time $t$ bet a fraction of your current money equal to $\tfrac{1}{t} \sum_{i=1}^{t-1} c_i$.
+      \item Key idea: treat the gradient as the outcome of a coin.
+      \item \alert{KT algorithm for coin betting gives rise to optimal parameter-free algorithms for Online Learning, Convex Optimization and Machine Learning!}
+    \end{itemize}
+    \spazio
+    \end{block}
+    
+    
+ 
+    
+    \begin{block}{PARAMETER-FREE SGD BASED ON THE KT ESTIMATOR}
+    \spazio
+    %\begin{columns}[c]
+      %\begin{column}{.7\linewidth}
+	\begin{algorithmic}
+	\STATE{Initialize $\Wealth_0 \leftarrow 1$ and $\theta_0 \leftarrow 0$}
+	\FOR{$t=1,2,\dots,T$}
+	\STATE{Set $w_t \leftarrow \Wealth_{t-1} \tfrac{\theta_{t-1}}{t} $}
+	\STATE{Select an index $j$ at random from $\{1,2,\dots,N\}$}
+	\STATE{Update $\theta_t \leftarrow \theta_{t-1} - \grad \ell(w_{t-1},x_j,y_j)$}
+	\STATE{$\Wealth_t \leftarrow \Wealth_{t-1} - \langle \grad \ell(w_{t-1},x_j,y_j), w_t \rangle$}
+	\ENDFOR
+	\STATE{Output $\overline{w}_T = \tfrac{1}{T}\sum_{t=1}^T w_t$}
+	\end{algorithmic}
+      %\end{column}
+      %\begin{column}{.3\linewidth}
+%       \begin{itemize}
+%       \item Parameter-free 
+%       \item Very easy to implement
+%       \item Kernelizable
+%       \item Same complexity of SGD
+%       \end{itemize}
+      %\end{column}
+    %\end{columns}
+    \spazio
+    \end{block}
+    
+
+    \begin{block}{A SUMMARY OF THE THEORETICAL GUARANTEES}
+    \spazio
+    \begin{itemize}
+      \item Bla.
+    \end{itemize}
+    \spazio
+    \end{block}
+
+    
+%     \begin{block}{UNCONSTRAINED ONLINE LEARNING WITH LIPSCHITZ LOSSES}
+%     \spazioo
+%     \centering
+%     \begin{itemize}
+%     \item Learning rate should be $\frac{\eta}{\sqrt{t}}$, e.g. Zinkevich (2003)
+%     \item \alert{Setting $\eta$ optimally the regret is $\scO(\|\bu\| \sqrt{T})$ otherwise $\scO((\|\bu\|^2 +1)\sqrt{T})$}
+%     \item Unfortunately the optimal $\eta$ depends on the \emph{future}
+%     \end{itemize}
+%     \begin{figure}
+%       \includegraphics[width=15cm]{figs/cadata_keg_only}
+%     \end{figure}
+%     \spazioo
+%     \end{block}
+
+    
+    
+%     \begin{block}{EVEN MORE DETAILS: FOLLOW THE TIME-VARYING REGULARIZED LEADER}
+%       \spazio
+%       \begin{algorithmic}
+% 	  \STATE{\bfseries Params:} A sequence of strongly convex functions $f_1,f_2,\dots$
+%       % defined on a common domain $S \subseteq \fX$.
+% 	  \STATE{\bfseries Initialize:} $\btheta_1=\boldsymbol{0}$
+% 	  \FOR{$t=1,2,\dots$}
+% 	  \STATE{Set $\bw_t=\nabla f_t^*(\btheta_t)= \arg \min_{\bw} f_t(\bw) - \langle \bw, \btheta_t \rangle$}
+% 	  %\STATE{Set $\bw_t=\argmin_{\bw} f_t(\bw) - \langle \bw, \btheta_t \rangle = \nabla f_t^*(\btheta_t)$}
+% 	  %\STATE{Observe $\bz_t$}
+%           \STATE{Suffer loss $\ell_t(\bw_t)$}
+% 	  \STATE{Update $\btheta_{t+1}=\btheta_{t} - \partial \ell_t(\bw_t)$}
+% 	  \ENDFOR
+%       \end{algorithmic}
+%       \vspace{1cm}
+%       \begin{itemize}
+% 	\item Many names: FTRL (Cesa-Bianchi\&Lugosi, 2006); OMD (Shalev-Shwartz, PhD thesis 2007); RDA (Xiao, 2010) 
+% 	\item The ``regularizer'' is changing over time
+% 	\item Not discarding any terms in the analysis!
+%       \end{itemize}
+%       \alert{Theorem.} \emph{
+%       Assume $f_1,f_2,\dots$ such that each $f_t$ is $\beta_t$-strongly convex with respect to the norm $\norm{\cdot}_{f_t}$ (or $f^*_t$ $1/\beta_t$-strongly smooth). Then
+%       \begin{equation*}
+%       \sum_{t=1}^T \ell_t(\bw_t)  - \sum_{t=1}^T \ell_t(\bu)\leq f_T(\bu) + \sum_{t=1}^{T} \left(\frac{\bigl(\norm{\partial \ell_t(\bw_t)}_{f_t}\bigr)_*^2}{2 \beta_t} + f^*_t(\btheta_t)-f^*_{t-1}(\btheta_{t}) \right)~.
+%       \end{equation*}
+%       }
+%       \spazio
+%     \end{block}
+%     
+%     
+%     
+%     \begin{block}{YET ANOTHER REGULARIZER}
+%       \spazio
+%       \begin{itemize}
+%       \item $f_t(\bw)=\frac{\sqrt{t}}{\eta}\|\bw\|_2^2 \Rightarrow \text{ the bound is } \scO\left(\frac{\|\bu\|_2^2}{\eta}\sqrt{T} +\eta \sqrt{T} \right)$
+%       \item What about $f_t(\bw)=\frac{\sqrt{t}}{\eta}\|\bw\|_2$? Not strongly convex!
+%       \item We need something close but strongly convex, maybe we can add a logarithm...
+%       \end{itemize}
+%       \vspace{1cm}
+%       \spazio
+%     \end{block}
+    
+    
+    
+    \end{column}    
+    \begin{column}{.33\linewidth}
+    
+%     \begin{block}{AN IMPROVED LOWER BOUND}
+%       \spazio
+%       
+%       {
+%       \centering
+%       \alert{Bad news:} $\|\bu\| \sqrt{T}$ \emph{cannot} be achieved, unless we know $\|\bu\|$
+%       }
+% 
+%       \vspace{1cm}
+% 
+%       \alert{Theorem.} \emph{
+%       \begin{itemize}
+%       \item Regret against $\bu=0$ is 0 $\Rightarrow$ Regret against other $\bu$ is $\Omega(T)$
+%       \item Regret against $\bu=0$ is $\epsilon>0$ $\Rightarrow$ Regret against other $\bu$ is $\Omega\left(\|\bu\|_2\sqrt{T \log \frac{\|\bu\|_2 \sqrt{T}}{\epsilon} }\right)$
+%       \end{itemize}
+%       }
+% 
+% 
+%       \vspace{1cm}
+% 
+%       Can we at least obtain this regret? Maybe we need a logarithmic term as well...
+% 
+%       \spazio
+%     \end{block}
+
+%     \begin{block}{WHAT WE WOULD LIKE TO HAVE IN A PERFECT WORLD}
+%     \spazioo
+%     What it should do:
+%     \begin{itemize}
+%       \item A fast algorithm that sees each sample only once and outputs the perfect predictor at the end of the stream.
+%     \end{itemize}
+%     
+%     \vspace{1cm}
+%     
+%     What it should \emph{not} do:
+%     \begin{itemize}
+%        \item No parameters to tune: it should be obvious why!
+%        \item No validation methods: they are slow.
+%        \item No doubling trick: they do not work in practice.
+%     \end{itemize}
+%     \spazioo
+%     \end{block}
+    
+    \begin{block}{DOES IT WORK FOR REAL?}
+      \spazioo      
+      \begin{itemize} 
+        \item The dataset were split in two parts: 75\% training set and the remaining as test set.
+        \item The training is done through one pass over the training set and the final classifier is evaluated on the test set.
+        \item We used 5 different splits of training/test and we report average and standard deviations. 
+        \item We have run SGD with different learning rates and shown the performance of its last solution on the test set.
+       \end{itemize}
+      \begin{figure}[t]
+	\centering 
+	\begin{tabular}{ccc}
+	\includegraphics[width=0.32\textwidth]{../figs/yearPredictionMSD_kt_train_test-crop.pdf} &
+        \includegraphics[width=0.32\textwidth]{../figs/cpusmall_kt_train_test-crop.pdf} &
+        \includegraphics[width=0.32\textwidth]{../figs/cadata_kt_train_test-crop.pdf}
+	\end{tabular}
+      \end{figure}
+      \begin{itemize} 
+        \item It is clear that the optimal learning rate is completely data-dependent.
+        \item It is also interesting to note how the performance of SGD becomes very unstable with large learning rates. \item Yet \emph{our parameter-free algorithm has a performance very close to the unknown optimal tuning of the learning rate of SGD}.
+       \end{itemize}
+      \spazioo
+    \end{block}
+    
+    
+    \begin{block}{SOME REFERENCES}
+    \begin{minipage}{.98\linewidth}
+    \begin{block}{A BIT OF HISTORY ABOUT THIS RESEARCH}
+    \spazioo
+    \begin{itemize}
+    \item Streeter\&McMahan (2012) proved a one-dimensional online regret bound that depends on $u \log(u+1)$ instead of $u^2+1$.
+    \item Orabona (2013) extended it to RKHS spaces, changing the regularizer, algorithm and proof.
+    \item McMahan\&Orabona (2014) proposed a new minimax proof and a new regularizer to have the optimal rate $\normK{\bu} \sqrt{\log(\normK{\bu}+1)}$.
+    \item Orabona (2014) proved a link between these family of online algorithms and self-tuning SVMs, and also proved a
+    data dependent bound.
+    \item A parallel line of work on adaptive learning with expert advice: Chaudhuri et al.(2009), Chernov\&Vovk (2010), Luo\&Schapire (2014), Luo\&Schapire (2015), Koolen\&van-Erven (2015), Foster et al. (2015).
+    \item Orabona\&Pal (2016) proves that online adaptive algorithms for linear learning and learning with expert advices can be easily obtained from algorithms for coin-betting.
+    \end{itemize}
+    \spazioo
+    \end{block}
+    
+   
+
+    \begin{block}{BIBLIOGRAPHY}
+    \spazioo
+    %\vspace{-1cm}
+    %\begin{multicols}{2}
+    \tiny
+    Streeter and McMahan. No-regret algorithms for unconstrained online convex optimization. In NIPS 2012.\\
+    Orabona. Dimension-free exponentiated gradient. In NIPS 2013.\\
+    McMahan and Orabona. Unconstrained online linear learning in Hilbert spaces: Minimax algorithms and normal approximations. In COLT 2014.
+    %\end{multicols}
+    %\vspace{-1cm}
+    \spazioo
+    \end{block}
+    \end{minipage}
+    \end{block}
+    
+
+    
+    \end{column}
+    
+    
+    
+    \begin{column}{.33\linewidth}
+
+    
+    \begin{block}{TECHNICAL DETAILS}
+    \begin{minipage}{.98\linewidth}
+    \begin{block}{LEARNING RATES IN ONLINE LINEAR LEARNING}
+    \spaziooo
+    \begin{itemize}
+      \item OLO over a Hilbert Space $\H$. OGD with learning rate
+	$\eta$ satisfies
+	\[
+	\forall u \in \H \qquad \Regret_T(u) \le \tfrac{\norm{u}^2}{2\eta} + \tfrac{\eta}{2} \sum_{t=1}^T \norm{\ell_t}^2
+	\]
+      \item Tons of algorithms adapt to the norms of the gradients, e.g. AdaGrad
+      \item Adapting to the unknown norm of $u$ is \emph{more difficult and more important}.
+      \item Better guarantees are indeed possible: Streeter\&McMahan (2012), Orabona (2013), McMahan\&Abernethy (2013), McMahan\&Orabona (2014), Orabona (2014) 
+	\[
+	\forall u \in \H \qquad \Regret_T(u) \le \big(O(1)+\polylog(1 + \norm{u})\norm{u} \big) \sqrt{T} \; .
+	\]
+    \end{itemize}
+    \spaziooo
+    \end{block}
+    
+
+    \begin{block}{CONVERGENCE GUARANTEE}
+    \spaziooo
+    \alert{Theorem.} \emph{
+	Let $\{\ell_t\}_{t=1}^\infty$ be any sequence of loss vectors
+	in a Hilbert space $\H$ such that $\norm{\ell_t} \le 1$.
+	The KT-based online algorithm satisfies
+	$$
+	\forall \, T \ge 0, \
+	\forall u \in \H \qquad
+	\Regret_T(u) \le \norm{u} \sqrt{T \ln\left(1 + 4T^2 \norm{u}^2 \right)} + 1 \;.
+	$$
+    }
+    \vspace{1cm}
+    \begin{itemize}
+    \item Bla
+    \end{itemize}
+    \vspace{.5cm}
+    \alert{Proof Sketch.}
+    \begin{itemize}
+    \item Consider first the 1-d case.
+    \item Duality between wealth and regret: Let $V,V^*$ be a pair of dual vector spaces. Let $F:V \to \R \cup \{+\infty\}$ be a proper convex lower semi-continuous function and let $F^*:V^* \to \R \cup \{+\infty\}$ be its Fenchel conjugate. Let $w_1, w_2, \dots, w_T \in V$ and $g_1, g_2, \dots, g_T \in V^*$.  Then,
+    \[
+      \underbrace{\sum_{t=1}^T \langle g_t, w_t \rangle}_{\Reward_T} \ge F\left( \sum_{t=1}^T g_t \right) -\epsilon
+      \quad \text{is equivalent to} \quad
+      \forall u \in V^*, \
+      \underbrace{\sum_{t=1}^T \langle g_t, u - w_t\rangle}_{\Regret_T(u)} \le F^*(u) + \epsilon\; .
+    \]
+    \item Set $w_t=\beta_t \Wealth_{t-1}$.
+    \item In the case that $\ell_t \in \{-1,1\}$, the results follows directly from the guarantee on the KT estimator and duality above.
+    \item The case $\ell_t \in [-1,1]$ is solved through convexity: the worst $\ell$ is always +1 or -1.
+    \item The genearal Hilbert case is reduced to the 1-d case, observing that the worst direction is always parallel to the sum of the previos $\ell_t$.
+    \end{itemize}    
+    \spaziooo
+    \end{block}
+    \end{minipage}
+    \end{block}
+
+    
+  \end{column}
+\end{columns}
+\end{frame}
+\end{document}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-PDF-mode: t
+%%% End: 
