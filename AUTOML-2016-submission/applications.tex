@@ -114,7 +114,7 @@ $\lambda$ or the learning rate, or any other tuning parameter}.
 \caption{Averaging algorithm based on KT estimator \label{algorithm:averaged-olo}}
 \begin{algorithmic}[1]
 {
-\REQUIRE{Sample $(X_1, Y_2), (X_2, Y_2), \dots, (X_N, Y_N)$}
+\REQUIRE{Sample $(X_1, Y_1), (X_2, Y_2), \dots, (X_N, Y_N)$}
 \STATE{Initialize $\Wealth_0 \leftarrow 1$ and $\theta_0 \leftarrow 0$}
 \FOR{$i=1,2,\dots,N$}
 \STATE{Set $w_i \leftarrow \Wealth_{i-1} \tfrac{\theta_{i-1}}{i} $}

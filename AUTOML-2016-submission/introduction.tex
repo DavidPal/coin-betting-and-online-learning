@@ -10,8 +10,7 @@ that is
 \[
 \Regret_T(u) = \sum_{t=1}^T \langle \ell_t, w_t \rangle - \sum_{t=1}^T \langle \ell_t, u \rangle  \; .
 \]
-We focus on one particular decision set, the Hilbert space $\H$.  We also assume
-that $\norm{\ell_t} \le 1$.
+where $\langle \cdot, \cdot \rangle$ is the inner product in $\H$.
 
 \ac{OLO} is a basic building block of many machine learning problems. For
 example, \ac{OCO} is a problem analogous to \ac{OLO} where
@@ -38,8 +37,3 @@ algorithm can generate for the betting problem is connected to the regret in
 \ac{OLO} setting. This insight allows us to design novel parameter-free
 algorithms, which are extremely simple and natural. We also show some
 applications of our results to convex optimization and machine learning, as well as some empirical results.
-
-\noindent\textbf{Notation and Definitions.}
-We will use the following notation in the rest of this note.  $\H$ denotes
-a real Hilbert space, $\langle \cdot, \cdot \rangle$ is its inner product and
-$\norm{\cdot} = \sqrt{\langle \cdot, \cdot \rangle}$ is its induced norm.
