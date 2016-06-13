@@ -106,11 +106,16 @@
     \begin{itemize}
       \item The above optimization problem can be solved with an Online Linear Learning algorithm.
       \item In turn, we prove that Online Linear Learning can be solved with online algorithms to bet on a coin.
+    \end{itemize}
+    
+    \vspace{1cm}
+    
+    \begin{itemize}
       \item Denote by $c_t=1$ if head, $c_t=-1$ if tails.
       \item You bet $|w_t|$ on the side $\sign(w_t)$, winning or losing $ w_t c_t$.
       \item Krichevsky-Trofimov bets: at time $t$ bet a fraction of your current money equal to $\tfrac{1}{t} \sum_{i=1}^{t-1} c_i$.
-      \item Key idea: treat the gradient as the outcome of a coin.
       \item \alert{KT algorithm for coin betting gives rise to optimal parameter-free algorithms for Online Learning, Convex Optimization and Machine Learning!}
+      \item Key idea: treat the gradient as the outcome of a coin.
       \item In other words: \alert{Learning rates are the results of suboptimal algorithms, they must be removed, not tuned/learned/adapted!}
     \end{itemize}
     \spazio
