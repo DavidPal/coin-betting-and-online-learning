@@ -3,10 +3,13 @@
 *.bbl
 *.blg
 *.log
+*.nav
 *.out
+*.snm
 *.toc
 
 main.pdf
+poster.pdf
 
 # Vim temporary files
 *~

@@ -1,9 +1,11 @@
 \documentclass[final,t,serif,mathserif]{beamer}
+
 \mode<presentation>
 {
   \usetheme{I6pd}
   \usefonttheme{professionalfonts}
 }
+
 % additional settings
 \setbeamerfont{itemize}{size=\normalsize}
 \setbeamerfont{itemize/enumerate body}{size=\normalsize}
@@ -47,12 +49,12 @@
 \DeclareMathOperator{\Reward}{Reward}
 
 \title{\huge Parameter-Free Convex Learning through Coin Betting}
-\author{Francesco Orabona \and David Pal}
+\author{Francesco Orabona \and D\'avid P\'al}
 \institute[] % (optional, but mostly needed)
 {
   Yahoo Research, New York
 }
-\date[June 24 2016]{June 24 2016}
+\date[June 24, 2016]{June 24, 2016}
 
 % abbreviations
 \usepackage{xspace}
@@ -77,66 +79,60 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
-\begin{frame}{} 
+\begin{frame}{}
 
 \begin{columns}[t]
   \begin{column}{.33\linewidth}
 
     \begin{block}{ARE YOU STILL TUNING HYPERPARAMETERS?}
       \spazio
-      \centering
-      \begin{itemize}
-      \item Consider minimizing a regularized empirical risk objective
+      Regularized empirical risk objective
       \begin{equation}
       \label{equation:objective-function}
-         \argmin_{w} \ \frac{\lambda}{2} \norm{w}^2 + \sum_{t=1}^N \ell(w, x_t, y_t),
+         \argmin_{w \in \R^d} \ \frac{\lambda}{2} \norm{w}^2 + \sum_{t=1}^N \ell(w, x_t, y_t)
       \end{equation}
-      where $\ell$ is convex in the first argument.
-      \item How do you choose $\lambda$? Have you ever wondered why you have to tune it manually?
-      \item Why the algorithm is not able to select it automatically?
-      \item Also, how do you optimize this objective function? SGD? What learning rate?
-      \item Do you have a student that tunes all these hyperparameters for you?
+      where $\ell$ is convex in $w$.
+      \begin{itemize}
+      \item Do you choose $\lambda$ manually?
+      \item If you use SGD, how do choose the learning rate?
+      \item Why is the algorithm not able to select $\lambda$ and learning rate automatically?
       \end{itemize}
       \spazio
     \end{block}
-    
+
 
     \begin{block}{FROM COIN-BETTING TO MACHINE LEARNING}
     \spazio
     \begin{itemize}
-      \item The above optimization problem can be solved with an Online Linear Learning algorithm.
-      \item In turn, we prove that Online Linear Learning can be solved with online algorithms to bet on a coin.
+      \item Problem~\eqref{equation:objective-function} can be solved with an Online Linear Learning algorithm.
+      \item We prove that Online Linear Learning can be solved with online coin-betting algorithms.
     \end{itemize}
-    
+
     \vspace{1cm}
-    
+
     \begin{itemize}
-      \item Denote by $c_t=1$ if head, $c_t=-1$ if tails.
-      \item You bet $|w_t|$ on the side $\sign(w_t)$, winning or losing $ w_t c_t$.
-      \item Krichevsky-Trofimov bets: at time $t$ bet a fraction of your current money equal to $\tfrac{1}{t} \sum_{i=1}^{t-1} c_i$.
+      \item Coin flip outcome $c_t \in \{+1, -1\}$.
+      \item You bet $|w_t|$ on the event $\sign(w_t) = c_t$, winning or losing $w_t c_t$.
+      \item Krichevsky-Trofimov: Bet $\tfrac{1}{t} \sum_{i=1}^{t-1} c_i$ fraction of your current wealth
       \item \alert{KT algorithm for coin betting gives rise to optimal parameter-free algorithms for Online Learning, Convex Optimization and Machine Learning!}
-      \item Key idea: treat the gradient as the outcome of a coin.
+      \item Key idea: Treat the gradient as the outcome of a coin flip.
       \item In other words: \alert{Learning rates are the results of suboptimal algorithms, they must be removed, not tuned/learned/adapted!}
     \end{itemize}
     \spazio
     \end{block}
-    
-    
+
     \begin{block}{THE HISTORY OF PARAMETER-FREE ALGORITHMS}
     %\begin{minipage}{.98\linewidth}
     \spazioo
     \begin{itemize}
-    \item Streeter\&McMahan (2012) proved a one-dimensional online regret bound that depends on $u \log(u+1)$ instead of $u^2+1$.
-    \item Orabona (2013) extended it to RKHS spaces, changing the regularizer, algorithm and proof.
-    \item McMahan\&Orabona (2014) proposed a new minimax proof and a new regularizer to have the optimal rate $\normK{\bu} \sqrt{\log(\normK{\bu}+1)}$.
-    \item Orabona (2014) proved a link between these family of online algorithms and self-tuning SVMs, and also proved a
-    data dependent bound.
-    \item A parallel line of work on adaptive learning with expert advice: Chaudhuri et al.(2009), Chernov\&Vovk (2010), Luo\&Schapire (2014), Luo\&Schapire (2015), Koolen\&van-Erven (2015), Foster et al. (2015).
-    \item Orabona\&Pal (2016) proves that online adaptive algorithms for linear learning and learning with expert advices can be easily obtained from algorithms for coin-betting.
+    \item Streeter\&McMahan (2012): Regret in $\R^1$ that depends on $|u| \log|u|$ instead of $|u|^2$.
+    \item Orabona (2013): Generalization to Hilbert space.
+    \item McMahan\&Orabona (2014): Upper and lower bound $\norm{\bu} \sqrt{\log(\norm{\bu}+1)}$.
+    \item Orabona (2014): Link between new online algorithms and self-tuning SVMs, and a data dependent bound.
+    \item A parallel line of work on adaptive learning with expert advice: Chaudhuri et al. (2009), Chernov\&Vovk (2010), Luo\&Schapire (2014), Luo\&Schapire (2015), Koolen\&van-Erven (2015), Foster et al. (2015).
+    \item Orabona\&P\'al (2016) proves that online adaptive algorithms for linear learning and learning with expert advices can be easily obtained from algorithms for coin-betting.
     \end{itemize}
     \spazioo
-    
-   
 
 %     \begin{block}{BIBLIOGRAPHY}
 %     \spazioo
@@ -153,12 +149,8 @@
 %     \end{block}
 %     \end{minipage}
     \end{block}
- 
- 
-    
 
 
-    
 %     \begin{block}{UNCONSTRAINED ONLINE LEARNING WITH LIPSCHITZ LOSSES}
 %     \spazioo
 %     \centering
@@ -173,8 +165,6 @@
 %     \spazioo
 %     \end{block}
 
-    
-    
 %     \begin{block}{EVEN MORE DETAILS: FOLLOW THE TIME-VARYING REGULARIZED LEADER}
 %       \spazio
 %       \begin{algorithmic}
@@ -191,7 +181,7 @@
 %       \end{algorithmic}
 %       \vspace{1cm}
 %       \begin{itemize}
-% 	\item Many names: FTRL (Cesa-Bianchi\&Lugosi, 2006); OMD (Shalev-Shwartz, PhD thesis 2007); RDA (Xiao, 2010) 
+% 	\item Many names: FTRL (Cesa-Bianchi\&Lugosi, 2006); OMD (Shalev-Shwartz, PhD thesis 2007); RDA (Xiao, 2010)
 % 	\item The ``regularizer'' is changing over time
 % 	\item Not discarding any terms in the analysis!
 %       \end{itemize}
@@ -203,9 +193,9 @@
 %       }
 %       \spazio
 %     \end{block}
-%     
-%     
-%     
+%
+%
+%
 %     \begin{block}{YET ANOTHER REGULARIZER}
 %       \spazio
 %       \begin{itemize}
@@ -216,12 +206,11 @@
 %       \vspace{1cm}
 %       \spazio
 %     \end{block}
-    
-    
-    
-    \end{column}    
+
+
+    \end{column}
     \begin{column}{.33\linewidth}
-    
+
     \begin{block}{PARAMETER-FREE SGD BASED ON THE KT ESTIMATOR}
     \spazio
     %\begin{columns}[c]
@@ -239,7 +228,7 @@
       %\end{column}
       %\begin{column}{.3\linewidth}
 %       \begin{itemize}
-%       \item Parameter-free 
+%       \item Parameter-free
 %       \item Very easy to implement
 %       \item Kernelizable
 %       \item Same complexity of SGD
@@ -248,57 +237,51 @@
     %\end{columns}
     \spazio
     \end{block}
-    
+
     \begin{block}{THEORETICAL GUARANTEES}
     \spazio
-    The average $\overline{w}_T$ is an approximate minimizer of the objective function \eqref{equation:objective-function}:
+    The average $\overline{w}_T$ is an approximate minimizer of the objective \eqref{equation:objective-function}:
     \[
       \Exp\left[F(\overline{w}_T)\right] - F(\widehat{w}) \leq \tfrac{\norm{\widehat{w}}}{\sqrt{T}} \sqrt{\log(1+4 T^2 \norm{\widehat{w}}^2)} +\tfrac{1}{T} \; .
     \]
     \spazio
     \end{block}
-    
-    
+
     \begin{block}{DOES IT WORK FOR REAL?}
-      \spazioo      
-      \begin{itemize} 
-        \item The dataset were split in two parts: 75\% training set and the remaining as test set.
-        \item The training is done through one pass over the training set and the final classifier is evaluated on the test set.
-        \item We used 5 different splits of training/test and we report average and standard deviations. 
+      \spazioo
+      \begin{itemize}
+        \item Split data into 75\% training + 25\% test
+        \item Train with one pass over the training set and evaluate the final classifier on the test set.
+        \item Use 5 different splits into training+test. Report average and standard deviation.
         \item We have run SGD with different learning rates and shown the performance of its last solution on the test set.
        \end{itemize}
       \begin{figure}[t]
-	\centering 
+	\centering
 	\begin{tabular}{ccc}
 	\includegraphics[width=0.32\textwidth]{../figs/yearPredictionMSD_kt_train_test-crop.pdf} &
         \includegraphics[width=0.32\textwidth]{../figs/cpusmall_kt_train_test-crop.pdf} &
         \includegraphics[width=0.32\textwidth]{../figs/cadata_kt_train_test-crop.pdf}
 	\end{tabular}
       \end{figure}
-      \begin{itemize} 
+      \begin{itemize}
         \item It is clear that the optimal learning rate is completely data-dependent.
         \item It is also interesting to note how the performance of SGD becomes very unstable with large learning rates. \item Yet \emph{our parameter-free algorithm has a performance very close to the unknown optimal tuning of the learning rate of SGD}.
        \end{itemize}
       \spazioo
     \end{block}
-    
-    
 
-    
 
-    
     \end{column}
-    
-    
-    
+
+
     \begin{column}{.33\linewidth}
 
-    
+
     \begin{block}{TECHNICAL DETAILS}
     \begin{minipage}{.98\linewidth}
-    
+
     Read only if you want the math details!
-    
+
     \begin{block}{LEARNING RATES IN ONLINE LINEAR LEARNING}
     \spaziooo
     \begin{itemize}
@@ -319,7 +302,6 @@
     \end{itemize}
     \spaziooo
     \end{block}
-    
 
     \begin{block}{REGRET GUARANTEE}
     \spaziooo
@@ -333,38 +315,30 @@
 	\Regret_T(u) \le \norm{u} \sqrt{T \ln\left(1 + 4T^2 \norm{u}^2 \right)} + 1 \;.
 	$$
     }
-    
+
     \vspace{1cm}
-    
+
     \alert{Proof Sketch.}
     \begin{itemize}
-    \item Consider first the 1-d case.
-    \item Duality between wealth and regret: Let $V,V^*$ be a pair of dual vector spaces. Let $F:V \to \R \cup \{+\infty\}$ be a proper convex lower semi-continuous function and let $F^*:V^* \to \R \cup \{+\infty\}$ be its Fenchel conjugate. Let $w_1, w_2, \dots, w_T \in V$ and $g_1, g_2, \dots, g_T \in V^*$.  Then,
+    \item Duality between wealth and regret: Let $F:\H \to \R$ be convex. For any $w_1, \dots, w_T$ and $g_1, \dots, g_T$,
     \[
-      \underbrace{\sum_{t=1}^T \langle g_t, w_t \rangle}_{\Reward_T} \ge F\left( \sum_{t=1}^T g_t \right) -\epsilon
-      \ \Leftrightarrow \ 
-      \forall u \in V^*, \
-      \underbrace{\sum_{t=1}^T \langle g_t, u - w_t\rangle}_{\Regret_T(u)} \le F^*(u) + \epsilon
+      \underbrace{\sum_{t=1}^T \langle g_t, w_t \rangle}_{\Reward_T} \ge F\left( \sum_{t=1}^T g_t \right)
+      \ \Leftrightarrow \
+      \forall u \in \H, \
+      \underbrace{\sum_{t=1}^T \langle g_t, u - w_t\rangle}_{\Regret_T(u)} \le F^*(u)
     \]
-    \item Set $w_t=\beta_t \Wealth_{t-1}$, where $\beta_t$ is the KT estimator.
-    \item In the case that $\ell_t \in \{-1,1\}$, the results follows directly from the guarantee on the KT estimator and duality above.
-    \item The case $\ell_t \in [-1,1]$ is solved through convexity: the worst $\ell$ is always +1 or -1.
-    \item The genearal Hilbert case is reduced to the 1-d case, observing that the worst direction is always parallel to the sum of the previos $\ell_t$.
-    \end{itemize}    
+    \item Consider the $1$-dimensional case $\H=\R^1$.
+    \item Set $w_t=\beta_t \Wealth_{t-1}$ where $\beta_t$ is the KT estimator.
+    \item If $\ell_t \in \{+1, -1\}$, the results follows directly from the guarantee on the KT estimator and duality above.
+    \item Extend to $\ell_t \in [-1,1]$ by convexity: The worst $\ell_t$ is always $+1$ or $-1$.
+    \item Extend $1$-d case to Hilbert space: Worst direction is always parallel to the sum of the previous $\ell_t$.
+    \end{itemize}
     \spaziooo
     \end{block}
     \end{minipage}
     \end{block}
 
-    
   \end{column}
 \end{columns}
 \end{frame}
 \end{document}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% Local Variables: 
-%%% mode: latex
-%%% TeX-PDF-mode: t
-%%% End: 
