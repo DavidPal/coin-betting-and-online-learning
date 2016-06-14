@@ -79,7 +79,7 @@
 
 \setitemize{label=\usebeamerfont*{itemize item}%
   \usebeamercolor[fg]{itemize item}
-  \usebeamertemplate{itemize item}} 
+  \usebeamertemplate{itemize item}}
 \setlist{leftmargin=*,labelindent=0cm,labelsep=1cm}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -96,9 +96,9 @@
       Regularized empirical risk objective
       \begin{equation}
       \label{equation:objective-function}
-         \argmin_{w \in \R^d} \ \frac{\lambda}{2} \norm{w}^2 + \sum_{t=1}^N \ell(w, x_t, y_t)
+         \argmin_{w \in \R^d} \ \frac{\lambda}{2} \norm{w}^2 + \sum_{i=1}^N f(w, x_i, y_i)
       \end{equation}
-      where $\ell$ is convex in $w$.
+      where $f$ is convex in $w$.
       \begin{itemize}
       \item Do you choose $\lambda$ manually?
       \item If you use SGD, how do you choose the learning rate?
@@ -205,40 +205,30 @@
 \begin{column}{.33\linewidth}
 
     \begin{block}{PARAMETER-FREE SGD BASED ON THE KT ESTIMATOR}
-    %\begin{columns}[c]
-      %\begin{column}{.7\linewidth}
-	\begin{algorithmic}
+
+	\begin{algorithmic}[1]
+	{
+	\REQUIRE{Convex functions $f_1, f_2, \dots, f_N$ and desired number of iterations $T$}
 	\STATE{Initialize $\Wealth_0 \leftarrow 1$ and $\theta_0 \leftarrow 0$}
 	\FOR{$t=1,2,\dots,T$}
 	\STATE{Set $w_t \leftarrow \Wealth_{t-1} \tfrac{\theta_{t-1}}{t} $}
-	\STATE{Select an index $j$ at random from $\{1,2,\dots,N\}$}
-	\STATE{Update $\theta_t \leftarrow \theta_{t-1} - \grad \ell(w_{t-1},x_j,y_j)$}
-	\STATE{$\Wealth_t \leftarrow \Wealth_{t-1} - \langle \grad \ell(w_{t-1},x_j,y_j), w_t \rangle$}
+	\STATE{Select an index $j$ at random from $\{1,2,\dots,N\}$ and compute $\ell_t = \grad f_j(w_{t-1})$}
+	\STATE{Update $\theta_t \leftarrow \theta_{t-1} - \ell_t$ and $\Wealth_t \leftarrow \Wealth_{t-1} - \langle \ell_t, w_t \rangle$}
 	\ENDFOR
 	\STATE{Output $\overline{w}_T = \tfrac{1}{T}\sum_{t=1}^T w_t$}
+	}
 	\end{algorithmic}
-      %\end{column}
-      %\begin{column}{.3\linewidth}
-%       \begin{itemize}
-%       \item Parameter-free
-%       \item Very easy to implement
-%       \item Kernelizable
-%       \item Same complexity of SGD
-%       \end{itemize}
-      %\end{column}
-    %\end{columns}
     \end{block}
 
+
     \begin{block}{THEORETICAL GUARANTEES}
-    The average $\overline{w}_T$ is an approximate minimizer of the objective \eqref{equation:objective-function}:
-    \[
-      \Exp\left[F(\overline{w}_T)\right] - F(\widehat{w}) \leq \tfrac{\norm{\widehat{w}}}{\sqrt{T}} \sqrt{\log(1+4 T^2 \norm{\widehat{w}}^2)} +\tfrac{1}{T} \; .
-    \]
-    \spazio
+	The average $\overline{w}_T$ an approximate minimizer of $F(w) = \sum_{i=1}^N f_i(w)$:
+	\[
+	\Exp\left[F(\overline{w}_T)\right] - F(\widehat{w}) \leq \tfrac{\norm{\widehat{w}}}{\sqrt{T}} \sqrt{\log(1+4 T^2 \norm{\widehat{w}}^2)} +\tfrac{1}{T} \; .
+	\]
     \end{block}
 
     \begin{block}{DOES IT WORK FOR REAL?}
-      \spazioo
       \begin{itemize}
         \item Split data into 75\% training + 25\% test
         \item Train with one pass over the training set and evaluate the final classifier on the test set.
@@ -248,9 +238,9 @@
       \begin{figure}[t]
 	\centering
 	\begin{tabular}{ccc}
-	\includegraphics[width=0.32\textwidth]{../figs/yearPredictionMSD_kt_train_test-crop.pdf} &
-        \includegraphics[width=0.32\textwidth]{../figs/cpusmall_kt_train_test-crop.pdf} &
-        \includegraphics[width=0.32\textwidth]{../figs/cadata_kt_train_test-crop.pdf}
+	\includegraphics[width=0.3\textwidth]{../figs/yearPredictionMSD_kt_train_test-crop.pdf} &
+        \includegraphics[width=0.3\textwidth]{../figs/cpusmall_kt_train_test-crop.pdf} &
+        \includegraphics[width=0.3\textwidth]{../figs/cadata_kt_train_test-crop.pdf}
 	\end{tabular}
       \end{figure}
       \begin{itemize}
@@ -289,7 +279,6 @@
     \end{block}
 
     \begin{block}{REGRET GUARANTEE}
-    \spaziooo
     \alert{Theorem.} \emph{
 	Let $\{\ell_t\}_{t=1}^\infty$ be any sequence of loss vectors
 	in a Hilbert space $\H$ such that $\norm{\ell_t} \le 1$.

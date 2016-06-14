@@ -119,7 +119,7 @@ $\lambda$ or the learning rate, or any other tuning parameter}.
 \FOR{$i=1,2,\dots,N$}
 \STATE{Set $w_i \leftarrow \Wealth_{i-1} \tfrac{\theta_{i-1}}{i} $}
 \STATE{Compute $\ell_i = \frac{\partial f(w, X_i, Y_i)}{\partial w}|_{w=w_i}$}
-\STATE{Update $\theta_i \leftarrow \theta_{i-1} - \ell_t$ and $\Wealth_i \leftarrow \Wealth_{i-1} - \langle \ell_i, w_i \rangle$}
+\STATE{Update $\theta_i \leftarrow \theta_{i-1} - \ell_i$ and $\Wealth_i \leftarrow \Wealth_{i-1} - \langle \ell_i, w_i \rangle$}
 \ENDFOR
 \STATE{Output $\overline{w}_N = \tfrac{1}{N} \sum_{i=1}^N w_i$}
 }
