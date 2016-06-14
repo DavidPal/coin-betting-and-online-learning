@@ -32,12 +32,6 @@
 \listfiles
 \usepackage{multicol}
 
-
-
-% Display a grid to help align images
-%\beamertemplategridbackground[1cm]
-
-
 \input{symbol_poster.tex}
 
 \DeclareMathOperator*{\Exp}{\mathbf{E}}
@@ -82,10 +76,11 @@
 \begin{frame}{}
 
 \begin{columns}[t]
-  \begin{column}{.33\linewidth}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{column}{.33\linewidth}
 
     \begin{block}{ARE YOU STILL TUNING HYPERPARAMETERS?}
-      \spazio
       Regularized empirical risk objective
       \begin{equation}
       \label{equation:objective-function}
@@ -97,12 +92,9 @@
       \item If you use SGD, how do choose the learning rate?
       \item Why is the algorithm not able to select $\lambda$ and learning rate automatically?
       \end{itemize}
-      \spazio
     \end{block}
 
-
     \begin{block}{FROM COIN-BETTING TO MACHINE LEARNING}
-    \spazio
     \begin{itemize}
       \item Problem~\eqref{equation:objective-function} can be solved with an Online Linear Learning algorithm.
       \item We prove that Online Linear Learning can be solved with online coin-betting algorithms.
@@ -118,12 +110,9 @@
       \item Key idea: Treat the gradient as the outcome of a coin flip.
       \item In other words: \alert{Learning rates are the results of suboptimal algorithms, they must be removed, not tuned/learned/adapted!}
     \end{itemize}
-    \spazio
     \end{block}
 
     \begin{block}{THE HISTORY OF PARAMETER-FREE ALGORITHMS}
-    %\begin{minipage}{.98\linewidth}
-    \spazioo
     \begin{itemize}
     \item Streeter\&McMahan (2012): Regret in $\R^1$ that depends on $|u| \log|u|$ instead of $|u|^2$.
     \item Orabona (2013): Generalization to Hilbert space.
@@ -132,10 +121,8 @@
     \item A parallel line of work on adaptive learning with expert advice: Chaudhuri et al. (2009), Chernov\&Vovk (2010), Luo\&Schapire (2014), Luo\&Schapire (2015), Koolen\&van-Erven (2015), Foster et al. (2015).
     \item Orabona\&P\'al (2016) proves that online adaptive algorithms for linear learning and learning with expert advices can be easily obtained from algorithms for coin-betting.
     \end{itemize}
-    \spazioo
 
 %     \begin{block}{BIBLIOGRAPHY}
-%     \spazioo
 %     %\vspace{-1cm}
 %     %\begin{multicols}{2}
 %     \tiny
@@ -145,14 +132,12 @@
 %     Orabona and Pal. From Coin Betting to Parameter-Free Online Learning. ArXiv 2016.
 %     %\end{multicols}
 %     %\vspace{-1cm}
-%     \spazioo
 %     \end{block}
 %     \end{minipage}
     \end{block}
 
 
 %     \begin{block}{UNCONSTRAINED ONLINE LEARNING WITH LIPSCHITZ LOSSES}
-%     \spazioo
 %     \centering
 %     \begin{itemize}
 %     \item Learning rate should be $\frac{\eta}{\sqrt{t}}$, e.g. Zinkevich (2003)
@@ -162,11 +147,9 @@
 %     \begin{figure}
 %       \includegraphics[width=15cm]{figs/cadata_keg_only}
 %     \end{figure}
-%     \spazioo
 %     \end{block}
 
 %     \begin{block}{EVEN MORE DETAILS: FOLLOW THE TIME-VARYING REGULARIZED LEADER}
-%       \spazio
 %       \begin{algorithmic}
 % 	  \STATE{\bfseries Params:} A sequence of strongly convex functions $f_1,f_2,\dots$
 %       % defined on a common domain $S \subseteq \fX$.
@@ -191,28 +174,25 @@
 %       \sum_{t=1}^T \ell_t(\bw_t)  - \sum_{t=1}^T \ell_t(\bu)\leq f_T(\bu) + \sum_{t=1}^{T} \left(\frac{\bigl(\norm{\partial \ell_t(\bw_t)}_{f_t}\bigr)_*^2}{2 \beta_t} + f^*_t(\btheta_t)-f^*_{t-1}(\btheta_{t}) \right)~.
 %       \end{equation*}
 %       }
-%       \spazio
 %     \end{block}
 %
 %
 %
 %     \begin{block}{YET ANOTHER REGULARIZER}
-%       \spazio
 %       \begin{itemize}
 %       \item $f_t(\bw)=\frac{\sqrt{t}}{\eta}\|\bw\|_2^2 \Rightarrow \text{ the bound is } \scO\left(\frac{\|\bu\|_2^2}{\eta}\sqrt{T} +\eta \sqrt{T} \right)$
 %       \item What about $f_t(\bw)=\frac{\sqrt{t}}{\eta}\|\bw\|_2$? Not strongly convex!
 %       \item We need something close but strongly convex, maybe we can add a logarithm...
 %       \end{itemize}
 %       \vspace{1cm}
-%       \spazio
 %     \end{block}
+\end{column}
 
 
-    \end{column}
-    \begin{column}{.33\linewidth}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{column}{.33\linewidth}
 
     \begin{block}{PARAMETER-FREE SGD BASED ON THE KT ESTIMATOR}
-    \spazio
     %\begin{columns}[c]
       %\begin{column}{.7\linewidth}
 	\begin{algorithmic}
@@ -235,11 +215,9 @@
 %       \end{itemize}
       %\end{column}
     %\end{columns}
-    \spazio
     \end{block}
 
     \begin{block}{THEORETICAL GUARANTEES}
-    \spazio
     The average $\overline{w}_T$ is an approximate minimizer of the objective \eqref{equation:objective-function}:
     \[
       \Exp\left[F(\overline{w}_T)\right] - F(\widehat{w}) \leq \tfrac{\norm{\widehat{w}}}{\sqrt{T}} \sqrt{\log(1+4 T^2 \norm{\widehat{w}}^2)} +\tfrac{1}{T} \; .
@@ -267,15 +245,12 @@
         \item It is clear that the optimal learning rate is completely data-dependent.
         \item It is also interesting to note how the performance of SGD becomes very unstable with large learning rates. \item Yet \emph{our parameter-free algorithm has a performance very close to the unknown optimal tuning of the learning rate of SGD}.
        \end{itemize}
-      \spazioo
     \end{block}
+\end{column}
 
 
-    \end{column}
-
-
-    \begin{column}{.33\linewidth}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{column}{.33\linewidth}
 
     \begin{block}{TECHNICAL DETAILS}
     \begin{minipage}{.98\linewidth}
@@ -283,7 +258,6 @@
     Read only if you want the math details!
 
     \begin{block}{LEARNING RATES IN ONLINE LINEAR LEARNING}
-    \spaziooo
     \begin{itemize}
       \item Define
       \[
@@ -300,7 +274,6 @@
 	\forall u \in \H \qquad \Regret_T(u) \le \big(O(1)+\polylog(1 + \norm{u})\norm{u} \big) \sqrt{T} \; .
 	\]
     \end{itemize}
-    \spaziooo
     \end{block}
 
     \begin{block}{REGRET GUARANTEE}
@@ -333,12 +306,13 @@
     \item Extend to $\ell_t \in [-1,1]$ by convexity: The worst $\ell_t$ is always $+1$ or $-1$.
     \item Extend $1$-d case to Hilbert space: Worst direction is always parallel to the sum of the previous $\ell_t$.
     \end{itemize}
-    \spaziooo
     \end{block}
     \end{minipage}
     \end{block}
+\end{column}
 
-  \end{column}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \end{columns}
 \end{frame}
 \end{document}
