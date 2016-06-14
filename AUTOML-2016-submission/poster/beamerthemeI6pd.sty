@@ -1,5 +1,7 @@
 \ProvidesPackage{beamerthemeI6pd}
 
+\usepackage{changepage}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \selectcolormodel{rgb}
 \mode<presentation>
@@ -60,15 +62,17 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \setbeamertemplate{block begin}{
   \vskip.75ex
-  \begin{beamercolorbox}[rounded=true,leftskip=2cm,colsep*=.75ex]{block title}%
+  \begin{beamercolorbox}[rounded=true,leftskip=1.5cm,colsep*=.75ex]{block title}%
     \usebeamerfont*{block title}\insertblocktitle
   \end{beamercolorbox}%
-  {\ifbeamercolorempty[bg]{block body}{}{\nointerlineskip\vskip-0.5pt}}%
+  % {\ifbeamercolorempty[bg]{block body}{}{\nointerlineskip\vskip-0.5pt}}%
   \usebeamerfont{block body}%
   \begin{beamercolorbox}[rounded=true,colsep*=.75ex,sep=.75ex,vmode]{block body}%
-    \ifbeamercolorempty[bg]{block body}{\vskip-.25ex}{\vskip-0.75ex}\vbox{}%
+    % \ifbeamercolorempty[bg]{block body}{\vskip-.25ex}{\vskip-0.75ex}\vbox{}%
+    \begin{adjustwidth}{0.6cm}{0.6cm}
   }
   \setbeamertemplate{block end}{
+    \end{adjustwidth}
   \end{beamercolorbox}
 }
 
