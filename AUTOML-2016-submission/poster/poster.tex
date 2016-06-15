@@ -33,7 +33,7 @@
 \usepackage[english]{babel}
 \usepackage[latin1]{inputenc}
 %\usepackage[orientation=landscape,size=a0,scale=1.3]{beamerposter}
-\usepackage[orientation=landscape,size=custom,width=121,height=91,scale=1.5]{beamerposter}
+\usepackage[orientation=landscape,size=custom,width=121,height=91,scale=1.47]{beamerposter}
 %\usepackage[orientation=portrait,size=a4,scale=1.3]{beamerposter}
 \listfiles
 \usepackage{multicol}
@@ -73,9 +73,9 @@
 \makeatother
 
 \def\spazioBlocchi{\vspace{0cm}}
-\def\spazio{\vspace{-0.325cm}}
-\def\spazioo{\vspace{-0.3cm}}
-\def\spaziooo{\vspace{-0.cm}}
+\def\blockspacea{\vspace{0.cm}}
+\def\blockspaceb{\vspace{0.08cm}}
+\def\blockspacec{\vspace{0.25cm}}
 
 \setitemize{label=\usebeamerfont*{itemize item}%
   \usebeamercolor[fg]{itemize item}
@@ -93,20 +93,42 @@
 \begin{column}{.33\linewidth}
 
     \begin{block}{ARE YOU STILL TUNING HYPERPARAMETERS?}
-      Regularized empirical risk objective
+      \blockspacea
+      
+      Regularized empirical risk minimization:
       \begin{equation}
       \label{equation:objective-function}
          \argmin_{w \in \R^d} \ \frac{\lambda}{2} \norm{w}^2 + \sum_{i=1}^N f(w, x_i, y_i)
       \end{equation}
       where $f$ is convex in $w$.
       \begin{itemize}
-      \item Do you choose $\lambda$ manually?
-      \item If you use SGD, how do you choose the learning rate?
-      \item Why is the algorithm not able to select $\lambda$ and learning rate automatically?
+      \item How do you choose the learning rate $\lambda$?
       \end{itemize}
+      
+      \vspace{1cm}
+      
+      Stochastic approximation:
+      \begin{equation}
+      \label{equation:objective-function-sa}
+         w_t = w_{t-1} - \eta_t \grad f(w_{t-1}, x_t, y_t)
+      \end{equation}
+      where $f$ is convex in $w$.
+      \begin{itemize}
+      \item How do you choose the learning rate $\eta_t$?
+      \end{itemize}
+      
+      \vspace{1cm}
+      
+      \begin{itemize}      
+      \item \alert{Why is the algorithm not able to select $\lambda$ and learning rate automatically?}
+      \end{itemize}
+      
+      \blockspacea
     \end{block}
 
     \begin{block}{FROM COIN-BETTING TO MACHINE LEARNING}
+    \blockspacea
+    
     \begin{itemize}
       \item Problem~\eqref{equation:objective-function} can be solved with an Online Linear Learning algorithm.
       \item We prove that Online Linear Learning can be solved with online coin-betting algorithms.
@@ -116,15 +138,18 @@
 
     \begin{itemize}
       \item Coin flip outcome $c_t \in \{+1, -1\}$.
-      \item You bet $|w_t|$ on the event $\sign(w_t) = c_t$, winning or losing $w_t c_t$.
-      \item Krichevsky-Trofimov: Bet $\tfrac{1}{t} \sum_{i=1}^{t-1} c_i$ fraction of your current wealth
+      \item Krichevsky-Trofimov: Bet $\tfrac{1}{t} \sum_{i=1}^{t-1} c_i$ fraction of your current wealth on the most common outcome till time $t$
       \item \alert{KT algorithm for coin betting gives rise to optimal parameter-free algorithms for Online Learning, Convex Optimization and Machine Learning!}
       \item Key idea: Treat the gradient as the outcome of a coin flip.
       \item In other words: \alert{Learning rates are the results of suboptimal algorithms, they must be removed, not tuned/learned/adapted!}
     \end{itemize}
+    
+    \blockspacea
     \end{block}
 
     \begin{block}{THE HISTORY OF PARAMETER-FREE ALGORITHMS}
+    \blockspacea
+    
     \begin{itemize}
     \item Streeter\&McMahan (2012): Regret in $\R^1$ that depends on $|u| \log|u|$ instead of $|u|^2$.
     \item Orabona (2013): Generalization to Hilbert space.
@@ -146,58 +171,10 @@
 %     %\vspace{-1cm}
 %     \end{block}
 %     \end{minipage}
+    \blockspacea
     \end{block}
 
 
-%     \begin{block}{UNCONSTRAINED ONLINE LEARNING WITH LIPSCHITZ LOSSES}
-%     \centering
-%     \begin{itemize}
-%     \item Learning rate should be $\frac{\eta}{\sqrt{t}}$, e.g. Zinkevich (2003)
-%     \item \alert{Setting $\eta$ optimally the regret is $\scO(\|\bu\| \sqrt{T})$ otherwise $\scO((\|\bu\|^2 +1)\sqrt{T})$}
-%     \item Unfortunately the optimal $\eta$ depends on the \emph{future}
-%     \end{itemize}
-%     \begin{figure}
-%       \includegraphics[width=15cm]{figs/cadata_keg_only}
-%     \end{figure}
-%     \end{block}
-
-%     \begin{block}{EVEN MORE DETAILS: FOLLOW THE TIME-VARYING REGULARIZED LEADER}
-%       \begin{algorithmic}
-% 	  \STATE{\bfseries Params:} A sequence of strongly convex functions $f_1,f_2,\dots$
-%       % defined on a common domain $S \subseteq \fX$.
-% 	  \STATE{\bfseries Initialize:} $\btheta_1=\boldsymbol{0}$
-% 	  \FOR{$t=1,2,\dots$}
-% 	  \STATE{Set $\bw_t=\nabla f_t^*(\btheta_t)= \arg \min_{\bw} f_t(\bw) - \langle \bw, \btheta_t \rangle$}
-% 	  %\STATE{Set $\bw_t=\argmin_{\bw} f_t(\bw) - \langle \bw, \btheta_t \rangle = \nabla f_t^*(\btheta_t)$}
-% 	  %\STATE{Observe $\bz_t$}
-%           \STATE{Suffer loss $\ell_t(\bw_t)$}
-% 	  \STATE{Update $\btheta_{t+1}=\btheta_{t} - \partial \ell_t(\bw_t)$}
-% 	  \ENDFOR
-%       \end{algorithmic}
-%       \vspace{1cm}
-%       \begin{itemize}
-% 	\item Many names: FTRL (Cesa-Bianchi\&Lugosi, 2006); OMD (Shalev-Shwartz, PhD thesis 2007); RDA (Xiao, 2010)
-% 	\item The ``regularizer'' is changing over time
-% 	\item Not discarding any terms in the analysis!
-%       \end{itemize}
-%       \alert{Theorem.} \emph{
-%       Assume $f_1,f_2,\dots$ such that each $f_t$ is $\beta_t$-strongly convex with respect to the norm $\norm{\cdot}_{f_t}$ (or $f^*_t$ $1/\beta_t$-strongly smooth). Then
-%       \begin{equation*}
-%       \sum_{t=1}^T \ell_t(\bw_t)  - \sum_{t=1}^T \ell_t(\bu)\leq f_T(\bu) + \sum_{t=1}^{T} \left(\frac{\bigl(\norm{\partial \ell_t(\bw_t)}_{f_t}\bigr)_*^2}{2 \beta_t} + f^*_t(\btheta_t)-f^*_{t-1}(\btheta_{t}) \right)~.
-%       \end{equation*}
-%       }
-%     \end{block}
-%
-%
-%
-%     \begin{block}{YET ANOTHER REGULARIZER}
-%       \begin{itemize}
-%       \item $f_t(\bw)=\frac{\sqrt{t}}{\eta}\|\bw\|_2^2 \Rightarrow \text{ the bound is } \scO\left(\frac{\|\bu\|_2^2}{\eta}\sqrt{T} +\eta \sqrt{T} \right)$
-%       \item What about $f_t(\bw)=\frac{\sqrt{t}}{\eta}\|\bw\|_2$? Not strongly convex!
-%       \item We need something close but strongly convex, maybe we can add a logarithm...
-%       \end{itemize}
-%       \vspace{1cm}
-%     \end{block}
 \end{column}
 
 
@@ -205,30 +182,51 @@
 \begin{column}{.33\linewidth}
 
     \begin{block}{PARAMETER-FREE SGD BASED ON THE KT ESTIMATOR}
-
+	\blockspaceb
+	
 	\begin{algorithmic}[1]
 	{
 	\REQUIRE{Convex functions $f_1, f_2, \dots, f_N$ and desired number of iterations $T$}
 	\STATE{Initialize $\Wealth_0 \leftarrow 1$ and $\theta_0 \leftarrow 0$}
 	\FOR{$t=1,2,\dots,T$}
 	\STATE{Set $w_t \leftarrow \Wealth_{t-1} \tfrac{\theta_{t-1}}{t} $}
-	\STATE{Select an index $j$ at random from $\{1,2,\dots,N\}$ and compute $\ell_t = \grad f_j(w_{t-1})$}
-	\STATE{Update $\theta_t \leftarrow \theta_{t-1} - \ell_t$ and $\Wealth_t \leftarrow \Wealth_{t-1} - \langle \ell_t, w_t \rangle$}
+	\STATE{Select an index $j$ at random from $\{1,2,\dots,N\}$}
+	\STATE{Update $\theta_t \leftarrow \theta_{t-1} - \grad f(w_{t-1},x_j,y_j)$}
+	\STATE{$\Wealth_t \leftarrow \Wealth_{t-1} - \langle \grad f(w_{t-1},x_j,y_j), w_t \rangle$}
 	\ENDFOR
 	\STATE{Output $\overline{w}_T = \tfrac{1}{T}\sum_{t=1}^T w_t$}
 	}
 	\end{algorithmic}
+
+	\blockspaceb
     \end{block}
 
 
     \begin{block}{THEORETICAL GUARANTEES}
-	The average $\overline{w}_T$ an approximate minimizer of $F(w) = \sum_{i=1}^N f_i(w)$:
+	\blockspaceb
+	
+	\textbf{One epoch: $T\leq N$}
+	
+	The average $\overline{w}_T$ is an approximate minimizer of the risk $\Exp[f(w,X,Y)]$:
+	\[
+	\Exp\left[F(\overline{w}_T,X,Y)\right] - F(w^*,X,Y) \leq \tfrac{\norm{w^*}}{\sqrt{T}} \sqrt{\log(1+4 T^2 \norm{w^*}^2)} +\tfrac{1}{T} \; .
+	\]
+	
+	\vspace{1cm}
+	
+	\textbf{Multiple epochs: $T>N$}
+	
+	The average $\overline{w}_T$ is an approximate minimizer of training set error $F(w) = \sum_{i=1}^N f(w,x_i,y_i)$:
 	\[
 	\Exp\left[F(\overline{w}_T)\right] - F(\widehat{w}) \leq \tfrac{\norm{\widehat{w}}}{\sqrt{T}} \sqrt{\log(1+4 T^2 \norm{\widehat{w}}^2)} +\tfrac{1}{T} \; .
 	\]
+	
+	\blockspaceb	
     \end{block}
 
     \begin{block}{DOES IT WORK FOR REAL?}
+      \blockspaceb
+      
       \begin{itemize}
         \item Split data into 75\% training + 25\% test
         \item Train with one pass over the training set and evaluate the final classifier on the test set.
@@ -247,6 +245,9 @@
         \item It is clear that the optimal learning rate is completely data-dependent.
         \item It is also interesting to note how the performance of SGD becomes very unstable with large learning rates. \item Yet \emph{our parameter-free algorithm has a performance very close to the unknown optimal tuning of the learning rate of SGD}.
        \end{itemize}
+       
+       \blockspaceb
+       
     \end{block}
 \end{column}
 
@@ -257,9 +258,15 @@
     \begin{block}{TECHNICAL DETAILS}
     \begin{minipage}{.98\linewidth}
 
+    \blockspacec
+    
     Read only if you want the math details!
+    
+    \blockspacec
 
     \begin{block}{LEARNING RATES IN ONLINE LINEAR LEARNING}
+    \blockspacec
+    
     \begin{itemize}
       \item Define
       \[
@@ -269,6 +276,7 @@
 	\[
 	\forall u \in \H \qquad \Regret_T(u) \le \tfrac{\norm{u}^2}{2\eta} + \tfrac{\eta}{2} \sum_{t=1}^T \norm{\ell_t}^2
 	\]
+      \item Optimal oracle choice: $\eta = \frac{\norm{u}}{\sqrt{\sum_{t=1}^T \norm{\ell_t}^2}}$.
       \item Tons of algorithms adapt to the norms of the gradients, e.g. AdaGrad
       \item Adapting to the unknown norm of $u$ is \emph{more difficult and more important}.
       \item Better guarantees are indeed possible: Streeter\&McMahan (2012), Orabona (2013), McMahan\&Abernethy (2013), McMahan\&Orabona (2014), Orabona (2014) 
@@ -276,9 +284,13 @@
 	\forall u \in \H \qquad \Regret_T(u) \le \big(O(1)+\polylog(1 + \norm{u})\norm{u} \big) \sqrt{T} \; .
 	\]
     \end{itemize}
+    
+    \blockspacec
     \end{block}
 
     \begin{block}{REGRET GUARANTEE}
+    \blockspacec
+    
     \alert{Theorem.} \emph{
 	Let $\{\ell_t\}_{t=1}^\infty$ be any sequence of loss vectors
 	in a Hilbert space $\H$ such that $\norm{\ell_t} \le 1$.
@@ -309,6 +321,7 @@
     \end{itemize}
     \end{block}
     \end{minipage}
+    \blockspacec
     \end{block}
 \end{column}
 
