@@ -1,0 +1,155 @@
+\documentclass{beamer}
+\usetheme{yahoo}
+
+\usepackage{algorithmic}
+\usepackage{amsmath, amsthm, amssymb}
+
+\input{../poster/symbol_poster.tex}
+
+\DeclareMathOperator*{\Exp}{\mathbf{E}}
+\DeclareMathOperator{\Wealth}{Wealth}
+\newcommand{\grad}{\nabla}
+\renewcommand{\H}{\mathcal{H}}  % Hilbert space
+\DeclareMathOperator{\Regret}{Regret}
+\DeclareMathOperator{\polylog}{polylog}
+\DeclareMathOperator{\Reward}{Reward}
+
+
+\usepackage[english]{babel}
+% or whatever
+
+%\usepackage[latin1]{inputenc}
+\usepackage[utf8]{inputenc}   % replace by the encoding you are using
+% or whatever
+
+\usepackage{times}
+\usepackage[T1]{fontenc}
+% Or whatever. Note that the encoding and the font should match. If T1
+% does not look nice, try deleting the line with the fontenc.
+
+
+\title{Parameter-Free Convex Learning through Coin Betting}
+
+\author{Francesco Orabona \and D\'avid P\'al}
+
+\institute[] % (optional, but mostly needed)
+{
+Yahoo Research, New York
+}
+
+\date[June 24, 2016]{June 24, 2016}
+
+
+%\beamerdefaultoverlayspecification{<+->}
+\setbeamercovered{invisible}
+
+\begin{document}
+
+\titleframe{Parameter-Free Convex Learning through Coin Betting}{Francesco Orabona and D\'avid P\'al}{Yahoo Research, NY}
+%
+%
+\begin{frame}{Are You Still Tuning/Learning/Adapting Hyperparameters?}
+	Standard Machine Learning procedures
+	
+	\vspace{1cm}
+	
+	Regularized empirical risk minimization:
+	\[
+	\argmin_{w \in \R^d} \ \frac{\lambda}{2} \norm{w}^2 + \sum_{i=1}^N f(w, x_i, y_i)
+	\]
+	where $f$ is convex in $w$.
+	\begin{itemize}
+	\item<2> How do you choose the regularizer weight $\lambda$?
+	\end{itemize}
+\end{frame}
+%
+%
+\begin{frame}{Are You Still Tuning/Learning/Adapting Hyperparameters?}
+	Standard Machine Learning procedures
+	
+	\vspace{1cm}
+	
+	Stochastic approximation:
+	\[
+	w_t = w_{t-1} - \eta_t \grad f(w_{t-1}, x_t, y_t)
+	\]
+	where $f$ is convex in $w$.
+	\begin{itemize}
+	\item<2> How do you choose the learning rate $\eta_t$?
+	\end{itemize}
+\end{frame}
+%
+%
+\begin{frame}
+\center
+\huge
+Wasn't machine learning about learning \emph{automatically} from data?
+\end{frame}
+%
+%
+\begin{frame}{One Coin to Rule Them All}
+
+
+\makebox[\linewidth][c]{
+\begin{columns}[c]
+  \begin{column}{3cm}
+    \begin{figure}
+      \includegraphics[width=3cm]{figs/coin_toss}
+    \end{figure}
+  \end{column}
+  \begin{column}{5cm}
+  \center
+  \huge
+  is equivalent to
+  \end{column}
+  \begin{column}{4cm}
+    \begin{figure}
+      \includegraphics[width=4cm]{figs/gd}
+    \end{figure}
+  \end{column}
+\end{columns}
+}
+
+
+\center
+Online Coin betting algorithms give rise to \emph{optimal} and \emph{parameter-free} learning algorithms
+
+\end{frame}
+%
+%
+
+
+\begin{frame}{Simple Algorithm \& Good Results}
+
+\begin{columns}[c]
+  \begin{column}{6cm}
+   \small 
+   \begin{itemize}
+    \item Parameter-free
+    \item Same complexity of SGD
+    \item Kernelizable
+    \end{itemize}
+  \end{column}
+  \begin{column}{5cm}
+    \includegraphics[width=0.9\textwidth]{../figs/cpusmall_kt_train_test-crop}
+  \end{column}
+\end{columns}
+
+\vspace{.25cm}
+
+%\begin{theorem}
+%For any sequence of Lipschitz convex losses
+%Define $n(\bx):=\max(\|\bx\|,\|\bx\|^2)$ and set $H_t=\sum_{i=1}^t L^2 n(\bx_t)+ \delta$, $\alpha_t = a \sqrt{H_{t}}$, $\beta_t = (H_{t})^\frac{3}{2}$, where $\delta\geq0$. Set in OMD $f_t(\bw)=\alpha_t \|\bw\| \left(\ln \left(\beta_t \|\bw\| \right)-1\right)$, and $\bz_t=-\ell'_t(\bw_t^\top\bx_t) \bx_t$.
+%\[
+%Regret(T) \leq \scO\left(\|\bu\| \sqrt{T} \left(\ln \left( T^{1.5} \|\bu\| \right)-1\right) \right)
+%\]
+%\end{theorem}
+
+\begin{center}
+See how at poster!
+\end{center}
+
+\end{frame}
+
+\end{document}
+

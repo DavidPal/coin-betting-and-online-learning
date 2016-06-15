@@ -1,0 +1,89 @@
+% Property of Yahoo inc.
+% Created by edo@ 2015
+% Do not distribute without explicit permission
+
+% Sets the right slide aspect ratio and top margin from frame title
+\setlength{\paperwidth}{16.0cm}
+\setlength{\paperheight}{10.0cm}
+\setlength{\textwidth}{13.5cm}
+\setlength{\textheight}{9.0cm} 
+\setbeamertemplate{headline}{\vspace{0.7cm}}
+\setbeamerfont{frametitle}{size=\Huge}%{size=\fontsize{19}{29}\selectfont}
+
+% Sets font to Arial, requires xelatex to compile!!
+\usepackage{xltxtra}
+\setsansfont[BoldFont={Arial Bold}]{Arial}
+
+% Changes math to article style
+\usefonttheme[onlymath]{serif}
+
+% defines the Yahoo purples
+\usepackage{color}
+\definecolor{ypurple}{HTML}{400090} % main yahoo brand color
+
+% PRIMARY purple pallete
+\definecolor{ypurple1}{HTML}{7300FF} % lightest
+\definecolor{ypurple2}{HTML}{5A00CB} 
+\definecolor{ypurple3}{HTML}{400090} % main yahoo brand color
+\definecolor{ypurple4}{HTML}{2D00FA} 
+\definecolor{ypurple5}{HTML}{1E0041} % darkest
+
+% SECONDARY cool pallete
+\definecolor{ycool1}{HTML}{0082FF} % lightest
+\definecolor{ycool2}{HTML}{5A00CB}
+\definecolor{ycool3}{HTML}{0050FF}
+\definecolor{ycool4}{HTML}{08009D}
+\definecolor{ycool5}{HTML}{000041} % darkest
+
+% SECONDARY warm pallete
+\definecolor{ywarm1}{HTML}{9600FF} % lightest
+\definecolor{ywarm2}{HTML}{8700D2}
+\definecolor{ywarm3}{HTML}{7A00A7}
+\definecolor{ywarm4}{HTML}{500069}
+\definecolor{ywarm5}{HTML}{3C0055} % darkest
+
+\setbeamercolor{frametitle}{fg=ypurple}
+\newcommand{\ypurple}[1]{\textcolor{ypurple}{#1}}
+
+% Changes itemize markers
+\setbeamertemplate{itemize item}{\textcolor{black}{\tiny{$\blacksquare$}}}
+\setbeamertemplate{itemize subitem}{\textcolor{black}{\tiny{$\rangle$}}}
+\setbeamertemplate{itemize subsubitem}{\textcolor{black}{\tiny{$\bullet$}}}
+
+% changing block preferences
+\definecolor{blocktitlecolor}{HTML}{D7C3DC} 
+\setbeamercolor{block title}{bg=blocktitlecolor,fg=black}
+\definecolor{blockbodycolor}{HTML}{E4D7E7} 
+\setbeamercolor{block body}{bg=blockbodycolor}
+
+% Definition of the title opening frame of the presentation
+\newcommand{\titleframe}[3]{
+\usebackgroundtemplate{\includegraphics[width=\paperwidth]{backgrounds/title}}
+\begin{frame}
+\vspace{4cm}
+\Huge{\ypurple{\textsf{#1}}}\linebreak
+\large{\ypurple{\textsf{#2}}}\linebreak\linebreak
+\large{\ypurple{#3}}
+\end{frame}
+\usebackgroundtemplate{\includegraphics[width=\paperwidth]{backgrounds/simple}}
+}
+
+% A requires slide in every Yahoo internal talk
+\newcommand{\confidentialityframe}{
+\usebackgroundtemplate{\includegraphics[width=\paperwidth]{backgrounds/confidentiality}}
+\begin{frame}
+\end{frame}
+\usebackgroundtemplate{\includegraphics[width=\paperwidth]{backgrounds/simple}}
+}
+
+% Divider frames have a different background and style
+\newcommand{\dividerframe}[1]{
+\usebackgroundtemplate{\includegraphics[width=\paperwidth]{backgrounds/divider}}
+\begin{frame}
+\Huge{\ypurple{\begin{minipage}{\textwidth}{#1}\end{minipage}}}
+\end{frame}
+\usebackgroundtemplate{\includegraphics[width=\paperwidth]{backgrounds/simple}}
+}
+
+% Sets the default light background 
+\usebackgroundtemplate{\includegraphics[width=\paperwidth]{backgrounds/simple}}
