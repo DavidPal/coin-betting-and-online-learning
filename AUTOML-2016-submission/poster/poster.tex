@@ -74,7 +74,7 @@
 
 \def\spazioBlocchi{\vspace{0cm}}
 \def\blockspacea{\vspace{0.cm}}
-\def\blockspaceb{\vspace{0.08cm}}
+\def\blockspaceb{\vspace{0.05cm}}
 \def\blockspacec{\vspace{0.25cm}}
 
 \setitemize{label=\usebeamerfont*{itemize item}%
@@ -102,7 +102,7 @@
       \end{equation}
       where $f$ is convex in $w$.
       \begin{itemize}
-      \item How do you choose the learning rate $\lambda$?
+      \item How do you choose the regularizer weight $\lambda$?
       \end{itemize}
       
       \vspace{1cm}
@@ -120,7 +120,7 @@
       \vspace{1cm}
       
       \begin{itemize}      
-      \item \alert{Why is the algorithm not able to select $\lambda$ and learning rate automatically?}
+      \item \alert{Why is the algorithm not able to select $\lambda$ and/or $\eta_t$ automatically?}
       \end{itemize}
       
       \blockspacea
@@ -131,7 +131,7 @@
     
     \begin{itemize}
       \item Problems~\eqref{equation:objective-function} and \eqref{equation:objective-function-sa} can be solved with an Online Linear Learning algorithm.
-      \item We prove that Online Linear Learning can be solved with online coin-betting algorithms.
+      \item We prove that Online Linear Learning can be solved with \emph{online coin-betting algorithms}.
     \end{itemize}
 
     \vspace{1cm}
@@ -147,7 +147,7 @@
     \blockspacea
     \end{block}
 
-    \begin{block}{THE HISTORY OF PARAMETER-FREE ALGORITHMS}
+    \begin{block}{7 YEARS OF PARAMETER-FREE ALGORITHMS}
     \blockspacea
     
     \begin{itemize}
@@ -186,7 +186,7 @@
 	
 	\begin{algorithmic}[1]
 	{
-	\REQUIRE{Convex functions $f_1, f_2, \dots, f_N$ and desired number of iterations $T$}
+	\REQUIRE{Convex function $f$, training set $\{x_i,y_i\}_{i=1}^N$, and desired number of iterations $T$}
 	\STATE{Initialize $\Wealth_0 \leftarrow 1$ and $\theta_0 \leftarrow 0$}
 	\FOR{$t=1,2,\dots,T$}
 	\STATE{Set $w_t \leftarrow \Wealth_{t-1} \tfrac{\theta_{t-1}}{t} $}
@@ -207,16 +207,16 @@
 	
 	\textbf{One epoch: $T\leq N$}
 	
-	The average $\overline{w}_T$ is an approximate minimizer of the risk $\Exp[f(w,X,Y)]$:
+	The average $\overline{w}_T$ is an approximate minimizer of the \emph{risk} $\Exp[f(w,X,Y)]$:
 	\[
-	\Exp\left[F(\overline{w}_T,X,Y)\right] - F(w^*,X,Y) \leq \tfrac{\norm{w^*}}{\sqrt{T}} \sqrt{\log(1+4 T^2 \norm{w^*}^2)} +\tfrac{1}{T} \; .
+	\Exp[f(\overline{w}_T,X,Y)] - \Exp[f(w^*,X,Y)] \leq \tfrac{\norm{w^*}}{\sqrt{T}} \sqrt{\log(1+4 T^2 \norm{w^*}^2)} +\tfrac{1}{T} \; .
 	\]
 	
 	\vspace{1cm}
 	
 	\textbf{Multiple epochs: $T>N$}
 	
-	The average $\overline{w}_T$ is an approximate minimizer of training set error $F(w) = \sum_{i=1}^N f(w,x_i,y_i)$:
+	The average $\overline{w}_T$ is an approximate minimizer of the \emph{training set error} $F(w) = \sum_{i=1}^N f(w,x_i,y_i)$:
 	\[
 	\Exp\left[F(\overline{w}_T)\right] - F(\widehat{w}) \leq \tfrac{\norm{\widehat{w}}}{\sqrt{T}} \sqrt{\log(1+4 T^2 \norm{\widehat{w}}^2)} +\tfrac{1}{T} \; .
 	\]
@@ -277,7 +277,7 @@
 	\forall u \in \H \qquad \Regret_T(u) \le \tfrac{\norm{u}^2}{2\eta} + \tfrac{\eta}{2} \sum_{t=1}^T \norm{\ell_t}^2
 	\]
       \item Optimal oracle choice: $\eta = \frac{\norm{u}}{\sqrt{\sum_{t=1}^T \norm{\ell_t}^2}}$.
-      \item Tons of algorithms adapt to the norms of the gradients, e.g. AdaGrad
+      \item Tons of algorithms adapt to the norms of the gradients, e.g. AdaGrad, ignoring $\norm{u}$.
       \item Adapting to the unknown norm of $u$ is \emph{more difficult and more important}.
       \item Better guarantees are indeed possible: Streeter\&McMahan (2012), Orabona (2013), McMahan\&Abernethy (2013), McMahan\&Orabona (2014), Orabona (2014) 
 	\[
