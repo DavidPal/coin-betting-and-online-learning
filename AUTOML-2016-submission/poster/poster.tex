@@ -73,9 +73,9 @@
 \makeatother
 
 \def\spazioBlocchi{\vspace{0cm}}
-\def\blockspacea{\vspace{0.cm}}
-\def\blockspaceb{\vspace{0.05cm}}
-\def\blockspacec{\vspace{0.25cm}}
+\def\blockspacea{\vspace{0.02cm}}
+\def\blockspaceb{\vspace{0cm}}
+\def\blockspacec{\vspace{-0.08cm}}
 
 \setitemize{label=\usebeamerfont*{itemize item}%
   \usebeamercolor[fg]{itemize item}
@@ -129,10 +129,27 @@
     \begin{block}{FROM COIN-BETTING TO MACHINE LEARNING}
     \blockspacea
     
-    \begin{itemize}
-      \item Problems~\eqref{equation:objective-function} and \eqref{equation:objective-function-sa} can be solved with an Online Linear Learning algorithm.
-      \item We prove that Online Linear Learning can be solved with \emph{online coin-betting algorithms}.
-    \end{itemize}
+    %\begin{itemize}
+      %\item Problems~\eqref{equation:objective-function} and \eqref{equation:objective-function-sa} can be solved with an Online Linear Learning algorithm.
+      %\item We prove that Online Linear Learning can be solved with \emph{online coin-betting algorithms}.
+    %\end{itemize}
+    
+    \begin{columns}[c]
+	\begin{column}{7cm}
+		\begin{figure}
+			\includegraphics[width=\linewidth]{figs/gd}
+		\end{figure}
+	\end{column}
+	\begin{column}{10cm}
+		\center
+		is equivalent to
+	\end{column}
+	\begin{column}{7cm}
+		\begin{figure}
+			\includegraphics[width=\linewidth]{figs/coin_toss}
+		\end{figure}
+	\end{column}
+    \end{columns}
 
     \vspace{1cm}
 
@@ -151,12 +168,12 @@
     \blockspacea
     
     \begin{itemize}
-    \item Streeter\&McMahan (2012): Regret in $\R^1$ that depends on $|u| \log|u|$ instead of $|u|^2+1$.
-    \item Orabona (2013): Generalization to Hilbert space.
-    \item McMahan\&Orabona (2014): Upper and lower bound $\norm{\bu} \sqrt{\log(\norm{\bu}+1)}$.
-    \item Orabona (2014): Link between new online algorithms and self-tuning SVMs, and a data dependent bound.
+    \item Streeter\&McMahan (2012): regret in $\R$ that depends on $|u| \log|u|$ instead of $|u|^2+1$.
+    \item Orabona (2013): generalization to Hilbert space.
+    \item McMahan\&Orabona (2014): $\norm{\bu} \sqrt{\log(\norm{\bu}+1)}$ regret.
+    \item Orabona (2014): link between new online algorithms and self-tuning SVMs, and a data dependent bound.
     \item A parallel line of work on adaptive learning with expert advice: Chaudhuri et al. (2009), Chernov\&Vovk (2010), Luo\&Schapire (2014, 2015), Koolen\&van-Erven (2015), Foster et al. (2015).
-    \item Orabona\&P\'al (2016): Adaptive algorithms for Online linear learning and learning with expert advices can be easily obtained from algorithms for coin-betting.
+    \item Orabona\&P\'al (2016): parameter-free algorithms for online learning from coin-betting.
     \end{itemize}
 
 %     \begin{block}{BIBLIOGRAPHY}
@@ -258,11 +275,10 @@
     \begin{block}{TECHNICAL DETAILS}
     \begin{minipage}{.98\linewidth}
 
-    \blockspacec
     
-    Read only if you want the math details!
+    \center
+    \includegraphics[width=9cm]{figs/MathCaution2}
     
-    \blockspacec
 
     \begin{block}{LEARNING RATES IN ONLINE LINEAR LEARNING}
     \blockspacec
@@ -278,7 +294,7 @@
 	\]
       \item Optimal oracle choice: $\eta = \frac{\norm{u}}{\sqrt{\sum_{t=1}^T \norm{\ell_t}^2}}$.
       \item Tons of algorithms adapt to the norms of the gradients, e.g. AdaGrad, ignoring $\norm{u}$.
-      \item Adapting to the unknown norm of $u$ is \emph{more difficult and more important}.
+      \item Adapting to $u$ is \emph{more difficult and more important}.
       \item Better guarantees are indeed possible: Streeter\&McMahan (2012), Orabona (2013), McMahan\&Abernethy (2013), McMahan\&Orabona (2014), Orabona (2014) 
 	\[
 	\forall u \in \H \qquad \Regret_T(u) \le \big(O(1)+\polylog(1 + \norm{u})\norm{u} \big) \sqrt{T} \; .
@@ -302,7 +318,7 @@
 	$$
     }
 
-    \vspace{1cm}
+    \vspace{.5cm}
 
     \alert{Proof Sketch.}
     \begin{itemize}
@@ -316,7 +332,7 @@
     \item Consider the $1$-dimensional case $\H=\R^1$.
     \item Set $w_t=\beta_t \Wealth_{t-1}$ where $\beta_t$ is the KT estimator.
     \item If $\ell_t \in \{+1, -1\}$, the results follows directly from the guarantee on the KT estimator and duality above.
-    \item Extend to $\ell_t \in [-1,1]$ by convexity: The worst $\ell_t$ is always $+1$ or $-1$.
+    \item Extend to $\ell_t \in [-1,1]$ by convexity: worst $\ell_t$ is in $\{+1,-1\}$.
     \item Extend $1$-d case to Hilbert space: Worst direction is always parallel to the sum of the previous $\ell_t$.
     \end{itemize}
     \end{block}
