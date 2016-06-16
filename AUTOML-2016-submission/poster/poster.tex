@@ -155,7 +155,7 @@
 
     \begin{itemize}
       \item Coin flip outcome $c_t \in \{+1, -1\}$.
-      \item Krichevsky-Trofimov: Bet $\tfrac{1}{t} \sum_{i=1}^{t-1} c_i$ fraction of your current wealth on the most common outcome till time $t$
+      \item Krichevsky-Trofimov: Bet $\tfrac{1}{t} \sum_{i=1}^{t-1} c_i$ fraction of your current wealth on the most common outcome till time $t$.
       \item \alert{KT algorithm for coin betting gives rise to optimal parameter-free algorithms for Online Learning, Convex Optimization and Machine Learning!}
       \item Key idea: Treat the gradient as the outcome of a coin flip.
       \item In other words: \alert{Learning rates are the results of suboptimal algorithms, they must be removed, not tuned/learned/adapted!}
@@ -290,7 +290,7 @@
       \]
       \item OGD with learning rate $\eta$ satisfies
 	\[
-	\forall u \in \H \qquad \Regret_T(u) \le \tfrac{\norm{u}^2}{2\eta} + \tfrac{\eta}{2} \sum_{t=1}^T \norm{\ell_t}^2
+	\forall u \in \H \qquad \Regret_T(u) \le \tfrac{\norm{u}^2}{2\eta} + \tfrac{\eta}{2} \sum_{t=1}^T \norm{\ell_t}^2 \; .
 	\]
       \item Optimal oracle choice: $\eta = \frac{\norm{u}}{\sqrt{\sum_{t=1}^T \norm{\ell_t}^2}}$.
       \item Tons of algorithms adapt to the norms of the gradients, e.g. AdaGrad, ignoring $\norm{u}$.
@@ -327,7 +327,7 @@
       \underbrace{\sum_{t=1}^T \langle g_t, w_t \rangle}_{\Reward_T} \ge F\left( \sum_{t=1}^T g_t \right)
       \ \Leftrightarrow \
       \forall u \in \H, \
-      \underbrace{\sum_{t=1}^T \langle g_t, u - w_t\rangle}_{\Regret_T(u)} \le F^*(u)
+      \underbrace{\sum_{t=1}^T \langle g_t, u - w_t\rangle}_{\Regret_T(u)} \le F^*(u) \; .
     \]
     \item Consider the $1$-dimensional case $\H=\R^1$.
     \item Set $w_t=\beta_t \Wealth_{t-1}$ where $\beta_t$ is the KT estimator.
