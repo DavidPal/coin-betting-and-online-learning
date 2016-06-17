@@ -94,7 +94,7 @@
 
     \begin{block}{ARE YOU STILL TUNING HYPERPARAMETERS?}
       \blockspacea
-      
+
       Regularized empirical risk minimization:
       \begin{equation}
       \label{equation:objective-function}
@@ -104,9 +104,9 @@
       \begin{itemize}
       \item How do you choose the regularizer weight $\lambda$?
       \end{itemize}
-      
+
       \vspace{1cm}
-      
+
       Stochastic approximation:
       \begin{equation}
       \label{equation:objective-function-sa}
@@ -116,24 +116,24 @@
       \begin{itemize}
       \item How do you choose the learning rate $\eta_t$?
       \end{itemize}
-      
+
       \vspace{1cm}
-      
-      \begin{itemize}      
+
+      \begin{itemize}
       \item \alert{Why is the algorithm not able to select $\lambda$ and/or $\eta_t$ automatically?}
       \end{itemize}
-      
+
       \blockspacea
     \end{block}
 
     \begin{block}{FROM COIN-BETTING TO MACHINE LEARNING}
     \blockspacea
-    
+
     %\begin{itemize}
       %\item Problems~\eqref{equation:objective-function} and \eqref{equation:objective-function-sa} can be solved with an Online Linear Learning algorithm.
       %\item We prove that Online Linear Learning can be solved with \emph{online coin-betting algorithms}.
     %\end{itemize}
-    
+
     \begin{columns}[c]
 	\begin{column}{7cm}
 		\begin{figure}
@@ -160,13 +160,13 @@
       \item Key idea: Treat the gradient as the outcome of a coin flip.
       \item In other words: \alert{Learning rates are the results of suboptimal algorithms, they must be removed, not tuned/learned/adapted!}
     \end{itemize}
-    
+
     \blockspacea
     \end{block}
 
     \begin{block}{7 YEARS OF PARAMETER-FREE ALGORITHMS}
     \blockspacea
-    
+
     \begin{itemize}
     \item Streeter\&McMahan (2012): regret in $\R$ that depends on $|u| \log|u|$ instead of $|u|^2+1$.
     \item Orabona (2013): generalization to Hilbert space.
@@ -200,7 +200,7 @@
 
     \begin{block}{PARAMETER-FREE SGD BASED ON THE KT ESTIMATOR}
 	\blockspaceb
-	
+
 	\begin{algorithmic}
 	{
 	\REQUIRE{Convex function $f$, training set $\{x_i,y_i\}_{i=1}^N$, and desired number of iterations $T$}
@@ -221,29 +221,29 @@
 
     \begin{block}{THEORETICAL GUARANTEES}
 	\blockspaceb
-	
+
 	\textbf{One epoch: $T\leq N$}
-	
+
 	The average $\overline{w}_T$ is an approximate minimizer of the \emph{risk} $\Exp[f(w,X,Y)]$:
 	\[
 	\Exp[f(\overline{w}_T,X,Y)] - \Exp[f(w^*,X,Y)] \leq \tfrac{\norm{w^*}}{\sqrt{T}} \sqrt{\log(1+4 T^2 \norm{w^*}^2)} +\tfrac{1}{T} \; .
 	\]
-	
+
 	\vspace{1cm}
-	
+
 	\textbf{Multiple epochs: $T>N$}
-	
+
 	The average $\overline{w}_T$ is an approximate minimizer of the \emph{training set error} $F(w) = \sum_{i=1}^N f(w,x_i,y_i)$:
 	\[
 	\Exp\left[F(\overline{w}_T)\right] - F(\widehat{w}) \leq \tfrac{\norm{\widehat{w}}}{\sqrt{T}} \sqrt{\log(1+4 T^2 \norm{\widehat{w}}^2)} +\tfrac{1}{T} \; .
 	\]
-	
-	\blockspaceb	
+
+	\blockspaceb
     \end{block}
 
     \begin{block}{DOES IT WORK FOR REAL?}
       \blockspaceb
-      
+
       \begin{itemize}
         \item Split data into 75\% training + 25\% test
         \item Train with one pass over the training set and evaluate the final classifier on the test set.
@@ -262,9 +262,9 @@
         \item It is clear that the optimal learning rate is completely data-dependent.
         \item It is also interesting to note how the performance of SGD becomes very unstable with large learning rates. \item Yet \emph{our parameter-free algorithm has a performance very close to the unknown optimal tuning of the learning rate of SGD}.
        \end{itemize}
-       
+
        \blockspaceb
-       
+
     \end{block}
 \end{column}
 
@@ -275,14 +275,14 @@
     \begin{block}{TECHNICAL DETAILS}
     \begin{minipage}{.98\linewidth}
 
-    
+
     \center
     \includegraphics[width=9cm]{figs/MathCaution2}
-    
+
 
     \begin{block}{LEARNING RATES IN ONLINE LINEAR LEARNING}
     \blockspacec
-    
+
     \begin{itemize}
       \item Define
       \[
@@ -295,18 +295,18 @@
       \item Optimal oracle choice: $\eta = \frac{\norm{u}}{\sqrt{\sum_{t=1}^T \norm{\ell_t}^2}}$.
       \item Tons of algorithms adapt to the norms of the gradients, e.g. AdaGrad, ignoring $\norm{u}$.
       \item Adapting to $u$ is \emph{more difficult and more important}.
-      \item Better guarantees are indeed possible: Streeter\&McMahan (2012), Orabona (2013), McMahan\&Abernethy (2013), McMahan\&Orabona (2014), Orabona (2014) 
+      \item Better guarantees are indeed possible: Streeter\&McMahan (2012), Orabona (2013), McMahan\&Abernethy (2013), McMahan\&Orabona (2014), Orabona (2014)
 	\[
 	\forall u \in \H \qquad \Regret_T(u) \le \big(O(1)+\polylog(1 + \norm{u})\norm{u} \big) \sqrt{T} \; .
 	\]
     \end{itemize}
-    
+
     \blockspacec
     \end{block}
 
     \begin{block}{REGRET GUARANTEE}
     \blockspacec
-    
+
     \alert{Theorem.} \emph{
 	Let $\{\ell_t\}_{t=1}^\infty$ be any sequence of loss vectors
 	in a Hilbert space $\H$ such that $\norm{\ell_t} \le 1$.
