@@ -10,6 +10,7 @@
 
 main.pdf
 poster.pdf
+slides_4.pdf
 
 # Vim temporary files
 *~
@@ -18,3 +19,5 @@ poster.pdf
 
 # Mac files
 .DS_Store
+
+.directory
