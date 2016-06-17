@@ -74,8 +74,8 @@
 
 \def\spazioBlocchi{\vspace{0cm}}
 \def\blockspacea{\vspace{0.02cm}}
-\def\blockspaceb{\vspace{0cm}}
-\def\blockspacec{\vspace{-0.08cm}}
+\def\blockspaceb{\vspace{-0.23cm}}
+\def\blockspacec{\vspace{0.442cm}}
 
 \setitemize{label=\usebeamerfont*{itemize item}%
   \usebeamercolor[fg]{itemize item}
@@ -203,13 +203,15 @@
 
 	\begin{algorithmic}
 	{
-	\REQUIRE{Convex function $f$, training set $\{x_i,y_i\}_{i=1}^N$, and desired number of iterations $T$}
+	\REQUIRE{Function $f(w, x, y)$ convex in $w$}
+	\REQUIRE{Training set $\{x_i,y_i\}_{i=1}^N$}
+	\REQUIRE{Desired number of iterations $T$}
 	\STATE{Initialize $\Wealth_0 \leftarrow 1$ and $\theta_0 \leftarrow 0$}
 	\FOR{$t=1,2,\dots,T$}
 	\STATE{Set $w_t \leftarrow \Wealth_{t-1} \tfrac{\theta_{t-1}}{t} $}
 	\STATE{Select an index $j$ at random from $\{1,2,\dots,N\}$}
-	\STATE{Update $\theta_t \leftarrow \theta_{t-1} - \grad f(w_{t-1},x_j,y_j)$}
-	\STATE{$\Wealth_t \leftarrow \Wealth_{t-1} - \langle \grad f(w_{t-1},x_j,y_j), w_t \rangle$}
+	\STATE{Update $\theta_t \leftarrow \theta_{t-1} - \grad f(w_t,x_j,y_j)$}
+	\STATE{$\Wealth_t \leftarrow \Wealth_{t-1} - \langle \grad f(w_t,x_j,y_j), w_t \rangle$}
 	\ENDFOR
 	\STATE{Output $\overline{w}_T = \tfrac{1}{T}\sum_{t=1}^T w_t$}
 	}
@@ -259,8 +261,8 @@
 	\end{tabular}
       \end{figure}
       \begin{itemize}
-        \item It is clear that the optimal learning rate is completely data-dependent.
-        \item It is also interesting to note how the performance of SGD becomes very unstable with large learning rates. \item Yet \emph{our parameter-free algorithm has a performance very close to the unknown optimal tuning of the learning rate of SGD}.
+        \item Clearly, the optimal learning rate of SGD is completely data-dependent.
+        \item Interestingly, the performance of SGD becomes very unstable with large learning rates. \item Yet \emph{our parameter-free algorithm has a performance very close to the unknown optimal tuning of the learning rate of SGD}.
        \end{itemize}
 
        \blockspaceb
@@ -272,13 +274,16 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{column}{.33\linewidth}
 
-    \begin{block}{TECHNICAL DETAILS}
-    \begin{minipage}{.98\linewidth}
+    %\begin{block}{TECHNICAL DETAILS}
+    %\begin{minipage}{.98\linewidth}
 
 
-    \center
+    %\center
+    \begin{center}
     \includegraphics[width=9cm]{figs/MathCaution2}
+    \end{center}
 
+    \vspace{1.7cm}
 
     \begin{block}{LEARNING RATES IN ONLINE LINEAR LEARNING}
     \blockspacec
@@ -293,7 +298,7 @@
 	\forall u \in \H \qquad \Regret_T(u) \le \tfrac{\norm{u}^2}{2\eta} + \tfrac{\eta}{2} \sum_{t=1}^T \norm{\ell_t}^2 \; .
 	\]
       \item Optimal oracle choice: $\eta = \frac{\norm{u}}{\sqrt{\sum_{t=1}^T \norm{\ell_t}^2}}$.
-      \item Tons of algorithms adapt to the norms of the gradients, e.g. AdaGrad, ignoring $\norm{u}$.
+      \item Many algorithms adapt to the norms of the gradients (e.g. AdaGrad) while neglecting dependency on $\norm{u}$.
       \item Adapting to $u$ is \emph{more difficult and more important}.
       \item Better guarantees are indeed possible: Streeter\&McMahan (2012), Orabona (2013), McMahan\&Abernethy (2013), McMahan\&Orabona (2014), Orabona (2014)
 	\[
@@ -333,12 +338,12 @@
     \item Set $w_t=\beta_t \Wealth_{t-1}$ where $\beta_t$ is the KT estimator.
     \item If $\ell_t \in \{+1, -1\}$, the results follows directly from the guarantee on the KT estimator and duality above.
     \item Extend to $\ell_t \in [-1,1]$ by convexity: worst $\ell_t$ is in $\{+1,-1\}$.
-    \item Extend $1$-d case to Hilbert space: Worst direction is always parallel to the sum of the previous $\ell_t$.
+    \item Extend $1$-d case to Hilbert space: Worst direction of $\ell_t$ is the same as the direction of $\sum_{s=1}^{t-1} \ell_s$.
     \end{itemize}
-    \end{block}
-    \end{minipage}
     \blockspacec
     \end{block}
+    %\end{minipage}
+    %\end{block}
 \end{column}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
