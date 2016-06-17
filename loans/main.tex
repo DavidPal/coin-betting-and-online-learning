@@ -11,6 +11,7 @@
 \DeclareMathOperator{\Regret}{Regret}
 \DeclareMathOperator{\Wealth}{Wealth}
 \DeclareMathOperator{\Reward}{Reward}
+\DeclareMathOperator{\sign}{sign}
 
 \newcommand{\N}{\mathbb{N}}     % natural numbers
 \newcommand{\R}{\mathbb{R}}     % real numbers
@@ -382,11 +383,11 @@ Let $K$ such that $exp(-2K)-1+K=0$, that is $K=0.796812\cdots$. Then for $a\geq 
 \]
 \end{lemma}
 
-Let's use the potential $F_t(x)=\int_{-\tfrac{1}{K}}^{\tfrac{1}{K}} \exp(\beta a \sum_{i=1}^t g_i - a \beta^2 \sum_{i=1}^t g_i^2) d\beta$ and prediction equal to $\beta_{t}=a \int_{-\tfrac{1}{K}}^{\tfrac{1}{K}} \beta \exp(a \beta \sum_{i=1}^{t-1} g_i - a \beta^2 \sum_{i=1}^{t-1} g_i^2) d\beta$, where $|g_t|\leq G$.
+Let's use the potential $F_t(x)=\int_{-\tfrac{1}{K}}^{\tfrac{1}{K}} \exp(\beta a x - a \beta^2 \sum_{i=1}^t g_i^2) d\beta$ and prediction equal to $\beta_{t}=F'_t(\sum_{i=1}^{t-1} g_i)=a \int_{-\tfrac{1}{K}}^{\tfrac{1}{K}} \beta \exp(a \beta \sum_{i=1}^{t-1} g_i - a \beta^2 \sum_{i=1}^{t-1} g_i^2) d\beta$, where $|g_t|\leq G$.
 
 We want to prove that
 \[
-F_t(x+g_t) - F_{t-1} -\beta_t g_t \leq 0
+F_t(x+g_t) - F_{t-1}(x) -\beta_t g_t \leq 0
 \]
 Hence we have
 \begin{align}
@@ -394,6 +395,10 @@ F_t(x+g_t) - F_{t-1} -\beta_t g_t
 &=\int_{-\tfrac{1}{K}}^{\tfrac{1}{K}} \exp(a \beta \sum_{i=1}^{t-1} g_i - a \beta^2 \sum_{i=1}^{t-1} g_i^2)(\exp(a \beta g_t-a g_t^2 \beta^2) -1 - a \beta g_t) d\beta \leq 0,
 \end{align}
 where we used the fact that $\exp(a x-a x^2)\leq 1+ a x, \forall x\in[-1,1]$, and $\frac{|g|}{K}\leq 1$.
+From this we have that
+\[
+F_T(\sum_{t=1}^T g_t) - F_0 (0) \leq \sum_{t=1}^T \beta_t g_t
+\]
 
 Also, we have
 \[
@@ -471,8 +476,194 @@ f^*(\theta) =
 \]
 \end{theorem}
 
-Notice, that to obtain the regret bound, we can use $max(a,b)\leq |a|_+ + |b|_+$, so that we have an additional constant term on the bound.
 
+
+\begin{theorem}
+Let $f(\theta) =  \int_{-1}^{1} \exp(a \beta \theta - a \beta^2 S) d\beta$. Then 
+\[
+f^*(x) \leq 
+\]
+\end{theorem}
+%
+\begin{proof}
+From the definition of the Fenchel dual we have
+\[
+f^*(u) = \max_\theta \  u \theta -f(\theta) = u \theta^* - f(\theta^*) 
+\]
+where $\theta^* = \argmax_\theta \ u \theta -f(\theta)$.
+
+Denote  by $\beta^*$ the $\beta$ that maximizes $\exp(a \beta \theta^* - a \beta^2 S)$, that is $\beta^*=\tfrac{\theta^*}{2 S}$.
+Assume that $\theta^*\geq0$, the reasoning is analougous for $\theta^*<0$. In fact, the function is even:
+\[
+f(\theta)=\int_{-1}^{1} \exp(a \beta \theta - a \beta^2 S) d\beta 
+= \int_{-1}^{1} \exp(a (-\beta) (-\theta) - a \beta^2 S) d\beta
+= \int_{-1}^{1} \exp(a \gamma (-\theta) - a \gamma^2 S) d\gamma = f(-\theta)
+\]
+
+Assume that $\theta^* \leq \sqrt{2 S}$, then we have
+\[
+f^*(u) \leq u \theta^* - f(\theta^*) \leq |u| \sqrt{2 S},
+\]
+from which the stated bound follows. Hence, we can safely assume $\theta^* > \sqrt{2 S}$, that is equivalent to $\beta^*\geq \tfrac{1}{\sqrt{2 S}}$.
+
+Let $[u,v] \subseteq [-1,1]$, and $v \leq \beta^*$.
+Then, we have
+\[
+f(\theta^*) = \int_{-1}^{1} \exp(a \beta \theta^* - a \beta^2 S) d\beta 
+\geq \int_{u}^{v} \exp(a \beta \theta^* - a \beta^2 S) d\beta
+\geq (v-u) \exp(a u \theta^* - a u^2 S)~.
+\]
+Assume first that $\beta^*\leq 1$. Then, taking  we have $u=\beta^*-\tfrac{1}{\sqrt{2S}}$ and $v=\beta^*$.
+\begin{align}
+f(\theta^*) = \int_{-1}^{1} \exp(a \beta \theta^* - a \beta^2 S) d\beta 
+&\geq \frac{1}{\sqrt{2S}} \exp(a (\tfrac{\theta^2}{4 S}-\tfrac{1}{2}))~.
+\end{align}
+Hence, we have
+\begin{align}
+f^*(u)
+&\leq |u| |\theta^*| - \frac{1}{\sqrt{2S}} \exp(a (\tfrac{(\theta^*)^2}{4 S}-\tfrac{1}{2})) \\
+&\leq \max_{x} \ x |u|  - \frac{1}{\sqrt{2S}} \exp(a (\tfrac{x^2}{4 S}-\tfrac{1}{2})) \\
+&\leq 2 |u| \sqrt{\frac{S}{a} \left(\ln ???+1\right)}
+\end{align}
+
+Now, assume that $\beta^*>1$, that is $\theta^*>2 S$. Then, choose $u=1-\epsilon$ and $v=1$
+\begin{align}
+\int_{-1}^{1} \exp(a \beta \theta^* - a \beta^2 S) d\beta 
+&\geq (v-u) \exp(a u \theta^* - a u^2 S) \\
+&\geq (v-u) \exp(a u(1 - u )\theta/2) \\
+&\geq \epsilon \exp(a \epsilon(1 - \epsilon )\theta/2)~.
+\end{align}
+Setting $\epsilon=1/2$, we get that the rhs is $\frac{1}{2} \exp(a \theta/8)$ and
+\[
+f^*(u) \leq \max\left\{|u| \frac{8}{a} \left(\ln\left(\frac{16 |u|}{a}\right)-1\right),-\frac{1}{2}\right\}~.
+\]
+
+\end{proof}
+
+\subsection{Alternative potential}
+
+Let's use as potential 
+\[
+F_t(x)=\int_{-\tfrac{1}{K}}^{\tfrac{1}{K}} \frac{1}{|\eta|}\exp(\beta a x - a \beta^2 \sum_{i=1}^t g_i^2) d\beta
+\]
+and prediction
+\[
+\beta_{t}= a \, \sign\left(\sum_{i=1}^{t-1} g_i\right) \int_{-\tfrac{1}{K}}^{\tfrac{1}{K}} \exp(\beta a \sum_{i=1}^{t-1} g_i - a \beta^2 \sum_{i=1}^{t-1} g_i^2) d\beta
+\]
+
+\begin{lemma}
+\label{lemma:dual_shifted_exp_square}
+Let $f(x)=\exp((a\,x-b)^2)$, where $a,b>0$. Then 
+\[
+f^*(t) = \frac{t}{a} \left(\sqrt{\frac{W(\frac{t^2}{2 a^2})}{2}}-\sqrt{\frac{1}{2 W(\frac{t^2}{2 a^2})}}+b\right),
+\]
+and
+\[
+f^*(t) \leq \frac{t}{a} \left(\sqrt{\frac{W(\frac{t^2}{2 a^2})}{2}}+b\right)-1 ~.
+\]
+\end{lemma}
+%
+\begin{proof}
+By the definition of Fenchel conjugate, we have
+\[
+f^*(t) = \max_x \ t\,x - \exp((a\,x-b)^2)
+\]
+Hence, $t=2 a (a\,x^*-b) \exp((a\,x^*-b)^2)$, that is $a\,x^*-b=\sqrt{\frac{W(\frac{t^2}{2 a^2})}{2}}$.
+Substituiting back, we have
+\begin{align}
+f^*(t) 
+&= \frac{t}{a} \left(\sqrt{\frac{W(\frac{t^2}{2 a^2})}{2}}+b\right)-\exp\left(\frac{W(\frac{t^2}{2 a^2})}{2}\right) \label{eq:dual_shifted_exp_square_1}\\
+&= \frac{t}{a} \left(\sqrt{\frac{W(\frac{t^2}{2 a^2})}{2}}+b\right)-\sqrt{\frac{\frac{t^2}{2 a^2}}{W(\frac{t^2}{2 a^2})}} \nonumber \\
+&= \frac{t}{a} \left(\sqrt{\frac{W(\frac{t^2}{2 a^2})}{2}}-\sqrt{\frac{1}{2 W(\frac{t^2}{2 a^2})}}+b\right)~. \nonumber 
+\end{align}
+Also, from \eqref{eq:dual_shifted_exp_square_1}, we have
+\begin{align}
+f^*(t) 
+&\leq \frac{t}{a} \left(\sqrt{\frac{W(\frac{t^2}{2 a^2})}{2}}+b\right)-1 ~.
+\end{align}
+\end{proof}
+
+
+\section{From universal portfolio to optimization}
+
+Let's lower bound the gain of a universal portfolio algorithm used on a continuous coin betting.
+First, we lower bound the optimal gain
+\begin{align}
+\max_{|\beta|\leq 1} \ \prod_{t=1}^T (1+\beta g_t) 
+&= \max_{|\beta|\leq 1} \ \exp\left(\sum_{t=1}^T \ln (1+\beta g_t) \right) \\
+&\geq \max_{|\beta|\leq \frac{1}{2}} \ \exp\left(\sum_{t=1}^T \ln (1+\beta g_t) \right) \\
+&\geq \int_{-\frac{1}{2}}^{\frac{1}{2}} P(\beta) \exp\left(\sum_{t=1}^T \ln (1+\beta g_t) \right) d \beta \\
+&\geq \int_{-\frac{1}{2}}^{\frac{1}{2}} P(\beta) \exp\left(\sum_{t=1}^T (\beta g_t - \beta^2 g_t^2) \right) d \beta \\
+&= \int_{-\frac{1}{2}}^{\frac{1}{2}} P(\beta) \exp\left(\beta \sum_{t=1}^T g_t - \beta^2 \sum_{t=1}^T g_t^2 \right) d \beta,
+\end{align}
+for any probability distribution $P(\beta)$ supported on $[-\tfrac{1}{2},\tfrac{1}{2}]$.
+
+I could use the fact that
+\[
+E_p[\exp(f(x))] \geq \exp\left(E_q[f(x)] - KL(q||p)\right),
+\]
+so if $P(\beta)$ is uniform in $[-\tfrac{1}{2},\tfrac{1}{2}]$, and $p$ is uniform in $[\beta^*-\epsilon,\beta^*]$, we have
+\begin{align}
+\max_{|\beta|\leq 1} \ \prod_{t=1}^T (1+\beta g_t) 
+&\geq \int_{-\frac{1}{2}}^{\frac{1}{2}} P(\beta) \exp\left(\beta \sum_{t=1}^T g_t - \beta^2 \sum_{t=1}^T g_t^2 \right) d \beta \\
+&\geq \exp\left(\frac{1}{\epsilon}\int_{\eta^*-\epsilon}^{\eta^*} (\theta \beta - \beta^2 S) d \beta - KL(q||p)\right) \\
+&= \exp\left(\frac{\theta^2}{4 S} - \frac{S \epsilon^2}{3} - \ln\frac{1}{\epsilon}\right)~.
+\end{align}
+Setting $\epsilon=\tfrac{1}{\sqrt{S}}$, we get 
+\[
+\exp\left(\frac{\theta^2}{4 S} - \frac{1}{3} - \frac{1}{2}\ln S\right)
+\]
+
+For the case that $P(\beta)=\frac{1}{|\beta|}$ we have to split the integral in two parts.
+Without loss of generality, let's assume that $\theta>0$. Hence, we have
+\begin{align}
+&\int_{-\frac{1}{2}}^{\frac{1}{2}} \frac{\exp\left(\beta \sum_{t=1}^T g_t - \beta^2 \sum_{t=1}^T g_t^2 \right)-1}{|\beta|}  d \beta \\ 
+&=\int_{-\frac{1}{2}}^{-a} \frac{\exp\left(\beta \sum_{t=1}^T g_t - \beta^2 \sum_{t=1}^T g_t^2 \right)-1}{|\beta|} d \beta \\
+&\qquad + \int_{-a}^{a} \frac{\exp\left(\beta \sum_{t=1}^T g_t - \beta^2 \sum_{t=1}^T g_t^2 \right)-1}{|\beta|} d \beta \\
+&\qquad +\int_{a}^{\frac{1}{2}} \frac{\exp\left(\beta \sum_{t=1}^T g_t - \beta^2 \sum_{t=1}^T g_t^2 \right)-1}{|\beta|} d \beta \\
+&\geq \int_{-a}^{a} \frac{\exp\left(\beta \sum_{t=1}^T g_t - \beta^2 \sum_{t=1}^T g_t^2 \right)-1}{|\beta|} d \beta \\
+&\qquad +\int_{a}^{\frac{1}{2}} \frac{\exp\left(\beta \sum_{t=1}^T g_t - \beta^2 \sum_{t=1}^T g_t^2 \right)}{|\beta|} d \beta \\
+&\qquad - 2 \int_{a}^{\frac{1}{2}} \frac{1}{\beta} d \beta~.
+\end{align}
+
+\begin{align}
+\int_{-\frac{1}{2}}^{\frac{1}{2}} \frac{1}{|\beta|} \exp\left(\beta \sum_{t=1}^T g_t - \beta^2 \sum_{t=1}^T g_t^2 \right) d \beta 
+&\geq \int_{a}^{\frac{1}{2}} \frac{1}{|\beta|} \exp\left(\beta \sum_{t=1}^T g_t - \beta^2 \sum_{t=1}^T g_t^2 \right) d \beta \\
+&= \ln(\frac{1}{2a}) \int_{a}^{\frac{1}{2}} \frac{1}{ \ln(\frac{1}{2a}) \beta} \exp\left(\beta \sum_{t=1}^T g_t - \beta^2 \sum_{t=1}^T g_t^2 \right) d \beta \\
+&\geq \ln(\frac{1}{2a}) \exp\left(\frac{1}{\epsilon}\int_{\eta^*-\epsilon}^{\eta^*} (\theta \beta - \beta^2 S) d \beta - KL(q||p)\right) \\
+&= \ln(\frac{1}{2a}) \exp\left(\frac{\theta^2}{4 S} - \frac{S \epsilon^2}{3} - \ln\frac{\theta}{2\epsilon S}- \ln \ln \frac{1}{2 a}\right),
+\end{align}
+where we used the bound on the KL divergence:
+\begin{align}
+\int_{\beta^*-\epsilon}^{\beta^*} \frac{1}{\epsilon} \ln \frac{x b}{\epsilon} d x 
+&= \int_{\beta^*-\epsilon}^{\beta^*} \frac{1}{\epsilon} \ln \frac{x}{\epsilon} d x
++ \int_{\beta^*-\epsilon}^{\beta^*} \frac{1}{\epsilon} \ln b d x \\
+&= \int_{\beta^*-\epsilon}^{\beta^*} \frac{1}{\epsilon} \ln \frac{x}{\epsilon} d x
++ \ln b\\
+&= \frac{\beta^*}{\epsilon} \ln \frac{\beta^*}{\epsilon} + \left(1-\frac{\beta^*}{\epsilon}\right) \ln \left(\frac{\beta^*}{\epsilon}-1\right)-1 + \ln b \\
+&\leq \ln \frac{\beta^*}{\epsilon} + \ln b,
+\end{align}
+where in the last inequality we used the fact that $\tfrac{\beta^*}{\epsilon}>1$.
+
+Hence, we have
+\begin{align}
+\ln(\frac{1}{2a}) \exp\left(\frac{\theta^2}{4 S} - \frac{S \epsilon^2}{3} - \ln\frac{\theta}{2\epsilon S}- \ln \ln \frac{1}{2 a}\right)
+&=\exp\left(\frac{\theta^2}{4 S} - \frac{S \epsilon^2}{3} - \ln\frac{\theta}{2\epsilon S}\right),
+\end{align}
+and setting $\epsilon=\frac{1}{\sqrt{S}}$, we have
+\begin{align}
+\ln(\frac{1}{2a}) \exp\left(\frac{\theta^2}{4 S} - \frac{S \epsilon^2}{3} - \ln\frac{\theta}{2\epsilon S}- \ln \ln \frac{1}{2 a}\right)
+&=\exp\left(\frac{\theta^2}{4 S} - \frac{1}{3} - \ln\frac{\theta}{2 \sqrt{S}}\right) \\
+&\geq \exp\left(\frac{\theta^2}{4 S} - \frac{1}{3} - \ln\frac{\theta}{2 \sqrt{S}}\right) \\
+&\geq \exp\left(\left(\frac{\theta}{2 \sqrt{S}} - \frac{1}{5}\right)^2 - \frac{1}{3}\right),
+\end{align}
+where in the last inequality we used \textbf{TO DO!}.
+
+Alternative reasoning: $F_t(\theta_T) \leq \sum_{t=1}^T \beta_t g_t + F_0(0)\leq F_0(0)$ by the construction of reduction to experts. Hence, $F_t(\theta_T)$ is bounded if $F_0(0)$. So, it is enough to use
+\[
+1+\int_{-\frac{1}{2}}^{\frac{1}{2}} \frac{\exp\left(\beta \theta - \beta^2 S \right)-1}{|\beta|} d \beta~.
+\]
+that is 0 at time 0 and $\theta=0$.
 \bibliography{learning}
 
 
