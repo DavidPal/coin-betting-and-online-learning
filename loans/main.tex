@@ -586,6 +586,12 @@ f^*(t)
 
 \section{From universal portfolio to optimization}
 
+First notice that $F_t(\theta_T) \leq \sum_{t=1}^T \beta_t g_t + F_0(0)\leq F_0(0)$ by the construction of reduction to experts. Hence, $F_t(\theta_T)$ is bounded if $F_0(0)$. So, it is enough to use
+\[
+1+\int_{-\frac{1}{2}}^{\frac{1}{2}} \frac{\exp\left(\beta \theta - \beta^2 S \right)-1}{|\beta|} d \beta~.
+\]
+that is 0 at time 0 and $\theta=0$.
+
 Let's lower bound the gain of a universal portfolio algorithm used on a continuous coin betting.
 First, we lower bound the optimal gain
 \begin{align}
@@ -616,25 +622,36 @@ Setting $\epsilon=\tfrac{1}{\sqrt{S}}$, we get
 
 For the case that $P(\beta)=\frac{1}{|\beta|}$ we have to split the integral in two parts.
 Without loss of generality, let's assume that $\theta>0$. Hence, we have
-\begin{align}
-&\int_{-\frac{1}{2}}^{\frac{1}{2}} \frac{\exp\left(\beta \sum_{t=1}^T g_t - \beta^2 \sum_{t=1}^T g_t^2 \right)-1}{|\beta|}  d \beta \\ 
-&=\int_{-\frac{1}{2}}^{-a} \frac{\exp\left(\beta \sum_{t=1}^T g_t - \beta^2 \sum_{t=1}^T g_t^2 \right)-1}{|\beta|} d \beta \\
-&\qquad + \int_{-a}^{a} \frac{\exp\left(\beta \sum_{t=1}^T g_t - \beta^2 \sum_{t=1}^T g_t^2 \right)-1}{|\beta|} d \beta \\
-&\qquad +\int_{a}^{\frac{1}{2}} \frac{\exp\left(\beta \sum_{t=1}^T g_t - \beta^2 \sum_{t=1}^T g_t^2 \right)-1}{|\beta|} d \beta \\
-&\geq \int_{-a}^{a} \frac{\exp\left(\beta \sum_{t=1}^T g_t - \beta^2 \sum_{t=1}^T g_t^2 \right)-1}{|\beta|} d \beta \\
-&\qquad +\int_{a}^{\frac{1}{2}} \frac{\exp\left(\beta \sum_{t=1}^T g_t - \beta^2 \sum_{t=1}^T g_t^2 \right)}{|\beta|} d \beta \\
-&\qquad - 2 \int_{a}^{\frac{1}{2}} \frac{1}{\beta} d \beta~.
-\end{align}
+\begin{align*}
+&\int_{-\frac{1}{2}}^{\frac{1}{2}} \frac{\exp\left(\beta \theta - \beta^2 S \right)-1}{|\beta|}  d \beta \\ 
+&=\int_{-\frac{1}{2}}^{0} \frac{\exp\left(\beta \theta - \beta^2 S \right)-1}{|\beta|} d \beta
++ \int_{0}^{a} \frac{\exp\left(\beta \theta - \beta^2 S \right)-1}{|\beta|} d \beta
++\int_{a}^{\frac{1}{2}} \frac{\exp\left(\beta \theta - \beta^2 S \right)-1}{|\beta|} d \beta \\
+&\geq \exp\left(-\frac{1}{2} \theta - \frac{1}{4} S \right)-1 
++ \int_{0}^{a} \frac{\exp\left(\beta \theta - \beta^2 S \right)-1}{|\beta|} d \beta
++\int_{a}^{\frac{1}{2}} \frac{\exp\left(\beta \theta - \beta^2 S \right)-1}{|\beta|} d \beta \\
+&\geq -1 + \int_{0}^{a} \frac{\exp\left(- \beta^2 S \right)-1}{|\beta|} d \beta
++\int_{a}^{\frac{1}{2}} \frac{\exp\left(\beta \theta - \beta^2 S \right)-1}{|\beta|} d \beta \\
+&\geq -1 + \int_{0}^{a} \frac{- \beta^2 S}{|\beta|} d \beta
++\int_{a}^{\frac{1}{2}} \frac{\exp\left(\beta \theta - \beta^2 S \right)-1}{|\beta|} d \beta \\
+&= -1  -\frac{a^2 S}{2}
++\int_{a}^{\frac{1}{2}} \frac{\exp\left(\beta \theta - \beta^2 S \right)-1}{|\beta|} d \beta,
+\end{align*}
+where the first inequality is because $\beta \theta - \beta^2 S$ is decreasing in $[-\tfrac{1}{2},0]$ and $\tfrac{1}{|\beta|}$ too, and the second inequality uses the fact that $\theta>0$.
+Setting $a=\tfrac{1}{\sqrt{S}}$, we have that $-\frac{a^2 S}{2} = -\frac{1}{2}$.
 
-\begin{align}
+Define $\eta^*=\frac{\theta}{2 S}$.
+
+\textbf{Case 1: assume that $\eta^*\leq \frac{1}{2}$ and $\eta^*-\frac{1}{\sqrt{2S}}>\frac{1}{\sqrt{S}}$.}
+\begin{align*}
 \int_{-\frac{1}{2}}^{\frac{1}{2}} \frac{1}{|\beta|} \exp\left(\beta \sum_{t=1}^T g_t - \beta^2 \sum_{t=1}^T g_t^2 \right) d \beta 
 &\geq \int_{a}^{\frac{1}{2}} \frac{1}{|\beta|} \exp\left(\beta \sum_{t=1}^T g_t - \beta^2 \sum_{t=1}^T g_t^2 \right) d \beta \\
 &= \ln(\frac{1}{2a}) \int_{a}^{\frac{1}{2}} \frac{1}{ \ln(\frac{1}{2a}) \beta} \exp\left(\beta \sum_{t=1}^T g_t - \beta^2 \sum_{t=1}^T g_t^2 \right) d \beta \\
 &\geq \ln(\frac{1}{2a}) \exp\left(\frac{1}{\epsilon}\int_{\eta^*-\epsilon}^{\eta^*} (\theta \beta - \beta^2 S) d \beta - KL(q||p)\right) \\
 &= \ln(\frac{1}{2a}) \exp\left(\frac{\theta^2}{4 S} - \frac{S \epsilon^2}{3} - \ln\frac{\theta}{2\epsilon S}- \ln \ln \frac{1}{2 a}\right),
-\end{align}
+\end{align*}
 where we used the bound on the KL divergence:
-\begin{align}
+\begin{align*}
 \int_{\beta^*-\epsilon}^{\beta^*} \frac{1}{\epsilon} \ln \frac{x b}{\epsilon} d x 
 &= \int_{\beta^*-\epsilon}^{\beta^*} \frac{1}{\epsilon} \ln \frac{x}{\epsilon} d x
 + \int_{\beta^*-\epsilon}^{\beta^*} \frac{1}{\epsilon} \ln b d x \\
@@ -642,28 +659,42 @@ where we used the bound on the KL divergence:
 + \ln b\\
 &= \frac{\beta^*}{\epsilon} \ln \frac{\beta^*}{\epsilon} + \left(1-\frac{\beta^*}{\epsilon}\right) \ln \left(\frac{\beta^*}{\epsilon}-1\right)-1 + \ln b \\
 &\leq \ln \frac{\beta^*}{\epsilon} + \ln b,
-\end{align}
+\end{align*}
 where in the last inequality we used the fact that $\tfrac{\beta^*}{\epsilon}>1$.
 
 Hence, we have
-\begin{align}
+\begin{align*}
 \ln(\frac{1}{2a}) \exp\left(\frac{\theta^2}{4 S} - \frac{S \epsilon^2}{3} - \ln\frac{\theta}{2\epsilon S}- \ln \ln \frac{1}{2 a}\right)
 &=\exp\left(\frac{\theta^2}{4 S} - \frac{S \epsilon^2}{3} - \ln\frac{\theta}{2\epsilon S}\right),
-\end{align}
+\end{align*}
 and setting $\epsilon=\frac{1}{\sqrt{S}}$, we have
-\begin{align}
+\begin{align*}
 \ln(\frac{1}{2a}) \exp\left(\frac{\theta^2}{4 S} - \frac{S \epsilon^2}{3} - \ln\frac{\theta}{2\epsilon S}- \ln \ln \frac{1}{2 a}\right)
 &=\exp\left(\frac{\theta^2}{4 S} - \frac{1}{3} - \ln\frac{\theta}{2 \sqrt{S}}\right) \\
 &\geq \exp\left(\frac{\theta^2}{4 S} - \frac{1}{3} - \ln\frac{\theta}{2 \sqrt{S}}\right) \\
 &\geq \exp\left(\left(\frac{\theta}{2 \sqrt{S}} - \frac{1}{5}\right)^2 - \frac{1}{3}\right),
-\end{align}
+\end{align*}
 where in the last inequality we used \textbf{TO DO!}.
 
-Alternative reasoning: $F_t(\theta_T) \leq \sum_{t=1}^T \beta_t g_t + F_0(0)\leq F_0(0)$ by the construction of reduction to experts. Hence, $F_t(\theta_T)$ is bounded if $F_0(0)$. So, it is enough to use
-\[
-1+\int_{-\frac{1}{2}}^{\frac{1}{2}} \frac{\exp\left(\beta \theta - \beta^2 S \right)-1}{|\beta|} d \beta~.
-\]
-that is 0 at time 0 and $\theta=0$.
+
+\textbf{Case 2: $\eta^*>\frac{1}{2}$.}
+
+
+\section{Improved bound for experts}
+
+Assume that the reward function is of the form $F_{T,i}=\exp(\frac{\tilde{G_{T,i}}}{S_{T,i}})$. Then we have
+\begin{align}
+&\Regret_T(u)
+= \sum_{t=1}^T \langle g_t, u - p_t \rangle
+= \sum_{t=1}^T \sum_{i=1}^N u_i \left(g_{t,i} - \langle g_t, p_t \rangle \right) \\
+& \le \sum_{t=1}^T \sum_{i=1}^N u_i \widetilde g_{t,i} \qquad \text{(by definition of $\widetilde g_{t,i}$)} \\
+& \le \sum_{i=1}^N u_i \left|\widetilde G_{T,i}\right| \qquad \text{(since $u_i \ge 0, i=1,\ldots, N$)}  \\
+& \le \sqrt{(\sum_{i=1}^N u_i S_{T,i}) (\sum_{i=1}^N u_i \frac{\widetilde G^2_{T,i}}{S_{T,i}})} \qquad \text{(Cauchy-Schwarz)}  \\
+& \le \sqrt{(\sum_{i=1}^N u_i S_{T,i}) \left(\KL{u}{\pi}+\ln \left(\sum_{i=1}^N \pi_i F_T(\widetilde G_{T,i})\right)\right)} \qquad \text{(...)}  \\
+& \le \sqrt{\KL{u}{\pi} \sum_{i=1}^N u_i S_{T,i}} \qquad \text{(...)}
+\end{align}
+
+
 \bibliography{learning}
 
 
