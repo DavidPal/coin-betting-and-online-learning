@@ -24,10 +24,11 @@ $\beta^*=(\sum_{t=1}^T g_t)/T$ and it gives the wealth
 \label{eq:opt_wealth}
 % \max_{\beta \in [-1,1]} \Wealth_t(\beta)
 %=
-\Wealth_t(\beta^*)
+\Wealth_T(\beta^*)
 = \epsilon \exp\left(T \KL{\tfrac{1}{2}+\tfrac{\sum_{t=1}^T g_t}{2T}}{\tfrac{1}{2}}\right)
 \geq \epsilon \exp\left(\tfrac{(\sum_{t=1}^T g_t)^2}{2 T}\right) \; .
 \end{equation}
+where the inequality is the Pinsker's inequality~\citep[Lemma 11.6.1]{Cover-Thomas-2006}.
 %In this sense,
 %\emph{good} betting strategies should guarantee an exponential growth of the
 %wealth, when the outcomes of the coin are predictable.
@@ -47,8 +48,8 @@ slightly towards $\nicefrac{1}{2}$.} The KT estimator results in the betting str
 which we call \emph{adaptive Kelly betting based on KT estimator}. It looks like an online and slightly biased version of the oracle choice of $\beta^*$.
 \citeauthor{Krichevsky-Trofimov-1981} showed that this strategy guarantees
 \[
-\Wealth_t \ge \frac{\Wealth_t(\beta^*)}{2\sqrt{t}}
-= \tfrac{\epsilon}{2\sqrt{t}} \exp\left(T \KL{\tfrac{1}{2}+\tfrac{\sum_{t=1}^T g_t}{2T}}{\tfrac{1}{2}}\right)\; .
+\Wealth_T \ge \frac{\Wealth_T(\beta^*)}{2\sqrt{T}}
+= \tfrac{\epsilon}{2\sqrt{T}} \exp\left(T \KL{\tfrac{1}{2}+\tfrac{\sum_{t=1}^T g_t}{2T}}{\tfrac{1}{2}}\right)\; .
 \]
 This guarantee is optimal up to constant factors~\citep{Cesa-Bianchi-Lugosi-2006} and mirrors the guarantee of
 the Kelly bet.
