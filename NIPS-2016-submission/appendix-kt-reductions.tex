@@ -71,14 +71,12 @@ Using these bounds we have
 \begin{align*}
 &\Psi(\delta+1) - \frac{1}{2(\delta+1)} - \ln(2) - \Psi \left(\frac{\delta+1}{2} \right) \\
 &\quad \ge \ln \left(\delta+\frac{1}{2} \right) - \frac{1}{2(\delta+1)} -\ln(2) -\ln \left(\frac{\delta+1}{2}\right) + \frac{1}{\delta+1} +\frac{1}{3 (\delta+1)^2} -\frac{2}{15 (\delta+1)^4}\\
-&\quad = \ln \left(1+\frac{\delta}{\delta+1} \right)+ \frac{1}{2(\delta+1)} -\ln(2)+\frac{1}{3 (\delta+1)^2} -\frac{2}{15 (\delta+1)^4}\\
-&\quad \ge \frac{\delta}{\delta+1} - (1-\ln(2))\frac{\delta^2}{(\delta+1)^2}+ \frac{1}{2(\delta+1)} -\ln(2)+\frac{1}{3 (\delta+1)^2}-\frac{2}{15 (\delta+1)^4}\\
-&\quad = \frac{\delta^2 \ln(2)+\frac{3}{2}\delta +\frac{5}{6}}{(\delta+1)^2} - \ln(2)-\frac{2}{15 (\delta+1)^4}\\
-&\quad = \frac{(\frac{3}{2}-\ln(4)) \delta +\frac{5}{6}-\ln(2)}{(\delta+1)^2} -\frac{2}{15 (\delta+1)^4} \\
-&\quad = \frac{15 (\delta+1)^2 \left((\frac{3}{2}-\ln(4)) \delta +\frac{5}{6}-\ln(2)\right)-2}{15(\delta+1)^4} \\
-&\quad \geq \frac{15 \left(\frac{5}{6}-\ln(2)\right)-2}{15(\delta+1)^4} >0,
+&\quad = \ln \left(1-\frac{1}{2(\delta+1)} \right)+ \frac{1}{2(\delta+1)}+\frac{1}{3 (\delta+1)^2} -\frac{2}{15 (\delta+1)^4}\\
+&\quad \ge - \frac{(4\ln(2)-2)}{4(\delta+1)^2}+\frac{1}{3 (\delta+1)^2}-\frac{2}{15 (\delta+1)^4}\\
+&\quad = \frac{[15(1/2-\ln(2)))+5](\delta+1)^2-2}{15 (\delta+1)^4}\\
+&\quad \ge \frac{[15(1/2-\ln(2)))+5]-2}{15 (\delta+1)^4}\geq0\\
 \end{align*}
-where in the second inequality we used the elementary inequality $\ln(x+1) \leq x - (1-\ln(2))x^2$ valid for $x \in [0,1]$.
+where in the second inequality we used the elementary inequality $\ln(1-x) \geq -x - (4\ln(2)-2)x^2$ valid for $x \in [0,.5]$.
 \end{proof}
 
 \begin{lemma}[Lower Bound on Shifted KT Potential]
