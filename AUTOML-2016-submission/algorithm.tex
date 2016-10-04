@@ -28,14 +28,14 @@ Algorithm~\ref{algorithm:hilbert-space-olo} satisfies
 $$
 \forall \, T \ge 0 \quad
 \forall u \in \H \qquad \qquad
-\Regret_T(u) \le \norm{u} \sqrt{T \ln\left(1 + 4T^2 \norm{u}^2 \right)} + 1 \;.
+\Regret_T(u) \le \norm{u} \sqrt{T \ln\left(1 + 24T^2 \norm{u}^2 \right)} + 1 \;.
 $$
 \end{theorem}
 
 We now explain how Algorithm~\ref{algorithm:hilbert-space-olo} is derived from the
 Krichevsky-Trofimov solution to the adversarial coin-betting problem.
 
-\textbf{Adversarial Coin Betting.}
+\paragraph{Adversarial Coin Betting.}
 Consider a gambler making repeated bets on the outcomes of adversarial coin
 flips. The gambler starts with an initial endowment of $1$ dollar. In each
 round $t$, he bets on the outcome of a coin flip $c_t \in \{-1,1\}$, where $+1$
@@ -57,7 +57,7 @@ of round $t$. It satisfies
 Note that since $\beta_t \in [-1,1]$, gambler's wealth stays always
 non-negative.
 
-\textbf{Kelly Betting and Krichevsky-Trofimov Estimator.}
+\paragraph{Kelly Betting and Krichevsky-Trofimov Estimator.}
 For sequential betting on i.i.d. coin flips, the optimal strategy has been
 proposed by \citet{Kelly-1956}.  The strategy assumes that the coin flips
 $\{c_t\}_{t=1}^\infty$, $c_t \in \{+1,-1\}$, are generated i.i.d. with known
@@ -85,7 +85,7 @@ satisfies
 \end{equation}
 Moreover, this guarantee is optimal up to constant multiplicative factors~\citep{Cesa-Bianchi-Lugosi-2006}.
 
-\textbf{From betting to \ac{OLO}.}
+\paragraph{From betting to \ac{OLO}.}
 In Algorithm~\ref{algorithm:hilbert-space-olo}, the ``coin outcome'' is the
 vector $c_t \in \H$ where $c_t = -\ell_t$ and algorithm's wealth is $\Wealth_t
 = 1 + \sum_{i=1}^t \langle c_i, w_i \rangle = 1 - \sum_{i=1}^t \langle \ell_i,

@@ -6,20 +6,20 @@ Consider \ac{OLO} over a Hilbert Space $\H$. \ac{OGD} with learning rate
 $\eta$ satisfies~\citep{Shalev-Shwartz-2011}
 \begin{equation}
 \label{equation:ftrl-vanila}
-\forall u \in \H \qquad \Regret_T(u) \le \tfrac{\norm{u}^2}{2\eta} + \tfrac{\eta T}{2} \; .
+\forall u \in \H \qquad \Regret_T(u) \le \frac{\norm{u}^2}{2\eta} + \frac{\eta T}{2} \; .
 \end{equation}
 It is obvious that the optimal tuning of the learning rate depends on the
 unknown norm of $u$.
 
-The simple choice $\eta = 1/\sqrt{T}$ leads to an algorithm that satisfies
+The simple choice $\eta = \tfrac{1}{\sqrt{T}}$ leads to an algorithm that satisfies
 \begin{equation}
 \label{equation:ftrl-vanila-2}
-\forall u \in H \qquad \Regret_T(u) \le \tfrac{1}{2}\left(1+\norm{u}^2\right)\sqrt{T} \; .
+\forall u \in H \qquad \Regret_T(u) \le \frac{1}{2}\left(1+\norm{u}^2\right)\sqrt{T} \; .
 \end{equation}
 However, in this bound the dependency on $\norm{u}$ is suboptimal: The
 quadratic dependency can be replaced by an (almost) linear dependency.
 Starting from \eqref{equation:ftrl-vanila}, if we choose the learning rate
-$\eta = D/\sqrt{T}$, we get a family of algorithms parameterized by $D \in
+$\eta = \tfrac{D}{\sqrt{T}}$, we get a family of algorithms parameterized by $D \in
 [0,\infty)$ that satisfy
 \begin{equation}
 \label{equation:ftrl-vanila-3}
@@ -42,10 +42,10 @@ algorithm that satisfies \eqref{equation:olo-parameter-free}.  Finally, note
 that \eqref{equation:olo-parameter-free} has better dependency on $\norm{u}$
 than \eqref{equation:ftrl-vanila-2}.
 
-Better guarantees are indeed possible. In fact, there have been a lot of work on algorithms \citep{Streeter-McMahan-2012,
+Better guarantees are indeed possible. In fact, there have been a lot of work on algorithms that satisfy a slightly
+weaker version of \eqref{equation:olo-parameter-free}~\citep{Streeter-McMahan-2012,
 Orabona-2013, McMahan-Abernethy-2013,
-McMahan-Orabona-2014,Orabona-2014} that satisfy a slightly
-weaker version of \eqref{equation:olo-parameter-free}. Namely, their regret satisfies
+McMahan-Orabona-2014,Orabona-2014}. Namely, their regret satisfies
 \begin{equation}
 \label{equation:olo-parameter-free-2}
 \forall u \in \H \qquad \Regret_T(u) \le \big(O(1)+\polylog(1 + \norm{u})\norm{u} \big) \sqrt{T} \; .

@@ -14,14 +14,15 @@ algorithms and results in convex optimization and machine learning. We will stat
 \FOR{$t=1,2,\dots,T$}
 \STATE{Set $w_t \leftarrow \Wealth_{t-1} \tfrac{\theta_{t-1}}{t} $}
 \STATE{Select an index $j$ at random from $\{1,2,\dots,N\}$ and compute $\ell_t = \grad f_j(w_{t-1})$}
-\STATE{Update $\theta_t \leftarrow \theta_{t-1} - \ell_t$ and $\Wealth_t \leftarrow \Wealth_{t-1} - \langle \ell_t, w_t \rangle$}
+\STATE{Update $\theta_t \leftarrow \theta_{t-1} - \ell_t$}
+\STATE{Update $\Wealth_t \leftarrow \Wealth_{t-1} - \langle \ell_t, w_t \rangle$}
 \ENDFOR
 \STATE{Output $\overline{w}_T = \tfrac{1}{T}\sum_{t=1}^T w_t$}
 }
 \end{algorithmic}
 \end{algorithm}
 
-\textbf{Convex Optimization.}
+\paragraph{Convex Optimization.}
 Consider an empirical risk minimization problem of the form
 %
 \begin{equation}
@@ -29,7 +30,7 @@ Consider an empirical risk minimization problem of the form
 F(w) = \frac{1}{N} \sum_{i=1}^N f_i(w),
 \end{equation}
 %
-where $f_i:\R^d \to \R$ is convex.\footnote{The algorithm can also be
+where $f_i:\R^d \to \R, \ i=1,\ldots,N$ are convex.\footnote{The Algorithm~\ref{algorithm:kt-sgd} can also be
 implemented and analyzed with kernels~\citep{Orabona-2014}.} It is immediate to
 transform Algorithm~\ref{algorithm:hilbert-space-olo} into a \ac{SGD} algorithm
 for this problem, obtaining Algorithm~\ref{algorithm:kt-sgd}.
@@ -47,14 +48,14 @@ theorem states the rate of convergence of Algorithm~\ref{algorithm:kt-sgd}.
 The average $\overline{w}_T$ produced by Algorithm~\ref{algorithm:kt-sgd} is
 an approximate minimizer of the objective function \eqref{equation:objective-function}:
 \[
-\Exp\left[F(\overline{w}_T)\right] - F(\widehat{w}) \leq \tfrac{\norm{\widehat{w}}}{\sqrt{T}} \sqrt{\log(1+4 T^2 \norm{\widehat{w}}^2)} +\tfrac{1}{T} \; .
+\Exp\left[F(\overline{w}_T)\right] - F(\widehat{w}) \leq \frac{\norm{\widehat{w}}}{\sqrt{T}} \sqrt{\log(1+24 T^2 \norm{\widehat{w}}^2)} +\frac{1}{T} \; .
 \]
 \end{theorem}
 %
 Note that in the above theorem, $T$ can be larger (multiple epochs) or smaller
 than $N$.
 
-\textbf{Machine Learning.} In machine learning, the minimization of a function
+\paragraph{Machine Learning.} In machine learning, the minimization of a function
 \eqref{equation:objective-function} is just a proxy to minimize the \emph{true
 risk} over an unknown distribution. For example, $f_i(w)$ can be of the form
 $f_i(w) = f(w, X_i, Y_i)$ where $\{(X_i, Y_i)\}_{i=1}^N$ is a sequences of
@@ -80,7 +81,7 @@ training set $\{(X_i,Y_i)\}_{i=1}^N$ came from. Hence, in order to get a good
 performance we have to select a good regularization parameter. In particular,
 from \cite{Sridharan-Shalev-Shwartz-Srebro-2009} we get
 \[
-\Exp[f(\widehat{w}_\lambda,X,Y)] - \Exp[f(w^*,X,Y)] \le O(\lambda \norm{w^*}^2 + \tfrac{1}{\lambda N}) \; ,
+\Exp[f(\widehat{w}_\lambda,X,Y)] - \Exp[f(w^*,X,Y)] \le O(\lambda \norm{w^*}^2 + \frac{1}{\lambda N}) \; ,
 \]
 where $w^*=\argmin_w \Exp[f(w,X,Y)]$ and $\widehat{w}_\lambda = \argmin_w
 F_\lambda^{\text{Reg}}(w)$.  From the above bound, it is clear that the optimal
@@ -94,22 +95,15 @@ practitioner knows how painful it is to find the right regularization for the
 problem at hand.
 
 Assuming we would know $\norm{w^*}$, we could set $\lambda =
-O(1/(\norm{w^*} \sqrt{N}))$ to achieve the worst-case optimal bound
+O(\tfrac{1}{\norm{w^*} \sqrt{N}})$ to achieve the worst-case optimal bound
 %
 \begin{equation}
 \label{equation:optimal-rate}
-\Exp[f(\widehat{w}_\lambda,X,Y)] - \Exp[f(w^*,X,Y)] \le O\left(\tfrac{\norm{w^*}}{\sqrt{N}}\right) \; .
+\Exp[f(\widehat{w}_\lambda,X,Y)] - \Exp[f(w^*,X,Y)] \le O\left(\frac{\norm{w^*}}{\sqrt{N}}\right) \; .
 \end{equation}
 However, we can get the same guarantee without knowing $\norm{w^*}$ or the
-optimal $\lambda$, by doing a single pass over the data set. More precisely, we
-derive Algorithm~\ref{algorithm:averaged-olo} from
-Algorithm~\ref{algorithm:hilbert-space-olo} by applying the standard
-online-to-batch reduction~\citep{Shalev-Shwartz-2011}.  The algorithm makes
-only a single pass over the dataset and it does not have any tuning parameters.
-Yet, it has almost the same guarantee \eqref{equation:optimal-rate}
-\emph{without knowing $\norm{w^*}$ or the optimal regularization parameter
-$\lambda$ or the learning rate, or any other tuning parameter}.
-
+optimal $\lambda$, by doing a single pass over the data set.
+%
 \begin{algorithm}[t]
 \caption{Averaging algorithm based on KT estimator \label{algorithm:averaged-olo}}
 \begin{algorithmic}[1]
@@ -119,18 +113,28 @@ $\lambda$ or the learning rate, or any other tuning parameter}.
 \FOR{$i=1,2,\dots,N$}
 \STATE{Set $w_i \leftarrow \Wealth_{i-1} \tfrac{\theta_{i-1}}{i} $}
 \STATE{Compute $\ell_i = \frac{\partial f(w, X_i, Y_i)}{\partial w}|_{w=w_i}$}
-\STATE{Update $\theta_i \leftarrow \theta_{i-1} - \ell_i$ and $\Wealth_i \leftarrow \Wealth_{i-1} - \langle \ell_i, w_i \rangle$}
+\STATE{Update $\theta_i \leftarrow \theta_{i-1} - \ell_i$}
+\STATE{Update $\Wealth_i \leftarrow \Wealth_{i-1} - \langle \ell_i, w_i \rangle$}
 \ENDFOR
 \STATE{Output $\overline{w}_N = \tfrac{1}{N} \sum_{i=1}^N w_i$}
 }
 \end{algorithmic}
 \end{algorithm}
 %
+More precisely, we
+derive Algorithm~\ref{algorithm:averaged-olo} from
+Algorithm~\ref{algorithm:hilbert-space-olo} by applying the standard
+online-to-batch reduction~\citep{Shalev-Shwartz-2011}.  The algorithm makes
+only a single pass over the dataset and it does not have any tuning parameters.
+Yet, it has almost the same guarantee \eqref{equation:optimal-rate}
+\emph{without knowing $\norm{w^*}$ or the optimal regularization parameter
+$\lambda$ or the learning rate, or any other tuning parameter}.
+
 \begin{theorem}
 Assume that $(X, Y), (X_1, Y_1), (X_2, Y_2), \dots, (X_N,Y_N)$ are i.i.d.  The
 output $\overline{w}_N$ of Algorithm~\ref{algorithm:averaged-olo} satisfies
 $$
-\Exp[f(\overline{w}_N,X,Y)] - \Exp[f(w^*,X,Y)] \le \frac{\norm{w^*}}{\sqrt{N}} \sqrt{\log(1+4 N^2 \norm{w^*}^2)} + \tfrac{1}{N} \; .
+\Exp[f(\overline{w}_N,X,Y)] - \Exp[f(w^*,X,Y)] \le \frac{\norm{w^*}}{\sqrt{N}} \sqrt{\log(1+24 N^2 \norm{w^*}^2)} + \frac{1}{N} \; .
 $$
 \end{theorem}
 %
