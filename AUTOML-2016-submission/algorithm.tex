@@ -14,11 +14,11 @@
 \end{algorithmic}
 \end{algorithm}
 
-Here, we present our new parameter-free algorithm for \ac{OLO} over a Hilbert space $\H$, 
-stated as Algorithm~\ref{algorithm:hilbert-space-olo}.  We would like to stress the extreme simplicity of the algorithm.
-The theorem below upper
-bounds its regret in the form of \eqref{equation:olo-parameter-free-2}, the proof can be found
-in~\cite{Orabona-Pal-2016-parameter-free}.
+Here, we present our new parameter-free algorithm for \ac{OLO} over a Hilbert
+space $\H$,  stated as Algorithm~\ref{algorithm:hilbert-space-olo}.  We would
+like to stress the extreme simplicity of the algorithm. The theorem below upper
+bounds its regret in the form of \eqref{equation:olo-parameter-free-2}, the
+proof can be found in~\cite{Orabona-Pal-2016-parameter-free}.
 
 \begin{theorem}[Regret Bound for Algorithm~\ref{algorithm:hilbert-space-olo}]
 \label{theorem:hilbert-space-olo-regret}
@@ -66,30 +66,30 @@ bet is $\beta_t = 2p - 1$. He showed that, in the long run, this strategy will
 provide more wealth than betting any other fixed fraction~\citep{Kelly-1956}.
 
 For adversarial coins, Kelly betting does not make sense.
-\citet{Krichevsky-Trofimov-1981} proposed to replace $p$ with an estimate:
-After seeing coin flips $c_1, c_2, \dots, c_{t-1}$, use the empirical
-estimate $k_t = \frac{1/2 + \sum_{i=1}^{t-1} \indicator[c_i = +1]}{t}$. Their
-estimate is commonly called \emph{KT estimator}\footnote{Compared to the
-standard maximum likelihood estimate $\frac{\sum_{i=1}^{t-1} \indicator[c_i =
-+1]}{t-1}$, KT estimator ``shrinks'' slightly towards $\frac{1}{2}$.} and it
-results in the betting strategy $\beta_t = 2k_t - 1 = \tfrac{\sum_{i=1}^{t-1}
-c_i}{t}$.  \citeauthor{Krichevsky-Trofimov-1981} showed that this strategy
-guarantees almost the same wealth that one would obtain knowing in advance the
-fraction of heads. Namely, 
-if we denote by $\Wealth_t(\beta)$ the wealth of the strategy that bets the fraction
-$\beta$ in every round, then the wealth of the Krichevsky-Trofimov betting strategy
-satisfies
+\citet{Krichevsky-Trofimov-1981} proposed to replace $p$ with an estimate: After
+seeing coin flips $c_1, c_2, \dots, c_{t-1}$, use the empirical estimate $k_t =
+\frac{1/2 + \sum_{i=1}^{t-1} \indicator[c_i = +1]}{t}$. Their estimate is
+commonly called \emph{KT estimator}\footnote{Compared to the standard maximum
+likelihood estimate $\frac{\sum_{i=1}^{t-1} \indicator[c_i = +1]}{t-1}$, KT
+estimator ``shrinks'' slightly towards $\frac{1}{2}$.} and it results in the
+betting strategy $\beta_t = 2k_t - 1 = \tfrac{\sum_{i=1}^{t-1} c_i}{t}$.
+\citeauthor{Krichevsky-Trofimov-1981} showed that this strategy guarantees
+almost the same wealth that one would obtain knowing in advance the fraction of
+heads. Namely, if we denote by $\Wealth_t(\beta)$ the wealth of the strategy
+that bets the fraction $\beta$ in every round, then the wealth of the
+Krichevsky-Trofimov betting strategy satisfies
 \begin{equation}
 \label{equation:kt-wealth-lower-bound}
 \forall \beta \in [-1,1] \qquad \Wealth_t \ge \frac{\Wealth_t(\beta)}{2\sqrt{t}} \; .
 \end{equation}
-Moreover, this guarantee is optimal up to constant multiplicative factors~\citep{Cesa-Bianchi-Lugosi-2006}.
+Moreover, this guarantee is optimal up to constant multiplicative
+factors~\citep{Cesa-Bianchi-Lugosi-2006}.
 
 \paragraph{From betting to \ac{OLO}.}
 In Algorithm~\ref{algorithm:hilbert-space-olo}, the ``coin outcome'' is the
-vector $c_t \in \H$ where $c_t = -\ell_t$ and algorithm's wealth is $\Wealth_t
-= 1 + \sum_{i=1}^t \langle c_i, w_i \rangle = 1 - \sum_{i=1}^t \langle \ell_i,
-w_i \rangle$.  The algorithm explicitly keeps track of its wealth and it bets
+vector $c_t \in \H$ where $c_t = -\ell_t$ and algorithm's wealth is $\Wealth_t =
+1 + \sum_{i=1}^t \langle c_i, w_i \rangle = 1 - \sum_{i=1}^t \langle \ell_i, w_i
+\rangle$.  The algorithm explicitly keeps track of its wealth and it bets
 ``vectorial fraction'' $\beta_t = \tfrac{\sum_{i=1}^{t-1} c_i}{t} = -
 \tfrac{\sum_{i=1}^{t-1}\ell_i}{t}$ of its current wealth. The regret bound
 (Theorem~\ref{theorem:hilbert-space-olo-regret}) is a consequence of
