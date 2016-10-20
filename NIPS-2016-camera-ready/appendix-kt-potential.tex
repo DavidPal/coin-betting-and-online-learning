@@ -1,0 +1,162 @@
+\section{Properties of Krichevsky-Trofimov Potential}
+\label{section:properties-kt-potential}
+
+\begin{lemma}[Analytic Properties of KT potential]
+\label{lemma:kt-potential-analytic-properties}
+Let $a > 0$. The function $F:(-a,a) \to \R_+$,
+\[
+F(x) = \Gamma(a+x) \Gamma(a-x)
+\]
+is even, logarithmically convex, strictly increasing on $[0,a)$, satisfies
+\[
+\lim_{x \nearrow a} F(x) = \lim_{x \searrow -a} F(x) = + \infty
+\]
+and
+\begin{equation}
+\label{equation:gamma-property-4}
+\forall x \in [0,a) \qquad x \cdot F''(x) \ge F'(x) \; .
+\end{equation}
+\end{lemma}
+%
+\begin{proof}
+$F(x)$ is obviously even. $\Gamma(z) = \int_0^\infty t^{z-1} e^{-t} dt$ is
+defined for any real number $z > 0$. Hence, $F$ is defined on the interval
+$(-a,a)$. According to Bohr-Mollerup theorem \cite[Theorem 2.1]{Artin-1964},
+$\Gamma(x)$ is logarithmically convex on $(0,\infty)$. Hence, $F(x)$ is also
+logarithmically convex, since $\ln (F(x)) = \ln(\Gamma(a+x)) +
+\ln(\Gamma(a-x))$ is a sum of convex functions.
+
+It is well known that $\lim_{z \searrow 0} \Gamma(z) = +\infty$. Thus,
+\[
+\lim_{x \nearrow a} F(x)
+= \lim_{x \nearrow a} \Gamma(a+x) \Gamma(a-x)
+= \Gamma(2a) \lim_{x \nearrow a} \Gamma(a-x)
+= \Gamma(2a) \lim_{z \searrow 0} \Gamma(z)
+= + \infty \; ,
+\]
+since $\Gamma$ is continuous and not zero at $2a$. Because $F(x)$ is even, we also have
+$\lim_{x \searrow -a} F(x) = +\infty$.
+
+To show that $F(x)$ is increasing and that it satisfies
+\eqref{equation:gamma-property-4}, we write $f(x) = \ln(F(x))$ as a Mclaurin series.
+The derivatives of $\ln(\Gamma(z))$ are the so called polygamma functions
+\[
+\psi^{(n)}(z) = \frac{d^{n+1}}{dz^{n+1}} \ln(\Gamma(z))
+\qquad \qquad \text{for $z > 0$ and $n=0,1,2,\dots$.}
+\]
+Polygamma functions have the well-known integral representation
+\[
+\psi^{(n)}(z) = (-1)^{n+1} \int_0^\infty \frac{t^n e^{-zt}}{1 - e^{-t}} dt
+\qquad \qquad \text{for $z > 0$ and $n=1,2,\dots$.}
+\]
+Using polygamma functions, we can write the Mclaurin series for $f(x) = \ln(F(x))$ as
+\[
+f(x) = \ln(F(x)) = \ln(\Gamma(a+x)) + \ln(\Gamma(a-x)) = 2 \ln(\Gamma(a)) + 2 \sum_{\substack{n \ge 2 \\ \text{$n$ even}}} \frac{\psi^{(n-1)}(a) x^n}{n!} \; .
+\]
+The series converges for $x \in (-a,a)$, since
+for even $n \ge 2$, $\psi^{(n-1)}(a)$ is positive and can be upper bounded as
+\begin{align*}
+\psi^{(n-1)}(a)
+& = \int_0^\infty \frac{t^{n-1} e^{-at}}{1 - e^{-t}} dt \\
+& = \int_0^1 \frac{t^{n-1} e^{-at}}{1 - e^{-t}} dt + \int_1^\infty \frac{t^{n-1} e^{-zt}}{1 - e^{-t}} dt \\
+& \le \int_0^1 \frac{t^{n-1} e^{-at}}{t(1 - 1/e)} dt + \int_1^\infty t^{n-1} e^{-at} dt \\
+& \le \frac{1}{1 - 1/e} \int_0^\infty t^{n-2} e^{-at} dt + \int_0^\infty t^{n-1} e^{-at} dt \\
+& = \frac{1}{1 - 1/e} a^{1-n} \Gamma(n-1) + a^{-n} \Gamma(n) \\
+& \le \frac{1}{1 - 1/e} a^{-n}(a+1) (n-1)!\; .
+\end{align*}
+From the Mclaurin expansion we see that $f(x)$ is increasing on $[0,a)$
+since all the coefficients are positive (except for zero order term).
+
+Finally, to prove \eqref{equation:gamma-property-4}, note that
+for any $x \in (-a,a)$,
+\[
+f(x) = c_0 + \sum_{n=2}^\infty c_n x^n
+\]
+where $c_2, c_3, \dots$ are non-negative coefficients. Thus
+\begin{align*}
+f'(x) & = \sum_{n=2}^\infty n c_n x^{n-1} &
+& \text{and} &
+f''(x) & = \sum_{n=2}^\infty n (n-1) c_n x^{n-2} \; .
+\end{align*}
+and hence $x \cdot f''(x) \ge f'(x)$ for $x \in [0,a)$. Since $F(x) = \exp(f(x))$,
+\begin{align*}
+F'(x) & = f'(x) \cdot F(x) &
+& \text{and} &
+F''(x) & = \left[f''(x) + (f'(x))^2 \right] \cdot F(x) \; .
+\end{align*}
+Therefore, for $x \in [0,a)$,
+\[
+x \cdot F''(x)
+= x \left[ f''(x) + (f'(x))^2 \right] F(x)
+\ge \left[ f'(x) + x (f'(x))^2 \right] F(x)
+\ge f'(x) F(x) = F'(x) \; .
+\]
+This proves \eqref{equation:gamma-property-4}.
+\end{proof}
+
+\begin{theorem}[KT potential]
+\label{theorem:kt-potential}
+Let $\delta \ge 0$ and $\epsilon > 0$. The sequence of functions
+$\{F_t\}_{t=0}^\infty$, $F_t:(-t-\delta-1, t+\delta+1) \to \R_+$ defined by
+\[
+F_t(x) = \epsilon \frac{2^t \cdot \Gamma(\delta + 1) \Gamma(\frac{t+\delta+1}{2} + \frac{x}{2}) \Gamma(\frac{t+\delta+1}{2} - \frac{x}{2})}{\Gamma(\frac{\delta+1}{2})^2 \Gamma(t+\delta+1)} \; .
+\]
+is a sequence of excellent coin-betting potentials for initial endowment $\epsilon$.
+Furthermore, for any $x \in (-t-\delta-1, t+\delta+1)$,
+\begin{equation}
+\label{equation:kt-potential-beta}
+\frac{F_t(x+1) - F_{t}(x-1)}{F_t(x+1) + F_{t}(x-1)} = \frac{x}{t+\delta} \; .
+\end{equation}
+\end{theorem}
+%
+\begin{proof}
+Property (b) and (d) of the definition follow from
+Lemma~\ref{lemma:kt-potential-analytic-properties}.
+Property (a) follows by simple substitution for $t=0$ and $x=0$.
+
+Before verifying property (c), we prove \eqref{equation:kt-potential-beta}. We
+use an algebraic property of the gamma function that states that $\Gamma(1+z) =
+z \Gamma(z)$ for any positive $z$. Equation \eqref{equation:kt-potential-beta}
+follows from
+\begin{align*}
+\frac{F_t(x + 1) - F_t(x - 1)}{F_t(x + 1) + F_t(x - 1)}
+& = \frac{\Gamma(\frac{t+\delta+2}{2} + \frac{x}{2}) \Gamma(\frac{t+\delta}{2} - \frac{x}{2}) - \Gamma(\frac{t+\delta}{2} + \frac{x}{2}) \Gamma(\frac{t+\delta+2}{2} - \frac{x}{2})}{\Gamma(\frac{t+\delta+2}{2} + \frac{x}{2}) \Gamma(\frac{t + \delta}{2} - \frac{x}{2}) + \Gamma(\frac{t + \delta}{2} + \frac{x}{2}) \Gamma(\frac{t+\delta+2}{2} - \frac{x}{2})} \\
+& = \frac{(\frac{t+\delta}{2} + \frac{x}{2})\Gamma(\frac{t+\delta}{2} + \frac{x}{2}) \Gamma(\frac{t+\delta}{2} - \frac{x}{2}) - (\frac{t+\delta}{2} - \frac{x}{2})\Gamma(\frac{t+\delta}{2} + \frac{x}{2}) \Gamma(\frac{t+\delta}{2} - \frac{x}{2})}{(\frac{t+\delta}{2} + \frac{x}{2})\Gamma(\frac{t+\delta}{2} + \frac{x}{2}) \Gamma(\frac{t+\delta}{2} - \frac{x}{2}) + (\frac{t+\delta}{2} - \frac{x}{2})\Gamma(\frac{t+\delta}{2} + \frac{x}{2}) \Gamma(\frac{t+\delta}{2} - \frac{x}{2})} \\
+& = \frac{(\frac{t+\delta}{2} + \frac{x}{2}) - (\frac{t+\delta}{2} - \frac{x}{2})}{(\frac{t+\delta}{2} + \frac{x}{2}) + (\frac{t+\delta}{2} - \frac{x}{2})} \\
+& = \frac{x}{t+\delta} \; .
+\end{align*}
+
+Let $\phi(g) = \frac{F_t(x+g)}{F_{t-1}(x)}$. To verify property (c) of the definition,
+we need to show that $\phi(g) \le 1 + g \frac{x}{t+\delta}$
+for any $x \in [-t+1, t-1]$ and any $g \in [-1,1]$. We can write $\phi(g)$ as
+\begin{align*}
+\phi(g)
+& = \frac{F_t(x+g)}{F_{t-1}(x)} \\
+& = \frac{2 \Gamma(\frac{t+\delta+1}{2} + \frac{x+g}{2}) \Gamma(\frac{t+\delta+1}{2} - \frac{x+g}{2}) \Gamma(t + \delta)}{\Gamma(\frac{t+\delta}{2} + \frac{x}{2}) \Gamma(\frac{t+\delta}{2} - \frac{x}{2}) \Gamma(t+\delta+1)} \\
+& = \frac{2}{t+\delta} \cdot \frac{\Gamma(\frac{t+\delta+1}{2} + \frac{x+g}{2}) \Gamma(\frac{t+\delta+1}{2} - \frac{x+g}{2})}{\Gamma(\frac{t+\delta}{2} + \frac{x}{2}) \Gamma(\frac{t+\delta}{2} - \frac{x}{2})} \; .
+\end{align*}
+For $g=+1$, using the formula $\Gamma(1+z) = z \Gamma(z)$, we have
+\[
+\phi(+1)
+= \frac{2}{t+\delta} \cdot \frac{\Gamma(\frac{t+\delta}{2} + \frac{x}{2} + 1) \Gamma(\frac{t+\delta}{2} - \frac{x}{2})}{\Gamma(\frac{t+\delta}{2} + \frac{x}{2}) \Gamma(\frac{t+\delta}{2} - \frac{x}{2})}
+= \frac{2}{t+\delta} \left(\frac{t+\delta}{2} + \frac{x}{2} \right)
+= 1 + \frac{x}{t+\delta} \; .
+\]
+Similarly, for $g=-1$, using the formula $\Gamma(1+z) = z \Gamma(z)$, we have
+\[
+\phi(-1)
+= \frac{2}{t+\delta} \cdot \frac{\Gamma(\frac{t+\delta}{2} + \frac{x}{2}) \Gamma(\frac{t+\delta}{2} - \frac{x}{2} + 1)}{\Gamma(\frac{t+\delta}{2} + \frac{x}{2}) \Gamma(\frac{t+\delta}{2} - \frac{x}{2})}
+= \frac{2}{t+\delta} \left(\frac{t+\delta}{2} - \frac{x}{2} \right)
+= 1 - \frac{x}{t+\delta} \; .
+\]
+We can write any $g \in [-1,1]$ as a convex combination of $-1$ and $+1$, i.e.,
+$g = \lambda \cdot (-1) + (1-\lambda) \cdot (+1)$ for some $\lambda \in [0,1]$.
+Since $\phi(g)$ is (logarithmically) convex,
+\begin{align*}
+\phi(g)
+& = \phi(\lambda \cdot (-1) + (1-\lambda) \cdot (+1)) \\
+& \le \lambda \phi(-1) + (1-\lambda) \phi(+1) \\
+& = \lambda \left(1 + \frac{x}{t+\delta}\right) + (1-\lambda) \left(1 - \frac{x}{t+\delta}\right) \\
+& = 1 + g \frac{x}{t+\delta} \; . \qedhere
+\end{align*}
+\end{proof}

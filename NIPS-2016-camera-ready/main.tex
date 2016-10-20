@@ -1,0 +1,129 @@
+\documentclass{article}
+
+\PassOptionsToPackage{numbers, compress}{natbib}
+
+%\usepackage[final]{nips_2016}
+\usepackage{nips_2016}
+% For anonymous submission use:  \usepackage{nips_2016}
+% For camera-ready version use:  \usepackage[final]{nips_2016}
+
+\usepackage{amssymb,amsmath,amsthm}
+\usepackage[nolist]{acronym}
+\usepackage{algorithm,algorithmic}
+\usepackage{enumerate}
+
+\usepackage[colorlinks,linkcolor=blue,citecolor=blue]{hyperref}
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{subfigure}
+
+\graphicspath{{figs/}}
+
+\newtheorem{definition}{Definition}
+\newtheorem{lemma}[definition]{Lemma}
+\newtheorem{theorem}[definition]{Theorem}
+\newtheorem{corollary}[definition]{Corollary}
+\newtheorem{proposition}[definition]{Proposition}
+
+\DeclareMathOperator*{\Exp}{\mathbf{E}}
+\DeclareMathOperator{\Regret}{Regret}
+\DeclareMathOperator{\Wealth}{Wealth}
+\DeclareMathOperator{\Reward}{Reward}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\newcommand{\R}{\mathbb{R}}     % real numbers
+\renewcommand{\H}{\mathcal{H}}  % Hilbert space
+\newcommand{\KL}[2]{\operatorname{D}\left({#1}\middle\|{#2}\right)}  % KL divergence
+\newcommand{\norm}[1]{\left\|{#1}\right\|}
+\newcommand{\indicator}{\mathbf{1}}
+\newcommand{\scO}{\mathcal{O}}  % big-Oh
+\DeclareMathOperator*{\dom}{dom}    % KL divergence
+
+\begin{acronym}
+\acro{EG}{Exponentiated Gradient}
+\acro{DFEG}{Dimension-Free Exponentiated Gradient}
+\acro{OMD}{Online Mirror Descent}
+\acro{ASGD}{Averaged Stochastic Gradient Descent}
+\acro{SGD}{Stochastic Gradient Descent}
+\acro{PiSTOL}{Parameter-free STOchastic Learning}
+\acro{OCO}{Online Convex Optimization}
+\acro{OLO}{Online Linear Optimization}
+\acro{RKHS}{Reproducing Kernel Hilbert Space}
+\acro{IID}{Independent and Identically Distributed}
+\acro{SVM}{Support Vector Machine}
+\acro{ERM}{Empirical Risk Minimization}
+\acro{COCOB}{Continous Coin Betting}
+\acro{MBA}{Master Betting Algorithm}
+\acro{KT}{Krichevsky-Trofimov}
+\acro{LEA}{Learning with Expert Advice}
+\acro{OGD}{Online Gradient Descent}
+\acro{KL}{Kullback-Leibler}
+\end{acronym}
+
+\author{
+  Francesco Orabona\\
+  Yahoo Research, New York\\
+  \texttt{francesco@orabona.com}
+  \And
+  D\'avid P\'al\\
+  Yahoo Research, New York\\
+  \texttt{dpal@yahoo-inc.com}
+}
+
+\title{Coin Betting and Parameter-Free Online Learning}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+In the recent years, a number of parameter-free algorithms have been
+developed for online linear optimization over Hilbert spaces and for learning with expert advice.
+These algorithms achieve optimal regret bounds that depend on the
+unknown competitors, without having to tune the learning rates with oracle
+choices.
+
+We present a new intuitive framework to design parameter-free algorithms based
+on a reduction to betting on outcomes of an adversarial coin. We instantiate it
+using a betting algorithm based on the Krichevsky-Trofimov estimator.  The
+resulting algorithms are simple, with no parameters to be tuned, and they improve
+or match previous results in terms of regret guarantee and per-round
+complexity.
+\end{abstract}
+
+\vspace{-0.2cm}
+
+\input{introduction}
+\input{preliminaries}
+\input{1d-olo}
+\input{coin-betting-potentials}
+\input{reduction-hilbert-space}
+\input{reduction-experts}
+\input{kt-estimator}
+\input{discussion}
+
+% Acknowledgments: Comment out in anonymous submission.
+% Uncomment for camera-ready version.
+
+%\subsubsection*{Acknowledgments}
+%The authors thank Jacob Abernethy, Nicol\`{o} Cesa-Bianchi, Satyen Kale,
+%Chansoo Lee, and  Giuseppe Molteni for useful discussions on this work.
+
+\begin{small}
+\newpage
+\setlength{\bibsep}{2pt}
+\bibliographystyle{plainnat}
+\bibliography{learning}
+\end{small}
+
+\appendix
+\input{appendix-coin-betting}
+\input{appendix-reductions}
+\input{appendix-expert-reduction}
+\input{appendix-kt-potential}
+\input{appendix-kt-reductions}
+
+\end{document}

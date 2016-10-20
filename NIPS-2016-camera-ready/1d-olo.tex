@@ -1,0 +1,77 @@
+\section{Warm-Up: One-Dimensional Hilbert Space}
+\label{section:one-dimensional-hilbert-space-olo}
+
+There are many frameworks for the design and analysis of online learning
+algorithms, e.g. the potential function view~\cite{Cesa-Bianchi-Lugosi-2006},
+the regularizer view~\cite{Shalev-Shwartz-2011}, relax and
+randomize~\cite{Rakhlin-Shamir-Sridharan-2012}. However, they do not provide
+much help on how to craft the potential, regularizer, or relaxation.  Here, we
+show how the betting view gives a very natural intuition and it also provides a
+clear path to the tools needed.
+
+As a warm-up, let us consider an algorithm for OLO over one-dimensional Hilbert
+space $\R$.  Let $\{w_t\}_{t=1}^\infty$ be its sequence of predictions on a
+sequence of rewards $\{g_t\}_{t=1}^\infty$, $g_t \in [-1,1]$. The total reward
+of the algorithm after $t$ rounds is $\Reward_t = \sum_{i=1}^t g_i w_i$.
+
+Let us define ``wealth'' of the OLO algorithm as $\Wealth_t = \epsilon +
+\Reward_t$, in accordance with \eqref{equation:reward-wealth}.
+Intuitively, we want the reward to be big, on any sequence of $g_t$, so that
+the regret will be small. We now restrict our attention to algorithms whose
+predictions are of the form of a bet:
+\vspace{-.1cm}
+\begin{equation}
+\label{equation:one-dimensional-olo}
+w_t = \beta_t \Wealth_{t-1}
+= \beta_t \left(\epsilon+ \sum_{i=1}^{t-1} g_i w_i \right),
+\end{equation}
+where $\beta_t \in [-1,1]$. In this way the recurrence
+\eqref{equation:wealth-recurrence} holds. We will see that the restriction in \eqref{equation:one-dimensional-olo}
+does not prevent us from obtaining parameter-free algorithms with optimal bounds.
+If we have a coin-betting algorithm that, on a sequence of coin flips
+$\{g_t\}_{t=1}^\infty$, $g_t \in [-1,1]$, bets fractions $\beta_t \in [-1,1]$,
+we can use it to construct an OLO algorithm in a one-dimensional Hilbert space
+$\R$ according to \eqref{equation:one-dimensional-olo}.
+
+Assume now that the betting algorithm at hand guarantees that its wealth is at
+least $F(\sum_{t=1}^T g_t)$ starting from an endowment $\epsilon$, then
+\vspace{-.1cm}
+\begin{equation}
+\label{equation:one-dimensional-olo-reward-lower-bound}
+\Reward_T
+= \sum_{t=1}^T g_t w_t
+= \Wealth_T \ - \ \epsilon \ge F\left(\sum_{t=1}^T g_t \right) \ - \ \epsilon \; .
+\end{equation}
+We are almost done, since we just need to convert the lower bound on the reward to an
+upper bound on the regret. This can be done using the following lemma
+from~\cite{McMahan-Orabona-2014}.
+\begin{lemma}[Reward-Regret relationship~\cite{McMahan-Orabona-2014}]
+\label{lemma:reward-regret}
+Let $V,V^*$ be a pair of dual vector spaces. Let $F:V \to \R \cup \{+\infty\}$
+be a proper convex lower semi-continuous function and let $F^*:V^* \to \R \cup
+\{+\infty\}$ be its Fenchel conjugate. Let $w_1, w_2, \dots, w_T \in V$ and
+$g_1, g_2, \dots, g_T \in V^*$.  Then,
+\[
+\underbrace{\sum_{t=1}^T \langle g_t, w_t \rangle}_{\Reward_T} \ge F\left( \sum_{t=1}^T g_t \right) -\epsilon
+\qquad \text{is equivalent to} \qquad
+\forall u \in V^*, \quad
+\underbrace{\sum_{t=1}^T \langle g_t, u - w_t\rangle}_{\Regret_T(u)} \le F^*(u) + \epsilon\; .
+\]
+\end{lemma}
+\vspace{-.1cm}
+Applying the lemma, we get a regret upper bound
+\[
+\forall u \in \H \qquad \qquad
+\Regret_T(u) \le F^*(u) \ + \ \epsilon \; .
+\]
+
+This shows that if we have a betting algorithm that guarantees a minimum wealth
+of $F(\sum_{t=1}^T g_t)$, it can be used to design and analyze the
+one-dimensional \ac{OLO} case. The faster the growth of the wealth, the
+smaller the regret will be.  Moreover, the lemma also shows that trying to
+design an algorithm that is adaptive to $u$ is \emph{equivalent} to designing
+an algorithm that is adaptive to $\sum_{t=1}^T g_t$.  Also, most importantly,
+\emph{methods that guarantee optimal wealth for the betting scenario are
+already known}, see, e.g., \cite[Chapter 9]{Cesa-Bianchi-Lugosi-2006}. We can
+just re-use them to get optimal online algorithms!
+

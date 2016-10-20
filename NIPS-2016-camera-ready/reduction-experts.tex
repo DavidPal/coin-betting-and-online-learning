@@ -1,0 +1,71 @@
+\subsection{From Coin Betting to Learning with Expert Advice}
+\label{section:reduction-experts}
+
+In this section, we show how to use the algorithm for OLO over one-dimensional
+Hilbert space $\R$ from
+Section~\ref{section:one-dimensional-hilbert-space-olo}---which is itself based
+on a coin-betting strategy---to construct an algorithm for \ac{LEA}.
+
+\vspace{-0.05cm}
+
+Let $N \ge 2$ be the number of experts and $\Delta_N$ be the $N$-dimensional
+probability simplex. Let $\pi = (\pi_1, \pi_2, \dots, \pi_N) \in \Delta_N$ be
+any \emph{prior} distribution. Let $A$ be an algorithm for OLO over
+the one-dimensional Hilbert space $\R$, based on a sequence of the coin-betting
+potentials $\{F_t\}_{t=0}^\infty$ with initial endowment\footnote{Any initial
+endowment $\epsilon > 0$ can be rescaled to $1$. Instead of $F_t(x)$ we would
+use $F_t(x)/\epsilon$. The $w_t$ would become $w_t/\epsilon$, but $p_t$ is
+invariant to scaling of $w_t$. Hence, the LEA algorithm is the same regardless
+of $\epsilon$.} $1$. We instantiate $N$ copies of $A$.
+
+\vspace{-0.05cm}
+
+Consider any round $t$. Let $w_{t,i} \in \R$ be the prediction of the $i$-th copy of
+$A$. The LEA algorithm computes $\widehat p_t = (\widehat p_{t,1}, \widehat
+p_{t,2}, \dots, \widehat p_{t,N}) \in \R_{0,+}^N$ as
+\begin{equation}
+\label{eq:phat}
+\widehat p_{t,i} = \pi_i \cdot [w_{t,i}]_+,
+\end{equation}
+where $[x]_+ = \max\{0,x\}$ is the positive part of $x$. Then, the LEA
+algorithm predicts $p_t = (p_{t,1}, p_{t,2}, \dots, p_{t,N}) \in \Delta^N$ as
+\begin{equation}
+\label{eq:preds_experts}
+p_t = \tfrac{\widehat p_t}{\norm{\widehat p_t}_1} \; .
+\end{equation}
+If $\norm{\widehat p_t}_1 = 0$, the algorithm predicts the prior $\pi$.
+Then, the algorithm receives the reward vector
+$g_t = (g_{t,1}, g_{t,2}, \dots, g_{t,N}) \in [0,1]^N$. Finally, it
+feeds the reward to each copy of $A$. The reward for the $i$-th copy of $A$ is $\widetilde g_{t,i} \in
+[-1,1]$ defined as
+\begin{align}
+\label{eq:gradients_experts_reduction}
+\widetilde g_{t,i} =
+\begin{cases}
+g_{t,i} - \langle g_t, p_t \rangle & \text{if } w_{t,i} > 0 \; , \\
+\left[g_{t,i} - \langle g_t, p_t \rangle \right]_+ & \text{if } w_{t,i} \le 0 \; .
+\end{cases}
+\end{align}
+
+The construction above defines a \ac{LEA} algorithm defined by the predictions
+$p_t$, based on the algorithm $A$.  We can prove the following regret bound for
+it.
+%
+\begin{theorem}[Regret Bound for Experts]
+\label{theorem:regret-bound-experts}
+Let $A$ be an algorithm for \ac{OLO} over
+the one-dimensional Hilbert space $\R$, based on the coin-betting potentials
+$\{F_t\}_{t=0}^\infty$ for an initial
+endowment of $1$. Let $f_t^{-1}$ be the inverse of $f_t(x) = \ln(F_t(x))$
+restricted to $[0,\infty)$.  Then, the regret of the \ac{LEA}
+algorithm with prior $\pi \in \Delta_N$ that predicts at each round with $p_t$ in \eqref{eq:preds_experts} satisfies
+\[
+\forall T \ge 0 \quad \forall u \in \Delta_N \qquad \qquad
+\Regret_T(u) \le f_T^{-1}\left( \KL{u}{\pi} \right) \; .
+\]
+\end{theorem}
+The proof, in Appendix~\ref{section:appendix-expert-reduction}, is based on the
+fact that \eqref{eq:phat}--\eqref{eq:gradients_experts_reduction} guarantee
+that $\sum_{i=1}^N \pi_i \widetilde g_{t,i} w_{t,i} \le 0$ and on a variation
+of the change of measure lemma used in the PAC-Bayes literature,
+e.g.~\cite{McAllester-2013}.
