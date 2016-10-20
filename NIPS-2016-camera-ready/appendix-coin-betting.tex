@@ -21,18 +21,19 @@ h(g, \beta) & = \frac{F(x+g)}{1 + \beta g} &
 & \text{and} &
 f(g, \beta) & = \ln (h(g,\beta)) = \ln(F(x+g)) - \ln(1 + \beta g) \; .
 \end{align*}
-Clearly, $\argmin_{\beta \in (-1,1)} \max_{g \in [-1,1]} h(g,\beta) = \argmin_{\beta \in (-1,1)} \max_{g \in [-1,1]} f(g,\beta)$
-and we can work with $f$ instead of $h$. The function $h$ is logarithmically convex
-in $g$ and thus $f$ is convex in $g$. Therefore,
+Clearly, $\argmin_{\beta \in (-1,1)} \max_{g \in [-1,1]} h(g,\beta) =
+\argmin_{\beta \in (-1,1)} \max_{g \in [-1,1]} f(g,\beta)$ and we can work with
+$f$ instead of $h$. The function $h$ is logarithmically convex in $g$ and thus
+$f$ is convex in $g$. Therefore,
 \[
 \forall \beta \in (-1,1) \qquad \qquad
 \max_{g \in [-1,1]} f(g,\beta) = \max \left\{ f(+1,\beta), f(-1,\beta) \right\} \; .
 \]
 Let $\phi(\beta) = \max \left\{ f(+1,\beta), f(-1,\beta) \right\}$. We seek to
-find the $\argmin_{\beta \in (-1,1)} \phi(\beta)$. Since $f(+1,\beta)$ is decreasing
-in $\beta$ and $f(-1,\beta)$ is increasing in $\beta$, the minimum of
-$\phi(\beta)$ is at a point $\beta^*$ such that $f(+1,\beta^*) = f(-1,\beta^*)$.
-In other words, $\beta^*$ satisfies
+find the $\argmin_{\beta \in (-1,1)} \phi(\beta)$. Since $f(+1,\beta)$ is
+decreasing in $\beta$ and $f(-1,\beta)$ is increasing in $\beta$, the minimum
+of $\phi(\beta)$ is at a point $\beta^*$ such that $f(+1,\beta^*) =
+f(-1,\beta^*)$.  In other words, $\beta^*$ satisfies
 \[
 \ln(F(x+1)) - \ln(1 + \beta^*) =  \ln(F(x-1)) - \ln(1 - \beta^*) \; .
 \]
@@ -49,22 +50,26 @@ The functions $F_t(x)=\epsilon\exp(\tfrac{x^2}{2t}- \frac{1}{2}\sum_{i=1}^t \tfr
 \end{theorem}
 %
 \begin{proof}
-The first and second properties of Definition~\ref{definition:potential} are trivially true.
-For the third property, we first use Theorem~\ref{theorem:optimal-betting-fraction} to have
+The first and second properties of Definition~\ref{definition:potential} are
+trivially true.  For the third property, we first use
+Theorem~\ref{theorem:optimal-betting-fraction} to have
 \[
 \ln(1+\beta_t g) - \ln F_t(x+g) \geq \ln(1+\beta_t) - \ln F_t(x+1) = \ln \frac{2}{F_t(x+1)+F_t(x-1)},
 \]
 where the definition of $\beta_t$ is from \eqref{equation:potential-based-strategy}.
 Hence, we have
 \begin{align*}
-\ln(1+\beta_t g) - \ln F_t(x+g)  +\ln F_{t-1}(x) 
+\ln(1+\beta_t g) - \ln F_t(x+g)  +\ln F_{t-1}(x)
 &\geq \ln \frac{2}{F_t(x+1)+F_t(x-1)} +\ln F_{t-1}(x) \\
 &= -\frac{x^2+1}{2t} +\frac{1}{2}\sum_{i=1}^t \frac{1}{i} -\ln \cosh \frac{x}{t} + \frac{x^2}{2(t-1)} - \frac{1}{2}\sum_{i=1}^{t-1} \frac{1}{i}\\
 &= -\frac{x^2}{2t} -\ln \cosh \frac{x}{t} + \frac{x^2}{2(t-1)}\\
 &\geq -\frac{x^2}{2t}  -\frac{x^2}{2 t^2} + \frac{x^2}{2(t-1)} \\
 &\geq -\frac{x^2}{2t}  -\frac{x^2}{2 t (t-1)} + \frac{x^2}{2(t-1)} =0,
 \end{align*}
-where in the second inequality we have used the elementary inequality $\ln \cosh x \leq \tfrac{x^2}{2}$.
+where in the second inequality we have used the elementary inequality $\ln
+\cosh x \leq \tfrac{x^2}{2}$.
 
-The fourth property of Definition~\ref{definition:potential} is also true because $F_t(x)$ is of the form $h(x^2)$ with $h(\cdot)$ convex~\cite{McMahan-Orabona-2014}.
+The fourth property of Definition~\ref{definition:potential} is also true
+because $F_t(x)$ is of the form $h(x^2)$ with $h(\cdot)$
+convex~\cite{McMahan-Orabona-2014}.
 \end{proof}

@@ -2,8 +2,8 @@
 
 \PassOptionsToPackage{numbers, compress}{natbib}
 
-%\usepackage[final]{nips_2016}
-\usepackage{nips_2016}
+\usepackage[final]{nips_2016}
+% \usepackage{nips_2016}
 % For anonymous submission use:  \usepackage{nips_2016}
 % For camera-ready version use:  \usepackage[final]{nips_2016}
 
@@ -65,7 +65,7 @@
 
 \author{
   Francesco Orabona\\
-  Yahoo Research, New York\\
+  Stony Brook University, Stony Brook, NY \\
   \texttt{francesco@orabona.com}
   \And
   D\'avid P\'al\\
@@ -80,17 +80,17 @@
 \maketitle
 
 \begin{abstract}
-In the recent years, a number of parameter-free algorithms have been
-developed for online linear optimization over Hilbert spaces and for learning with expert advice.
-These algorithms achieve optimal regret bounds that depend on the
+In the recent years, a number of parameter-free algorithms have been developed
+for online linear optimization over Hilbert spaces and for learning with expert
+advice.  These algorithms achieve optimal regret bounds that depend on the
 unknown competitors, without having to tune the learning rates with oracle
 choices.
 
 We present a new intuitive framework to design parameter-free algorithms based
 on a reduction to betting on outcomes of an adversarial coin. We instantiate it
 using a betting algorithm based on the Krichevsky-Trofimov estimator.  The
-resulting algorithms are simple, with no parameters to be tuned, and they improve
-or match previous results in terms of regret guarantee and per-round
+resulting algorithms are simple, with no parameters to be tuned, and they
+improve or match previous results in terms of regret guarantee and per-round
 complexity.
 \end{abstract}
 
@@ -108,12 +108,15 @@ complexity.
 % Acknowledgments: Comment out in anonymous submission.
 % Uncomment for camera-ready version.
 
-%\subsubsection*{Acknowledgments}
-%The authors thank Jacob Abernethy, Nicol\`{o} Cesa-Bianchi, Satyen Kale,
-%Chansoo Lee, and  Giuseppe Molteni for useful discussions on this work.
+%\begin{small}
+\textbf{Acknowledgments.} The authors thank Jacob Abernethy, Nicol\`{o}
+Cesa-Bianchi, Satyen Kale, Chansoo Lee, and  Giuseppe Molteni for useful
+discussions on this work.
+%\end{small}
+
+\vspace{-0.38cm}
 
 \begin{small}
-\newpage
 \setlength{\bibsep}{2pt}
 \bibliographystyle{plainnat}
 \bibliography{learning}

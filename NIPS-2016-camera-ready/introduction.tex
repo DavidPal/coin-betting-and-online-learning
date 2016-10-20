@@ -5,20 +5,20 @@
 
 We consider the \ac{OLO}~\cite{Cesa-Bianchi-Lugosi-2006, Shalev-Shwartz-2011}
 setting. In each round $t$, an algorithm chooses a point $w_t$ from a convex
-\emph{decision set} $K$ and then receives a reward vector $g_t$. The algorithm's
-goal is to keep its \emph{regret} small, defined as the difference between its
-cumulative reward and the cumulative reward of a fixed strategy $u \in K$, that
-is
+\emph{decision set} $K$ and then receives a reward vector $g_t$. The
+algorithm's goal is to keep its \emph{regret} small, defined as the difference
+between its cumulative reward and the cumulative reward of a fixed strategy $u
+\in K$, that is
 \vspace{-.1cm}
 \[
 \Regret_T(u) = \sum_{t=1}^T \langle g_t, u \rangle - \sum_{t=1}^T \langle g_t, w_t \rangle \; .
 \]
-We focus on two particular decision sets, the $N$-dimensional probability simplex
-$\Delta_N = \{ x \in \R^N ~:~ x \ge 0, \norm{x}_1 = 1\}$ and the Hilbert space
-$\H$.  \ac{OLO} over $\Delta_N$ is referred to as the problem of \ac{LEA}.  We
-assume bounds on the norms of the reward vectors: For \ac{OLO} over $\H$, we
-assume that $\norm{g_t} \le 1$, and for \ac{LEA} we assume that $g_t \in
-[0,1]^N$.
+We focus on two particular decision sets, the $N$-dimensional probability
+simplex $\Delta_N = \{ x \in \R^N ~:~ x \ge 0, \norm{x}_1 = 1\}$ and a
+Hilbert space $\H$.  \ac{OLO} over $\Delta_N$ is referred to as the problem of
+\ac{LEA}.  We assume bounds on the norms of the reward vectors: For \ac{OLO}
+over $\H$, we assume that $\norm{g_t} \le 1$, and for \ac{LEA} we assume that
+$g_t \in [0,1]^N$.
 
 \vspace{-0.1cm}
 
@@ -34,27 +34,26 @@ can also be solved through a reduction to \ac{OLO}~\cite{Shalev-Shwartz-2011}.
 
 \vspace{-0.1cm}
 
-To achieve optimal regret, most of the existing online algorithms require the user to
-set the learning rate $\eta$ to an unknown/oracle value.  For example, to obtain the
-optimal bound for \ac{OGD}, the learning rate has to be set with the knowledge
-of the norm of the competitor $u$, $\norm{u}$; second entry in Table~\ref{table:bounds}.
-Likewise, the optimal learning rate for Hedge depends on the KL divergence
-between the prior weighting $\pi$ and the unknown competitor $u$, $\KL{u}{\pi}$; seventh entry
-in Table~\ref{table:bounds}.  Recently, new parameter-free
-algorithms have been proposed, both for
-\ac{LEA}~\cite{Chaudhuri-Freund-Hsu-2009, Chernov-Vovk-2010, Luo-Schapire-2014,
-Luo-Schapire-2015, Koolen-van-Erven-2015, Foster-Rakhlin-Sridharan-2015} and
-for \ac{OLO}/\ac{OCO} over Hilbert spaces~\cite{Streeter-McMahan-2012,
-Orabona-2013, McMahan-Abernethy-2013, McMahan-Orabona-2014, Orabona-2014}.
-These algorithms adapt to the number of experts and to the norm of the optimal
-predictor, respectively, without the need to tune parameters. However, their
-\emph{design and underlying intuition} is still a challenge.
-\citet{Foster-Rakhlin-Sridharan-2015} proposed a unified framework, but it is not constructive.
-Furthermore, all
-existing algorithms for LEA either have sub-optimal regret bound (e.g. extra
-$\scO(\log \log T)$ factor) or sub-optimal running time (e.g.  requiring
-solving a numerical problem in every round, or with extra factors); see
-Table~\ref{table:bounds}.
+To achieve optimal regret, most of the existing online algorithms require the
+user to set the learning rate (step size) $\eta$ to an unknown/oracle
+value.  For example, to obtain the optimal bound for \ac{OGD}, the learning
+rate has to be set with the knowledge of the norm of the competitor $u$,
+$\norm{u}$; second entry in Table~\ref{table:bounds}.  Likewise, the optimal
+learning rate for Hedge depends on the KL divergence between the prior
+weighting $\pi$ and the unknown competitor $u$, $\KL{u}{\pi}$; seventh entry in
+Table~\ref{table:bounds}.  Recently, new parameter-free algorithms have been
+proposed, both for \ac{LEA}~\cite{Chaudhuri-Freund-Hsu-2009, Chernov-Vovk-2010,
+Luo-Schapire-2014, Luo-Schapire-2015, Koolen-van-Erven-2015,
+Foster-Rakhlin-Sridharan-2015} and for \ac{OLO}/\ac{OCO} over Hilbert
+spaces~\cite{Streeter-McMahan-2012, Orabona-2013, McMahan-Abernethy-2013,
+McMahan-Orabona-2014, Orabona-2014}.  These algorithms adapt to the number of
+experts and to the norm of the optimal predictor, respectively, without the
+need to tune parameters. However, their \emph{design and underlying intuition}
+is still a challenge.  \citet{Foster-Rakhlin-Sridharan-2015} proposed a unified
+framework, but it is not constructive.  Furthermore, all existing algorithms
+for LEA either have sub-optimal regret bound (e.g. extra $\scO(\log \log T)$
+factor) or sub-optimal running time (e.g.  requiring solving a numerical
+problem in every round, or with extra factors); see Table~\ref{table:bounds}.
 
 \begin{table}
 \centering
@@ -83,6 +82,7 @@ This paper, Sec.~\ref{section:kt-lea} & $\scO(\sqrt{T \left(1+\KL{u}{\pi}\right)
 %All of them are defined in Section~\ref{section:preliminaries}, while $\eta$ is the learning rate.
 }}
 \label{table:bounds}
+\vspace{-0.7cm}
 \end{table}
 \footnotetext[1]{These algorithms require to solve a numerical problem at each step. The number $K$ is the number of steps needed to reach the required precision. Neither the precision nor $K$ are calculated in these papers.
 %In general, $K$ is a function of the number rounds $T$ and the number of experts $N$.
@@ -90,11 +90,13 @@ This paper, Sec.~\ref{section:kt-lea} & $\scO(\sqrt{T \left(1+\KL{u}{\pi}\right)
 \footnotetext[2]{The proof in \cite{Koolen-van-Erven-2015} can be modified to prove a KL bound, see \url{http://blog.wouterkoolen.info}.}
 \footnotetext[3]{A variant of the algorithm in \cite{Foster-Rakhlin-Sridharan-2015} can be implemented with the stated time complexity~\cite{Foster:private}.}
 
+
 \textbf{Contributions.} We show that a more fundamental notion subsumes
 \emph{both} \ac{OLO} and \ac{LEA} parameter-free algorithms. We prove that the
 ability to maximize the wealth in bets on the outcomes of coin flips
 \emph{implies} \ac{OLO} and \ac{LEA} parameter-free algorithms. We develop a
-novel potential-based framework for betting algorithms. It gives intuition to previous constructions and, instantiated
-with the Krichevsky-Trofimov estimator, provides new and elegant algorithms for \ac{OLO}
-and \ac{LEA}.  The new algorithms also have optimal worst-case
-guarantees on regret and time complexity; see Table~\ref{table:bounds}.
+novel potential-based framework for betting algorithms. It gives intuition to
+previous constructions and, instantiated with the Krichevsky-Trofimov
+estimator, provides new and elegant algorithms for \ac{OLO} and \ac{LEA}.  The
+new algorithms also have optimal worst-case guarantees on regret and time
+complexity; see Table~\ref{table:bounds}.

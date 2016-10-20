@@ -17,7 +17,7 @@ based on the KT estimator are
 F_t(x) = \epsilon \tfrac{2^t \cdot \Gamma \left( \tfrac{t+1}{2} + \frac{x}{2} \right) \cdot \Gamma \left( \tfrac{t+1}{2} - \frac{x}{2} \right)}{\pi \cdot t!}
 \qquad \qquad \text{$t \ge 0$, \quad $x \in \left(-t-1, t+1\right)$,}
 \end{equation}
-where $\Gamma(x) = \int_0^\infty t^{-x} e^{-t} dt$ is Euler's gamma
+where $\Gamma(x) = \int_0^\infty t^{x-1} e^{-t} dt$ is Euler's gamma
 function---see Theorem~\ref{theorem:kt-potential} in
 Appendix~\ref{section:properties-kt-potential}.  This potential was used to
 prove regret bounds for online prediction with the logarithmic
@@ -27,7 +27,7 @@ that the KT betting strategy $\beta_t$ as defined by
 \eqref{equation:kt-estimator-betting-strategy} satisfies
 \eqref{equation:potential-based-strategy}.
 
-This potential has the peculiar property that is satisfies the inequality in
+This potential has the nice property that is satisfies the inequality in
 (c) of Definition~\ref{definition:potential} with equality when $g_t\in
 \{-1,1\}$, i.e. $F_t(x+g_t)=(1+g_t \beta_t) \, F_{t-1}(x)$.
 
@@ -39,8 +39,8 @@ F_t(x) = \tfrac{2^t \cdot \Gamma\left(\delta + 1 \right) \cdot \Gamma\left(\tfra
 The reason for its name is that, up to a multiplicative constant, $F_t$ is
 equal to the KT potential shifted in time by $\delta$.
 Theorem~\ref{theorem:kt-potential} also proves that the $\delta$-shifted KT
-potentials are excellent coin-betting potentials with initial endowment $1$, and
-the corresponding betting fraction is $\beta_t = \tfrac{\sum_{j=1}^{t-1}
+potentials are excellent coin-betting potentials with initial endowment $1$,
+and the corresponding betting fraction is $\beta_t = \tfrac{\sum_{j=1}^{t-1}
 g_j}{\delta+t}$.
 
 \vspace{-0.1cm}
@@ -131,7 +131,7 @@ g_{t,i} - \langle g_t, p_t \rangle & \text{if $w_{t,i} > 0$} \\
 \end{algorithm}
 
 To use the construction in Section~\ref{section:reduction-experts}, we need an
-OLO algorithm for the 1-d Hilbert space $\R$.  Using the $\delta$-shited KT
+OLO algorithm for the 1-d Hilbert space $\R$.  Using the $\delta$-shifted KT
 potentials, the algorithm predicts for any sequence $\{\widetilde
 g_t\}_{t=1}^\infty$ of reward
 \[
@@ -159,13 +159,11 @@ for any rewards vectors $g_1, g_2, \dots, g_T \in [0,1]^N$ satisfies
 Hence, the Algorithm~\ref{algorithm:kt-experts} has \emph{both} the best known
 guarantee on worst-case regret and per-round time complexity, see
 Table~\ref{table:bounds}. Also, it has the advantage of being very simple.
-%As observed by \citet{Chernov-Vovk-2010}, bounds in terms of the KL divergence
-%are superior to the $\epsilon$-quantile bounds.
 
 The proof of the corollary is in the
-Appendix~\ref{section:corollaries_reductions}.  The only technical part of the proof
-is an upper bound on $f_t^{-1}(x)$, which we conveniently do by lower bounding
-$F_t(x)$.
+Appendix~\ref{section:corollaries_reductions}.  The only technical part of the
+proof is an upper bound on $f_t^{-1}(x)$, which we conveniently do by lower
+bounding $F_t(x)$.
 
 The reason for using the shifted potential comes from the analysis of
 $f_t^{-1}(x)$. The unshifted algorithm would have a $O(\sqrt{T (\log T +
