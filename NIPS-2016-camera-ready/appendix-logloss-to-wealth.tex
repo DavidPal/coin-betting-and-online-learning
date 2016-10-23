@@ -1,0 +1,55 @@
+\section{From Log Loss to Wealth}
+\label{section:logloss-to-wealth}
+
+Guarantees for betting or sequential investement algorithm are often expressed as upper bounds on the regret w.r.t. the log loss. 
+Here, for the sake of completeness, we show how to convert such guarantees in lower bound for the wealth of a derived betting algorithm.
+
+We consider the case of a probability simplex of dimension 2.
+The algorithm predicts at each round with $p_t \in [0,1]$. The adversary generates a sequences of outcomes $x_t \in \{0,1\}$ and the algorithm pays
+\[
+\ell(p_t,x_t)=-x_t \ln p_{t} -(1-x_t) \ln (1-p_t) \; .
+\]
+We define the regret w.r.t. a fixed probability vector $\beta$ as
+\[
+\Regret^{logloss}_T = \sum_{t=1}^T \ell(p_t,x_t) - \min_{\beta \in [0,1]} \sum_{t=1}^T \ell(\beta,x_t) \; .  
+\]
+
+\begin{lemma}
+Assume that an algorithm that predicts $p_t$ guarantees $\Regret^{logloss}_T \leq R_T$.
+Then, the coin betting strategy with endowement $\epsilon$ and $\beta_t = 2 p_{t}-1$ guarantees
+\[
+\Wealth_T \geq \epsilon \exp\left(T \,\KL{\frac{1}{2} + \frac{\sum_{t=1}^T g_t}{2 T}}{\frac{1}{2}} - R_T \right),
+\]
+against any sequence of outcomes $g_t \in [1,-1]$.
+\end{lemma}
+
+\begin{proof}
+Define $x_t=\tfrac{1+g_t}{2}$
+\begin{align*}
+\ln \Wealth_T
+& = \ln (\Wealth_{t-1} + w_t g_t) \\
+& = \ln  (\Wealth_{t-1}(1 + \beta_t g_t))\\
+& = \ln \epsilon \prod_{t=1}^T (1 + g_t\beta_t) \\
+& = \ln \epsilon + \sum_{t=1}^T \ln (1 + g_t\beta_t)\\
+& \ge \ln \epsilon +  \sum_{t=1}^T \left( \frac{1+g_t}{2} \right) \ln \left(1 + \beta_t\right) + \left( \frac{1-g_t}{2} \right) \ln \left(1 - \beta_t \right) \\
+& =  \ln \epsilon + \sum_{t=1}^T \left( \frac{1+g_t}{2} \right) \ln \left(2p_t \right) + \left( \frac{1-g_t}{2} \right) \ln \left(2 (1 - p_t) \right) \\
+& =  \ln \epsilon + T \ln(2) + \sum_{t=1}^T \left( \frac{1+g_t}{2} \right) \ln (p_t) + \left( \frac{1-g_t}{2} \right) \ln (1 - p_t) \\
+& =  \ln \epsilon + T \ln(2) - \sum_{t=1}^T \ell(p_t, x_t) \\
+& =  \ln \epsilon + T \ln(2) - \Regret^{logloss}_T - \min_{\beta \in [0,1]} \sum_{t=1}^T \ell(\beta,x_t) \\
+& \geq  \ln \epsilon + T \ln(2) - R_T - \min_{\beta \in [0,1]} \sum_{t=1}^T \ell(\beta,x_t),
+\end{align*}
+where the first inequality is due to the concavity of $\ln$ and the second one is due to the assumption of the regret.
+
+It is easy to see that the $\beta^*=\argmin_{\beta \in [0,1]} \sum_{t=1}^T \ell(\beta,x_t)=\tfrac{\sum_{t=1}^T x_t}{T}$. Hence, we have
+\[
+\min_{\beta \in [0,1]} \sum_{t=1}^T \ell(\beta,x_t) = T \left( - \beta^* \ln \beta^* - (1-\beta^*) \ln (1-\beta^*)\right) \; .
+\]
+Also, we have that for any $\beta \in [0,1]$
+\[
+- \beta \ln \beta - (1-\beta) \ln (1-\beta) = - \KL{\beta}{\frac{1}{2}} + \ln 2 \; .
+\]
+
+Putting all together, we have the stated lemma.
+\end{proof} 
+
+The lower bound on the Wealth for the adaptive Kelly betting based on the KT estimator is obtained simply by the stated Lemma and reminding that the logloss regret of the KT estimator is upper bounded by $\frac{1}{2}\ln T + \ln 2$. 

@@ -46,7 +46,7 @@ estimator results in the betting
 \end{equation}
 which we call \emph{adaptive Kelly betting based on the KT estimator}. It looks like
 an online and slightly biased version of the oracle choice of $\beta^*$.
-\citeauthor{Krichevsky-Trofimov-1981} showed that this strategy guarantees
+This strategy guarantees\footnote{See Appendix~\ref{section:logloss-to-wealth} for a proof.}
 \[
 \Wealth_T \ge \tfrac{\Wealth_T(\beta^*)}{2\sqrt{T}}
 = \tfrac{\epsilon}{2\sqrt{T}} \exp\left(T \KL{\tfrac{1}{2}+\tfrac{\sum_{t=1}^T g_t}{2T}}{\tfrac{1}{2}}\right)\; .
