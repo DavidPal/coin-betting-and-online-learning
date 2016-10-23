@@ -6,19 +6,20 @@ will also presents the reductions to effortlessly extend the one dimensional
 case in the previous section to the generic \ac{OLO} case and to \ac{LEA} as
 well.
 
-For sequential betting on i.i.d. coin flips, the optimal strategy has been
+For sequential betting on i.i.d. coin flips, an optimal strategy has been
 proposed by \citet{Kelly-1956}.  The strategy assumes that the coin flips
 $\{g_t\}_{t=1}^\infty$, $g_t \in \{+1,-1\}$, are generated i.i.d. with known
 probability of heads. If $p \in [0,1]$ is the probability of heads, the Kelly
-bet is $\beta_t = 2p - 1$. He showed that, in the long run, this strategy will
-provide more wealth than betting any other fixed fraction~\cite{Kelly-1956}.
+bet is to bet $\beta_t = 2p - 1$ at each round. He showed that, in the long run, this strategy will
+provide more wealth than betting any other fixed fraction of the current wealth~\cite{Kelly-1956}.
 
 For adversarial coins, Kelly betting does not make sense. With perfect
 knowledge of the future, the gambler could always bet everything on the right
 outcome.  Hence, after $T$ rounds from an initial endowment $\epsilon$, the
-maximum wealth he could get is $\epsilon 2^T$.  Instead, assume he bets the
-same fraction $\beta$ at each round and let $\Wealth_t(\beta)$ the wealth of
-such strategy after $t$ rounds. As observed in \cite{McMahan-Abernethy-2013},
+maximum wealth he would get is $\epsilon 2^T$.  Instead, assume he bets the
+same fraction $\beta$ of its wealth at each round.
+Let $\Wealth_t(\beta)$ the wealth of such strategy after $t$ rounds. 
+As observed in \cite{McMahan-Abernethy-2013},
 the optimal fixed fraction to bet is $\beta^*=(\sum_{t=1}^T g_t)/T$ and it
 gives the wealth
 \begin{equation}
@@ -32,22 +33,22 @@ where the inequality follows from Pinsker's inequality~\citep[Lemma
 
 However, even without knowledge of the future, it is possible to go very close
 to the wealth in \eqref{eq:opt_wealth}.  This problem was studied by
-\citet{Krichevsky-Trofimov-1981}, who proposed that after seeing coin flips
+\citet{Krichevsky-Trofimov-1981}, who proposed that after seeing the coin flips
 $g_1, g_2, \dots, g_{t-1}$ the empirical estimate $k_t = \frac{1/2 +
 \sum_{i=1}^{t-1} \indicator[g_i = +1]}{t}$ should be used instead of $p$. Their
 estimate is commonly called \emph{KT estimator}.\footnote{Compared to the
 maximum likelihood estimate $\frac{\sum_{i=1}^{t-1} \indicator[g_i =
 +1]}{t-1}$, KT estimator shrinks slightly towards $\nicefrac{1}{2}$.} The KT
-estimator results in the betting strategy
+estimator results in the betting
 \begin{equation}
 \label{equation:kt-estimator-betting-strategy}
 \beta_t = 2k_t - 1 = \tfrac{\sum_{i=1}^{t-1} g_i}{t}
 \end{equation}
-which we call \emph{adaptive Kelly betting based on KT estimator}. It looks like
+which we call \emph{adaptive Kelly betting based on the KT estimator}. It looks like
 an online and slightly biased version of the oracle choice of $\beta^*$.
 \citeauthor{Krichevsky-Trofimov-1981} showed that this strategy guarantees
 \[
-\Wealth_T \ge \frac{\Wealth_T(\beta^*)}{2\sqrt{T}}
+\Wealth_T \ge \tfrac{\Wealth_T(\beta^*)}{2\sqrt{T}}
 = \tfrac{\epsilon}{2\sqrt{T}} \exp\left(T \KL{\tfrac{1}{2}+\tfrac{\sum_{t=1}^T g_t}{2T}}{\tfrac{1}{2}}\right)\; .
 \]
 This guarantee is optimal up to constant
@@ -55,7 +56,7 @@ factors~\citep{Cesa-Bianchi-Lugosi-2006} and mirrors the guarantee of the Kelly
 bet.
 
 Here, we propose a new set of definitions that allows to generalize the
-strategy of adaptive Kelly betting based on KT estimator. For these strategies
+strategy of adaptive Kelly betting based on the KT estimator. For these strategies
 it will be possible to prove that, for any $g_1, g_2, \dots, g_t \in [-1,1]$,
 \begin{equation}
 \label{equation:wealth-lower-bound-generic}
@@ -98,19 +99,19 @@ satisfies $x \cdot F_t''(x) \ge F_t'(x)$ for every $x \in [0,a_t)$.
 \end{definition}
 
 Let's give some intuition on this definition.  First, let's show by induction
-on $t$ that (b) and (c) of the definition together with
-\eqref{equation:wealth-recurrence} give a betting strategy that satisfies
+on $t$ that (b) and (c) of the definition together with \eqref{equation:def_wt} give a betting strategy that satisfies
 \eqref{equation:wealth-lower-bound-generic}. The base case $t=0$ is trivial. At
-time $t \ge 1$, let $x = \sum_{i=1}^{t-1} g_i$ and bet $\beta_t \Wealth_{t-1}$
+time $t \ge 1$, let $x = \sum_{i=1}^{t-1} g_i$ and bet $w_t=\beta_t \Wealth_{t-1}$
 where $\beta_t$ is defined in \eqref{equation:potential-based-strategy}, then
-\vspace{-.2cm}
-\[
-\Wealth_t
-= (1+g_t \beta_t) \Wealth_{t-1}
-\ge (1 + g_t \beta_t) F_{t-1}(x)
-\ge F_t(x + g_t)
+%\vspace{-.2cm}
+\begin{align*}
+\Wealth_t 
+&= \Wealth_{t-1} + w_t g_t 
+= (1+g_t \beta_t) \Wealth_{t-1} \\
+&\ge (1 + g_t \beta_t) F_{t-1}(x)
+\ge F_t(x + g_t) 
 = F_t \left( \sum_{i=1}^t g_i \right) \; .
-\]
+\end{align*}
 %
 The formula for the potential-based
 strategy~\eqref{equation:potential-based-strategy} might seem strange. However,

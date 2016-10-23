@@ -16,16 +16,17 @@ to \eqref{equation:potential-based-strategy} we define the fraction
 \label{equation:potential-based-strategy-hilbert-space}
 \beta_t = \tfrac{F_t \left(\norm{\sum_{i=1}^{t-1} g_i} + 1\right) - F_t\left(\norm{\sum_{i=1}^{t-1} g_i} - 1 \right)}{F_t\left(\norm{\sum_{i=1}^{t-1} g_i} + 1 \right) + F_t\left(\norm{\sum_{i=1}^{t-1} g_i} - 1 \right)},
 \end{equation}
-and, analogously to \eqref{equation:one-dimensional-olo}, the prediction of the OLO algorithm
+and the prediction of the OLO algorithm
 defined by this potentials is
 \begin{equation}
 \label{equation:hilbert-space-olo}
 w_t = \beta_t \Wealth_{t-1} \frac{\sum_{i=1}^{t-1} g_i}{\norm{\sum_{i=1}^{t-1} g_i}}
 = \beta_t \frac{\sum_{i=1}^{t-1} g_i}{\norm{\sum_{i=1}^{t-1} g_i}} \left(\epsilon+ \sum_{i=1}^{t-1} \langle g_i, w_i\rangle \right) \; .
 \end{equation}
+\vspace{-0.01cm}
 The only difference between \eqref{equation:hilbert-space-olo} and
-\eqref{equation:one-dimensional-olo} is the multiplication by the unit vector
-$\frac{\sum_{i=1}^{t-1} g_i}{\norm{\sum_{i=1}^{t-1} g_i}}$. If $\sum_{i=1}^{t-1}
+\eqref{equation:def_wt} is the multiplication by the unit vector
+$\tfrac{\sum_{i=1}^{t-1} g_i}{\norm{\sum_{i=1}^{t-1} g_i}}$. If $\sum_{i=1}^{t-1}
 g_i$ is the zero vector, we define $w_t$ to be the zero vector as well.  For this
 prediction strategy we can prove the following regret guarantee, proved in
 Appendix~\ref{section:hilbert-space-reduction}.  The proof reduces the general
