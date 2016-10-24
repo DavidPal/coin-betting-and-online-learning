@@ -12,29 +12,21 @@ clear path to the tools needed.
 As a warm-up, let us consider an algorithm for OLO over one-dimensional Hilbert
 space $\R$.  Let $\{w_t\}_{t=1}^\infty$ be its sequence of predictions on a
 sequence of rewards $\{g_t\}_{t=1}^\infty$, $g_t \in [-1,1]$. The total reward
-of the algorithm after $t$ rounds is $\Reward_t = \sum_{i=1}^t g_i w_i$.
-Let us also define ``wealth'' of the OLO algorithm as $\Wealth_t = \epsilon +
+of the algorithm after $t$ rounds is $\Reward_t = \sum_{i=1}^t g_i w_i$.  Let
+us also define ``wealth'' of the OLO algorithm as $\Wealth_t = \epsilon +
 \Reward_t$, in accordance with \eqref{equation:def_wealth_reward}.
-Intuitively, we want the reward to be big on any sequence of $g_t$, so that
-the regret will be small.
+Intuitively, we want the reward to be big on any sequence of $g_t$, so that the
+regret will be small.
 
-We now restrict our attention to algorithms whose
-predictions $w_t$ are of the form of a bet, that is 
-$
-w_t = \beta_t \Wealth_{t-1}
-%= \beta_t \left(\epsilon+ \sum_{i=1}^{t-1} g_i w_i \right)
-$, where $\beta_t \in [-1,1]$.
-%In this way the recurrence
-%\eqref{equation:wealth-recurrence} holds.
-We will see that the restriction on $\beta_t$ does not prevent us from obtaining
-parameter-free algorithms with optimal bounds.
+We now restrict our attention to algorithms whose predictions $w_t$ are of the
+form of a bet, that is $w_t = \beta_t \Wealth_{t-1}$, where $\beta_t \in
+[-1,1]$.  We will see that the restriction on $\beta_t$ does not prevent us
+from obtaining parameter-free algorithms with optimal bounds.
 
-Given the above, it is immediate to see that any coin-betting
-algorithm that, on a sequence of coin flips $\{g_t\}_{t=1}^\infty$, $g_t \in
-[-1,1]$, bets the amounts $w_t$ can be used as an OLO
-algorithm in a one-dimensional Hilbert space $\R$. But, what would be the regret of such OLO algorithms?
-%according to
-%\eqref{equation:one-dimensional-olo}.
+Given the above, it is immediate to see that any coin-betting algorithm that,
+on a sequence of coin flips $\{g_t\}_{t=1}^\infty$, $g_t \in [-1,1]$, bets the
+amounts $w_t$ can be used as an OLO algorithm in a one-dimensional Hilbert
+space $\R$. But, what would be the regret of such OLO algorithms?
 
 Assume that the betting algorithm at hand guarantees that its wealth is at
 least $F(\sum_{t=1}^T g_t)$ starting from an endowment $\epsilon$, then
@@ -65,7 +57,6 @@ $g_1, g_2, \dots, g_T \in V^*$. Let $\epsilon \in \R$. Then,
 Applying the lemma, we get a regret upper bound:
 $\Regret_T(u) \le F^*(u) \ + \ \epsilon, \ \forall u \in \H$.
 
-
 This shows that if we have a betting algorithm that guarantees a minimum wealth
 of $F(\sum_{t=1}^T g_t)$, it can be used to design and analyze a
 one-dimensional \ac{OLO} algorithm. The faster the growth of the wealth, the
@@ -75,4 +66,3 @@ an algorithm that is adaptive to $\sum_{t=1}^T g_t$.  Also, most importantly,
 \emph{methods that guarantee optimal wealth for the betting scenario are
 already known}, see, e.g., \cite[Chapter 9]{Cesa-Bianchi-Lugosi-2006}. We can
 just re-use them to get optimal online algorithms!
-

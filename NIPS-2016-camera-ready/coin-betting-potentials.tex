@@ -10,18 +10,18 @@ For sequential betting on i.i.d. coin flips, an optimal strategy has been
 proposed by \citet{Kelly-1956}.  The strategy assumes that the coin flips
 $\{g_t\}_{t=1}^\infty$, $g_t \in \{+1,-1\}$, are generated i.i.d. with known
 probability of heads. If $p \in [0,1]$ is the probability of heads, the Kelly
-bet is to bet $\beta_t = 2p - 1$ at each round. He showed that, in the long run, this strategy will
-provide more wealth than betting any other fixed fraction of the current wealth~\cite{Kelly-1956}.
+bet is to bet $\beta_t = 2p - 1$ at each round. He showed that, in the long
+run, this strategy will provide more wealth than betting any other fixed
+fraction of the current wealth~\cite{Kelly-1956}.
 
 For adversarial coins, Kelly betting does not make sense. With perfect
 knowledge of the future, the gambler could always bet everything on the right
 outcome.  Hence, after $T$ rounds from an initial endowment $\epsilon$, the
 maximum wealth he would get is $\epsilon 2^T$.  Instead, assume he bets the
-same fraction $\beta$ of its wealth at each round.
-Let $\Wealth_t(\beta)$ the wealth of such strategy after $t$ rounds. 
-As observed in \cite{McMahan-Abernethy-2013},
-the optimal fixed fraction to bet is $\beta^*=(\sum_{t=1}^T g_t)/T$ and it
-gives the wealth
+same fraction $\beta$ of its wealth at each round.  Let $\Wealth_t(\beta)$ the
+wealth of such strategy after $t$ rounds.  As observed in
+\cite{McMahan-Abernethy-2013}, the optimal fixed fraction to bet is
+$\beta^*=(\sum_{t=1}^T g_t)/T$ and it gives the wealth
 \begin{equation}
 \label{eq:opt_wealth}
 \Wealth_T(\beta^*)
@@ -44,9 +44,10 @@ estimator results in the betting
 \label{equation:kt-estimator-betting-strategy}
 \beta_t = 2k_t - 1 = \tfrac{\sum_{i=1}^{t-1} g_i}{t}
 \end{equation}
-which we call \emph{adaptive Kelly betting based on the KT estimator}. It looks like
-an online and slightly biased version of the oracle choice of $\beta^*$.
-This strategy guarantees\footnote{See Appendix~\ref{section:logloss-to-wealth} for a proof.}
+which we call \emph{adaptive Kelly betting based on the KT estimator}. It looks
+like an online and slightly biased version of the oracle choice of $\beta^*$.
+This strategy guarantees\footnote{See Appendix~\ref{section:logloss-to-wealth}
+for a proof.}
 \[
 \Wealth_T \ge \tfrac{\Wealth_T(\beta^*)}{2\sqrt{T}}
 = \tfrac{\epsilon}{2\sqrt{T}} \exp\left(T \KL{\tfrac{1}{2}+\tfrac{\sum_{t=1}^T g_t}{2T}}{\tfrac{1}{2}}\right)\; .
@@ -103,13 +104,12 @@ on $t$ that (b) and (c) of the definition together with \eqref{equation:def_wt} 
 \eqref{equation:wealth-lower-bound-generic}. The base case $t=0$ is trivial. At
 time $t \ge 1$, let $x = \sum_{i=1}^{t-1} g_i$ and bet $w_t=\beta_t \Wealth_{t-1}$
 where $\beta_t$ is defined in \eqref{equation:potential-based-strategy}, then
-%\vspace{-.2cm}
 \begin{align*}
-\Wealth_t 
-&= \Wealth_{t-1} + w_t g_t 
+\Wealth_t
+&= \Wealth_{t-1} + w_t g_t
 = (1+g_t \beta_t) \Wealth_{t-1} \\
 &\ge (1 + g_t \beta_t) F_{t-1}(x)
-\ge F_t(x + g_t) 
+\ge F_t(x + g_t)
 = F_t \left( \sum_{i=1}^t g_i \right) \; .
 \end{align*}
 %

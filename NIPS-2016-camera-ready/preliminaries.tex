@@ -27,24 +27,27 @@ by an adversary.
 The gambler can bet any amount on either heads or tails. However, he is not
 allowed to borrow any additional money. If he loses, he loses the betted
 amount; if he wins, he gets the betted amount back and, in addition to that, he
-gets the same amount as a reward.  We encode the gambler's bet in round $t$ by a
-single number $w_t$. The sign of $w_t$ encodes whether he is
-betting on heads or tails. The absolute value encodes the betted amount.
-We define $\Wealth_t$ as the gambler's wealth at the end of round $t$ and $\Reward_t$ as the gambler's net reward
-(the difference of wealth and initial endowment), that is 
+gets the same amount as a reward.  We encode the gambler's bet in round $t$ by
+a single number $w_t$. The sign of $w_t$ encodes whether he is betting on heads
+or tails. The absolute value encodes the betted amount.  We define $\Wealth_t$
+as the gambler's wealth at the end of round $t$ and $\Reward_t$ as the
+gambler's net reward (the difference of wealth and initial endowment), that is
 \begin{align}
 \label{equation:def_wealth_reward}
 \Wealth_t=\epsilon+\sum_{i=1}^t w_t g_t &
 & \text{and} &
 & \Reward_t = \Wealth_t - \ \epsilon \; .
 \end{align}
-In the following, we will also refer to a bet with $\beta_t$, where $\beta_t$ is such that
+In the following, we will also refer to a bet with $\beta_t$, where $\beta_t$
+is such that
 \begin{equation}
 \label{equation:def_wt}
 w_t = \beta_t \Wealth_{t-1} \; .
 \end{equation}
-Analogously, the absolute value of $\beta_t$ is the \emph{fraction} of the current wealth to bet, and its sign encodes whether he is
-betting on heads or tails. The constraint that the gambler cannot borrow money implies that $\beta_t \in [-1,1]$.
+Analogously, the absolute value of $\beta_t$ is the \emph{fraction} of the
+current wealth to bet, and its sign encodes whether he is betting on heads or
+tails. The constraint that the gambler cannot borrow money implies that
+$\beta_t \in [-1,1]$.
 
 
 % it
@@ -65,5 +68,5 @@ betting on heads or tails. The constraint that the gambler cannot borrow money i
 %\end{align}
 We generalize the problem slightly by allowing the outcome of the coin flip
 $g_t$ to be any real number in the interval $[-1,1]$.  Equations
-\eqref{equation:def_wealth_reward} defining
-wealth and reward remain exactly the same.
+\eqref{equation:def_wealth_reward} defining wealth and reward remain exactly
+the same.
