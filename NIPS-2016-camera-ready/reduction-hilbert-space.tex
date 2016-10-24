@@ -7,18 +7,16 @@ sequence of excellent coin-betting potentials $\{F_t\}_{t=0}^\infty$ to
 construct an algorithm for \ac{OLO} over a Hilbert space and how to prove a
 regret bound for it.
 
-First, define reward and wealth analogously to the one-dimensional case:
+We define reward and wealth analogously to the one-dimensional case:
 $\Reward_t = \sum_{i=1}^t \langle g_i, w_i \rangle$ and $\Wealth_t = \epsilon +
-\Reward_t$.
-Given a sequence of coin-betting potentials $\{F_t\}_{t=0}^\infty$, according
-to \eqref{equation:potential-based-strategy} we define the fraction
+\Reward_t$. Given a sequence of coin-betting potentials $\{F_t\}_{t=0}^\infty$,
+generalizing \eqref{equation:potential-based-strategy} we define the fraction
 \begin{equation}
 \label{equation:potential-based-strategy-hilbert-space}
 \beta_t
 = \tfrac{F_t \left(\norm{\sum_{i=1}^{t-1} g_i} + 1\right) - F_t\left(\norm{\sum_{i=1}^{t-1} g_i} - 1 \right)}{F_t\left(\norm{\sum_{i=1}^{t-1} g_i} + 1 \right) + F_t\left(\norm{\sum_{i=1}^{t-1} g_i} - 1 \right)},
 \end{equation}
-and the prediction of the OLO algorithm
-defined by this potentials is
+and the prediction of the OLO algorithm defined by this potentials is
 \begin{equation}
 \label{equation:hilbert-space-olo}
 w_t
@@ -29,8 +27,8 @@ w_t
 The only difference between \eqref{equation:hilbert-space-olo} and
 \eqref{equation:def_wt} is the multiplication by the unit vector
 $\tfrac{\sum_{i=1}^{t-1} g_i}{\norm{\sum_{i=1}^{t-1} g_i}}$. If
-$\sum_{i=1}^{t-1} g_i$ is the zero vector, we define $w_t$ to be the zero
-vector as well.  For this prediction strategy we can prove the following regret
+$\sum_{i=1}^{t-1} g_i$ is the zero vector, we define $w_t$ to be the zero vector
+as well.  For this prediction strategy we can prove the following regret
 guarantee, proved in Appendix~\ref{section:hilbert-space-reduction}.  The proof
 reduces the general Hilbert case to the 1-d case, thanks to (d) in
 Definition~\ref{definition:potential}, then it follows the reasoning of

@@ -3,19 +3,19 @@
 
 We begin by providing some definitions.  The \ac{KL} divergence between two
 discrete distributions $p$ and $q$ is $\KL{p}{q} = \sum_{i} p_i \ln\left(
-p_i/q_i \right)$. If $p,q$ are real numbers in $[0,1]$, we denote by $\KL{p}{q}
-= p \ln \left(p/q \right) + (1-p) \ln \left((1-p)/(1-q) \right)$ the \ac{KL}
+p_i/q_i \right)$. If $p,q$ are real numbers in $[0,1]$, we denote by $\KL{p}{q} =
+p \ln \left(p/q \right) + (1-p) \ln \left((1-p)/(1-q) \right)$ the \ac{KL}
 divergence between two Bernoulli distributions with parameters $p$ and $q$.  We
-denote by $\H$ a Hilbert space with inner product $\langle \cdot, \cdot\rangle$
-and by $\norm{\cdot}$ the induced norm.  We denote by $\norm{\cdot}_1$ the
-$1$-norm in $\R^N$.  A function $F:I \to \R_+$ is called \emph{logarithmically
-convex} iff $f(x) = \ln(F(x))$ is convex.  Let $f:V \to \R \cup \{\pm\infty\}$,
-the Fenchel conjugate of $f$ is $f^*:V^* \to \R \cup \{\pm \infty\}$ defined on
-the dual vector space $V^*$ by $f^*(\theta) = \sup_{x \in V} \ \langle \theta,
-x \rangle - f(x)$.  A function $f:V \to \R \cup \{+\infty\}$ is said to be
-\emph{proper} if there exists $x \in V$ such that $f(x)$ is finite.  If $f$ is
-a proper lower semi-continuous convex function then $f^*$ is also proper lower
-semi-continuous convex and $f^{**}=f$.
+denote by $\H$ a Hilbert space, by $\langle \cdot, \cdot\rangle$ its inner
+product, and by $\norm{\cdot}$ the induced norm.  We denote by $\norm{\cdot}_1$
+the $1$-norm in $\R^N$.  A function $F:I \to \R_+$ is called
+\emph{logarithmically convex} iff $f(x) = \ln(F(x))$ is convex.  Let $f:V \to \R
+\cup \{\pm\infty\}$, the Fenchel conjugate of $f$ is $f^*:V^* \to \R \cup \{\pm
+\infty\}$ defined on the dual vector space $V^*$ by $f^*(\theta) = \sup_{x \in
+V} \ \langle \theta, x \rangle - f(x)$.  A function $f:V \to \R \cup
+\{+\infty\}$ is said to be \emph{proper} if there exists $x \in V$ such that
+$f(x)$ is finite.  If $f$ is a proper lower semi-continuous convex function then
+$f^*$ is also proper lower semi-continuous convex and $f^{**}=f$.
 
 \textbf{Coin Betting.} We consider a gambler making repeated bets on the
 outcomes of adversarial coin flips. The gambler starts with an initial
@@ -34,7 +34,7 @@ as the gambler's wealth at the end of round $t$ and $\Reward_t$ as the
 gambler's net reward (the difference of wealth and initial endowment), that is
 \begin{align}
 \label{equation:def_wealth_reward}
-\Wealth_t=\epsilon+\sum_{i=1}^t w_t g_t &
+\Wealth_t = \epsilon + \sum_{i=1}^t w_i g_i &
 & \text{and} &
 & \Reward_t = \Wealth_t - \ \epsilon \; .
 \end{align}
@@ -44,28 +44,11 @@ is such that
 \label{equation:def_wt}
 w_t = \beta_t \Wealth_{t-1} \; .
 \end{equation}
-Analogously, the absolute value of $\beta_t$ is the \emph{fraction} of the
-current wealth to bet, and its sign encodes whether he is betting on heads or
-tails. The constraint that the gambler cannot borrow money implies that
-$\beta_t \in [-1,1]$.
+The absolute value of $\beta_t$ is the \emph{fraction} of the current wealth to
+bet, and sign of $\beta_t$ encodes whether he is betting on heads or tails. The
+constraint that the gambler cannot borrow money implies that $\beta_t \in
+[-1,1]$.
 
-
-% it
-% satisfies the recurrence
-% \begin{align}
-% \label{equation:wealth-recurrence}
-% \Wealth_0 & = \epsilon &
-% & \text{and} &
-% \Wealth_t & = (1 + g_t \beta_t) \Wealth_{t-1} \qquad \text{for $t \ge 1$} \; .
-% \end{align}
-% Note that since $\beta_t \in [-1,1]$, the gambler's wealth stays always
-% non-negative.
-%The gambler's net reward (difference of wealth and initial
-%endowment) after $t$ rounds is
-%\begin{align}
-%\label{equation:reward-wealth}
-%\Reward_t = \Wealth_t - \ \epsilon \; .
-%\end{align}
 We generalize the problem slightly by allowing the outcome of the coin flip
 $g_t$ to be any real number in the interval $[-1,1]$.  Equations
 \eqref{equation:def_wealth_reward} defining wealth and reward remain exactly

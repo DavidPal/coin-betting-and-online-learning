@@ -25,8 +25,8 @@ $\beta^*=(\sum_{t=1}^T g_t)/T$ and it gives the wealth
 \begin{equation}
 \label{eq:opt_wealth}
 \Wealth_T(\beta^*)
-= \epsilon \exp\left(T \KL{\tfrac{1}{2}+\tfrac{\sum_{t=1}^T g_t}{2T}}{\tfrac{1}{2}}\right)
-\geq \epsilon \exp\left(\tfrac{(\sum_{t=1}^T g_t)^2}{2 T}\right) \; ,
+= \epsilon \exp\left(T \cdot \KL{\tfrac{1}{2}+\tfrac{\sum_{t=1}^T g_t}{2T}}{\tfrac{1}{2}}\right)
+\ge \epsilon \exp\left(\tfrac{(\sum_{t=1}^T g_t)^2}{2 T}\right) \; ,
 \end{equation}
 where the inequality follows from Pinsker's inequality~\citep[Lemma
 11.6.1]{Cover-Thomas-2006}.
@@ -49,8 +49,9 @@ like an online and slightly biased version of the oracle choice of $\beta^*$.
 This strategy guarantees\footnote{See Appendix~\ref{section:logloss-to-wealth}
 for a proof.}
 \[
-\Wealth_T \ge \tfrac{\Wealth_T(\beta^*)}{2\sqrt{T}}
-= \tfrac{\epsilon}{2\sqrt{T}} \exp\left(T \KL{\tfrac{1}{2}+\tfrac{\sum_{t=1}^T g_t}{2T}}{\tfrac{1}{2}}\right)\; .
+\Wealth_T
+\ge \tfrac{\Wealth_T(\beta^*)}{2\sqrt{T}}
+= \tfrac{\epsilon}{2\sqrt{T}} \exp\left(T \cdot \KL{\tfrac{1}{2}+\tfrac{\sum_{t=1}^T g_t}{2T}}{\tfrac{1}{2}}\right)\; .
 \]
 This guarantee is optimal up to constant
 factors~\citep{Cesa-Bianchi-Lugosi-2006} and mirrors the guarantee of the Kelly
