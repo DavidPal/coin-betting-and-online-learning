@@ -1,17 +1,17 @@
-\subsection{From Coin Betting to Learning with Expert Advice}
+\section{From Coin Betting to Learning with Expert Advice}
 \label{section:reduction-experts}
 
 In this section, we show how to use the algorithm for OLO over one-dimensional
 Hilbert space $\R$ from
 Section~\ref{section:one-dimensional-hilbert-space-olo}---which is itself based
-on a coin-betting strategy---to construct an algorithm for \ac{LEA}.
+on a coin betting strategy---to construct an algorithm for \ac{LEA}.
 
 \vspace{-0.05cm}
 
 Let $N \ge 2$ be the number of experts and $\Delta_N$ be the $N$-dimensional
 probability simplex. Let $\pi = (\pi_1, \pi_2, \dots, \pi_N) \in \Delta_N$ be
 any \emph{prior} distribution. Let $A$ be an algorithm for OLO over
-the one-dimensional Hilbert space $\R$, based on a sequence of the coin-betting
+the one-dimensional Hilbert space $\R$, based on a sequence of the coin betting
 potentials $\{F_t\}_{t=0}^\infty$ with initial endowment\footnote{Any initial
 endowment $\epsilon > 0$ can be rescaled to $1$. Instead of $F_t(x)$ we would
 use $F_t(x)/\epsilon$. The $w_t$ would become $w_t/\epsilon$, but $p_t$ is
@@ -54,7 +54,7 @@ it.
 \begin{theorem}[Regret Bound for Experts]
 \label{theorem:regret-bound-experts}
 Let $A$ be an algorithm for \ac{OLO} over the one-dimensional Hilbert space
-$\R$, based on the coin-betting potentials $\{F_t\}_{t=0}^\infty$ for an
+$\R$, based on the coin betting potentials $\{F_t\}_{t=0}^\infty$ for an
 initial endowment of $1$. Let $f_t^{-1}$ be the inverse of $f_t(x) =
 \ln(F_t(x))$ restricted to $[0,\infty)$.  Then, the regret of the \ac{LEA}
 algorithm with prior $\pi \in \Delta_N$ that predicts at each round with $p_t$

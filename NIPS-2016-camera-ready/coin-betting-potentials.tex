@@ -1,10 +1,7 @@
-\section{Coin-Betting Potentials}
+\section{Designing a Betting Algorithm: Coin Betting Potentials}
 \label{section:coin-betting-potentials}
 
-In this section, we will provide a framework to analyze betting algorithms.  We
-will also presents the reductions to effortlessly extend the one dimensional
-case in the previous section to the generic \ac{OLO} case and to \ac{LEA} as
-well.
+%In this section, we will provide a framework to analyze betting algorithms.
 
 For sequential betting on i.i.d. coin flips, an optimal strategy has been
 proposed by \citet{Kelly-1956}.  The strategy assumes that the coin flips
@@ -60,6 +57,7 @@ bet.
 Here, we propose a new set of definitions that allows to generalize the
 strategy of adaptive Kelly betting based on the KT estimator. For these strategies
 it will be possible to prove that, for any $g_1, g_2, \dots, g_t \in [-1,1]$,
+\vspace{-0.3cm}
 \begin{equation}
 \label{equation:wealth-lower-bound-generic}
 \Wealth_t \ge F_t \left( \sum_{i=1}^t g_i \right) \; ,
@@ -69,11 +67,11 @@ The betting strategy will be determined uniquely by the potential (see (c) in
 the Definition~\ref{definition:potential}), and we restrict our attention to
 potentials for which \eqref{equation:wealth-lower-bound-generic} holds. These
 constraints are specified in the definition below.
-\begin{definition}[Coin-Betting Potential]
+\begin{definition}[Coin Betting Potential]
 \label{definition:potential}
 Let $\epsilon > 0$. Let $\{F_t\}_{t=0}^\infty$ be a sequence of functions
 $F_t:(-a_t, a_t)  \to \R_+$ where $a_t > t$.  The sequence
-$\{F_t\}_{t=0}^\infty$ is called a \textbf{sequence of coin-betting potentials
+$\{F_t\}_{t=0}^\infty$ is called a \textbf{sequence of coin betting potentials
 for initial endowment $\epsilon$}, if it satisfies the following three
 conditions:
 \begin{enumerate}[(a)]
@@ -82,15 +80,14 @@ conditions:
 \item For every $t \ge 0$, $F_t(x)$ is even, logarithmically convex, strictly
 increasing on $[0,a_t)$, and
 $\lim_{x \to a_t} F_t(x) = +\infty$.
-\item Given $t \ge 1$ and $x \in [-(t-1), (t-1)]$, let
+\item For every $t \ge 1$, every $x \in [-(t-1), (t-1)]$ and every $g \in [-1,1]$, $\left(1 + g \beta_t \right) F_{t-1}(x) \ge F_t(x+g)$, when
 \begin{equation}
 \label{equation:potential-based-strategy}
 \beta_t=\tfrac{F_t(x + 1) - F_t(x - 1)}{F_t(x + 1) + F_t(x - 1)} \;.
 \end{equation}
-For every $t \ge 1$, every $x \in [-(t-1), (t-1)]$ and every $g \in [-1,1]$, $\left(1 + g \beta_t \right) F_{t-1}(x) \ge F_t(x+g)$.
 \end{enumerate}
 The sequence $\{F_t\}_{t=0}^\infty$ is called a
-\textbf{sequence of excellent coin-betting potentials for initial
+\textbf{sequence of excellent coin betting potentials for initial
 endowment $\epsilon$} if it satisfies conditions (a)--(c) and the condition (d)
 below.
 \begin{enumerate}[(a)]
@@ -99,18 +96,17 @@ below.
 satisfies $x \cdot F_t''(x) \ge F_t'(x)$ for every $x \in [0,a_t)$.
 \end{enumerate}
 \end{definition}
-
 Let's give some intuition on this definition.  First, let's show by induction
 on $t$ that (b) and (c) of the definition together with \eqref{equation:def_wt} give a betting strategy that satisfies
 \eqref{equation:wealth-lower-bound-generic}. The base case $t=0$ is trivial. At
-time $t \ge 1$, let $x = \sum_{i=1}^{t-1} g_i$ and bet $w_t=\beta_t \Wealth_{t-1}$
+time $t \ge 1$, bet $w_t=\beta_t \Wealth_{t-1}$
 where $\beta_t$ is defined in \eqref{equation:potential-based-strategy}, then
 \begin{align*}
 \Wealth_t
 &= \Wealth_{t-1} + w_t g_t
 = (1+g_t \beta_t) \Wealth_{t-1} \\
-&\ge (1 + g_t \beta_t) F_{t-1}(x)
-\ge F_t(x + g_t)
+&\ge (1 + g_t \beta_t) F_{t-1}(\sum_{i=1}^{t-1} g_i)
+\ge F_t(\sum_{i=1}^{t-1} g_i + g_t)
 = F_t \left( \sum_{i=1}^t g_i \right) \; .
 \end{align*}
 %
@@ -137,5 +133,6 @@ essentially the potential used in the parameter-free algorithms in
 betting potential---see Theorem~\ref{thm:exp_x2} in
 Appendix~\ref{section:optimal-betting-fraction}. Hence, our framework provides
 intuition to previous constructions and in Section~\ref{section:kt-estimator}
-we show new examples of coin-betting potentials. In the next two sections, we
-reduce \ac{OLO} and \ac{LEA} to coin-betting.
+we show new examples of coin betting potentials.
+
+In the next two sections, we presents the reductions to effortlessly solve \emph{both} the generic \ac{OLO} case and \ac{LEA} with a betting potential.
