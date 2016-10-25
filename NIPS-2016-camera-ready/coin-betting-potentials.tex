@@ -44,7 +44,8 @@ estimator results in the betting
 which we call \emph{adaptive Kelly betting based on the KT estimator}. It looks
 like an online and slightly biased version of the oracle choice of $\beta^*$.
 This strategy guarantees\footnote{See Appendix~\ref{section:logloss-to-wealth}
-for a proof.}
+for a proof. For lack of space, all the appendices are in the supplementary
+material.}
 \[
 \Wealth_T
 \ge \tfrac{\Wealth_T(\beta^*)}{2\sqrt{T}}
@@ -113,8 +114,7 @@ where $\beta_t$ is defined in \eqref{equation:potential-based-strategy}, then
 The formula for the potential-based
 strategy~\eqref{equation:potential-based-strategy} might seem strange. However,
 it is derived---see Theorem~\ref{theorem:optimal-betting-fraction}
-in\footnote{For lack of space, all the appendices are in the supplementary
-material.} Appendix~\ref{section:optimal-betting-fraction}---by minimizing the
+in Appendix~\ref{section:optimal-betting-fraction}---by minimizing the
 worst-case value of the right-hand side of the inequality used w.r.t. to $g_t$
 in the induction proof above: $F_{t-1}(x) \ge \tfrac{F_{t}(x +
 g_t)}{1+g_t\beta_t}$.
