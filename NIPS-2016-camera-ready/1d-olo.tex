@@ -1,15 +1,23 @@
 \section{Warm-Up: From Betting to One-Dimensional Online Linear Optimization}
 \label{section:one-dimensional-hilbert-space-olo}
 
-In this section, we sketch how to reduce one-dimensional OLO to betting on a coin. The reasoning for generic Hilbert spaces (Section~\ref{section:reduction_hilbert}) and for LEA (Section~\ref{section:reduction-experts}) will be similar.
-We will show that the betting view provides a natural way for the analysis and design of online learning algorithms, where the only design choice is the potential function of the betting algorithm (Section~\ref{section:coin-betting-potentials}).
-A specific example of coin betting potential and the resulting algorithms are in Section~\ref{section:kt-estimator}.
+In this section, we sketch how to reduce one-dimensional OLO to betting on a
+coin. The reasoning for generic Hilbert spaces
+(Section~\ref{section:reduction_hilbert}) and for LEA
+(Section~\ref{section:reduction-experts}) will be similar. We will show that the
+betting view provides a natural way for the analysis and design of online
+learning algorithms, where the only design choice is the potential function of
+the betting algorithm (Section~\ref{section:coin-betting-potentials}). A
+specific example of coin betting potential and the resulting algorithms are in
+Section~\ref{section:kt-estimator}.
 
 As a warm-up, let us consider an algorithm for OLO over one-dimensional Hilbert
 space $\R$.  Let $\{w_t\}_{t=1}^\infty$ be its sequence of predictions on a
 sequence of rewards $\{g_t\}_{t=1}^\infty$, $g_t \in [-1,1]$. The total reward
-of the algorithm after $t$ rounds is $\Reward_t = \sum_{i=1}^t g_i w_i$. Also, even if in OLO there is no concept of ``wealth'', define the wealth of the OLO algorithm as $\Wealth_t = \epsilon +
-\Reward_t$, as in \eqref{equation:def_wealth_reward}.
+of the algorithm after $t$ rounds is $\Reward_t = \sum_{i=1}^t g_i w_i$. Also,
+even if in OLO there is no concept of ``wealth'', define the wealth of the OLO
+algorithm as $\Wealth_t = \epsilon + \Reward_t$, as in
+\eqref{equation:def_wealth_reward}.
 
 We now restrict our attention to algorithms whose predictions $w_t$ are of the
 form of a bet, that is $w_t = \beta_t \Wealth_{t-1}$, where $\beta_t \in
@@ -21,8 +29,9 @@ on a sequence of coin flips $\{g_t\}_{t=1}^\infty$, $g_t \in [-1,1]$, bets the
 amounts $w_t$ can be used as an OLO algorithm in a one-dimensional Hilbert
 space $\R$. But, what would be the regret of such OLO algorithms?
 
-Assume that the betting algorithm at hand guarantees that its wealth is at
-least $F(\sum_{t=1}^T g_t)$ starting from an endowment $\epsilon$, for a given potential function $F$, then
+Assume that the betting algorithm at hand guarantees that its wealth is at least
+$F(\sum_{t=1}^T g_t)$ starting from an endowment $\epsilon$, for a given
+potential function $F$, then
 \vspace{-.1cm}
 \begin{equation}
 \label{equation:one-dimensional-olo-reward-lower-bound}
@@ -30,10 +39,9 @@ least $F(\sum_{t=1}^T g_t)$ starting from an endowment $\epsilon$, for a given p
 = \sum_{t=1}^T g_t w_t
 = \Wealth_T \ - \ \epsilon \ge F\left(\sum_{t=1}^T g_t \right) \ - \ \epsilon \; .
 \end{equation}
-Intuitively, if the reward is big  we can expect the
-regret to be small.
-Indeed, the following lemma converts the lower bound on the reward to an upper bound on the regret.
-from~\cite{McMahan-Orabona-2014}.
+Intuitively, if the reward is big  we can expect the regret to be small. Indeed,
+the following lemma converts the lower bound on the reward to an upper bound on
+the regret.
 \begin{lemma}[Reward-Regret relationship~\cite{McMahan-Orabona-2014}]
 \label{lemma:reward-regret}
 Let $V,V^*$ be a pair of dual vector spaces. Let $F:V \to \R \cup \{+\infty\}$

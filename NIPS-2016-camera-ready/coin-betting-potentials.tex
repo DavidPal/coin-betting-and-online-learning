@@ -81,7 +81,7 @@ conditions:
 \item For every $t \ge 0$, $F_t(x)$ is even, logarithmically convex, strictly
 increasing on $[0,a_t)$, and
 $\lim_{x \to a_t} F_t(x) = +\infty$.
-\item For every $t \ge 1$, every $x \in [-(t-1), (t-1)]$ and every $g \in [-1,1]$, $\left(1 + g \beta_t \right) F_{t-1}(x) \ge F_t(x+g)$, when
+\item For every $t \ge 1$, every $x \in [-(t-1), (t-1)]$ and every $g \in [-1,1]$, $\left(1 + g \beta_t \right) F_{t-1}(x) \ge F_t(x+g)$, where
 \begin{equation}
 \label{equation:potential-based-strategy}
 \beta_t=\tfrac{F_t(x + 1) - F_t(x - 1)}{F_t(x + 1) + F_t(x - 1)} \;.
@@ -106,8 +106,8 @@ where $\beta_t$ is defined in \eqref{equation:potential-based-strategy}, then
 \Wealth_t
 &= \Wealth_{t-1} + w_t g_t
 = (1+g_t \beta_t) \Wealth_{t-1} \\
-&\ge (1 + g_t \beta_t) F_{t-1}(\sum_{i=1}^{t-1} g_i)
-\ge F_t(\sum_{i=1}^{t-1} g_i + g_t)
+&\ge (1 + g_t \beta_t) F_{t-1} \left(\sum_{i=1}^{t-1} g_i \right)
+\ge F_t \left(\sum_{i=1}^{t-1} g_i + g_t \right)
 = F_t \left( \sum_{i=1}^t g_i \right) \; .
 \end{align*}
 %
