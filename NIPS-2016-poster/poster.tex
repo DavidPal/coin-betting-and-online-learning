@@ -239,12 +239,12 @@ With learning rate $\eta = D/\sqrt{T}$, it satisfies
 $$
 \forall u : \KL{u}{\pi} \le D  \qquad \Regret_T(u) \le \sqrt{T \cdot D} \; .
 $$
-Can we get $
-\forall u \in \Delta_N \qquad \Regret_T(u) \le \sqrt{T \cdot \KL{u}{\pi}}
-$?
+Can we get
+$$
+\forall u \in \Delta_N \qquad \Regret_T(u) \le \sqrt{T \cdot \KL{u}{\pi}} ?
+$$
 
 Addressed in Chaudhuri et al. (2009), Chernov\&Vovk (2010), Luo\&Schapire (2014, 2015), Koolen\&van-Erven (2015), Foster et al. (2015).
-
 But no intuition is given in previous contructions.
 
 \vspace{1cm}
@@ -257,7 +257,7 @@ Learning with Expert Advice
 \begin{minipage}{0.8\linewidth}
 \begin{algorithmic}
 {
-\REQUIRE{Number of experts $N$, Prior distribution $\pi \in \Delta_N$, Number of rounds $T$}
+\REQUIRE{\#experts $N$, prior $\pi \in \Delta_N$, \#rounds $T$}
 \FOR{$t=1,2,\dots,T$}
 \STATE{For each $i \in [N]$, set $w_{t,i} \leftarrow \tfrac{\sum_{j=1}^{t-1} \widetilde g_{j,i}}{t+T/2} \left(1 + \sum_{j=1}^{t-1} \widetilde g_{j,i} w_{j,i} \right)$}
 \STATE{For each $i \in [N]$, set $\widehat{p}_{t,i} \leftarrow \pi_i [w_{t,i}]_+$}
