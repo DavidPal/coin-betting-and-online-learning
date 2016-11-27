@@ -1,4 +1,4 @@
-\documentclass[25pt,landscape]{sciposter}
+\documentclass[30pt,landscape]{sciposter}
 
 \usepackage{pstricks}
 \usepackage[pdftex]{graphicx}
@@ -154,7 +154,7 @@ $$
 \section*{Parameter-Free Algorithms for Hilbert Spaces}
 
 Let $\H$ be a Hilbert space. Let $K=\H$ and assume $\norm{g_t} \le 1$.
-Gradient Ascent with (constant) learning rate $1/\sqrt{T}$ satisfies
+Gradient Ascent with learning rate $1/\sqrt{T}$ satisfies
 $$
 \forall u \in \H \qquad \Regret_T(u) \le \frac{1}{2}\left(1 + \norm{u}^2\right) \sqrt{T} \; .
 $$
@@ -163,9 +163,9 @@ $$
 \forall u : \norm{u} \le D  \qquad \Regret_T(u) \le D \sqrt{T} \; .
 $$
 Can we get
-$$
-\forall u \in \H \qquad \Regret_T(u) \le \norm{u} \sqrt{T} \; ?
-$$
+$
+\forall u \in \H \qquad \Regret_T(u) \le \norm{u} \sqrt{T}
+$?
 
 Addressed in Streeter\&McMahan (2012), Orabona (2013), McMahan\&Abernethy (2013), McMahan\&Orabona (2014), Orabona (2014).
 
@@ -230,7 +230,7 @@ $$
 \section*{Parameter-Free Algorithms for Learning with Expert Advice}
 
 Let $K=\Delta_N$ and assume $g_t \in [0,1]^N$.
-Hedge with (constant) learning rate $\eta$ satisfies
+Hedge with learning rate $\eta$ satisfies
 \[
 \forall u \in \Delta_N \qquad
 \Regret_T(u) \leq O \left(\tfrac{\KL{u}{\pi}}{\eta} + \eta T \right)
@@ -239,10 +239,9 @@ With learning rate $\eta = D/\sqrt{T}$, it satisfies
 $$
 \forall u : \KL{u}{\pi} \le D  \qquad \Regret_T(u) \le \sqrt{T \cdot D} \; .
 $$
-Can we get
-$$
-\forall u \in \Delta_N \qquad \Regret_T(u) \le \sqrt{T \cdot \KL{u}{\pi}} \; ?
-$$
+Can we get $
+\forall u \in \Delta_N \qquad \Regret_T(u) \le \sqrt{T \cdot \KL{u}{\pi}}
+$?
 
 Addressed in Chaudhuri et al. (2009), Chernov\&Vovk (2010), Luo\&Schapire (2014, 2015), Koolen\&van-Erven (2015), Foster et al. (2015).
 
