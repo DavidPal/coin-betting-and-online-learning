@@ -38,8 +38,9 @@
 
 \renewcommand{\thefootnote}{\fnsymbol{footnote}}
 \renewcommand{\footlogo}{Typeset by pdf\LaTeX}
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
 
-\title{Parameter-Free and Scale-Free Online Algorithms}
+\title{Coin Betting and Parameter-Free Online Learning}
 \author{Francesco Orabona\footnotemark[1], D\'avid P\'al\footnotemark[2]}
 \institute{%
 \footnotemark[1] Stony Brook University, NY\\
@@ -49,7 +50,7 @@
 
 \leftlogo[1.2]{stony-brook-logo}
 \rightlogo[1.2]{yahoo-logo}
-\conference{Theoretical Foundations for Learning from Easy Data, November 7--11, 2016, Lorentz Center, University of Leiden, Leiden, Netherlands}
+\conference{The $30^{\text{th}}$ Annual Conference on Neural Information Processing Systems (NIPS), December 5--10, 2016, Barcelona, Spain}
 
 \maketitle
 
@@ -62,7 +63,7 @@
 Regularized empirical risk minimization:
 \begin{equation}
 \label{equation:objective-function}
-    \argmin_{w \in \R^d} \ \frac{\lambda}{2} \norm{w}^2 + \sum_{i=1}^N f(w, x_i, y_i)
+    \argmin_{w \in \R^d} \ \frac{\lambda}{2} \norm{w}^2 + \sum_{i=1}^T f(w, x_i, y_i)
 \end{equation}
 where $f$ is convex in $w$.
 \begin{itemize}
@@ -89,6 +90,9 @@ where $f$ is convex in $w$.
 
 \section*{Online Learning}
 
+Let $V,V^*$ be a pair of dual vector spaces.
+
+\vspace{1cm}
 
 \setlength{\fboxrule}{5pt}
 \setlength{\fboxsep}{10pt}
@@ -100,11 +104,11 @@ Online Linear Optimization
 \begin{minipage}{0.8\linewidth}
 \begin{algorithmic}
 {
-\STATE{Input: Non-empty closed convex \emph{decision set} $K \subseteq V$}
+\REQUIRE{Non-empty closed convex \emph{decision set} $K \subseteq V$}
 \FOR{$t=1,2,3,\dots$}
 \STATE Pick $w_t \in K$
-\STATE Receive $g_t \in V^*$
-\STATE Gain $\langle g_t, w_t \rangle$
+\STATE Receive reward vector $g_t \in V^*$
+\STATE Gain reward $\langle g_t, w_t \rangle$
 \ENDFOR
 }
 \end{algorithmic}
@@ -112,18 +116,20 @@ Online Linear Optimization
 }}
 \end{center}
 
-\vspace{1cm}
+\vspace{0.5cm}
 
 $$
 \Regret_T(u) = \sum_{t=1}^T \langle g_t, u \rangle - \sum_{t=1}^T \langle g_t, w_t \rangle\; .
 $$
 
+\vspace{0.5cm}
+
 \begin{itemize}
-\item OGD with learning rate $\eta$ satisfies
+\item Online Gradient Ascent with learning rate $\eta$ satisfies
 \[
-\forall u \in \H \qquad \Regret_T(u) \le \tfrac{\norm{u}^2}{2\eta} + \tfrac{\eta}{2} \sum_{t=1}^T \norm{\ell_t}^2 \; .
+\forall u \in V \qquad \Regret_T(u) \le \tfrac{\norm{u}^2}{2\eta} + \tfrac{\eta}{2} \sum_{t=1}^T \norm{g_t}^2 \; .
 \]
-\item Optimal oracle choice: $\eta = \frac{\norm{u}}{\sqrt{\sum_{t=1}^T \norm{\ell_t}^2}}$.
+\item Optimal oracle choice: $\eta = \frac{\norm{u}}{\sqrt{\sum_{t=1}^T \norm{g_t}^2}}$.
 \item Many algorithms adapt to the norms of the gradients (e.g. AdaGrad) while neglecting dependency on $\norm{u}$.
 \item Adapting to $u$ is \emph{more difficult and more important}.
 \item Better guarantees are indeed possible: Streeter\&McMahan (2012), Orabona (2013), McMahan\&Abernethy (2013), McMahan\&Orabona (2014), Orabona (2014)
@@ -134,97 +140,10 @@ $$
 
 \columnbreak
 
- 
-% \section*{Scale-Free Algorithms}
-% 
-% \begin{minipage}{0.8\linewidth}
-% Non-negative $\lambda$-strongly convex $R:K \to \R$ w.r.t. $\norm{\cdot}$.
-% \begin{center}
-% \def\arraystretch{2}%  1 is the default, change to whatever you need
-% \everymath{\displaystyle}
-% \begin{tabular}{c|c}
-% FTRL & MD \\ \hline
-% $R_t(u) = \frac{R(u)}{\sqrt{\sum_{s=1}^{t-1} \norm{\ell_s}_*^2}}$ \hspace{1cm} & \hspace{1cm}  $R_t(u) = \frac{R(u)}{\sqrt{\sum_{s=1}^t \norm{\ell_s}_*^2}}$ \\
-% \end{tabular}
-% \end{center}
-% \end{minipage}
-% 
-% \begin{minipage}{1.0\linewidth}
-% FTRL:
-% $$
-% \Regret_T(u) \le \left(\frac{2.75}{\lambda} + R(u)\right) \sqrt{\sum_{t=1}^T \norm{\ell_t}_*^2} + 3.5 \min \left\{ D, \frac{\sqrt{T-1}}{\lambda} \right\} \max_{t \le T} \norm{\ell_t}_*
-% $$
-% 
-% MD:
-% $$
-% \Regret_T(u) \le \left(\frac{1}{\lambda} + \sup_{v \in K} \Breg_{R}(u,v) \right) \sqrt{\sum_{t=1}^T \norm{\ell_t}_*^2}
-% $$
-% 
-% If $f$ is $1$-strongly convex and $R(u) = \lambda f(u)$, optimizing $\lambda$ gives:
-% \begin{align*}
-% \text{FTRL:} \qquad \Regret_T & \le 13.3 \sqrt{ \sup_{v \in K} f(v) \sum_{t=1}^T \norm{\ell_t}_*^2} \\
-% \text{MD:} \qquad \Regret_T & \le 2 \sqrt{ \sup_{u,v \in K} \Breg_{f}(u,v) \sum_{t=1}^T \norm{\ell_t}_*^2}
-% \end{align*}
-% \end{minipage}
-% 
-% \vspace{0.6cm}
-% 
-% \hrule height 4pt
-% 
-% \vspace{0.6cm}
-% 
-% 
-% \begin{minipage}{1.0\linewidth}
-% MD bound is much worse than FTRL bound:
-% 
-% Let $v^* = \argmin_{v \in K} R(v)$.
-% WLOG assume $R(v^*) = 0$ and $\grad R(v^*) = 0$.
-% 
-% \begin{itemize}
-% \item $R(u) \le \sup_{v \in K} \Breg_{R}(u,v)$
-% \item $R(u)$ is finite
-% \item There are regularizers for which $\sup_{v \in K} \Breg_{R}(u,v) = + \infty$.
-% \end{itemize}
-% \end{minipage}
-% 
-% \vspace{0.6cm}
-% 
-% \hrule height 1pt
-% 
-% \vspace{0.6cm}
-% 
-% \begin{minipage}{1.0\linewidth}
-% If $\sup_{v \in K} \Breg_{R}(u,v) = +\infty$, regret explodes.
-% Mirror Descent on $K=\R$ with regularizer $R_t(u) = \frac{u^2}{2 \sqrt{\sum_{i=1}^t \ell_i^2}}$
-% is the same as Gradient Descent with step size $1/\sqrt{t}$ on $K=\R$.
-% On the input
-% $$
-% (\ell_1, \ell_2, \dots, \ell_T) = (\underbrace{-1, -1, \dots, -1}_{T/2}, \underbrace{+1, +1, \dots, +1}_{T/2})
-% $$
-% regret with respect to $u=0$ is $\Omega(T^{1.5})$.
-% \end{minipage}
-% 
-% \vspace{0.6cm}
-% 
-% \hrule height 1pt
-% 
-% \vspace{0.6cm}
-% 
-% \begin{minipage}{1.0\linewidth}
-% Mirror Descent on $K=\Delta_N$ with regularizer $R_t(u) = \frac{\KL{u}{\frac{\textbf{1}}{N}}}{\sqrt{\sum_{i=1}^t \norm{\ell_i}_\infty^2}}$
-% on the input
-% $$
-% (\ell_1, \ell_2, \dots, \ell_T) = (\underbrace{-e_1, -e_1, \dots, -e_1}_{T/3}, \underbrace{-e_2, -e_2, \dots, -e_2}_{2T/3})
-% $$
-% regret is $\Omega(T)$.
-% \end{minipage}
-% 
-% \columnbreak
-
 \section*{Parameter-Free Algorithms for Hilbert Spaces}
 
 Let $\H$ be a Hilbert space. Let $K=\H$ and assume $\norm{g_t} \le 1$.
-Gradient Descent with (constant) learning rate $1/\sqrt{T}$ satisfies
+Gradient Ascent with (constant) learning rate $1/\sqrt{T}$ satisfies
 $$
 \forall u \in \H \qquad \Regret_T(u) \le \frac{1}{2}\left(1 + \norm{u}^2\right) \sqrt{T} \; .
 $$
@@ -292,10 +211,10 @@ Coin Betting for Hilbert Spaces
 \STATE $L_0 \leftarrow 0$
 \STATE $\Wealth_0 \leftarrow 1$
 \FOR{$t=1,2,3,\dots$}
-\STATE Predict $w_t = \frac{\Wealth_{t-1}}{t}  L_{t-1}$
-\STATE Observe $g_t \in \H$ (assume $\norm{g_t} \le 1$)
-\STATE $L_t \leftarrow L_{t-1} + g_t$
-\STATE $\Wealth_t \leftarrow \Wealth_{t-1} + \langle g_t, w_t \rangle$
+\STATE Predict $w_t = \frac{\Wealth_{t-1}}{t} \,  G_{t-1}$
+\STATE Observe $g_t \in \H$ such that $\norm{g_t} \le 1$
+\STATE $G_t \leftarrow G_{t-1} + g_t$
+\STATE $\Wealth_t \leftarrow \Wealth_{t-1} \ + \ \langle g_t, w_t \rangle$
 \ENDFOR
 }
 \end{algorithmic}
@@ -312,23 +231,65 @@ Using the Lemma, we get $\Regret_T(u) \le \norm{u} \sqrt{T \ln(1 + 24 T^2 \norm{
 
 \columnbreak
 
-\section*{Parameter-Free Algorithms for Learning with Experts' Advice}
+\section*{Parameter-Free Algorithms for Learning with Expert Advice}
 
 Let $K=\Delta_N$ and assume $g_t \in [0,1]^N$.
-Hedge with (constant) learning rate $1/\sqrt{T}$ satisfies
+Hedge with (constant) learning rate $\eta$ satisfies
 \[
-\Regret_T(u) \leq O(\tfrac{KL(u||\pi)}{\eta} + \eta T), \quad \forall u \in \Delta_N
+\forall u \in \Delta_N \qquad
+\Regret_T(u) \leq O \left(\tfrac{\KL{u}{\pi}}{\eta} + \eta T \right)
 \]
-With learning rate $D/\sqrt{T}$, it satisfies
+With learning rate $\eta = D/\sqrt{T}$, it satisfies
 $$
-\forall u : KL(u||\pi) \le D  \qquad \Regret_T(u) \le D \sqrt{T} \; .
+\forall u : \KL{u}{\pi} \le D  \qquad \Regret_T(u) \le \sqrt{T \cdot D} \; .
 $$
 Can we get
 $$
-\forall u \in \Delta_N \qquad \Regret_T(u) \le \sqrt{T \, KL(u||\pi)} \; ?
+\forall u \in \Delta_N \qquad \Regret_T(u) \le \sqrt{T \cdot \KL{u}{\pi}} \; ?
 $$
 
 \vspace{1cm}
+
+\begin{center}
+Learning with Expert Advice
+\vspace{0.3cm}
+
+\colorbox[rgb]{0.80,0.55,0.98}{\fbox{
+\begin{minipage}{0.8\linewidth}
+\begin{algorithmic}
+{
+\REQUIRE{Number of experts $N$}
+\REQUIRE{Prior distribution $\pi \in \Delta_N$}
+\REQUIRE{Number of rounds $T$}
+\FOR{$t=1,2,\dots,T$}
+\STATE{For each $i \in [N]$, set $w_{t,i} \leftarrow \tfrac{\sum_{j=1}^{t-1} \widetilde g_{j,i}}{t+T/2} \left(1 + \sum_{j=1}^{t-1} \widetilde g_{j,i} w_{j,i} \right)$}
+\STATE{For each $i \in [N]$, set $\widehat{p}_{t,i} \leftarrow \pi_i [w_{t,i}]_+$}
+\STATE{Predict with $p_t \leftarrow
+\begin{cases}
+\widehat{p}_t/\norm{\widehat{p_t}}_1 & \text{if $\norm{\widehat p_t}_1 > 0$} \\
+\pi & \text{if $\norm{\widehat p_t}_1 = 0$}
+\end{cases}$}
+\STATE{Receive reward vector $g_t \in [0,1]^N$}
+\STATE{For each $i \in [N]$, set $\widetilde g_{t,i} \leftarrow \begin{cases}
+g_{t,i} - \langle g_t, p_t \rangle & \text{if $w_{t,i} > 0$} \\
+[g_{t,i} - \langle g_t, p_t \rangle]_+ & \text{if $w_{t,i} \le 0$}
+\end{cases}$}
+\ENDFOR
+}
+\end{algorithmic}
+\end{minipage}
+}}
+\end{center}
+
+\vspace{1cm}
+
+\begin{theorem}
+Algorithm with input $N,\pi,T$
+for any rewards vectors $g_1, g_2, \dots, g_T \in [0,1]^N$ satisfies
+\[
+\forall u \in \Delta_N \qquad \qquad \Regret_T(u) \le \sqrt{3T (3 + \KL{u}{\pi})} \; .
+\]
+\end{theorem}
 
 
 \end{multicols}
