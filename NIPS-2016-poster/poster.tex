@@ -33,6 +33,8 @@
 \newcommand{\KL}[2]{\mathrm{KL}\left({#1} \, \middle\| \, {#2}\right)}
 \newcommand{\grad}{\nabla}
 \newcommand{\Breg}{\mathcal{B}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\scO}{\mathcal{O}}
 
 \begin{document}
 
@@ -41,10 +43,7 @@
 \renewcommand{\algorithmicrequire}{\textbf{Input:}}
 
 \title{Coin Betting and Parameter-Free Online Learning}
-\author{Francesco Orabona\footnotemark[1], D\'avid P\'al\footnotemark[2]}
-\institute{%
-\footnotemark[1] Stony Brook University, NY\\
-\footnotemark[2] Yahoo Research, New York, NY}
+\author{Francesco Orabona (Stony Brook University, NY), D\'avid P\'al (Yahoo Research, New York, NY)}
 
 \date{December 5, 2016}
 
@@ -60,12 +59,12 @@
 
 \section*{Are you still tuning hyperparameters?}
 
+Let $f$ a function convex in $w$.
+
 Regularized empirical risk minimization:
-\begin{equation}
-\label{equation:objective-function}
+$$
     \argmin_{w \in \R^d} \ \frac{\lambda}{2} \norm{w}^2 + \sum_{i=1}^T f(w, x_i, y_i)
-\end{equation}
-where $f$ is convex in $w$.
+$$
 \begin{itemize}
 \item How do you choose the regularizer weight $\lambda$?
 \end{itemize}
@@ -73,11 +72,9 @@ where $f$ is convex in $w$.
 \vspace{1cm}
 
 Stochastic approximation:
-\begin{equation}
-\label{equation:objective-function-sa}
-    w_t = w_{t-1} - \eta_t \grad f(w_{t-1}, x_t, y_t)
-\end{equation}
-where $f$ is convex in $w$.
+$$
+    w_t = w_{t-1} - \eta_t \widetilde{\grad} f(w_{t-1}, x_t, y_t)
+$$
 \begin{itemize}
 \item How do you choose the learning rate $\eta_t$?
 \end{itemize}
@@ -88,7 +85,7 @@ where $f$ is convex in $w$.
 \item Why is the algorithm not able to select $\lambda$ and/or $\eta_t$ automatically?
 \end{itemize}
 
-\section*{Online Learning}
+\section*{Online Learning and Coin Betting}
 
 Let $V,V^*$ be a pair of dual vector spaces.
 
@@ -124,50 +121,6 @@ $$
 
 \vspace{0.5cm}
 
-\begin{itemize}
-\item Online Gradient Ascent with learning rate $\eta$ satisfies
-\[
-\forall u \in V \qquad \Regret_T(u) \le \tfrac{\norm{u}^2}{2\eta} + \tfrac{\eta}{2} \sum_{t=1}^T \norm{g_t}^2 \; .
-\]
-\item Optimal oracle choice: $\eta = \frac{\norm{u}}{\sqrt{\sum_{t=1}^T \norm{g_t}^2}}$.
-\item Many algorithms adapt to the norms of the gradients (e.g. AdaGrad) while neglecting dependency on $\norm{u}$.
-\item Adapting to $u$ is \emph{more difficult and more important}.
-\item Better guarantees are indeed possible: Streeter\&McMahan (2012), Orabona (2013), McMahan\&Abernethy (2013), McMahan\&Orabona (2014), Orabona (2014)
-\[
-\forall u \in \H \qquad \Regret_T(u) \le \big(O(1)+\polylog(1 + \norm{u})\norm{u} \big) \sqrt{T} \; .
-\]
-\end{itemize}
-
-\columnbreak
-
-\section*{Parameter-Free Algorithms for Hilbert Spaces}
-
-Let $\H$ be a Hilbert space. Let $K=\H$ and assume $\norm{g_t} \le 1$.
-Gradient Ascent with (constant) learning rate $1/\sqrt{T}$ satisfies
-$$
-\forall u \in \H \qquad \Regret_T(u) \le \frac{1}{2}\left(1 + \norm{u}^2\right) \sqrt{T} \; .
-$$
-With learning rate $D/\sqrt{T}$, it satisfies
-$$
-\forall u : \norm{u} \le D  \qquad \Regret_T(u) \le D \sqrt{T} \; .
-$$
-Can we get
-$$
-\forall u \in \H \qquad \Regret_T(u) \le \norm{u} \sqrt{T} \; ?
-$$
-
-\vspace{1cm}
-
-\begin{lemma}
-Let $\Reward_T = \sum_{t=1}^T \langle g_t, w_t \rangle$.
-Let $F:K \to \R$ be convex.
-$$
-\big( \forall u \in K \quad \Regret_T(u) \le F(u) \big)
-\quad \text{if and only if} \quad
-\Reward_T \ge F^*\left(\sum_{t=1}^T g_t\right) \; .
-$$
-\end{lemma}
-
 \setlength{\fboxrule}{5pt}
 \setlength{\fboxsep}{10pt}
 \begin{center}
@@ -195,6 +148,42 @@ Krichevsky-Trofimov showed that
 $$
 \Wealth_T \ge \exp\left( T \cdot \KL{\frac{1}{2} + \frac{\sum_{t=1}^T c_t}{2T} }{\frac{1}{2}} \right)
 $$
+
+\columnbreak
+
+\section*{Parameter-Free Algorithms for Hilbert Spaces}
+
+Let $\H$ be a Hilbert space. Let $K=\H$ and assume $\norm{g_t} \le 1$.
+Gradient Ascent with (constant) learning rate $1/\sqrt{T}$ satisfies
+$$
+\forall u \in \H \qquad \Regret_T(u) \le \frac{1}{2}\left(1 + \norm{u}^2\right) \sqrt{T} \; .
+$$
+With learning rate $D/\sqrt{T}$, it satisfies
+$$
+\forall u : \norm{u} \le D  \qquad \Regret_T(u) \le D \sqrt{T} \; .
+$$
+Can we get
+$$
+\forall u \in \H \qquad \Regret_T(u) \le \norm{u} \sqrt{T} \; ?
+$$
+
+Addressed in Streeter\&McMahan (2012), Orabona (2013), McMahan\&Abernethy (2013), McMahan\&Orabona (2014), Orabona (2014).
+
+But no intuition is given in previous contructions.
+
+\vspace{1cm}
+
+\begin{lemma}
+Let $\Reward_T = \sum_{t=1}^T \langle g_t, w_t \rangle$.
+Let $F:K \to \R$ be convex.
+$$
+\big( \forall u \in K \quad \Regret_T(u) \le F(u) \big)
+\quad \text{if and only if} \quad
+\Reward_T \ge F^*\left(\sum_{t=1}^T g_t\right) \; .
+$$
+\end{lemma}
+
+
 
 \vspace{0.5cm}
 
@@ -228,6 +217,13 @@ $$
 $$
 Using the Lemma, we get $\Regret_T(u) \le \norm{u} \sqrt{T \ln(1 + 24 T^2 \norm{u}^2)} + 1$.
 
+Setting $g_t=\widetilde{\grad} f(w_t,x_t,y_t)$ and Online-to-batch conversion gives in expectation
+$$
+\E_{x,y} \left[f\left(\hat{w}, x,y\right)\right]
+\leq \scO\left(\min_{u} \min_{\lambda>0} \ \E_{x,y}\left[f\left(u, x, y\right)\right] + \lambda \norm{u}^2 +\frac{\ln(T)}{\lambda \, T} \right)
+$$
+
+
 
 \columnbreak
 
@@ -248,6 +244,10 @@ $$
 \forall u \in \Delta_N \qquad \Regret_T(u) \le \sqrt{T \cdot \KL{u}{\pi}} \; ?
 $$
 
+Addressed in Chaudhuri et al. (2009), Chernov\&Vovk (2010), Luo\&Schapire (2014, 2015), Koolen\&van-Erven (2015), Foster et al. (2015).
+
+But no intuition is given in previous contructions.
+
 \vspace{1cm}
 
 \begin{center}
@@ -258,9 +258,7 @@ Learning with Expert Advice
 \begin{minipage}{0.8\linewidth}
 \begin{algorithmic}
 {
-\REQUIRE{Number of experts $N$}
-\REQUIRE{Prior distribution $\pi \in \Delta_N$}
-\REQUIRE{Number of rounds $T$}
+\REQUIRE{Number of experts $N$, Prior distribution $\pi \in \Delta_N$, Number of rounds $T$}
 \FOR{$t=1,2,\dots,T$}
 \STATE{For each $i \in [N]$, set $w_{t,i} \leftarrow \tfrac{\sum_{j=1}^{t-1} \widetilde g_{j,i}}{t+T/2} \left(1 + \sum_{j=1}^{t-1} \widetilde g_{j,i} w_{j,i} \right)$}
 \STATE{For each $i \in [N]$, set $\widehat{p}_{t,i} \leftarrow \pi_i [w_{t,i}]_+$}
@@ -284,13 +282,31 @@ g_{t,i} - \langle g_t, p_t \rangle & \text{if $w_{t,i} > 0$} \\
 \vspace{1cm}
 
 \begin{theorem}
-Algorithm with input $N,\pi,T$
-for any rewards vectors $g_1, g_2, \dots, g_T \in [0,1]^N$ satisfies
+The algorithm
+for any $g_1, g_2, \dots, g_T \in [0,1]^N$ satisfies
 \[
 \forall u \in \Delta_N \qquad \qquad \Regret_T(u) \le \sqrt{3T (3 + \KL{u}{\pi})} \; .
 \]
 \end{theorem}
 
+\section*{Empirical Evaluation}
+
+\begin{tabular}{ccc}
+\includegraphics[width=0.30\linewidth]{../NIPS-2016-camera-ready/figs/yearpredictionmsd_kt-crop.pdf} &
+\includegraphics[width=0.30\linewidth]{../NIPS-2016-camera-ready/figs/cpusmall_kt-crop.pdf} &
+\includegraphics[width=0.30\linewidth]{../NIPS-2016-camera-ready/figs/cadata_kt-crop.pdf}
+\end{tabular}
+
+\begin{tabular}{ccc}
+\includegraphics[width=0.30\linewidth]{../NIPS-2016-camera-ready/figs/fig1-crop.pdf} &
+\includegraphics[width=0.30\linewidth]{../NIPS-2016-camera-ready/figs/fig2-crop.pdf} & 
+\includegraphics[width=0.30\linewidth]{../NIPS-2016-camera-ready/figs/fig3-crop.pdf}
+\end{tabular}
+
+\footnotesize{Regrets to the best expert after $T = 32768$ rounds,
+versus learning rate parameter of Hedge (in log scale). The ``good'' experts
+are $\epsilon=0.025$ better than the others. $\pi_i=1/N$ for all
+algorithms.}
 
 \end{multicols}
 
