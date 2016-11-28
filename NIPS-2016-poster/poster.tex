@@ -43,7 +43,7 @@
 \renewcommand{\algorithmicrequire}{\textbf{Input:}}
 
 \title{Coin Betting and Parameter-Free Online Learning}
-\author{Francesco Orabona (Stony Brook University, NY), D\'avid P\'al (Yahoo Research, New York, NY)}
+\author{Francesco Orabona (Stony Brook University, NY) \qquad \qquad D\'avid P\'al (Yahoo Research, New York, NY)}
 
 \date{December 5, 2016}
 
@@ -59,7 +59,7 @@
 
 \section*{Are You Still Tuning Hyperparameters?}
 
-Let $f$ a function convex in $w$.
+Let $f$ be a function convex in $w$.
 
 Regularized empirical risk minimization:
 $$
@@ -73,7 +73,7 @@ $$
 
 Stochastic approximation:
 $$
-    w_t = w_{t-1} - \eta_t \widetilde{\grad} f(w_{t-1}, x_t, y_t)
+    w_t = w_{t-1} - \eta_t \grad f(w_{t-1}, x_t, y_t)
 $$
 \begin{itemize}
 \item How do you choose the learning rate $\eta_t$?
@@ -156,9 +156,9 @@ $$
 Let $\H$ be a Hilbert space. Let $K=\H$ and assume $\norm{g_t} \le 1$.
 Gradient Ascent with learning rate $1/\sqrt{T}$ satisfies
 $$
-\forall u \in \H \qquad \Regret_T(u) \le \frac{1}{2}\left(1 + \norm{u}^2\right) \sqrt{T} \; .
+\forall u \in \H \qquad \Regret_T(u) \le O \left( \frac{\norm{u}^2}{\eta} + \eta T \right) \; .
 $$
-With learning rate $D/\sqrt{T}$, it satisfies
+With learning rate $\eta=D/\sqrt{T}$, it satisfies
 $$
 \forall u : \norm{u} \le D  \qquad \Regret_T(u) \le D \sqrt{T} \; .
 $$
@@ -197,12 +197,11 @@ Coin Betting for Hilbert Spaces
 \begin{minipage}{0.8\linewidth}
 \begin{algorithmic}
 {
-\STATE $L_0 \leftarrow 0$
 \STATE $\Wealth_0 \leftarrow 1$
 \FOR{$t=1,2,3,\dots$}
-\STATE Predict $w_t = \frac{\Wealth_{t-1}}{t} \,  G_{t-1}$
+\STATE $\beta_t \leftarrow \frac{1}{t} \sum_{i=1}^{t-1} g_i$
+\STATE Predict $w_t = \beta_t \Wealth_{t-1}$
 \STATE Observe $g_t \in \H$ such that $\norm{g_t} \le 1$
-\STATE $G_t \leftarrow G_{t-1} + g_t$
 \STATE $\Wealth_t \leftarrow \Wealth_{t-1} \ + \ \langle g_t, w_t \rangle$
 \ENDFOR
 }
@@ -220,10 +219,10 @@ Using the Lemma, we get $\Regret_T(u) \le \norm{u} \sqrt{T \ln(1 + 24 T^2 \norm{
 \vspace{0.5cm}
 
 \begin{theorem}[Orabona 2014]
-Setting $g_t=\widetilde{\grad} f(w_t,x_t,y_t)$ and online-to-batch conversion gives in expectation
+Setting $g_t=\grad f(w_t,x_t,y_t)$ and online-to-batch conversion gives in expectation
 $$
 \E_{x,y} \left[f\left(\hat{w}, x,y\right)\right]
-\leq \scO\left(\min_{u} {\color{red}{\min_{\lambda>0}}} \ \E_{x,y}\left[f\left(u, x, y\right)\right] + \lambda \norm{u}^2 +\frac{\ln(T)}{\lambda \, T} \right)
+\leq O\left(\min_{u} {\color{red}{\min_{\lambda>0}}} \ \E_{x,y}\left[f\left(u, x, y\right)\right] + \lambda \norm{u}^2 +\frac{\ln(T)}{\lambda \, T} \right)
 $$
 \end{theorem}
 
@@ -247,7 +246,7 @@ $$
 \forall u \in \Delta_N \qquad \Regret_T(u) \le \sqrt{T \cdot \KL{u}{\pi}} \; ?
 $$
 
-Addressed in Chaudhuri et al. (2009), Chernov\&Vovk (2010), Luo\&Schapire (2014, 2015), Koolen\&van-Erven (2015), Foster et al. (2015).
+Addressed in Chaudhuri~et~al.~(2009), Chernov\,\&\,Vovk~(2010), Luo\,\&\,Schapire~(2014,~2015), Koolen\,\&\,van~Erven~(2015), Foster~et~al.~(2015).
 But no intuition is given in previous contructions.
 
 \vspace{.8cm}
@@ -306,7 +305,7 @@ for any $g_1, g_2, \dots, g_T \in [0,1]^N$ satisfies
 
 \begin{tabular}{ccc}
 \includegraphics[width=0.30\linewidth]{../NIPS-2016-camera-ready/figs/fig1-crop.pdf} &
-\includegraphics[width=0.30\linewidth]{../NIPS-2016-camera-ready/figs/fig2-crop.pdf} & 
+\includegraphics[width=0.30\linewidth]{../NIPS-2016-camera-ready/figs/fig2-crop.pdf} &
 \includegraphics[width=0.30\linewidth]{../NIPS-2016-camera-ready/figs/fig3-crop.pdf}
 \end{tabular}
 
