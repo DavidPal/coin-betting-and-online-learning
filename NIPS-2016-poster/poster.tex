@@ -57,7 +57,7 @@
 \setlength{\columnsep}{4cm}
 \begin{multicols}{3}
 
-\section*{Are you still tuning hyperparameters?}
+\section*{Are You Still Tuning Hyperparameters?}
 
 Let $f$ a function convex in $w$.
 
@@ -219,12 +219,13 @@ Using the Lemma, we get $\Regret_T(u) \le \norm{u} \sqrt{T \ln(1 + 24 T^2 \norm{
 
 \vspace{0.5cm}
 
+\begin{theorem}[Orabona 2014]
 Setting $g_t=\widetilde{\grad} f(w_t,x_t,y_t)$ and online-to-batch conversion gives in expectation
 $$
 \E_{x,y} \left[f\left(\hat{w}, x,y\right)\right]
-\leq \scO\left(\min_{u} \min_{\lambda>0} \ \E_{x,y}\left[f\left(u, x, y\right)\right] + \lambda \norm{u}^2 +\frac{\ln(T)}{\lambda \, T} \right)
+\leq \scO\left(\min_{u} {\color{red}{\min_{\lambda>0}}} \ \E_{x,y}\left[f\left(u, x, y\right)\right] + \lambda \norm{u}^2 +\frac{\ln(T)}{\lambda \, T} \right)
 $$
-
+\end{theorem}
 
 
 \columnbreak
@@ -249,7 +250,7 @@ $$
 Addressed in Chaudhuri et al. (2009), Chernov\&Vovk (2010), Luo\&Schapire (2014, 2015), Koolen\&van-Erven (2015), Foster et al. (2015).
 But no intuition is given in previous contructions.
 
-\vspace{1cm}
+\vspace{.8cm}
 
 \begin{center}
 Learning with Expert Advice
@@ -300,6 +301,8 @@ for any $g_1, g_2, \dots, g_T \in [0,1]^N$ satisfies
 \end{tabular}
 
 \footnotesize{Total loss versus learning rate parameter of OGD, compared with parameter-free algorithms.}
+
+\vspace{0.2cm}
 
 \begin{tabular}{ccc}
 \includegraphics[width=0.30\linewidth]{../NIPS-2016-camera-ready/figs/fig1-crop.pdf} &
